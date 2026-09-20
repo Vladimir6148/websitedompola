@@ -1,7 +1,18 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Pencil, Plus, Save, Search, Trash2 } from 'lucide-react';
 import { api, formatPrice, primaryImage } from '../../lib/api';
 import type { Brand, Category, City, Product, ProductsResponse } from '../../types';
+import {
+  AdminPageHeader,
+  AdminSectionTitle,
+  StatusBadge,
+  adminInputClass,
+  adminLabelClass,
+  adminPanelClass,
+  adminSelectClass,
+  adminTextareaClass,
+} from './adminUi';
 
 export function AdminProductsPage() {
   const [data, setData] = useState<ProductsResponse | null>(null);
@@ -33,52 +44,81 @@ export function AdminProductsPage() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-display text-3xl font-semibold">Товары</h1>
-        <Link to="/admin/products/new" className="btn-primary">Добавить номенклатуру</Link>
-      </div>
-      <div className="mt-4 flex gap-2">
+      <AdminPageHeader
+        eyebrow="Каталог"
+        title="Товары"
+        description="Номенклатура, цены и публикация на сайте"
+        action={{
+          to: '/admin/products/new',
+          label: 'Добавить номенклатуру',
+          icon: <Plus size={16} strokeWidth={1.75} />,
+        }}
+      />
+      <div className="flex flex-wrap gap-2">
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Поиск"
-          className="rounded-md border border-graphite/15 px-3 py-2 text-sm"
+          className={`${adminInputClass} max-w-xs`}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') load();
+          }}
         />
-        <button type="button" className="btn-secondary" onClick={() => load()}>Найти</button>
+        <button type="button" className="btn-secondary" onClick={() => load()}>
+          <Search size={15} strokeWidth={1.75} />
+          Найти
+        </button>
       </div>
-      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-sm">
+      <div className={`${adminPanelClass} mt-5 overflow-x-auto p-0`}>
         <table className="min-w-full text-left text-sm">
           <thead className="border-b border-graphite/10 text-graphite/50">
             <tr>
-              <th className="px-4 py-3">Товар</th>
-              <th className="px-4 py-3">Артикул</th>
-              <th className="px-4 py-3">Цена</th>
-              <th className="px-4 py-3">Статус</th>
-              <th className="px-4 py-3"></th>
+              <th className="px-4 py-3 font-semibold">Товар</th>
+              <th className="px-4 py-3 font-semibold">Артикул</th>
+              <th className="px-4 py-3 font-semibold">Цена</th>
+              <th className="px-4 py-3 font-semibold">Статус</th>
+              <th className="px-4 py-3 font-semibold"></th>
             </tr>
           </thead>
           <tbody>
             {(data?.items || []).map((p) => (
-              <tr key={p.id} className="border-b border-graphite/5">
+              <tr key={p.id} className="border-b border-graphite/5 last:border-0">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <img src={primaryImage(p)} alt="" className="h-12 w-12 rounded-md object-cover" />
                     <div>
-                      <div className="font-medium">{p.name}</div>
+                      <div className="font-medium text-graphite">{p.name}</div>
                       <div className="text-xs text-graphite/50">{p.category?.name}</div>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-3">{p.sku}</td>
-                <td className="px-4 py-3">{formatPrice(p.price)}</td>
+                <td className="px-4 py-3 text-graphite/70">{p.sku}</td>
+                <td className="px-4 py-3 font-medium">{formatPrice(p.price)}</td>
                 <td className="px-4 py-3">
-                  <button type="button" onClick={() => togglePublish(p)} className="text-xs font-semibold text-brand">
-                    {p.published ? 'Опубликован' : 'Скрыт'}
+                  <button type="button" onClick={() => togglePublish(p)}>
+                    <StatusBadge
+                      active={!!p.published}
+                      onLabel="Опубликован"
+                      offLabel="Скрыт"
+                    />
                   </button>
                 </td>
                 <td className="px-4 py-3 text-right">
-                  <Link to={`/admin/products/${p.id}`} className="mr-3 text-brand">Изменить</Link>
-                  <button type="button" onClick={() => remove(p.id)} className="text-red-600">Удалить</button>
+                  <Link
+                    to={`/admin/products/${p.id}`}
+                    className="mr-3 inline-flex items-center gap-1 font-semibold text-brand"
+                  >
+                    <Pencil size={14} strokeWidth={1.75} />
+                    Изменить
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => remove(p.id)}
+                    className="inline-flex items-center gap-1 font-semibold text-red-600"
+                  >
+                    <Trash2 size={14} strokeWidth={1.75} />
+                    Удалить
+                  </button>
                 </td>
               </tr>
             ))}
@@ -152,9 +192,7 @@ export function AdminProductFormPage() {
           categoryId: cats[0]?.id || '',
           brandId: br[0]?.id || '',
         }));
-        setStocks(
-          cts.map((c) => ({ cityId: c.id, status: 'IN_STOCK' as const, quantity: 0 })),
-        );
+        setStocks(cts.map((c) => ({ cityId: c.id, status: 'IN_STOCK' as const, quantity: 0 })));
       }
     });
   }, [isNew]);
@@ -297,24 +335,52 @@ export function AdminProductFormPage() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">
-        {isNew ? 'Добавить номенклатуру' : 'Редактировать товар'}
-      </h1>
-      <form onSubmit={onSubmit} className="mt-6 space-y-6">
-        <section className="grid gap-4 rounded-2xl bg-white p-5 shadow-sm md:grid-cols-2">
+      <AdminPageHeader
+        eyebrow="Каталог"
+        title={isNew ? 'Добавить номенклатуру' : 'Редактировать товар'}
+        description="Параметры, фото, характеристики и остатки по городам"
+      />
+      <form onSubmit={onSubmit} className="space-y-5">
+        <section className={`${adminPanelClass} grid gap-4 md:grid-cols-2`}>
+          <div className="md:col-span-2">
+            <AdminSectionTitle>Основное</AdminSectionTitle>
+          </div>
           <Field label="Название" value={form.name} onChange={(v) => setField('name', v)} required />
           <Field label="Артикул" value={form.sku} onChange={(v) => setField('sku', v)} required />
-          <Field label="Slug (URL)" value={form.slug} onChange={(v) => setField('slug', v)} placeholder="alpine-floor-dub-nordic" />
+          <Field
+            label="Slug (URL)"
+            value={form.slug}
+            onChange={(v) => setField('slug', v)}
+            placeholder="alpine-floor-dub-nordic"
+          />
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase text-graphite/50">Категория</label>
-            <select value={form.categoryId} onChange={(e) => setField('categoryId', e.target.value)} className="w-full rounded-md border border-graphite/15 px-3 py-2" required>
-              {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+            <label className={adminLabelClass}>Категория</label>
+            <select
+              value={form.categoryId}
+              onChange={(e) => setField('categoryId', e.target.value)}
+              className={adminSelectClass}
+              required
+            >
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase text-graphite/50">Бренд</label>
-            <select value={form.brandId} onChange={(e) => setField('brandId', e.target.value)} className="w-full rounded-md border border-graphite/15 px-3 py-2" required>
-              {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+            <label className={adminLabelClass}>Бренд</label>
+            <select
+              value={form.brandId}
+              onChange={(e) => setField('brandId', e.target.value)}
+              className={adminSelectClass}
+              required
+            >
+              {brands.map((b) => (
+                <option key={b.id} value={b.id}>
+                  {b.name}
+                </option>
+              ))}
             </select>
           </div>
           <Field label="Цена" value={form.price} onChange={(v) => setField('price', v)} required />
@@ -329,28 +395,73 @@ export function AdminProductFormPage() {
           <Field label="Фаска" value={form.bevel} onChange={(v) => setField('bevel', v)} />
           <Field label="Замок" value={form.lockType} onChange={(v) => setField('lockType', v)} />
           <Field label="Защитный слой" value={form.wearLayer} onChange={(v) => setField('wearLayer', v)} />
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.moistureResistant} onChange={(e) => setField('moistureResistant', e.target.checked)} /> Влагостойкость</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.underfloorHeating} onChange={(e) => setField('underfloorHeating', e.target.checked)} /> Тёплый пол</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.published} onChange={(e) => setField('published', e.target.checked)} /> Опубликован</label>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.featured} onChange={(e) => setField('featured', e.target.checked)} /> Популярный</label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={form.moistureResistant}
+              onChange={(e) => setField('moistureResistant', e.target.checked)}
+            />{' '}
+            Влагостойкость
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={form.underfloorHeating}
+              onChange={(e) => setField('underfloorHeating', e.target.checked)}
+            />{' '}
+            Тёплый пол
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={form.published}
+              onChange={(e) => setField('published', e.target.checked)}
+            />{' '}
+            Опубликован
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={form.featured}
+              onChange={(e) => setField('featured', e.target.checked)}
+            />{' '}
+            Популярный
+          </label>
           <div className="md:col-span-2">
-            <label className="mb-1 block text-xs font-semibold uppercase text-graphite/50">Описание</label>
-            <textarea value={form.description} onChange={(e) => setField('description', e.target.value)} rows={4} className="w-full rounded-md border border-graphite/15 px-3 py-2" />
+            <label className={adminLabelClass}>Описание</label>
+            <textarea
+              value={form.description}
+              onChange={(e) => setField('description', e.target.value)}
+              rows={4}
+              className={adminTextareaClass}
+            />
           </div>
           <Field label="SEO Title" value={form.seoTitle} onChange={(v) => setField('seoTitle', v)} />
-          <Field label="SEO Description" value={form.seoDescription} onChange={(v) => setField('seoDescription', v)} />
+          <Field
+            label="SEO Description"
+            value={form.seoDescription}
+            onChange={(v) => setField('seoDescription', v)}
+          />
         </section>
 
-        <section className="rounded-2xl bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Изображения</h2>
-          <input type="file" accept="image/*" multiple className="mt-3 text-sm" onChange={(e) => onUpload(e.target.files)} />
+        <section className={adminPanelClass}>
+          <AdminSectionTitle>Изображения</AdminSectionTitle>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            className="mt-3 text-sm"
+            onChange={(e) => onUpload(e.target.files)}
+          />
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {images.map((img, idx) => (
               <div key={`${img.url}-${idx}`} className="rounded-xl border border-graphite/10 p-2">
                 <img src={img.url} alt={img.alt} className="aspect-square w-full rounded-lg object-cover" />
                 <input
                   value={img.alt}
-                  onChange={(e) => setImages((arr) => arr.map((x, i) => (i === idx ? { ...x, alt: e.target.value } : x)))}
+                  onChange={(e) =>
+                    setImages((arr) => arr.map((x, i) => (i === idx ? { ...x, alt: e.target.value } : x)))
+                  }
                   className="mt-2 w-full rounded border border-graphite/10 px-2 py-1 text-xs"
                   placeholder="Alt"
                 />
@@ -360,45 +471,95 @@ export function AdminProductFormPage() {
                       type="radio"
                       name="primary"
                       checked={img.isPrimary}
-                      onChange={() => setImages((arr) => arr.map((x, i) => ({ ...x, isPrimary: i === idx })))}
+                      onChange={() =>
+                        setImages((arr) => arr.map((x, i) => ({ ...x, isPrimary: i === idx })))
+                      }
                     />
                     Главное
                   </label>
-                  <button type="button" className="text-red-600" onClick={() => setImages((arr) => arr.filter((_, i) => i !== idx))}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1 text-red-600"
+                    onClick={() => setImages((arr) => arr.filter((_, i) => i !== idx))}
+                  >
+                    <Trash2 size={12} strokeWidth={1.75} />
                     Удалить
                   </button>
                 </div>
                 <div className="mt-2 flex gap-2">
-                  <button type="button" className="text-xs" disabled={idx === 0} onClick={() => setImages((arr) => {
-                    const next = [...arr];
-                    [next[idx - 1], next[idx]] = [next[idx], next[idx - 1]];
-                    return next;
-                  })}>↑</button>
-                  <button type="button" className="text-xs" disabled={idx === images.length - 1} onClick={() => setImages((arr) => {
-                    const next = [...arr];
-                    [next[idx + 1], next[idx]] = [next[idx], next[idx + 1]];
-                    return next;
-                  })}>↓</button>
+                  <button
+                    type="button"
+                    className="text-xs font-medium text-graphite/60"
+                    disabled={idx === 0}
+                    onClick={() =>
+                      setImages((arr) => {
+                        const next = [...arr];
+                        [next[idx - 1], next[idx]] = [next[idx], next[idx - 1]];
+                        return next;
+                      })
+                    }
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    className="text-xs font-medium text-graphite/60"
+                    disabled={idx === images.length - 1}
+                    onClick={() =>
+                      setImages((arr) => {
+                        const next = [...arr];
+                        [next[idx + 1], next[idx]] = [next[idx], next[idx + 1]];
+                        return next;
+                      })
+                    }
+                  >
+                    ↓
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="rounded-2xl bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Характеристики</h2>
+        <section className={adminPanelClass}>
+          <AdminSectionTitle>Характеристики</AdminSectionTitle>
           <div className="mt-3 space-y-2">
             {chars.map((c, idx) => (
               <div key={`${c.key}-${idx}`} className="grid gap-2 md:grid-cols-[1fr_1fr_auto]">
-                <input value={c.label} onChange={(e) => setChars((arr) => arr.map((x, i) => i === idx ? { ...x, label: e.target.value } : x))} className="rounded-md border border-graphite/15 px-3 py-2 text-sm" placeholder="Название" />
-                <input value={c.value} onChange={(e) => setChars((arr) => arr.map((x, i) => i === idx ? { ...x, value: e.target.value } : x))} className="rounded-md border border-graphite/15 px-3 py-2 text-sm" placeholder="Значение" />
-                <button type="button" onClick={() => setChars((arr) => arr.filter((_, i) => i !== idx))} className="text-sm text-red-600">Удалить</button>
+                <input
+                  value={c.label}
+                  onChange={(e) =>
+                    setChars((arr) =>
+                      arr.map((x, i) => (i === idx ? { ...x, label: e.target.value } : x)),
+                    )
+                  }
+                  className={adminInputClass}
+                  placeholder="Название"
+                />
+                <input
+                  value={c.value}
+                  onChange={(e) =>
+                    setChars((arr) =>
+                      arr.map((x, i) => (i === idx ? { ...x, value: e.target.value } : x)),
+                    )
+                  }
+                  className={adminInputClass}
+                  placeholder="Значение"
+                />
+                <button
+                  type="button"
+                  onClick={() => setChars((arr) => arr.filter((_, i) => i !== idx))}
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-red-600"
+                >
+                  <Trash2 size={14} strokeWidth={1.75} />
+                  Удалить
+                </button>
               </div>
             ))}
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             <select
-              className="rounded-md border border-graphite/15 px-3 py-2 text-sm"
+              className={`${adminSelectClass} w-auto`}
               defaultValue=""
               onChange={(e) => {
                 const def = defs.find((d) => d.key === e.target.value);
@@ -408,15 +569,27 @@ export function AdminProductFormPage() {
               }}
             >
               <option value="">Добавить из справочника</option>
-              {defs.map((d) => <option key={d.key} value={d.key}>{d.label}</option>)}
+              {defs.map((d) => (
+                <option key={d.key} value={d.key}>
+                  {d.label}
+                </option>
+              ))}
             </select>
-            <input value={newCharLabel} onChange={(e) => setNewCharLabel(e.target.value)} placeholder="Новая характеристика" className="rounded-md border border-graphite/15 px-3 py-2 text-sm" />
-            <button type="button" className="btn-secondary" onClick={addCustomCharacteristic}>Создать характеристику</button>
+            <input
+              value={newCharLabel}
+              onChange={(e) => setNewCharLabel(e.target.value)}
+              placeholder="Новая характеристика"
+              className={`${adminInputClass} max-w-xs`}
+            />
+            <button type="button" className="btn-secondary" onClick={addCustomCharacteristic}>
+              <Plus size={15} strokeWidth={1.75} />
+              Создать характеристику
+            </button>
           </div>
         </section>
 
-        <section className="rounded-2xl bg-white p-5 shadow-sm">
-          <h2 className="font-display text-xl font-semibold">Остатки по городам</h2>
+        <section className={adminPanelClass}>
+          <AdminSectionTitle>Остатки по городам</AdminSectionTitle>
           <div className="mt-3 space-y-3">
             {cities.map((city) => {
               const row = stocks.find((s) => s.cityId === city.id) || {
@@ -426,7 +599,7 @@ export function AdminProductFormPage() {
               };
               return (
                 <div key={city.id} className="grid gap-2 md:grid-cols-3">
-                  <div className="font-medium">{city.name}</div>
+                  <div className="font-medium text-graphite">{city.name}</div>
                   <select
                     value={row.status}
                     onChange={(e) => {
@@ -437,7 +610,7 @@ export function AdminProductFormPage() {
                         return arr.map((s) => (s.cityId === city.id ? { ...s, status } : s));
                       });
                     }}
-                    className="rounded-md border border-graphite/15 px-3 py-2 text-sm"
+                    className={adminSelectClass}
                   >
                     <option value="IN_STOCK">В наличии</option>
                     <option value="ON_ORDER">Под заказ</option>
@@ -454,7 +627,7 @@ export function AdminProductFormPage() {
                         return arr.map((s) => (s.cityId === city.id ? { ...s, quantity } : s));
                       });
                     }}
-                    className="rounded-md border border-graphite/15 px-3 py-2 text-sm"
+                    className={adminInputClass}
                     placeholder="Количество"
                   />
                 </div>
@@ -464,9 +637,14 @@ export function AdminProductFormPage() {
         </section>
 
         {error ? <p className="text-sm text-red-600">{error}</p> : null}
-        <div className="flex gap-3">
-          <button type="submit" className="btn-primary">Сохранить</button>
-          <Link to="/admin/products" className="btn-secondary">Отмена</Link>
+        <div className="flex flex-wrap gap-3">
+          <button type="submit" className="btn-primary">
+            <Save size={16} strokeWidth={1.75} />
+            Сохранить
+          </button>
+          <Link to="/admin/products" className="btn-secondary">
+            Отмена
+          </Link>
         </div>
       </form>
     </div>
@@ -488,13 +666,13 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-1 block text-xs font-semibold uppercase text-graphite/50">{label}</label>
+      <label className={adminLabelClass}>{label}</label>
       <input
         required={required}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border border-graphite/15 px-3 py-2"
+        className={adminInputClass}
       />
     </div>
   );
