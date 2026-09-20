@@ -4,7 +4,7 @@ import { api } from '../lib/api';
 
 const DISMISS_KEY = 'dompola_manager_dismissed_at';
 const DISMISS_TTL_MS = 1000 * 60 * 60 * 4; // 4 часа
-const AUTO_OPEN_MS = 5_000;
+const AUTO_OPEN_MS = 15_000;
 
 type Step = 'ask' | 'form' | 'done';
 
