@@ -2,10 +2,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// SQLite for local development. For PostgreSQL, change provider to "postgresql"
-// and set DATABASE_URL accordingly (see .env.example).
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -41,31 +39,31 @@ model User {
 }
 
 model Category {
-  id          String     @id @default(cuid())
-  name        String
-  slug        String     @unique
-  description String?
-  image       String?
-  sortOrder   Int        @default(0)
-  active      Boolean    @default(true)
-  filterSchema String?   // JSON: array of filter field keys for this category
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  products    Product[]
-  promotions  Promotion[]
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  description  String?
+  image        String?
+  sortOrder    Int         @default(0)
+  active       Boolean     @default(true)
+  filterSchema String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  products     Product[]
+  promotions   Promotion[]
 }
 
 model Brand {
-  id          String     @id @default(cuid())
+  id          String       @id @default(cuid())
   name        String
-  slug        String     @unique
+  slug        String       @unique
   logo        String?
   description String?
   website     String?
-  sortOrder   Int        @default(0)
-  active      Boolean    @default(true)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  sortOrder   Int          @default(0)
+  active      Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   products    Product[]
   collections Collection[]
 }
@@ -84,43 +82,43 @@ model Collection {
 }
 
 model Product {
-  id              String   @id @default(cuid())
-  name            String
-  slug            String   @unique
-  sku             String   @unique
-  description     String?
-  price           Float
-  oldPrice        Float?
-  discountPercent Float?
-  unit            String   @default("м²")
-  packQty         Float?
-  packArea        Float?
-  thickness       Float?
-  wearClass       String?
-  length          Float?
-  width           Float?
-  color           String?
-  bevel           String?
-  lockType        String?
-  moistureResistant Boolean @default(false)
-  underfloorHeating Boolean @default(false)
-  wearLayer       String?
-  seoTitle        String?
-  seoDescription  String?
-  published       Boolean  @default(true)
-  featured        Boolean  @default(false)
-  sortOrder       Int      @default(0)
-  categoryId      String
-  brandId         String
-  collectionId    String?
-  category        Category @relation(fields: [categoryId], references: [id])
-  brand           Brand    @relation(fields: [brandId], references: [id])
-  collection      Collection? @relation(fields: [collectionId], references: [id])
-  images          ProductImage[]
-  characteristics ProductCharacteristic[]
-  stocks          Stock[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                  String                   @id @default(cuid())
+  name                String
+  slug                String                   @unique
+  sku                 String                   @unique
+  description         String?
+  price               Float
+  oldPrice            Float?
+  discountPercent     Float?
+  unit                String                   @default("м²")
+  packQty             Float?
+  packArea            Float?
+  thickness           Float?
+  wearClass           String?
+  length              Float?
+  width               Float?
+  color               String?
+  bevel               String?
+  lockType            String?
+  moistureResistant   Boolean                  @default(false)
+  underfloorHeating   Boolean                  @default(false)
+  wearLayer           String?
+  seoTitle            String?
+  seoDescription      String?
+  published           Boolean                  @default(true)
+  featured            Boolean                  @default(false)
+  sortOrder           Int                      @default(0)
+  categoryId          String
+  brandId             String
+  collectionId        String?
+  category            Category                 @relation(fields: [categoryId], references: [id])
+  brand               Brand                    @relation(fields: [brandId], references: [id])
+  collection          Collection?              @relation(fields: [collectionId], references: [id])
+  images              ProductImage[]
+  characteristics     ProductCharacteristic[]
+  stocks              Stock[]
+  createdAt           DateTime                 @default(now())
+  updatedAt           DateTime                 @updatedAt
 
   @@index([categoryId])
   @@index([brandId])
@@ -129,15 +127,15 @@ model Product {
 }
 
 model ProductImage {
-  id        String  @id @default(cuid())
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  url       String
-  alt       String?
-  isPrimary Boolean @default(false)
-  sortOrder Int     @default(0)
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url        String
+  alt        String?
+  isPrimary  Boolean  @default(false)
+  sortOrder  Int      @default(0)
   storageKey String?
-  createdAt DateTime @default(now())
+  createdAt  DateTime @default(now())
 
   @@index([productId])
 }
@@ -159,8 +157,8 @@ model CharacteristicDefinition {
   id        String   @id @default(cuid())
   key       String   @unique
   label     String
-  type      String   @default("text") // text | number | boolean | select
-  options   String?  // JSON for select options
+  type      String   @default("text")
+  options   String?
   unit      String?
   sortOrder Int      @default(0)
   active    Boolean  @default(true)
@@ -169,14 +167,14 @@ model CharacteristicDefinition {
 }
 
 model City {
-  id     String  @id @default(cuid())
-  name   String  @unique
-  slug   String  @unique
-  active Boolean @default(true)
-  stores Store[]
-  stocks Stock[]
+  id         String      @id @default(cuid())
+  name       String      @unique
+  slug       String      @unique
+  active     Boolean     @default(true)
+  stores     Store[]
+  stocks     Stock[]
   promotions Promotion[]
-  leads  Lead[]
+  leads      Lead[]
 }
 
 model Store {
@@ -186,7 +184,7 @@ model Store {
   phone       String?
   schedule    String?
   description String?
-  photos      String?  // JSON array of URLs
+  photos      String?
   lat         Float?
   lng         Float?
   active      Boolean  @default(true)
@@ -218,7 +216,7 @@ model Promotion {
   discountPercent Float?
   startsAt        DateTime?
   endsAt          DateTime?
-  productIds      String?   // JSON array
+  productIds      String?
   categoryId      String?
   category        Category? @relation(fields: [categoryId], references: [id])
   cityId          String?
@@ -267,7 +265,7 @@ model Lead {
   city         City?      @relation(fields: [cityId], references: [id])
   assignedToId String?
   assignedTo   User?      @relation("AssignedLeads", fields: [assignedToId], references: [id])
-  meta         String?    // JSON extra
+  meta         String?
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
 
@@ -279,7 +277,7 @@ model SiteContent {
   id        String   @id @default(cuid())
   key       String   @unique
   title     String?
-  body      String?  // JSON or markdown
+  body      String?
   image     String?
   updatedAt DateTime @updatedAt
 }
@@ -307,9 +305,9 @@ model Advantage {
 }
 
 model ContactInfo {
-  id      String  @id @default(cuid())
-  key     String  @unique
-  label   String
-  value   String
-  active  Boolean @default(true)
+  id     String  @id @default(cuid())
+  key    String  @unique
+  label  String
+  value  String
+  active Boolean @default(true)
 }

@@ -5,15 +5,15 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const IMG = {
-  hero: 'images/hero.jpg',
-  living: 'images/living.jpg',
-  wood: 'images/wood.jpg',
-  floor1: 'images/floor1.jpg',
-  floor2: 'images/floor2.jpg',
-  floor3: 'images/floor3.jpg',
-  store: 'images/store.jpg',
-  work: 'images/work.jpg',
-  promo: 'images/promo.jpg',
+  hero: 'https://vladimir6148.github.io/websitedompola/images/hero.jpg',
+  living: 'https://vladimir6148.github.io/websitedompola/images/living.jpg',
+  wood: 'https://vladimir6148.github.io/websitedompola/images/wood.jpg',
+  floor1: 'https://vladimir6148.github.io/websitedompola/images/floor1.jpg',
+  floor2: 'https://vladimir6148.github.io/websitedompola/images/floor2.jpg',
+  floor3: 'https://vladimir6148.github.io/websitedompola/images/floor3.jpg',
+  store: 'https://vladimir6148.github.io/websitedompola/images/store.jpg',
+  work: 'https://vladimir6148.github.io/websitedompola/images/work.jpg',
+  promo: 'https://vladimir6148.github.io/websitedompola/images/promo.jpg',
 };
 
 async function main() {

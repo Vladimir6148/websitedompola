@@ -1,12 +1,31 @@
-# Опциональный деплой полноценного Express API (не GitHub Pages).
-# GitHub Pages отдаёт статику; каталог на Pages работает через apps/web/public/data.
-#
-# Чтобы поднять живой API с админкой:
-# 1) Создайте PostgreSQL (Neon/Render)
-# 2) В apps/api/prisma/schema.prisma смените provider на "postgresql"
-# 3) Задеплойте apps/api на Render/Railway
-# 4) В GitHub Actions для Pages задайте VITE_API_URL и уберите VITE_STATIC_API
-#
-# Пример Render: создайте Web Service из этого репозитория, rootDir=apps/api
+services:
+  - type: web
+    name: dompola-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: apps/api
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dompola-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PUBLIC_URL
+        fromService:
+          type: web
+          name: dompola-api
+          property: host
 
-services: []
+databases:
+  - name: dompola-db
+    plan: free
+    region: frankfurt
+    databaseName: dompola
+    user: dompola

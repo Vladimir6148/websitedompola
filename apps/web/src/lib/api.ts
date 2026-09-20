@@ -1,5 +1,7 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
-const USE_STATIC = import.meta.env.VITE_STATIC_API === 'true' || (!API_BASE && import.meta.env.PROD);
+const USE_STATIC =
+  import.meta.env.VITE_STATIC_API === 'true' ||
+  (!API_BASE && import.meta.env.PROD && import.meta.env.VITE_STATIC_API !== 'false');
 
 export class ApiError extends Error {
   status: number;
