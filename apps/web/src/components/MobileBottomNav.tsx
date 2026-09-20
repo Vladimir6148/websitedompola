@@ -40,12 +40,11 @@ export function MobileBottomNav({ onSearch }: Props) {
           {({ isActive }) => (
             <>
               <span
-                className={`relative grid h-8 w-8 place-items-center rounded-xl transition ${
+                className={`grid h-8 w-8 place-items-center rounded-xl transition ${
                   isActive ? 'bg-brand/12 text-brand' : 'text-graphite/50'
                 }`}
               >
-                <LayoutGrid size={20} strokeWidth={isActive ? 2.25 : 1.75} />
-                <Search size={10} strokeWidth={2.5} className="absolute bottom-1 right-1" />
+                <LayoutGrid size={22} strokeWidth={isActive ? 2.25 : 1.75} />
               </span>
               <span>Каталог</span>
             </>
