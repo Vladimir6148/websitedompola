@@ -435,7 +435,7 @@ async function main() {
   await prisma.contactInfo.createMany({
     data: [
       { key: 'phone', label: 'Телефон', value: '+7 (921) 499-49-79' },
-      { key: 'email', label: 'Email', value: 'hello@dompola.ru' },
+      { key: 'email', label: 'Email', value: 'dompola29@mail.ru' },
       { key: 'hours', label: 'Режим работы', value: 'Пн–Сб 10:00–20:00' },
     ],
   });

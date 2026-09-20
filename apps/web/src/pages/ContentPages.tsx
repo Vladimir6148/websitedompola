@@ -147,8 +147,8 @@ export function ContactsPage() {
               <p className="mt-1 text-graphite/80">ул. Чернышевского, 97А</p>
             </div>
             <p>
-              <a href="mailto:hello@dompola.ru" className="hover:text-brand">
-                hello@dompola.ru
+              <a href="mailto:dompola29@mail.ru" className="hover:text-brand">
+                dompola29@mail.ru
               </a>
             </p>
             <p className="text-graphite/65">Пн–Сб 10:00–20:00, Вс 10:00–18:00</p>
