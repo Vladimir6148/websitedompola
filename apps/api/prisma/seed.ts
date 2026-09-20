@@ -342,7 +342,9 @@ async function main() {
         schedule:
           city.slug === 'severodvinsk'
             ? 'Пн–Пт 11:00–19:00, Сб–Вс 11:00–18:00'
-            : 'Пн–Сб 10:00–20:00, Вс 10:00–18:00',
+            : city.slug === 'arkhangelsk'
+              ? 'Пн–Пт 10:00–20:00, Сб–Вс 10:00–19:00'
+              : 'Пн–Сб 10:00–20:00, Вс 10:00–18:00',
         description: 'Шоурум напольных покрытий, консультации и расчёт материалов.',
         photos: JSON.stringify([IMG.store]),
         lat: city.slug === 'arkhangelsk' ? 64.532847 : city.slug === 'severodvinsk' ? 64.5581 : 59.237315,
