@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Calculator, Heart, ShoppingCart } from 'lucide-react';
+import { Calculator, ShoppingCart } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
@@ -17,7 +17,6 @@ import {
 } from '../lib/packaging';
 import type { Product, ProductsResponse } from '../types';
 import { useCart } from '../store/cart';
-import { useFavorites } from '../store/favorites';
 import { useCity } from '../store/city';
 
 export function ProductPage() {
@@ -29,7 +28,6 @@ export function ProductPage() {
   const [roomArea, setRoomArea] = useState(20);
   const [showRoomCalc, setShowRoomCalc] = useState(false);
   const { add } = useCart();
-  const { toggle, has } = useFavorites();
   const { city } = useCity();
 
   useEffect(() => {
@@ -288,13 +286,6 @@ export function ProductPage() {
                 </button>
               </div>
             )}
-
-            <div className="mt-4">
-              <button type="button" className="btn-secondary" onClick={() => toggle(product)}>
-                <Heart size={16} className={has(product.id) ? 'fill-brand text-brand' : ''} />
-                В избранное
-              </button>
-            </div>
           </div>
         </div>
 

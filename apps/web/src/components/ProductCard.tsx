@@ -1,4 +1,4 @@
-import { Heart, ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, primaryImage } from '../lib/api';
@@ -10,14 +10,11 @@ import {
   resolvePackArea,
 } from '../lib/packaging';
 import { useCart } from '../store/cart';
-import { useFavorites } from '../store/favorites';
 import { SmartImage } from './SmartImage';
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
-  const { toggle, has } = useFavorites();
   const image = primaryImage(product);
-  const liked = has(product.id);
   const byPack = isPackSold(product);
   const area = resolvePackArea(product);
   const pPack = packPrice(product);
@@ -36,17 +33,6 @@ export function ProductCard({ product }: { product: Product }) {
             −{product.discountPercent}%
           </span>
         ) : null}
-        <button
-          type="button"
-          aria-label="В избранное"
-          onClick={(e) => {
-            e.preventDefault();
-            toggle(product);
-          }}
-          className="absolute right-3 top-3 rounded-full bg-white/90 p-2 text-graphite shadow-sm transition hover:text-brand"
-        >
-          <Heart className={liked ? 'fill-brand text-brand' : ''} size={18} />
-        </button>
       </Link>
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="text-xs uppercase tracking-wide text-graphite/50">
