@@ -18,8 +18,28 @@ const UNSPLASH_TO_LOCAL: Record<string, string> = {
   'photo-1618221195710-dd6b41faaea6': 'images/promo.jpg',
 };
 
+/** Prefer same-origin assets over absolute github.io / CDN URLs. */
+function toLocalPath(url: string): string | null {
+  try {
+    if (url.includes('/websitedompola/images/')) {
+      const idx = url.indexOf('/images/');
+      return url.slice(idx + 1); // images/...
+    }
+    if (url.includes('vladimir6148.github.io') && url.includes('/images/')) {
+      const idx = url.indexOf('/images/');
+      return url.slice(idx + 1);
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.jpg') {
   if (!url) return assetUrl(fallback);
+
+  const localFromAbsolute = toLocalPath(url);
+  if (localFromAbsolute) return assetUrl(localFromAbsolute);
 
   if (url.startsWith('images/') || url.startsWith('/images/')) {
     return assetUrl(url.replace(/^\//, ''));
@@ -36,7 +56,6 @@ export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.j
     return url;
   }
 
-  // Already absolute site path (e.g. /websitedompola/images/...)
   if (url.startsWith(import.meta.env.BASE_URL) || url.startsWith('/websitedompola/')) {
     return url;
   }

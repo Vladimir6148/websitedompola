@@ -9,6 +9,7 @@ type Props = ImgHTMLAttributes<HTMLImageElement> & {
 export function SmartImage({ src, fallback = 'images/floor1.jpg', alt = '', className, ...rest }: Props) {
   const [failed, setFailed] = useState(false);
   const resolved = failed ? assetUrl(fallback) : resolveImageUrl(src, fallback);
+  const loading = rest.loading ?? 'lazy';
 
   return (
     <img
@@ -16,8 +17,9 @@ export function SmartImage({ src, fallback = 'images/floor1.jpg', alt = '', clas
       src={resolved}
       alt={alt}
       className={className}
-      loading={rest.loading ?? 'lazy'}
+      loading={loading}
       decoding="async"
+      fetchPriority={loading === 'eager' ? 'high' : rest.fetchPriority}
       referrerPolicy="no-referrer"
       onError={() => setFailed(true)}
     />
