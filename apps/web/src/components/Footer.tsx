@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <div className="font-display text-2xl font-bold text-white">ДОМПОЛА</div>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">
-            Напольные покрытия с характером. Шоурумы в Архангельске, Северодвинске и Вологде.
+            Розничная сеть магазинов напольных покрытий
           </p>
         </div>
         <div>

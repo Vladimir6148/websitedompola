@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calculator, Compass, Hammer, Store as StoreIcon } from 'lucide-react';
+import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { OfferProductCard } from '../components/OfferProductCard';
-import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { PromoCarousel } from '../components/PromoCarousel';
 import { SectionHeader } from '../components/SectionHeader';
@@ -136,26 +135,19 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section className="bg-graphite py-16 text-white md:py-20">
-        <div className="container-dp grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Онлайн-подбор</p>
-            <h2 className="font-display text-3xl font-bold md:text-4xl lg:text-5xl">
-              Покрытие за 4 шага
-            </h2>
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/65 md:text-base">
-              Укажите помещение, приоритет, тёплый пол и стиль — покажем подходящие позиции из каталога.
-            </p>
-            <Link to="/picker" className="btn-primary mt-8">
-              Запустить подбор
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {['Помещение', 'Приоритет', 'Тёплый пол', 'Стиль'].map((step, i) => (
-              <div key={step} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div className="text-xs uppercase tracking-wide text-brand">Шаг {i + 1}</div>
-                <div className="mt-2 font-display text-xl">{step}</div>
+      <section className="bg-mist py-12 md:py-16">
+        <div className="container-dp">
+          <SectionHeader
+            eyebrow="Сервис"
+            title="Услуги"
+            description="Замер, укладка и расчёт материалов — без лишней суеты."
+            action={{ to: '/services', label: 'Все услуги' }}
+          />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {(data?.services || []).map((s) => (
+              <div key={s.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-graphite/5">
+                <h3 className="font-display text-lg font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm text-graphite/65">{s.description}</p>
               </div>
             ))}
           </div>
@@ -176,25 +168,6 @@ export function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-graphite/65">{a.description}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-mist py-12 md:py-16">
-        <div className="container-dp">
-          <SectionHeader
-            eyebrow="Сервис"
-            title="Услуги"
-            description="Замер, укладка и расчёт материалов — без лишней суеты."
-            action={{ to: '/services', label: 'Все услуги' }}
-          />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {(data?.services || []).map((s) => (
-              <div key={s.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-graphite/5">
-                <h3 className="font-display text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-graphite/65">{s.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -220,43 +193,36 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-graphite py-12 text-white md:py-16">
+      <section className="border-t border-graphite/8 bg-mist py-8 md:py-10">
         <div className="container-dp">
-          <SectionHeader
-            tone="dark"
-            eyebrow="Где купить"
-            title="Магазины"
-            description="Приходите за образцами и консультацией технолога."
-            action={{ to: '/stores', label: 'Все магазины' }}
-          />
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Где купить</p>
+              <h2 className="font-display text-2xl font-bold text-graphite md:text-3xl">Магазины</h2>
+            </div>
+            <Link to="/stores" className="text-sm font-semibold text-brand hover:underline">
+              Все магазины →
+            </Link>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
             {(data?.stores || []).map((s) => (
-              <div key={s.id} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div className="text-sm text-brand">{s.city?.name}</div>
-                <h3 className="mt-1 font-display text-xl">{s.name}</h3>
-                <p className="mt-3 text-sm text-white/70">{s.address}</p>
-                <p className="mt-1 text-sm text-white/70">{s.schedule}</p>
-                {s.phone ? (
-                  <a href={`tel:${s.phone}`} className="mt-3 inline-block text-sm text-brand hover:underline">
-                    {s.phone}
-                  </a>
-                ) : null}
+              <div
+                key={s.id}
+                className="flex flex-col gap-0.5 rounded-xl border border-graphite/8 bg-white px-4 py-3"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="font-display text-base font-semibold text-graphite">{s.city?.name || s.name}</h3>
+                  {s.phone ? (
+                    <a href={`tel:${s.phone}`} className="shrink-0 text-xs font-medium text-brand hover:underline">
+                      {s.phone}
+                    </a>
+                  ) : null}
+                </div>
+                <p className="text-sm text-graphite/65">{s.address}</p>
+                {s.schedule ? <p className="text-xs text-graphite/45">{s.schedule}</p> : null}
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="container-dp py-12 md:py-16">
-        <div className="grid gap-10 rounded-3xl bg-mist p-6 md:grid-cols-2 md:p-10">
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Связь</p>
-            <h2 className="font-display text-3xl font-bold text-graphite md:text-4xl">Нужна консультация?</h2>
-            <p className="mt-3 text-sm leading-relaxed text-graphite/60 md:text-base">
-              Оставьте заявку — поможем с выбором покрытия, расчётом количества и записью на замер.
-            </p>
-          </div>
-          <LeadForm source="home_consult" />
         </div>
       </section>
     </>
