@@ -1,19 +1,20 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Heart, Menu, Search, ShoppingCart, X, MapPin, Phone } from 'lucide-react';
+import { ChevronRight, Heart, Menu, Percent, Search, ShoppingCart, X, MapPin, Phone } from 'lucide-react';
 import { useCart } from '../store/cart';
 import { useFavorites } from '../store/favorites';
 import { useCity } from '../store/city';
 import { api } from '../lib/api';
-import type { Category } from '../types';
+import { SmartImage } from './SmartImage';
+import type { Category, Promotion } from '../types';
 
 const links = [
-  { to: '/catalog', label: 'Каталог' },
+  { to: '/catalog', label: 'Весь каталог' },
   { to: '/services', label: 'Услуги' },
-  { to: '/promotions', label: 'Акции' },
   { to: '/works', label: 'Наши работы' },
   { to: '/stores', label: 'Магазины' },
   { to: '/contacts', label: 'Контакты' },
+  { to: '/picker', label: 'Подбор покрытия' },
 ];
 
 export function Header() {
@@ -23,15 +24,30 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     api<Category[]>('/api/categories').then(setCategories).catch(() => undefined);
+    api<Promotion[]>('/api/promotions').then(setPromotions).catch(() => undefined);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   function onSearch(e: FormEvent) {
     e.preventDefault();
     navigate(`/catalog?q=${encodeURIComponent(q.trim())}`);
+    setOpen(false);
+  }
+
+  function close() {
     setOpen(false);
   }
 
@@ -63,7 +79,7 @@ export function Header() {
       </div>
 
       <div className="container-dp flex items-center gap-3 py-3 lg:gap-6">
-        <button type="button" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Меню">
+        <button type="button" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Меню каталога">
           <Menu />
         </button>
 
@@ -72,7 +88,23 @@ export function Header() {
         </Link>
 
         <nav className="ml-2 hidden items-center gap-5 lg:flex">
-          {links.map((l) => (
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              `text-sm font-medium transition hover:text-brand ${isActive ? 'text-brand' : 'text-graphite/80'}`
+            }
+          >
+            Каталог
+          </NavLink>
+          <NavLink
+            to="/promotions"
+            className={({ isActive }) =>
+              `text-sm font-medium transition hover:text-brand ${isActive ? 'text-brand' : 'text-graphite/80'}`
+            }
+          >
+            Акции
+          </NavLink>
+          {links.slice(1).map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
@@ -118,54 +150,138 @@ export function Header() {
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-[60] bg-ink/50 lg:hidden" onClick={() => setOpen(false)}>
+        <div className="fixed inset-0 z-[60] bg-ink/50 lg:hidden" onClick={close}>
           <div
-            className="h-full w-[86%] max-w-sm bg-white p-5 shadow-xl"
+            className="flex h-full w-[90%] max-w-sm flex-col bg-white shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-6 flex items-center justify-between">
-              <span className="font-display text-xl font-bold text-brand-dark">ДОМПОЛА</span>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Закрыть">
+            <div className="flex shrink-0 items-center justify-between border-b border-graphite/8 px-4 py-4">
+              <span className="font-display text-xl font-bold text-brand-dark">Каталог</span>
+              <button type="button" onClick={close} aria-label="Закрыть" className="rounded-md p-1 hover:bg-mist">
                 <X />
               </button>
             </div>
-            <form onSubmit={onSearch} className="mb-5">
-              <div className="flex items-center gap-2 rounded-md border border-graphite/12 bg-mist px-3 py-2">
-                <Search size={16} />
-                <input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  placeholder="Поиск"
-                  className="w-full bg-transparent outline-none"
-                />
-              </div>
-            </form>
-            <div className="space-y-1">
-              {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-md px-3 py-3 text-base font-medium hover:bg-mist"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-            <div className="mt-6 border-t border-graphite/10 pt-4">
-              <p className="mb-2 text-xs uppercase tracking-wide text-graphite/50">Категории</p>
-              <div className="grid gap-1">
-                {categories.map((c) => (
-                  <Link
-                    key={c.id}
-                    to={`/catalog/${c.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2 text-sm hover:bg-mist"
-                  >
-                    {c.name}
+
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4">
+              <form onSubmit={onSearch} className="mb-5">
+                <div className="flex items-center gap-2 rounded-md border border-graphite/12 bg-mist px-3 py-2.5">
+                  <Search size={16} className="text-graphite/40" />
+                  <input
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    placeholder="Поиск по каталогу"
+                    className="w-full bg-transparent text-sm outline-none"
+                  />
+                </div>
+              </form>
+
+              <section className="mb-6">
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-xs font-semibold uppercase tracking-wide text-graphite/50">Виды покрытий</h2>
+                  <Link to="/catalog" onClick={close} className="text-xs font-semibold text-brand">
+                    Все
                   </Link>
-                ))}
-              </div>
+                </div>
+                {categories.length ? (
+                  <div className="grid gap-2">
+                    {categories.map((c) => (
+                      <Link
+                        key={c.id}
+                        to={`/catalog/${c.slug}`}
+                        onClick={close}
+                        className="flex items-center gap-3 rounded-xl border border-graphite/8 bg-white p-2 pr-3 transition active:bg-mist"
+                      >
+                        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-mist">
+                          <SmartImage src={c.image} alt={c.name} className="h-full w-full object-cover" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold leading-snug text-graphite">{c.name}</div>
+                          {c.description ? (
+                            <div className="mt-0.5 line-clamp-1 text-xs text-graphite/50">{c.description}</div>
+                          ) : null}
+                        </div>
+                        <ChevronRight size={16} className="shrink-0 text-graphite/30" />
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <Link
+                    to="/catalog"
+                    onClick={close}
+                    className="block rounded-xl bg-mist px-4 py-3 text-sm font-medium text-brand"
+                  >
+                    Открыть каталог
+                  </Link>
+                )}
+              </section>
+
+              <section className="mb-6">
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-graphite/50">
+                    <Percent size={12} className="text-brand" />
+                    Акции и скидки
+                  </h2>
+                  <Link to="/promotions" onClick={close} className="text-xs font-semibold text-brand">
+                    Все
+                  </Link>
+                </div>
+                {promotions.length ? (
+                  <div className="grid gap-2">
+                    {promotions.map((p) => (
+                      <Link
+                        key={p.id}
+                        to="/promotions"
+                        onClick={close}
+                        className="relative overflow-hidden rounded-xl"
+                      >
+                        <div className="aspect-[16/7] bg-mist">
+                          <SmartImage
+                            src={p.image}
+                            alt={p.title}
+                            className="h-full w-full object-cover"
+                            fallback="images/promo.jpg"
+                          />
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/20 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 p-3 text-white">
+                          {p.discountPercent ? (
+                            <span className="mb-1 inline-block rounded bg-brand px-1.5 py-0.5 text-[10px] font-bold">
+                              −{p.discountPercent}%
+                            </span>
+                          ) : null}
+                          <div className="font-semibold leading-snug">{p.title}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <Link
+                    to="/promotions"
+                    onClick={close}
+                    className="flex items-center gap-2 rounded-xl border border-brand/20 bg-brand/5 px-4 py-3 text-sm font-semibold text-brand"
+                  >
+                    <Percent size={16} />
+                    Смотреть акции
+                  </Link>
+                )}
+              </section>
+
+              <section className="border-t border-graphite/10 pt-4">
+                <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-graphite/50">Разделы</h2>
+                <div className="grid gap-0.5">
+                  {links.map((l) => (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      onClick={close}
+                      className="flex items-center justify-between rounded-md px-2 py-3 text-sm font-medium hover:bg-mist"
+                    >
+                      {l.label}
+                      <ChevronRight size={14} className="text-graphite/30" />
+                    </Link>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
         </div>
