@@ -5,8 +5,9 @@ import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
+import { PromoCarousel } from '../components/PromoCarousel';
 import { api } from '../lib/api';
-import type { HomePayload } from '../types';
+import type { HomePayload, Promotion } from '../types';
 
 const icons: Record<string, ReactNode> = {
   store: <StoreIcon />,
@@ -17,12 +18,21 @@ const icons: Record<string, ReactNode> = {
 
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
+  const [promos, setPromos] = useState<Promotion[]>([]);
 
   useEffect(() => {
-    api<HomePayload>('/api/content/home').then(setData).catch(() => undefined);
+    api<HomePayload>('/api/content/home')
+      .then((home) => {
+        setData(home);
+        if (home.promotions?.length) setPromos(home.promotions);
+      })
+      .catch(() => undefined);
+    api<Promotion[]>('/api/promotions')
+      .then(setPromos)
+      .catch(() => undefined);
   }, []);
 
-  const hero = data?.banners?.[0];
+  const carouselSlides = promos.length ? promos : data?.promotions || [];
 
   return (
     <>
@@ -30,39 +40,10 @@ export function HomePage() {
         title="ДОМПОЛА — напольные покрытия"
         description="Кварцвинил, ламинат, линолеум, керамогранит и паркет в Архангельске, Северодвинске и Вологде."
         path="/"
-        image={hero?.image || undefined}
+        image={carouselSlides[0]?.image || undefined}
       />
 
-      <section className="relative min-h-[78vh] overflow-hidden bg-graphite text-white">
-        <SmartImage
-          src={hero?.image || 'images/hero.jpg'}
-          fallback="images/hero.jpg"
-          alt="Интерьер с напольным покрытием ДОМПОЛА"
-          className="absolute inset-0 h-full w-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/65 to-brand-deep/35" />
-        <div className="container-dp relative flex min-h-[78vh] flex-col justify-end pb-16 pt-28 md:justify-center md:pb-24">
-          <p className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-brand">ДОМПОЛА</p>
-          <h1 className="max-w-3xl font-display text-4xl font-bold leading-[1.15] sm:text-5xl lg:text-6xl">
-            {hero?.title || 'ДомПола — сеть магазинов напольных покрытий'}
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg">
-            {hero?.subtitle ||
-              'Подберём покрытие под комнату, нагрузку и тёплый пол — без шаблонных решений.'}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to={hero?.ctaLink || '/catalog'} className="btn-primary">
-              {hero?.ctaText || 'Смотреть каталог'}
-              <ArrowRight size={16} />
-            </Link>
-            <Link to="/picker" className="btn-secondary border-white/20 bg-white/10 text-white hover:border-white hover:text-white">
-              Подобрать покрытие
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PromoCarousel slides={carouselSlides} />
 
       <section className="container-dp py-16 md:py-20">
         <div className="mb-8 flex items-end justify-between gap-4">

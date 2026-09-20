@@ -119,6 +119,8 @@ export type Promotion = {
   image?: string | null;
   discountPercent?: number | null;
   active: boolean;
+  sortOrder?: number;
+  categoryId?: string | null;
 };
 
 export type Service = {

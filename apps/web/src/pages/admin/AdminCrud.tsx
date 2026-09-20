@@ -229,44 +229,198 @@ export function AdminStoresPage() {
 
 export function AdminPromotionsPage() {
   const [items, setItems] = useState<Promotion[]>([]);
-  const [form, setForm] = useState({ title: '', description: '', image: '', discountPercent: '' });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    image: '',
+    discountPercent: '',
+    sortOrder: '0',
+    active: true,
+  });
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   async function load() {
     setItems(await api<Promotion[]>('/api/promotions?all=1'));
   }
-  useEffect(() => { load().catch(() => undefined); }, []);
+  useEffect(() => {
+    load().catch(() => undefined);
+  }, []);
 
-  async function create(e: FormEvent) {
-    e.preventDefault();
-    await api('/api/promotions', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...form,
-        discountPercent: form.discountPercent ? Number(form.discountPercent) : null,
-      }),
+  function resetForm() {
+    setEditingId(null);
+    setForm({
+      title: '',
+      description: '',
+      image: '',
+      discountPercent: '',
+      sortOrder: String((items.length || 0) + 1),
+      active: true,
     });
-    setForm({ title: '', description: '', image: '', discountPercent: '' });
+    setError('');
+  }
+
+  function startEdit(p: Promotion) {
+    setEditingId(p.id);
+    setForm({
+      title: p.title,
+      description: p.description || '',
+      image: p.image || '',
+      discountPercent: p.discountPercent != null ? String(p.discountPercent) : '',
+      sortOrder: String(p.sortOrder ?? 0),
+      active: p.active,
+    });
+    setError('');
+  }
+
+  async function onUpload(files: FileList | null) {
+    if (!files?.length) return;
+    const body = new FormData();
+    body.append('files', files[0]);
+    const res = await api<{ items: { url: string }[] }>('/api/upload', { method: 'POST', body });
+    if (res.items[0]?.url) setForm((f) => ({ ...f, image: res.items[0].url }));
+  }
+
+  async function save(e: FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    setError('');
+    const payload = {
+      title: form.title,
+      description: form.description || null,
+      image: form.image || null,
+      discountPercent: form.discountPercent ? Number(form.discountPercent) : null,
+      sortOrder: Number(form.sortOrder) || 0,
+      active: form.active,
+    };
+    try {
+      if (editingId) {
+        await api(`/api/promotions/${editingId}`, { method: 'PUT', body: JSON.stringify(payload) });
+      } else {
+        await api('/api/promotions', { method: 'POST', body: JSON.stringify(payload) });
+      }
+      resetForm();
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка сохранения');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function toggleActive(p: Promotion) {
+    await api(`/api/promotions/${p.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ active: !p.active }),
+    });
+    await load();
+  }
+
+  async function remove(id: string) {
+    if (!confirm('Удалить акцию со слайдера?')) return;
+    await api(`/api/promotions/${id}`, { method: 'DELETE' });
+    if (editingId === id) resetForm();
     await load();
   }
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">Акции</h1>
-      <form onSubmit={create} className="mt-4 grid gap-2 rounded-2xl bg-white p-4 shadow-sm md:grid-cols-2">
-        <input required value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Название" className="rounded-md border border-graphite/15 px-3 py-2" />
-        <input value={form.discountPercent} onChange={(e) => setForm({ ...form, discountPercent: e.target.value })} placeholder="% скидки" className="rounded-md border border-graphite/15 px-3 py-2" />
-        <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} placeholder="URL изображения" className="rounded-md border border-graphite/15 px-3 py-2 md:col-span-2" />
-        <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Описание" className="rounded-md border border-graphite/15 px-3 py-2 md:col-span-2" />
-        <button className="btn-primary md:col-span-2">Создать акцию</button>
-      </form>
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
-        {items.map((p) => (
-          <div key={p.id} className="rounded-2xl bg-white p-4 shadow-sm">
-            <div className="font-semibold">{p.title}</div>
-            <div className="text-sm text-graphite/60">{p.description}</div>
-            {p.discountPercent ? <div className="mt-2 text-brand font-bold">−{p.discountPercent}%</div> : null}
+      <h1 className="font-display text-3xl font-semibold">Акции / слайдер</h1>
+      <p className="mt-2 text-sm text-graphite/60">
+        Активные акции с изображением показываются в карусели на главной. Кнопка на слайде: «Узнать подробнее».
+      </p>
+
+      <form onSubmit={save} className="mt-4 grid gap-3 rounded-2xl bg-white p-4 shadow-sm md:grid-cols-2">
+        <input
+          required
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          placeholder="Название акции"
+          className="rounded-md border border-graphite/15 px-3 py-2"
+        />
+        <input
+          value={form.discountPercent}
+          onChange={(e) => setForm({ ...form, discountPercent: e.target.value })}
+          placeholder="% скидки"
+          className="rounded-md border border-graphite/15 px-3 py-2"
+        />
+        <input
+          value={form.image}
+          onChange={(e) => setForm({ ...form, image: e.target.value })}
+          placeholder="URL изображения слайда"
+          className="rounded-md border border-graphite/15 px-3 py-2 md:col-span-2"
+        />
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-xs font-semibold uppercase text-graphite/50">Или загрузить фото</label>
+          <input type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} className="text-sm" />
+        </div>
+        {form.image ? (
+          <div className="md:col-span-2">
+            <img src={form.image} alt="" className="h-36 w-full rounded-xl object-cover" />
           </div>
-        ))}
+        ) : null}
+        <textarea
+          value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
+          placeholder="Краткое описание на слайде"
+          rows={3}
+          className="rounded-md border border-graphite/15 px-3 py-2 md:col-span-2"
+        />
+        <input
+          value={form.sortOrder}
+          onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
+          placeholder="Порядок"
+          className="rounded-md border border-graphite/15 px-3 py-2"
+        />
+        <label className="flex items-center gap-2 text-sm">
+          <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} />
+          Показывать в карусели
+        </label>
+        {error ? <p className="text-sm text-red-600 md:col-span-2">{error}</p> : null}
+        <div className="flex flex-wrap gap-2 md:col-span-2">
+          <button type="submit" className="btn-primary" disabled={saving}>
+            {saving ? 'Сохраняем…' : editingId ? 'Сохранить изменения' : 'Добавить на слайдер'}
+          </button>
+          {editingId ? (
+            <button type="button" className="btn-secondary" onClick={resetForm}>
+              Отмена
+            </button>
+          ) : null}
+        </div>
+      </form>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        {items
+          .slice()
+          .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+          .map((p) => (
+            <div key={p.id} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+              {p.image ? <img src={p.image} alt={p.title} className="aspect-[16/9] w-full object-cover" /> : null}
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <div className="font-semibold">{p.title}</div>
+                    <div className="text-sm text-graphite/60">{p.description}</div>
+                  </div>
+                  {p.discountPercent ? (
+                    <span className="rounded-md bg-brand px-2 py-1 text-xs font-bold text-white">−{p.discountPercent}%</span>
+                  ) : null}
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2 text-sm">
+                  <button type="button" className="text-brand" onClick={() => startEdit(p)}>
+                    Изменить
+                  </button>
+                  <button type="button" onClick={() => toggleActive(p)}>
+                    {p.active ? 'Скрыть' : 'Показать'}
+                  </button>
+                  <button type="button" className="text-red-600" onClick={() => remove(p.id)}>
+                    Удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

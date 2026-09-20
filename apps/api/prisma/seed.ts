@@ -392,17 +392,39 @@ async function main() {
     ],
   });
 
-  await prisma.promotion.create({
-    data: {
-      title: 'Скидка на Nordic',
-      slug: 'skidka-nordic',
-      description: 'Специальная цена на коллекцию Alpine Floor Nordic',
-      image: IMG.promo,
-      discountPercent: 17,
-      categoryId: categories[0].id,
-      active: true,
-      sortOrder: 1,
-    },
+  await prisma.promotion.createMany({
+    data: [
+      {
+        title: 'Скидка на Nordic',
+        slug: 'skidka-nordic',
+        description: 'Специальная цена на коллекцию Alpine Floor Nordic',
+        image: IMG.promo,
+        discountPercent: 17,
+        categoryId: categories[0].id,
+        active: true,
+        sortOrder: 1,
+      },
+      {
+        title: 'Ламинат со скидкой до 15%',
+        slug: 'laminat-skidka-15',
+        description: 'Актуальные предложения на популярные коллекции ламината',
+        image: IMG.wood,
+        discountPercent: 15,
+        categoryId: categories[1].id,
+        active: true,
+        sortOrder: 2,
+      },
+      {
+        title: 'SPC для тёплого пола',
+        slug: 'spc-teplyy-pol',
+        description: 'Влагостойкий кварцвинил — выгодные комплекты месяца',
+        image: IMG.living,
+        discountPercent: 10,
+        categoryId: categories[0].id,
+        active: true,
+        sortOrder: 3,
+      },
+    ],
   });
 
   await prisma.contactInfo.createMany({
