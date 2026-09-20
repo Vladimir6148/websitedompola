@@ -1,0 +1,884 @@
+[
+  {
+    "id": "cmu9ls8pl002aw1h4xq4prr4y",
+    "name": "Плинтус МДФ Белый 80",
+    "slug": "plintus-mdf-belyj-80",
+    "sku": "PL-80-W",
+    "description": "Высокий плинтус для современного интерьера.",
+    "price": 320,
+    "oldPrice": null,
+    "discountPercent": null,
+    "unit": "шт",
+    "packQty": null,
+    "packArea": null,
+    "thickness": null,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": "белый",
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": "Плинтус МДФ Белый 80 — купить в ДОМПОЛА",
+    "seoDescription": "Высокий плинтус для современного интерьера.",
+    "published": true,
+    "featured": false,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8lw000aw1h4zsr3bqso",
+    "brandId": "cmu9ls8m7000fw1h4dti2ht2t",
+    "collectionId": null,
+    "createdAt": "2026-09-20T09:17:45.369Z",
+    "updatedAt": "2026-09-20T09:17:45.369Z",
+    "category": {
+      "id": "cmu9ls8lw000aw1h4zsr3bqso",
+      "name": "Плинтусы",
+      "slug": "baseboards",
+      "description": "Завершающий штрих для любого покрытия",
+      "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+      "sortOrder": 6,
+      "active": true,
+      "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
+      "createdAt": "2026-09-20T09:17:45.237Z",
+      "updatedAt": "2026-09-20T09:17:45.237Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000fw1h4dti2ht2t",
+      "name": "Quick-Step",
+      "slug": "quick-step",
+      "logo": null,
+      "description": "Ламинат и винил",
+      "website": "https://www.quick-step.ru",
+      "sortOrder": 2,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9ls8pl002bw1h4outqynpj",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "url": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Плинтус МДФ Белый 80",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.369Z"
+      },
+      {
+        "id": "cmu9ls8pl002cw1h4huovz7ri",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Плинтус МДФ Белый 80 в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.369Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8pl002dw1h4byaztucv",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "key": "color",
+        "label": "Цвет",
+        "value": "белый",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8pl002fw1h4wf9b0czk",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.369Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pl002gw1h4zlz32km8",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.369Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pl002hw1h4w34mlecs",
+        "productId": "cmu9ls8pl002aw1h4xq4prr4y",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.369Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9ls8pf0020w1h4ehx3znyy",
+    "name": "Barlinek Дуб Масло",
+    "slug": "barlinek-dub-maslo",
+    "sku": "BL-DM-01",
+    "description": "Паркетная доска с масляным покрытием и живой фактурой натурального дуба.",
+    "price": 4200,
+    "oldPrice": 4800,
+    "discountPercent": 13,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": 2.77,
+    "thickness": 14,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": "натуральный дуб",
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": true,
+    "wearLayer": null,
+    "seoTitle": "Barlinek Дуб Масло — купить в ДОМПОЛА",
+    "seoDescription": "Паркетная доска с масляным покрытием и живой фактурой натурального дуба.",
+    "published": true,
+    "featured": true,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8lt0009w1h4oz6kn5wg",
+    "brandId": "cmu9ls8m7000hw1h494kre08n",
+    "collectionId": null,
+    "createdAt": "2026-09-20T09:17:45.364Z",
+    "updatedAt": "2026-09-20T09:17:45.364Z",
+    "category": {
+      "id": "cmu9ls8lt0009w1h4oz6kn5wg",
+      "name": "Паркет",
+      "slug": "parquet",
+      "description": "Натуральное дерево с характером и теплом",
+      "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+      "sortOrder": 5,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
+      "createdAt": "2026-09-20T09:17:45.234Z",
+      "updatedAt": "2026-09-20T09:17:45.234Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000hw1h494kre08n",
+      "name": "Barlinek",
+      "slug": "barlinek",
+      "logo": null,
+      "description": "Паркетная доска",
+      "website": null,
+      "sortOrder": 5,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9ls8pf0021w1h4mazw9uf6",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Barlinek Дуб Масло",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.364Z"
+      },
+      {
+        "id": "cmu9ls8pf0022w1h42fdhh376",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Barlinek Дуб Масло в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.364Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8pf0023w1h468qb7l7i",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "14 мм",
+        "sortOrder": 1
+      },
+      {
+        "id": "cmu9ls8pf0024w1h4txre1df6",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "key": "color",
+        "label": "Цвет",
+        "value": "натуральный дуб",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8pf0026w1h4ksq3ymgh",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.364Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pf0027w1h4jokg2wv4",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.364Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pf0028w1h4lvgz50xt",
+        "productId": "cmu9ls8pf0020w1h4ehx3znyy",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.364Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9ls8pa001qw1h4rctdcbl8",
+    "name": "Kerama Marazzi Вуд Эффект",
+    "slug": "kerama-marazzi-wood-effect",
+    "sku": "KM-WE-60",
+    "description": "Керамогранит под дерево — для зон с высокой влажностью и коммерческих пространств.",
+    "price": 2100,
+    "oldPrice": null,
+    "discountPercent": null,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": null,
+    "thickness": 9,
+    "wearClass": null,
+    "length": 600,
+    "width": 150,
+    "color": "тёмный орех",
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": "Kerama Marazzi Вуд Эффект — купить в ДОМПОЛА",
+    "seoDescription": "Керамогранит под дерево — для зон с высокой влажностью и коммерческих пространств.",
+    "published": true,
+    "featured": true,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8lr0008w1h4m3geass9",
+    "brandId": "cmu9ls8m7000gw1h40sb5uq6y",
+    "collectionId": null,
+    "createdAt": "2026-09-20T09:17:45.358Z",
+    "updatedAt": "2026-09-20T09:17:45.358Z",
+    "category": {
+      "id": "cmu9ls8lr0008w1h4m3geass9",
+      "name": "Керамогранит",
+      "slug": "porcelain",
+      "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1000&q=80",
+      "sortOrder": 4,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
+      "createdAt": "2026-09-20T09:17:45.231Z",
+      "updatedAt": "2026-09-20T09:17:45.231Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000gw1h40sb5uq6y",
+      "name": "Kerama Marazzi",
+      "slug": "kerama-marazzi",
+      "logo": null,
+      "description": "Керамогранит",
+      "website": null,
+      "sortOrder": 4,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9ls8pa001rw1h4z5glhl6z",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "url": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1000&q=80",
+        "alt": "Kerama Marazzi Вуд Эффект",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.358Z"
+      },
+      {
+        "id": "cmu9ls8pa001sw1h413iigy5c",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Kerama Marazzi Вуд Эффект в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.358Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8pa001tw1h4penoxyej",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "9 мм",
+        "sortOrder": 1
+      },
+      {
+        "id": "cmu9ls8pa001uw1h4oqgzhu9p",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "key": "color",
+        "label": "Цвет",
+        "value": "тёмный орех",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8pa001ww1h40bc1djwi",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.358Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pa001xw1h4wnrex8rw",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.358Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8pa001yw1h4fn6aluvd",
+        "productId": "cmu9ls8pa001qw1h4rctdcbl8",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.358Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9ls8p4001fw1h4ydx2cbit",
+    "name": "Tarkett Idylle Дуб",
+    "slug": "tarkett-idylle-dub",
+    "sku": "TR-ID-08",
+    "description": "Мягкий и тёплый линолеум для спален и детских.",
+    "price": 790,
+    "oldPrice": null,
+    "discountPercent": null,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": null,
+    "thickness": 3.2,
+    "wearClass": "33",
+    "length": null,
+    "width": null,
+    "color": "дуб светлый",
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": true,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": "Tarkett Idylle Дуб — купить в ДОМПОЛА",
+    "seoDescription": "Мягкий и тёплый линолеум для спален и детских.",
+    "published": true,
+    "featured": true,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8lo0007w1h4w936spyq",
+    "brandId": "cmu9ls8m7000ew1h42bicd01e",
+    "collectionId": null,
+    "createdAt": "2026-09-20T09:17:45.352Z",
+    "updatedAt": "2026-09-20T09:17:45.352Z",
+    "category": {
+      "id": "cmu9ls8lo0007w1h4w936spyq",
+      "name": "Линолеум",
+      "slug": "linoleum",
+      "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
+      "image": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1000&q=80",
+      "sortOrder": 3,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
+      "createdAt": "2026-09-20T09:17:45.229Z",
+      "updatedAt": "2026-09-20T09:17:45.229Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000ew1h42bicd01e",
+      "name": "Tarkett",
+      "slug": "tarkett",
+      "logo": null,
+      "description": "Линолеум и ламинат",
+      "website": "https://www.tarkett.ru",
+      "sortOrder": 3,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9ls8p4001gw1h4vfoexudk",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "url": "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1000&q=80",
+        "alt": "Tarkett Idylle Дуб",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.352Z"
+      },
+      {
+        "id": "cmu9ls8p4001hw1h4ufugljex",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Tarkett Idylle Дуб в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.352Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8p4001iw1h4sxnlgfux",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "key": "wearClass",
+        "label": "Класс",
+        "value": "33",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9ls8p4001jw1h4hin1uifs",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "3.2 мм",
+        "sortOrder": 1
+      },
+      {
+        "id": "cmu9ls8p4001kw1h4s5yqcmvo",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "key": "color",
+        "label": "Цвет",
+        "value": "дуб светлый",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8p4001mw1h4imrfjhuy",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.352Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8p4001nw1h41cqokkod",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.352Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8p4001ow1h47qj7vt2t",
+        "productId": "cmu9ls8p4001fw1h4ydx2cbit",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.352Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9ls8oz0014w1h4azx9ctpu",
+    "name": "Quick-Step Дуб Классик",
+    "slug": "quick-step-dub-classic",
+    "sku": "QS-CL-12",
+    "description": "Ламинат с выразительной фактурой дерева и устойчивостью к повседневной нагрузке.",
+    "price": 1450,
+    "oldPrice": 1690,
+    "discountPercent": 14,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": 1.72,
+    "thickness": 8,
+    "wearClass": "32",
+    "length": null,
+    "width": null,
+    "color": "натуральный дуб",
+    "bevel": "4V",
+    "lockType": null,
+    "moistureResistant": true,
+    "underfloorHeating": true,
+    "wearLayer": null,
+    "seoTitle": "Quick-Step Дуб Классик — купить в ДОМПОЛА",
+    "seoDescription": "Ламинат с выразительной фактурой дерева и устойчивостью к повседневной нагрузке.",
+    "published": true,
+    "featured": true,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8ll0006w1h4i8qm08of",
+    "brandId": "cmu9ls8m7000fw1h4dti2ht2t",
+    "collectionId": "cmu9ls8o7000lw1h44d58zbkc",
+    "createdAt": "2026-09-20T09:17:45.347Z",
+    "updatedAt": "2026-09-20T09:17:45.347Z",
+    "category": {
+      "id": "cmu9ls8ll0006w1h4i8qm08of",
+      "name": "Ламинат",
+      "slug": "laminate",
+      "description": "Практичные и выразительные решения для жилых интерьеров",
+      "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+      "sortOrder": 2,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
+      "createdAt": "2026-09-20T09:17:45.226Z",
+      "updatedAt": "2026-09-20T09:17:45.226Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000fw1h4dti2ht2t",
+      "name": "Quick-Step",
+      "slug": "quick-step",
+      "logo": null,
+      "description": "Ламинат и винил",
+      "website": "https://www.quick-step.ru",
+      "sortOrder": 2,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": {
+      "id": "cmu9ls8o7000lw1h44d58zbkc",
+      "name": "Classic",
+      "slug": "classic",
+      "brandId": "cmu9ls8m7000fw1h4dti2ht2t",
+      "createdAt": "2026-09-20T09:17:45.319Z",
+      "updatedAt": "2026-09-20T09:17:45.319Z"
+    },
+    "images": [
+      {
+        "id": "cmu9ls8oz0015w1h471b5ukxh",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "url": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Quick-Step Дуб Классик",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.347Z"
+      },
+      {
+        "id": "cmu9ls8oz0016w1h44iogi2nz",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Quick-Step Дуб Классик в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.347Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8oz0017w1h4j5gs7ywb",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "key": "wearClass",
+        "label": "Класс",
+        "value": "32",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9ls8oz0018w1h4zf1r8cq9",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "8 мм",
+        "sortOrder": 1
+      },
+      {
+        "id": "cmu9ls8oz0019w1h4see7lut6",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "key": "color",
+        "label": "Цвет",
+        "value": "натуральный дуб",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8oz001bw1h4nb03knor",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.347Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8oz001cw1h4k30qbwrw",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.347Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8oz001dw1h4y5rk1jjg",
+        "productId": "cmu9ls8oz0014w1h4azx9ctpu",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.347Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9ls8ot000tw1h4g7pxt8b6",
+    "name": "Alpine Floor Дуб Нордик",
+    "slug": "alpine-floor-dub-nordic",
+    "sku": "AF-ND-01",
+    "description": "Жёсткий SPC с натуральным рисунком дуба. Подходит для кухни, прихожей и тёплого пола.",
+    "price": 1890,
+    "oldPrice": 2290,
+    "discountPercent": 17,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": 2.23,
+    "thickness": 5,
+    "wearClass": "43",
+    "length": null,
+    "width": null,
+    "color": "светлый дуб",
+    "bevel": null,
+    "lockType": "Click",
+    "moistureResistant": true,
+    "underfloorHeating": true,
+    "wearLayer": "0.5 мм",
+    "seoTitle": "Alpine Floor Дуб Нордик — купить в ДОМПОЛА",
+    "seoDescription": "Жёсткий SPC с натуральным рисунком дуба. Подходит для кухни, прихожей и тёплого пола.",
+    "published": true,
+    "featured": true,
+    "sortOrder": 0,
+    "categoryId": "cmu9ls8li0005w1h45fur6b8m",
+    "brandId": "cmu9ls8m7000dw1h4h3wpxxti",
+    "collectionId": "cmu9ls8o3000jw1h4zemm3ldf",
+    "createdAt": "2026-09-20T09:17:45.341Z",
+    "updatedAt": "2026-09-20T09:17:45.341Z",
+    "category": {
+      "id": "cmu9ls8li0005w1h45fur6b8m",
+      "name": "Кварцвинил / SPC",
+      "slug": "quartzvinyl-spc",
+      "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+      "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1000&q=80",
+      "sortOrder": 1,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+      "createdAt": "2026-09-20T09:17:45.222Z",
+      "updatedAt": "2026-09-20T09:17:45.222Z"
+    },
+    "brand": {
+      "id": "cmu9ls8m7000dw1h4h3wpxxti",
+      "name": "Alpine Floor",
+      "slug": "alpine-floor",
+      "logo": null,
+      "description": "SPC и кварцвинил",
+      "website": "https://alpinefloor.ru",
+      "sortOrder": 1,
+      "active": true,
+      "createdAt": "2026-09-20T09:17:45.247Z",
+      "updatedAt": "2026-09-20T09:17:45.247Z"
+    },
+    "collection": {
+      "id": "cmu9ls8o3000jw1h4zemm3ldf",
+      "name": "Nordic",
+      "slug": "nordic",
+      "brandId": "cmu9ls8m7000dw1h4h3wpxxti",
+      "createdAt": "2026-09-20T09:17:45.316Z",
+      "updatedAt": "2026-09-20T09:17:45.316Z"
+    },
+    "images": [
+      {
+        "id": "cmu9ls8ot000uw1h4roorpis0",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "url": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1000&q=80",
+        "alt": "Alpine Floor Дуб Нордик",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.341Z"
+      },
+      {
+        "id": "cmu9ls8ot000vw1h41dojm4ln",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "url": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+        "alt": "Alpine Floor Дуб Нордик в интерьере",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-20T09:17:45.341Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9ls8ot000ww1h4uboagtmm",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "key": "wearClass",
+        "label": "Класс",
+        "value": "43",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9ls8ot000xw1h4fyc8ycit",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "5 мм",
+        "sortOrder": 1
+      },
+      {
+        "id": "cmu9ls8ot000yw1h46w2zh3ps",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "key": "color",
+        "label": "Цвет",
+        "value": "светлый дуб",
+        "sortOrder": 2
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9ls8ot0010w1h4xgi67toa",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "cityId": "cmu9ls8kf0002w1h4cd495ihe",
+        "status": "IN_STOCK",
+        "quantity": 40,
+        "updatedAt": "2026-09-20T09:17:45.341Z",
+        "city": {
+          "id": "cmu9ls8kf0002w1h4cd495ihe",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8ot0011w1h41exrs2ot",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
+        "status": "IN_STOCK",
+        "quantity": 52,
+        "updatedAt": "2026-09-20T09:17:45.341Z",
+        "city": {
+          "id": "cmu9ls8kg0003w1h45f5wk9h6",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9ls8ot0012w1h45l4167k1",
+        "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
+        "cityId": "cmu9ls8kg0004w1h49exwifna",
+        "status": "ON_ORDER",
+        "quantity": 0,
+        "updatedAt": "2026-09-20T09:17:45.341Z",
+        "city": {
+          "id": "cmu9ls8kg0004w1h49exwifna",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+# Опциональный деплой полноценного Express API (не GitHub Pages).
+# GitHub Pages отдаёт статику; каталог на Pages работает через apps/web/public/data.
+#
+# Чтобы поднять живой API с админкой:
+# 1) Создайте PostgreSQL (Neon/Render)
+# 2) В apps/api/prisma/schema.prisma смените provider на "postgresql"
+# 3) Задеплойте apps/api на Render/Railway
+# 4) В GitHub Actions для Pages задайте VITE_API_URL и уберите VITE_STATIC_API
+#
+# Пример Render: создайте Web Service из этого репозитория, rootDir=apps/api
+
+services: []

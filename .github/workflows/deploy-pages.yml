@@ -32,6 +32,7 @@ jobs:
         working-directory: apps/web
         env:
           VITE_BASE: /websitedompola/
+          VITE_STATIC_API: "true"
         run: npm run build
 
       - name: SPA fallback for GitHub Pages
