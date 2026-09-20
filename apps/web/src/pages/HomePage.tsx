@@ -21,24 +21,44 @@ export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
   const [promos, setPromos] = useState<Promotion[]>([]);
   const [deals, setDeals] = useState<Product[]>([]);
+  const [carouselLoading, setCarouselLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+    let pending = 2;
+
+    function done() {
+      pending -= 1;
+      if (!cancelled && pending <= 0) setCarouselLoading(false);
+    }
+
     api<HomePayload>('/api/content/home')
       .then((home) => {
+        if (cancelled) return;
         setData(home);
         if (home.promotions?.length) setPromos(home.promotions);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(done);
+
     api<Promotion[]>('/api/promotions')
-      .then(setPromos)
-      .catch(() => undefined);
+      .then((list) => {
+        if (!cancelled && list?.length) setPromos(list);
+      })
+      .catch(() => undefined)
+      .finally(done);
+
     api<ProductsResponse>('/api/products?limit=24&sort=price_asc')
       .then((res) => {
         const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
         const list = (withDiscount.length ? withDiscount : res.items).slice(0, 8);
-        setDeals(list);
+        if (!cancelled) setDeals(list);
       })
       .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const carouselSlides = promos.length ? promos : data?.promotions || [];
@@ -53,7 +73,7 @@ export function HomePage() {
         image={carouselSlides[0]?.image || undefined}
       />
 
-      <PromoCarousel slides={carouselSlides} />
+      <PromoCarousel slides={carouselSlides} loading={carouselLoading} />
 
       <section className="container-dp py-12 md:py-16">
         <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
