@@ -43,4 +43,29 @@
   .section-title {
     @apply font-display text-2xl font-bold tracking-normal text-graphite sm:text-3xl md:text-4xl lg:text-5xl;
   }
+
+  .btn-vk-shimmer {
+    background: linear-gradient(
+      110deg,
+      #0f5c28 0%,
+      #1f8a3d 28%,
+      #4caf66 50%,
+      #1f8a3d 72%,
+      #0f5c28 100%
+    );
+    background-size: 220% 100%;
+    animation: vk-shimmer 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes vk-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }

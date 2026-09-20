@@ -113,6 +113,16 @@ export function PromoCarousel({ slides }: Props) {
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
 
+          <a
+            href="https://vk.com/dompola29"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Подписывайся на нашу группу ВК"
+            className="btn-vk-shimmer absolute right-3 top-3 z-20 inline-flex max-w-[min(100%-1.5rem,12.5rem)] items-center justify-center rounded-full px-2.5 py-1.5 text-center text-[10px] font-semibold leading-snug text-white shadow-[0_6px_14px_rgba(31,138,61,0.35)] transition hover:brightness-110 active:scale-[0.98] sm:right-5 sm:top-5 sm:max-w-[14rem] sm:px-3 sm:py-2 sm:text-xs"
+          >
+            Подписывайся на нашу группу ВК
+          </a>
+
           <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-16 sm:px-6 md:min-h-[420px] md:justify-center md:px-10 md:pb-16 md:pt-16 lg:min-h-[480px] lg:px-12">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Акции</p>
             {current.discountPercent ? (

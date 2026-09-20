@@ -147,15 +147,6 @@ export function Header() {
 
           <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ml-0">
             <a
-              href="https://vk.com/dompola29"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Мы в VK"
-              className="inline-flex h-9 shrink-0 items-center rounded-full border border-graphite/20 bg-white px-2.5 text-xs font-semibold text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:px-3.5 sm:text-sm"
-            >
-              Мы в VK
-            </a>
-            <a
               href="tel:+79214994979"
               aria-label="Позвонить"
               className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
