@@ -345,19 +345,19 @@ export function CatalogPage() {
           ) : null}
         </nav>
 
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
+        <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+          <div className="min-w-0">
             <h1 className="section-title">{pageTitle}</h1>
-            <p className="mt-2 text-graphite/60">
+            <p className="mt-2 text-sm text-graphite/60 sm:text-base">
               {loading ? 'Загрузка…' : `${data?.total ?? 0} ${productWord(data?.total ?? 0)}`}
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full gap-2 sm:w-auto">
             <button
               type="button"
               onClick={() => setFiltersOpen(true)}
               aria-label="Открыть фильтры"
-              className="relative inline-flex h-10 items-center gap-2 rounded-md border border-graphite/15 bg-white px-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
+              className="relative inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-md border border-graphite/15 bg-white px-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand sm:flex-initial"
             >
               <SlidersHorizontal size={18} />
               <span>Фильтры</span>
@@ -370,7 +370,7 @@ export function CatalogPage() {
             <select
               value={sort}
               onChange={(e) => update('sort', e.target.value)}
-              className="h-10 rounded-md border border-graphite/15 bg-white px-3 text-sm"
+              className="h-10 min-w-0 flex-1 rounded-md border border-graphite/15 bg-white px-2 text-sm sm:flex-initial sm:px-3"
             >
               <option value="newest">Сначала новые</option>
               <option value="price_asc">Цена ↑</option>
@@ -381,18 +381,18 @@ export function CatalogPage() {
           </div>
         </div>
 
-        <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
+        <div className={`mb-6 ${inAccessorySection ? 'grid grid-cols-4 gap-2' : 'flex gap-2 overflow-x-auto pb-2'}`}>
           {inAccessorySection ? (
             <>
               <Link
                 to="/catalog/accessories"
-                className={`inline-flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
                   accessoryHub
                     ? 'border-brand bg-brand text-white'
                     : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
                 }`}
               >
-                <span className="text-xs font-medium opacity-80">Все</span>
+                <span className="opacity-80">Все</span>
               </Link>
               {ACCESSORY_CHIPS.map((chip) => {
                 const Icon = chip.icon;
@@ -404,13 +404,13 @@ export function CatalogPage() {
                   <Link
                     key={chip.slug}
                     to={chip.to}
-                    className={`inline-flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                    className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
                       active
                         ? 'border-brand bg-brand text-white'
                         : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
                     }`}
                   >
-                    <Icon size={22} strokeWidth={1.75} />
+                    <Icon size={20} strokeWidth={1.75} />
                     <span>{chip.label}</span>
                   </Link>
                 );

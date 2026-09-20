@@ -23,9 +23,8 @@ export function Footer() {
           <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/50">Компания</div>
           <div className="grid gap-2 text-sm text-white/80">
             <Link to="/services" className="hover:text-brand">Услуги</Link>
-            <Link to="/works" className="hover:text-brand">Наши работы</Link>
             <Link to="/stores" className="hover:text-brand">Магазины</Link>
-            <Link to="/picker" className="hover:text-brand">Подбор покрытия</Link>
+            <Link to="/contacts" className="hover:text-brand">Контакты</Link>
           </div>
         </div>
         <div>

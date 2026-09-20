@@ -26,7 +26,7 @@ export function SectionHeader({
             {eyebrow}
           </p>
           <h2
-            className={`font-display text-3xl font-bold md:text-4xl ${
+            className={`font-display text-2xl font-bold sm:text-3xl md:text-4xl ${
               isDark ? 'text-white' : 'text-graphite'
             }`}
           >
@@ -34,7 +34,7 @@ export function SectionHeader({
           </h2>
           {description ? (
             <p
-              className={`mt-2 font-display text-base leading-relaxed md:text-lg ${
+              className={`mt-2 font-display text-sm leading-relaxed sm:text-base md:text-lg ${
                 isDark ? 'text-white/65' : 'text-graphite/60'
               }`}
             >

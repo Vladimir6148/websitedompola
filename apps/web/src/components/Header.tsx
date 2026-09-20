@@ -54,8 +54,8 @@ export function Header() {
   return (
     <>
     <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
-      <div className="container-dp flex min-w-0 items-center gap-1.5 overflow-hidden py-2.5 sm:gap-3 sm:py-3 lg:gap-4">
-        <div className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
+      <div className="container-dp flex min-w-0 items-center gap-1.5 py-2.5 sm:gap-3 sm:py-3 lg:gap-4">
+        <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto sm:gap-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button
             type="button"
             onClick={() => setOpen(true)}

@@ -88,21 +88,21 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
-      <section className="container-dp py-12 md:py-16">
+      <section className="container-dp py-8 md:py-16">
         <SectionHeader
           eyebrow="Скидки недели"
           title="Выгодные предложения"
           description="Актуальные цены на покрытия со скидкой"
           action={{ to: '/catalog', label: 'Весь каталог' }}
         />
-        <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
           {offerProducts.map((p) => (
             <OfferProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
 
-      <section className="bg-mist py-12 md:py-16">
+      <section className="bg-mist py-8 md:py-16">
         <div className="container-dp">
           <SectionHeader
             eyebrow="Выбор покупателей"
@@ -110,7 +110,7 @@ export function HomePage() {
             description="Проверенные коллекции, которые чаще всего покупают"
             action={{ to: '/catalog', label: 'В каталог' }}
           />
-          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
             {(data?.featured || []).slice(0, 8).map((p) => (
               <OfferProductCard key={p.id} product={p} />
             ))}
@@ -119,14 +119,14 @@ export function HomePage() {
       </section>
 
       {related.length ? (
-        <section className="container-dp py-12 md:py-16">
+        <section className="container-dp py-8 md:py-16">
           <SectionHeader
             eyebrow="К монтажу покрытия"
             title="Подложка, плинтус и клей"
             description="Сопутствующие материалы для ровной укладки и аккуратного финиша."
             action={{ to: '/catalog/accessories', label: 'Все комплектующие' }}
           />
-          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
             {related.map((p) => (
               <OfferProductCard key={p.id} product={p} />
             ))}
@@ -134,7 +134,7 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section className="bg-mist py-12 md:py-16">
+      <section className="bg-mist py-8 md:py-16">
         <div className="container-dp">
           <SectionHeader
             eyebrow="Сервис"
@@ -152,7 +152,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-12 md:py-16">
+      <section className="container-dp py-8 md:py-16">
         <SectionHeader
           eyebrow="Почему мы"
           title="Доверяют ДОМПОЛА"
@@ -169,25 +169,25 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-graphite/8 bg-mist py-8 md:py-10">
+      <section className="border-t border-graphite/8 bg-mist py-6 md:py-10">
         <div className="container-dp">
-          <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mb-4 flex flex-col gap-2 sm:mb-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Где купить</p>
-              <h2 className="font-display text-2xl font-bold text-graphite md:text-3xl">Магазины</h2>
+              <h2 className="font-display text-xl font-bold text-graphite sm:text-2xl md:text-3xl">Магазины</h2>
             </div>
             <Link to="/stores" className="text-sm font-semibold text-brand hover:underline">
               Все магазины →
             </Link>
           </div>
-          <div className="grid gap-2 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {(data?.stores || []).map((s) => (
               <div
                 key={s.id}
-                className="flex flex-col gap-0.5 rounded-xl border border-graphite/8 bg-white px-4 py-3"
+                className="flex flex-col gap-0.5 rounded-xl border border-graphite/8 bg-white px-3.5 py-3 sm:px-4"
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-display text-base font-semibold text-graphite">{s.city?.name || s.name}</h3>
+                  <h3 className="font-display text-sm font-semibold text-graphite sm:text-base">{s.city?.name || s.name}</h3>
                   {s.phone ? (
                     <a href={`tel:${s.phone}`} className="shrink-0 text-xs font-medium text-brand hover:underline">
                       {s.phone}
