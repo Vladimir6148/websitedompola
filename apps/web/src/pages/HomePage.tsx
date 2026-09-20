@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { OfferProductCard } from '../components/OfferProductCard';
-import { SmartImage } from '../components/SmartImage';
 import { PromoCarousel } from '../components/PromoCarousel';
 import { SectionHeader } from '../components/SectionHeader';
 import { api } from '../lib/api';
@@ -166,28 +165,6 @@ export function HomePage() {
               <h3 className="font-display text-sm font-semibold leading-snug sm:text-base">{a.title}</h3>
               <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">{a.description}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-dp py-12 md:py-16">
-        <SectionHeader
-          eyebrow="Портфолио"
-          title="Наши работы"
-          description="Реальные объекты в Архангельске, Северодвинске и Вологде."
-          action={{ to: '/works', label: 'Смотреть все' }}
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {(data?.works || []).map((w) => (
-            <article key={w.id} className="overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-mist">
-                <SmartImage src={w.image} alt={w.title} className="h-full w-full object-cover" />
-              </div>
-              <div className="pt-3">
-                <h3 className="font-semibold">{w.title}</h3>
-                <p className="text-sm text-graphite/55">{[w.city, w.category].filter(Boolean).join(' · ')}</p>
-              </div>
-            </article>
           ))}
         </div>
       </section>
