@@ -23,12 +23,6 @@ const primaryLinks = [
   { to: '/promotions', label: 'Подборки' },
 ];
 
-const navPills = [
-  { to: '/catalog', label: 'Каталог' },
-  { to: '/promotions', label: 'Акции', accent: true },
-  { to: '/services', label: 'Услуги' },
-];
-
 export function Header() {
   const { count } = useCart();
   const { count: favCount } = useFavorites();
@@ -92,54 +86,64 @@ export function Header() {
       </div>
 
       <div className="container-dp flex items-center gap-2 py-3 sm:gap-3 lg:gap-4">
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Открыть каталог и поиск"
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-graphite/20 text-graphite transition hover:border-brand hover:text-brand"
-        >
-          <span className="relative inline-flex items-center">
-            <span className="mr-0.5 flex flex-col gap-[2.5px]" aria-hidden>
-              <span className="block h-[1.5px] w-2.5 rounded-full bg-current" />
-              <span className="block h-[1.5px] w-2 rounded-full bg-current" />
-              <span className="block h-[1.5px] w-1.5 rounded-full bg-current" />
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Открыть каталог и поиск"
+            className="grid h-10 w-10 place-items-center rounded-full bg-brand text-white transition hover:bg-brand-dark"
+          >
+            <span className="relative inline-flex items-center">
+              <span className="mr-0.5 flex flex-col gap-[2.5px]" aria-hidden>
+                <span className="block h-[1.5px] w-2.5 rounded-full bg-current" />
+                <span className="block h-[1.5px] w-2 rounded-full bg-current" />
+                <span className="block h-[1.5px] w-1.5 rounded-full bg-current" />
+              </span>
+              <Search size={15} strokeWidth={2.25} />
             </span>
-            <Search size={15} strokeWidth={2.25} />
-          </span>
-        </button>
+          </button>
+
+          <Link
+            to="/promotions"
+            className="inline-flex h-10 items-center gap-1.5 rounded-full bg-brand px-3 text-sm font-semibold text-white transition hover:bg-brand-dark sm:px-3.5"
+          >
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-white/20">
+              <Percent size={12} strokeWidth={2.5} />
+            </span>
+            <span>Акции</span>
+          </Link>
+
+          <Link
+            to="/services"
+            className="inline-flex h-10 items-center rounded-full bg-brand px-3 text-sm font-semibold text-white transition hover:bg-brand-dark sm:px-3.5"
+          >
+            Услуги
+          </Link>
+        </div>
 
         <Link to="/" className="shrink-0 font-display text-xl font-bold tracking-tight text-brand-dark sm:text-2xl">
           ДОМПОЛА
         </Link>
 
-        <nav className="ml-1 hidden items-center gap-2 md:flex">
-          {navPills.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                [
-                  'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition',
-                  item.accent
-                    ? isActive
-                      ? 'border-rose-500 bg-rose-50 text-rose-600'
-                      : 'border-rose-400/70 text-rose-600 hover:bg-rose-50'
-                    : isActive
-                      ? 'border-brand bg-brand/5 text-brand'
-                      : 'border-graphite/20 text-graphite hover:border-brand hover:text-brand',
-                ].join(' ')
-              }
-            >
-              {item.accent ? <Percent size={14} className="text-rose-500" /> : null}
-              {item.label}
-            </NavLink>
-          ))}
+        <nav className="ml-1 hidden items-center gap-2 lg:flex">
+          <NavLink
+            to="/catalog"
+            className={({ isActive }) =>
+              `rounded-full border px-3.5 py-1.5 text-sm font-semibold transition ${
+                isActive
+                  ? 'border-brand bg-brand text-white'
+                  : 'border-graphite/20 text-graphite hover:border-brand hover:text-brand'
+              }`
+            }
+          >
+            Каталог
+          </NavLink>
           <NavLink
             to="/stores"
             className={({ isActive }) =>
-              `hidden rounded-full border px-3.5 py-1.5 text-sm font-semibold transition lg:inline-flex ${
+              `rounded-full border px-3.5 py-1.5 text-sm font-semibold transition ${
                 isActive
-                  ? 'border-brand bg-brand/5 text-brand'
+                  ? 'border-brand bg-brand text-white'
                   : 'border-graphite/20 text-graphite hover:border-brand hover:text-brand'
               }`
             }
@@ -151,7 +155,7 @@ export function Header() {
             className={({ isActive }) =>
               `hidden rounded-full border px-3.5 py-1.5 text-sm font-semibold transition xl:inline-flex ${
                 isActive
-                  ? 'border-brand bg-brand/5 text-brand'
+                  ? 'border-brand bg-brand text-white'
                   : 'border-graphite/20 text-graphite hover:border-brand hover:text-brand'
               }`
             }
