@@ -21,6 +21,7 @@ export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
   const [promos, setPromos] = useState<Promotion[]>(initialPromotions as Promotion[]);
   const [deals, setDeals] = useState<Product[]>([]);
+  const [related, setRelated] = useState<Product[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -44,6 +45,22 @@ export function HomePage() {
         const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
         const list = (withDiscount.length ? withDiscount : res.items).slice(0, 8);
         if (!cancelled) setDeals(list);
+      })
+      .catch(() => undefined);
+
+    Promise.all([
+      api<ProductsResponse>('/api/products?category=underlayment&limit=4'),
+      api<ProductsResponse>('/api/products?category=baseboards&limit=4'),
+      api<ProductsResponse>('/api/products?category=accessories&limit=4'),
+    ])
+      .then(([under, base, acc]) => {
+        if (cancelled) return;
+        const preferred = ['podlozhka-xps-3mm', 'plintus-pvh-dub-natural', 'klej-dlya-spc', 'podlozhka-khvoynaya-7mm', 'plintus-mdf-belyj-80'];
+        const pool = [...(under.items || []), ...(base.items || []), ...(acc.items || [])];
+        const bySlug = new Map(pool.map((p) => [p.slug, p]));
+        const ordered = preferred.map((s) => bySlug.get(s)).filter(Boolean) as Product[];
+        const rest = pool.filter((p) => !preferred.includes(p.slug));
+        setRelated([...ordered, ...rest].slice(0, 4));
       })
       .catch(() => undefined);
 
@@ -93,6 +110,22 @@ export function HomePage() {
           ))}
         </div>
       </section>
+
+      {related.length ? (
+        <section className="container-dp py-12 md:py-16">
+          <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
+            <h2 className="section-title">Сопутствующие товары</h2>
+            <Link to="/catalog/accessories" className="text-sm font-semibold text-brand hover:underline">
+              Все комплектующие
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+            {related.map((p) => (
+              <OfferProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-graphite py-16 text-white md:py-20">
         <div className="container-dp grid items-center gap-10 lg:grid-cols-2">

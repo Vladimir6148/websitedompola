@@ -1,5 +1,533 @@
 [
   {
+    "id": "cmu9u33g700rgb76rkm2c3ywv",
+    "name": "Подложка хвойная 7 мм",
+    "slug": "podlozhka-khvoynaya-7mm",
+    "sku": "UND-PINE-7",
+    "description": "Натуральная хвойная подложка для ламината и паркета. Хорошая тепло- и звукоизоляция.",
+    "price": 320,
+    "oldPrice": null,
+    "discountPercent": null,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": 7,
+    "thickness": 7,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": null,
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "published": true,
+    "featured": false,
+    "sortOrder": 0,
+    "categoryId": "cmu9okcp6000bb75ftfkpvq3k",
+    "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+    "collectionId": null,
+    "createdAt": "2026-09-20T13:10:08.696Z",
+    "updatedAt": "2026-09-20T13:10:08.696Z",
+    "category": {
+      "id": "cmu9okcp6000bb75ftfkpvq3k",
+      "name": "Подложка",
+      "slug": "underlayment",
+      "description": "Основа для тишины, тепла и ровного пола",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+      "sortOrder": 7,
+      "active": true,
+      "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
+      "createdAt": "2026-09-20T10:35:36.138Z",
+      "updatedAt": "2026-09-20T10:35:36.138Z"
+    },
+    "brand": {
+      "id": "cmu9rlj7r0004b76rfha9yx7f",
+      "name": "Stone Floor",
+      "slug": "stone-floor",
+      "logo": null,
+      "description": "Производитель минерально-каменного MSPC ламината",
+      "website": "https://stone-floor.com",
+      "sortOrder": 0,
+      "active": true,
+      "createdAt": "2026-09-20T12:00:30.087Z",
+      "updatedAt": "2026-09-20T12:00:30.087Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9u33g700rhb76rbd05pak1",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "url": "images/living.jpg",
+        "alt": "Подложка хвойная",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T13:10:08.696Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9u33g700rib76r2ce2u35e",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "7 мм",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9u33g700rjb76rlptrfh9f",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "key": "type",
+        "label": "Тип",
+        "value": "Хвойная",
+        "sortOrder": 1
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9u33g800rlb76rqvfoifi9",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "cityId": "cmu9okcln0002b75fquqggimp",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.696Z",
+        "city": {
+          "id": "cmu9okcln0002b75fquqggimp",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u33g800rmb76r2a78alh4",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "cityId": "cmu9okco80003b75fu3siu2mx",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.696Z",
+        "city": {
+          "id": "cmu9okco80003b75fu3siu2mx",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u33g800rnb76r7rgxvtk4",
+        "productId": "cmu9u33g700rgb76rkm2c3ywv",
+        "cityId": "cmu9okcoa0004b75fqaue1tnd",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.696Z",
+        "city": {
+          "id": "cmu9okcoa0004b75fqaue1tnd",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9u337e00r7b76r0tuza6f7",
+    "name": "Клей для SPC и кварцвинила",
+    "slug": "klej-dlya-spc",
+    "sku": "GLUE-SPC-5",
+    "description": "Полиуретановый клей для фиксации SPC, кварцвинила и плинтусов. Расход на упаковке.",
+    "price": 1450,
+    "oldPrice": 1690,
+    "discountPercent": 14,
+    "unit": "шт",
+    "packQty": 1,
+    "packArea": null,
+    "thickness": null,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": null,
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "published": true,
+    "featured": false,
+    "sortOrder": 0,
+    "categoryId": "cmu9okcp8000cb75f9m9yvcs9",
+    "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+    "collectionId": null,
+    "createdAt": "2026-09-20T13:10:08.378Z",
+    "updatedAt": "2026-09-20T13:10:08.378Z",
+    "category": {
+      "id": "cmu9okcp8000cb75f9m9yvcs9",
+      "name": "Комплектующие",
+      "slug": "accessories",
+      "description": "Пороги, профили и всё для аккуратного монтажа",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
+      "sortOrder": 8,
+      "active": true,
+      "filterSchema": "[\"brand\",\"price\",\"color\"]",
+      "createdAt": "2026-09-20T10:35:36.140Z",
+      "updatedAt": "2026-09-20T10:35:36.140Z"
+    },
+    "brand": {
+      "id": "cmu9rlj7r0004b76rfha9yx7f",
+      "name": "Stone Floor",
+      "slug": "stone-floor",
+      "logo": null,
+      "description": "Производитель минерально-каменного MSPC ламината",
+      "website": "https://stone-floor.com",
+      "sortOrder": 0,
+      "active": true,
+      "createdAt": "2026-09-20T12:00:30.087Z",
+      "updatedAt": "2026-09-20T12:00:30.087Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9u337e00r8b76re9y91q9p",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "url": "images/floor2.jpg",
+        "alt": "Клей для SPC",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T13:10:08.378Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9u337e00r9b76rjjs13ak2",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "key": "volume",
+        "label": "Фасовка",
+        "value": "5 кг",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9u337e00rab76rl4tep43h",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "key": "type",
+        "label": "Тип",
+        "value": "Полиуретановый",
+        "sortOrder": 1
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9u337e00rcb76rcvfr2mrj",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "cityId": "cmu9okcln0002b75fquqggimp",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.378Z",
+        "city": {
+          "id": "cmu9okcln0002b75fquqggimp",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u337e00rdb76r0ejllkef",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "cityId": "cmu9okco80003b75fu3siu2mx",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.378Z",
+        "city": {
+          "id": "cmu9okco80003b75fu3siu2mx",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u337e00reb76r2ix77641",
+        "productId": "cmu9u337e00r7b76r0tuza6f7",
+        "cityId": "cmu9okcoa0004b75fqaue1tnd",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.378Z",
+        "city": {
+          "id": "cmu9okcoa0004b75fqaue1tnd",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9u32yv00qyb76r4ncipbmz",
+    "name": "Плинтус ПВХ Дуб Натуральный",
+    "slug": "plintus-pvh-dub-natural",
+    "sku": "PL-PVC-DN",
+    "description": "Гибкий плинтус ПВХ под цвет покрытия. Легко монтируется, скрывает кабель.",
+    "price": 290,
+    "oldPrice": 350,
+    "discountPercent": 17,
+    "unit": "шт",
+    "packQty": null,
+    "packArea": null,
+    "thickness": null,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": "дуб",
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": false,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "published": true,
+    "featured": false,
+    "sortOrder": 0,
+    "categoryId": "cmu9okcp3000ab75fno4ubrc0",
+    "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+    "collectionId": null,
+    "createdAt": "2026-09-20T13:10:08.071Z",
+    "updatedAt": "2026-09-20T13:10:08.071Z",
+    "category": {
+      "id": "cmu9okcp3000ab75fno4ubrc0",
+      "name": "Плинтусы",
+      "slug": "baseboards",
+      "description": "Завершающий штрих для любого покрытия",
+      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
+      "sortOrder": 6,
+      "active": true,
+      "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
+      "createdAt": "2026-09-20T10:35:36.136Z",
+      "updatedAt": "2026-09-20T10:35:36.136Z"
+    },
+    "brand": {
+      "id": "cmu9rlj7r0004b76rfha9yx7f",
+      "name": "Stone Floor",
+      "slug": "stone-floor",
+      "logo": null,
+      "description": "Производитель минерально-каменного MSPC ламината",
+      "website": "https://stone-floor.com",
+      "sortOrder": 0,
+      "active": true,
+      "createdAt": "2026-09-20T12:00:30.087Z",
+      "updatedAt": "2026-09-20T12:00:30.087Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9u32yv00qzb76ru12jp5if",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "url": "images/wood.jpg",
+        "alt": "Плинтус ПВХ",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T13:10:08.071Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9u32yv00r0b76rtxd76kij",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "key": "material",
+        "label": "Материал",
+        "value": "ПВХ",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9u32yv00r1b76r9auv6ao7",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "key": "height",
+        "label": "Высота",
+        "value": "55 мм",
+        "sortOrder": 1
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9u32yv00r3b76r5fulu32d",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "cityId": "cmu9okcln0002b75fquqggimp",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.071Z",
+        "city": {
+          "id": "cmu9okcln0002b75fquqggimp",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u32yv00r4b76rul808up6",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "cityId": "cmu9okco80003b75fu3siu2mx",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.071Z",
+        "city": {
+          "id": "cmu9okco80003b75fu3siu2mx",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u32yv00r5b76r420d3o1g",
+        "productId": "cmu9u32yv00qyb76r4ncipbmz",
+        "cityId": "cmu9okcoa0004b75fqaue1tnd",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:08.071Z",
+        "city": {
+          "id": "cmu9okcoa0004b75fqaue1tnd",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "cmu9u32po00qpb76rquiwsvbm",
+    "name": "Подложка XPS 3 мм",
+    "slug": "podlozhka-xps-3mm",
+    "sku": "UND-XPS-3",
+    "description": "Влагостойкая подложка XPS под ламинат, SPC и MSPC. Сглаживает неровности и снижает шум.",
+    "price": 189,
+    "oldPrice": 230,
+    "discountPercent": 18,
+    "unit": "м²",
+    "packQty": null,
+    "packArea": 5,
+    "thickness": 3,
+    "wearClass": null,
+    "length": null,
+    "width": null,
+    "color": null,
+    "bevel": null,
+    "lockType": null,
+    "moistureResistant": true,
+    "underfloorHeating": false,
+    "wearLayer": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "published": true,
+    "featured": false,
+    "sortOrder": 0,
+    "categoryId": "cmu9okcp6000bb75ftfkpvq3k",
+    "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+    "collectionId": null,
+    "createdAt": "2026-09-20T13:10:07.741Z",
+    "updatedAt": "2026-09-20T13:10:07.741Z",
+    "category": {
+      "id": "cmu9okcp6000bb75ftfkpvq3k",
+      "name": "Подложка",
+      "slug": "underlayment",
+      "description": "Основа для тишины, тепла и ровного пола",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+      "sortOrder": 7,
+      "active": true,
+      "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
+      "createdAt": "2026-09-20T10:35:36.138Z",
+      "updatedAt": "2026-09-20T10:35:36.138Z"
+    },
+    "brand": {
+      "id": "cmu9rlj7r0004b76rfha9yx7f",
+      "name": "Stone Floor",
+      "slug": "stone-floor",
+      "logo": null,
+      "description": "Производитель минерально-каменного MSPC ламината",
+      "website": "https://stone-floor.com",
+      "sortOrder": 0,
+      "active": true,
+      "createdAt": "2026-09-20T12:00:30.087Z",
+      "updatedAt": "2026-09-20T12:00:30.087Z"
+    },
+    "collection": null,
+    "images": [
+      {
+        "id": "cmu9u32po00qqb76r7sav83er",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "url": "images/floor1.jpg",
+        "alt": "Подложка XPS",
+        "isPrimary": true,
+        "sortOrder": 0,
+        "storageKey": null,
+        "createdAt": "2026-09-20T13:10:07.741Z"
+      }
+    ],
+    "characteristics": [
+      {
+        "id": "cmu9u32po00qrb76r7d5md8lx",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "3 мм",
+        "sortOrder": 0
+      },
+      {
+        "id": "cmu9u32po00qsb76ruqo7kccj",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "key": "type",
+        "label": "Тип",
+        "value": "XPS",
+        "sortOrder": 1
+      }
+    ],
+    "stocks": [
+      {
+        "id": "cmu9u32po00qub76rjgsc8bkc",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "cityId": "cmu9okcln0002b75fquqggimp",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:07.741Z",
+        "city": {
+          "id": "cmu9okcln0002b75fquqggimp",
+          "name": "Архангельск",
+          "slug": "arkhangelsk",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u32po00qvb76rmlxb1muv",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "cityId": "cmu9okco80003b75fu3siu2mx",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:07.741Z",
+        "city": {
+          "id": "cmu9okco80003b75fu3siu2mx",
+          "name": "Вологда",
+          "slug": "vologda",
+          "active": true
+        }
+      },
+      {
+        "id": "cmu9u32po00qwb76rjqdjojd7",
+        "productId": "cmu9u32po00qpb76rquiwsvbm",
+        "cityId": "cmu9okcoa0004b75fqaue1tnd",
+        "status": "IN_STOCK",
+        "quantity": 80,
+        "updatedAt": "2026-09-20T13:10:07.741Z",
+        "city": {
+          "id": "cmu9okcoa0004b75fqaue1tnd",
+          "name": "Северодвинск",
+          "slug": "severodvinsk",
+          "active": true
+        }
+      }
+    ]
+  },
+  {
     "id": "cmu9rm36600q5b76rg7wmd67s",
     "name": "Ламинат MSPC Дуб Морская гавань",
     "slug": "laminat-mspc-dub-morskaya-gavan",
