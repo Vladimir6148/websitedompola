@@ -24,18 +24,21 @@ export function OfferProductCard({ product }: { product: Product }) {
           className="h-full w-full object-cover"
         />
         {hasDeal ? (
-          <>
-            <div className="absolute left-2 top-2 z-10 flex max-w-[calc(100%-1rem)] overflow-hidden rounded-full text-[11px] font-bold shadow-sm sm:left-3 sm:top-3 sm:text-xs">
-              <span className="bg-[#e11d48] px-2 py-1 text-white sm:px-2.5">−{discount}%</span>
-              <span className="bg-white px-2 py-1 text-graphite/45 line-through sm:px-2.5">
-                {formatPrice(product.oldPrice!)}
+          <div className="absolute left-2 top-2 z-10 sm:left-3 sm:top-3">
+            <div className="relative inline-block">
+              <div className="flex overflow-hidden rounded-full text-[10px] font-bold leading-none shadow-sm sm:text-[11px]">
+                <span className="bg-[#e11d48] px-2 py-1.5 text-white sm:px-2.5">−{discount}%</span>
+                <span className="bg-white px-2 py-1.5 text-graphite/45 line-through sm:px-2.5">
+                  {formatPrice(product.oldPrice!)}
+                </span>
+              </div>
+              <span className="absolute left-0 top-[calc(100%+6px)] inline-flex w-full items-center justify-center gap-0.5 rounded-full bg-brand px-1.5 py-1.5 text-[9px] font-bold uppercase leading-none tracking-wide text-white shadow-sm sm:gap-1 sm:text-[10px]">
+                <BadgePercent size={11} className="shrink-0" />
+                <span className="truncate">Выгодная цена</span>
               </span>
+              <div className="h-8" aria-hidden />
             </div>
-            <span className="absolute left-2 top-12 inline-flex items-center gap-1 rounded-full bg-brand px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm sm:left-3 sm:top-14 sm:text-[11px]">
-              <BadgePercent size={12} />
-              Выгодная цена
-            </span>
-          </>
+          </div>
         ) : null}
       </Link>
 
