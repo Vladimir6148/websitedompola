@@ -151,9 +151,22 @@ export function Header() {
               target="_blank"
               rel="noreferrer"
               aria-label="Группа ВКонтакте"
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-[11px] font-bold tracking-tight text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10 sm:text-xs"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
             >
-              VK
+              <span
+                aria-hidden="true"
+                className="block h-[18px] w-[18px] bg-current"
+                style={{
+                  WebkitMaskImage: `url(${import.meta.env.BASE_URL}images/vk-icon.png)`,
+                  maskImage: `url(${import.meta.env.BASE_URL}images/vk-icon.png)`,
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'center',
+                  maskPosition: 'center',
+                }}
+              />
             </a>
             <a
               href="tel:+79214994979"
