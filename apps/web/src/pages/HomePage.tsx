@@ -41,8 +41,8 @@ export function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/65 to-brand-deep/35" />
         <div className="container-dp relative flex min-h-[78vh] flex-col justify-end pb-16 pt-28 md:justify-center md:pb-24">
           <p className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-brand">ДОМПОЛА</p>
-          <h1 className="max-w-3xl font-display text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-7xl">
-            {hero?.title || 'ДомПола федеральная сеть магазинов напольных покрытий'}
+          <h1 className="max-w-3xl font-display text-4xl font-normal leading-[1.15] sm:text-5xl lg:text-6xl">
+            {hero?.title || 'ДомПола — сеть магазинов напольных покрытий'}
           </h1>
           <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg">
             {hero?.subtitle ||

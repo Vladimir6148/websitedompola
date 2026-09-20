@@ -9,7 +9,7 @@
   --color-mist: #f3f6f2;
   --color-wood: #c4a574;
   --color-wood-dark: #8a6a3e;
-  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-display: "PT Serif", Georgia, "Times New Roman", serif;
   --font-sans: "Manrope", system-ui, sans-serif;
 }
 
@@ -41,6 +41,6 @@
   }
 
   .section-title {
-    @apply font-display text-3xl font-semibold tracking-tight text-graphite md:text-4xl lg:text-5xl;
+    @apply font-display text-3xl font-normal tracking-normal text-graphite md:text-4xl lg:text-5xl;
   }
 }
