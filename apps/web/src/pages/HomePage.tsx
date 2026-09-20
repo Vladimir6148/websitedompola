@@ -108,6 +108,22 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
+      <section className="border-b border-graphite/8 bg-white">
+        <div className="container-dp py-2.5 sm:py-3">
+          <div className="flex gap-1.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:gap-2 sm:overflow-visible">
+            {ASSORTMENT.map((item) => (
+              <Link
+                key={`${item.to}-${item.label}`}
+                to={item.to}
+                className="inline-flex h-8 shrink-0 items-center rounded-full border border-graphite/15 bg-mist/70 px-3 text-xs font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white sm:h-9 sm:px-3.5 sm:text-sm"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="container-dp py-6 md:py-10">
         <SectionHeader
           eyebrow="Скидки недели"
