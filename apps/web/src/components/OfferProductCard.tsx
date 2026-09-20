@@ -35,12 +35,12 @@ export function OfferProductCard({ product }: { product: Product }) {
           </div>
         ) : null}
         {inStock ? (
-          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-graphite px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white sm:right-3 sm:top-3 sm:text-[11px]">
-            <Zap size={12} className="fill-amber-400 text-amber-400" />
+          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-brand px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm sm:right-3 sm:top-3 sm:text-[11px]">
+            <Zap size={12} className="fill-white text-white" />
             В наличии
           </span>
         ) : (
-          <span className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-semibold text-graphite/70 sm:right-3 sm:top-3">
+          <span className="absolute right-2 top-2 rounded-full bg-white/95 px-2 py-1 text-[10px] font-semibold text-graphite/70 sm:right-3 sm:top-3">
             {stock ? stockLabel(stock.status) : 'Под заказ'}
           </span>
         )}
@@ -70,9 +70,9 @@ export function OfferProductCard({ product }: { product: Product }) {
         <button
           type="button"
           onClick={() => add(product)}
-          className="mt-auto w-full rounded-full bg-graphite py-2.5 text-sm font-semibold text-white transition hover:bg-brand"
+          className="mt-auto w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-white shadow-[0_8px_18px_rgba(31,138,61,0.28)] transition hover:bg-brand-dark active:scale-[0.98]"
         >
-          {inStock ? 'В наличии' : 'В корзину'}
+          В корзину
         </button>
       </div>
     </article>
