@@ -1,22 +1,19 @@
-import { Layers, Truck, Zap } from 'lucide-react';
+import { BadgePercent, Layers, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
-import { formatPrice, primaryImage, stockLabel } from '../lib/api';
+import { formatPrice, primaryImage } from '../lib/api';
 import { useCart } from '../store/cart';
-import { useCity } from '../store/city';
 import { SmartImage } from './SmartImage';
 
 export function OfferProductCard({ product }: { product: Product }) {
   const { add } = useCart();
-  const { city } = useCity();
   const image = primaryImage(product);
-  const stock = product.stocks?.find((s) => s.cityId === city?.id) || product.stocks?.[0];
-  const inStock = !stock || stock.status === 'IN_STOCK';
   const discount =
     product.discountPercent ||
     (product.oldPrice && product.oldPrice > product.price
       ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
       : null);
+  const hasDeal = Boolean(discount && product.oldPrice && product.oldPrice > product.price);
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-sm">
@@ -26,24 +23,20 @@ export function OfferProductCard({ product }: { product: Product }) {
           alt={product.images?.[0]?.alt || product.name}
           className="h-full w-full object-cover"
         />
-        {discount && product.oldPrice ? (
-          <div className="absolute left-2 top-2 flex overflow-hidden rounded-full text-[11px] font-bold shadow-sm sm:left-3 sm:top-3 sm:text-xs">
-            <span className="bg-[#e11d48] px-2 py-1 text-white sm:px-2.5">−{discount}%</span>
-            <span className="bg-white px-2 py-1 text-graphite/45 line-through sm:px-2.5">
-              {formatPrice(product.oldPrice)}
+        {hasDeal ? (
+          <>
+            <div className="absolute left-2 top-2 z-10 flex max-w-[calc(100%-1rem)] overflow-hidden rounded-full text-[11px] font-bold shadow-sm sm:left-3 sm:top-3 sm:text-xs">
+              <span className="bg-[#e11d48] px-2 py-1 text-white sm:px-2.5">−{discount}%</span>
+              <span className="bg-white px-2 py-1 text-graphite/45 line-through sm:px-2.5">
+                {formatPrice(product.oldPrice!)}
+              </span>
+            </div>
+            <span className="absolute left-2 top-12 inline-flex items-center gap-1 rounded-full bg-brand px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm sm:left-3 sm:top-14 sm:text-[11px]">
+              <BadgePercent size={12} />
+              Выгодная цена
             </span>
-          </div>
+          </>
         ) : null}
-        {inStock ? (
-          <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-brand px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm sm:right-3 sm:top-3 sm:text-[11px]">
-            <Zap size={12} className="fill-white text-white" />
-            В наличии
-          </span>
-        ) : (
-          <span className="absolute right-2 top-2 rounded-full bg-white/95 px-2 py-1 text-[10px] font-semibold text-graphite/70 sm:right-3 sm:top-3">
-            {stock ? stockLabel(stock.status) : 'Под заказ'}
-          </span>
-        )}
       </Link>
 
       <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
