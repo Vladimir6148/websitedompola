@@ -87,7 +87,6 @@ export function CatalogPage() {
   useEffect(() => {
     setLoading(true);
     const qs = new URLSearchParams();
-    if (categoryQuery) qs.set('category', categoryQuery);
     if (q) qs.set('q', q);
     if (brand) qs.set('brand', brand);
     if (sort) qs.set('sort', sort);
@@ -97,12 +96,57 @@ export function CatalogPage() {
     if (wearClass) qs.set('wearClass', wearClass);
     if (moistureResistant) qs.set('moistureResistant', moistureResistant);
     if (underfloorHeating) qs.set('underfloorHeating', underfloorHeating);
-    qs.set('limit', '12');
 
-    api<ProductsResponse>(`/api/products?${qs}`)
-      .then(setData)
-      .finally(() => setLoading(false));
-  }, [categoryQuery, q, brand, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
+    let cancelled = false;
+
+    if (accessoryHub) {
+      Promise.all(
+        ACCESSORY_SLUGS.map((slug) => {
+          const part = new URLSearchParams(qs);
+          part.set('category', slug);
+          part.set('limit', '48');
+          part.delete('page');
+          return api<ProductsResponse>(`/api/products?${part}`);
+        }),
+      )
+        .then((parts) => {
+          if (cancelled) return;
+          const seen = new Set<string>();
+          const items = parts.flatMap((p) => p.items || []).filter((item) => {
+            if (seen.has(item.id)) return false;
+            seen.add(item.id);
+            return true;
+          });
+          const pageNum = Math.max(1, Number(page) || 1);
+          const limit = 12;
+          const start = (pageNum - 1) * limit;
+          setData({
+            items: items.slice(start, start + limit),
+            total: items.length,
+            page: pageNum,
+            limit,
+            pages: Math.ceil(items.length / limit) || 1,
+          });
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    } else {
+      if (categoryQuery) qs.set('category', categoryQuery);
+      qs.set('limit', '12');
+      api<ProductsResponse>(`/api/products?${qs}`)
+        .then((res) => {
+          if (!cancelled) setData(res);
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [accessoryHub, categoryQuery, q, brand, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
 
   useEffect(() => {
     if (prevPageRef.current !== page) {
