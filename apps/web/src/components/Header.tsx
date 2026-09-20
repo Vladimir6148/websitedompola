@@ -90,7 +90,7 @@ export function Header() {
             </Link>
           </div>
 
-          <form onSubmit={onSearch} className="min-w-0 flex-1">
+          <form onSubmit={onSearch} className="w-[9.5rem] shrink-0 sm:w-[13rem] md:w-[16rem] lg:w-[18rem]">
             <label className="flex h-9 items-center gap-2 rounded-full border border-graphite/20 bg-mist/80 px-3 transition focus-within:border-brand focus-within:bg-white sm:h-10 sm:px-3.5">
               <Search size={16} strokeWidth={1.75} className="shrink-0 text-graphite/40" />
               <input
@@ -103,7 +103,7 @@ export function Header() {
             </label>
           </form>
 
-          <nav className="hidden shrink-0 items-center gap-2 xl:flex">
+          <nav className="ml-auto hidden shrink-0 items-center gap-2 xl:flex">
             {!isHome ? (
               <NavLink
                 to="/"
@@ -145,7 +145,18 @@ export function Header() {
             </NavLink>
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 xl:ml-0">
+            <a
+              href="https://vk.com/dompola29"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Группа ВКонтакте"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-[#0077FF] transition hover:border-[#0077FF] hover:bg-[#0077FF] hover:text-white sm:h-10 sm:w-10"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+                <path d="M12.78 16.5h1.2s.36-.04.54-.24c.17-.19.16-.55.16-.55s-.02-1.68.76-1.93c.76-.24 1.74 1.63 2.78 2.35.78.55 1.37.43 1.37.43l2.75-.04s1.44-.09.76-1.22c-.06-.09-.4-.84-2.05-2.37-1.73-1.6-1.5-1.34.58-4.11.1-.17 2.49-4.1 2.49-4.1.14-.27-.04-.42-.04-.42h-2.86s-.42.01-.72.2c-.29.18-.47.6-.47.6s-.85 2.27-1.98 3.74c-1.2 1.56-1.68 1.64-1.88 1.55-.46-.22-.34-.87-.34-1.34V7.9c0-.37-.11-.6-.4-.72-.23-.09-.54-.12-1.1.01-.86.2-1.42.65-1.42.65s-.5.35-.14.35c.4 0 .65.19.89.63.3.55.29 1.78.29 1.78s.02 1.05-.24 1.2c-.18.1-.42-.1-1.06-.94-1.04-1.37-1.77-3.6-1.77-3.6s-.15-.36-.41-.55c-.25-.18-.6-.24-.6-.24H5.56s-.5.01-.68.23c-.16.2-.01.61-.01.61s4.01 9.36 8.56 9.36z" />
+              </svg>
+            </a>
             <a
               href="tel:+79214994979"
               aria-label="Позвонить"
