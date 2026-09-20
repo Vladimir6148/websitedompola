@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
@@ -12,6 +12,8 @@ export function CatalogPage() {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const productsTopRef = useRef<HTMLDivElement>(null);
+  const shouldScrollToProducts = useRef(false);
 
   const q = params.get('q') || '';
   const brand = params.get('brand') || '';
@@ -22,6 +24,7 @@ export function CatalogPage() {
   const wearClass = params.get('wearClass') || '';
   const moistureResistant = params.get('moistureResistant') || '';
   const underfloorHeating = params.get('underfloorHeating') || '';
+  const prevPageRef = useRef(page);
 
   const activeCategory = useMemo(
     () => categories.find((c) => c.slug === categorySlug),
@@ -56,6 +59,19 @@ export function CatalogPage() {
       .then(setData)
       .finally(() => setLoading(false));
   }, [categorySlug, q, brand, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
+
+  useEffect(() => {
+    if (prevPageRef.current !== page) {
+      shouldScrollToProducts.current = true;
+      prevPageRef.current = page;
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if (loading || !shouldScrollToProducts.current) return;
+    shouldScrollToProducts.current = false;
+    productsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [loading, data]);
 
   function update(key: string, value: string) {
     const next = new URLSearchParams(params);
@@ -172,7 +188,7 @@ export function CatalogPage() {
             </label>
           </aside>
 
-          <div>
+          <div ref={productsTopRef} className="scroll-mt-28">
             {loading ? (
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {Array.from({ length: 6 }).map((_, i) => (
