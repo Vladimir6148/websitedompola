@@ -30,7 +30,7 @@
     "brandId": "cmu9rlj7r0004b76rfha9yx7f",
     "collectionId": null,
     "createdAt": "2026-09-20T13:10:08.696Z",
-    "updatedAt": "2026-09-20T13:10:08.696Z",
+    "updatedAt": "2026-09-20T13:14:34.098Z",
     "category": {
       "id": "cmu9okcp6000bb75ftfkpvq3k",
       "name": "Подложка",
@@ -58,14 +58,14 @@
     "collection": null,
     "images": [
       {
-        "id": "cmu9u33g700rhb76rbd05pak1",
+        "id": "cmu9u8s8n00rob76rei81fqpz",
         "productId": "cmu9u33g700rgb76rkm2c3ywv",
-        "url": "images/living.jpg",
-        "alt": "Подложка хвойная",
+        "url": "images/related/podlozhka-pine.jpg",
+        "alt": "Подложка хвойная 7 мм",
         "isPrimary": true,
         "sortOrder": 0,
         "storageKey": null,
-        "createdAt": "2026-09-20T13:10:08.696Z"
+        "createdAt": "2026-09-20T13:14:34.104Z"
       }
     ],
     "characteristics": [
@@ -162,7 +162,7 @@
     "brandId": "cmu9rlj7r0004b76rfha9yx7f",
     "collectionId": null,
     "createdAt": "2026-09-20T13:10:08.378Z",
-    "updatedAt": "2026-09-20T13:10:08.378Z",
+    "updatedAt": "2026-09-20T13:14:34.935Z",
     "category": {
       "id": "cmu9okcp8000cb75f9m9yvcs9",
       "name": "Комплектующие",
@@ -190,14 +190,14 @@
     "collection": null,
     "images": [
       {
-        "id": "cmu9u337e00r8b76re9y91q9p",
+        "id": "cmu9u8svu00rsb76rnz24v6fy",
         "productId": "cmu9u337e00r7b76r0tuza6f7",
-        "url": "images/floor2.jpg",
-        "alt": "Клей для SPC",
+        "url": "images/related/klej.jpg",
+        "alt": "Клей для SPC и кварцвинила",
         "isPrimary": true,
         "sortOrder": 0,
         "storageKey": null,
-        "createdAt": "2026-09-20T13:10:08.378Z"
+        "createdAt": "2026-09-20T13:14:34.938Z"
       }
     ],
     "characteristics": [
@@ -294,7 +294,7 @@
     "brandId": "cmu9rlj7r0004b76rfha9yx7f",
     "collectionId": null,
     "createdAt": "2026-09-20T13:10:08.071Z",
-    "updatedAt": "2026-09-20T13:10:08.071Z",
+    "updatedAt": "2026-09-20T13:14:34.596Z",
     "category": {
       "id": "cmu9okcp3000ab75fno4ubrc0",
       "name": "Плинтусы",
@@ -322,14 +322,14 @@
     "collection": null,
     "images": [
       {
-        "id": "cmu9u32yv00qzb76ru12jp5if",
+        "id": "cmu9u8smf00rqb76r096w8rgb",
         "productId": "cmu9u32yv00qyb76r4ncipbmz",
-        "url": "images/wood.jpg",
-        "alt": "Плинтус ПВХ",
+        "url": "images/related/plintus.jpg",
+        "alt": "Плинтус ПВХ Дуб Натуральный",
         "isPrimary": true,
         "sortOrder": 0,
         "storageKey": null,
-        "createdAt": "2026-09-20T13:10:08.071Z"
+        "createdAt": "2026-09-20T13:14:34.599Z"
       }
     ],
     "characteristics": [
@@ -426,7 +426,7 @@
     "brandId": "cmu9rlj7r0004b76rfha9yx7f",
     "collectionId": null,
     "createdAt": "2026-09-20T13:10:07.741Z",
-    "updatedAt": "2026-09-20T13:10:07.741Z",
+    "updatedAt": "2026-09-20T13:14:34.442Z",
     "category": {
       "id": "cmu9okcp6000bb75ftfkpvq3k",
       "name": "Подложка",
@@ -454,14 +454,14 @@
     "collection": null,
     "images": [
       {
-        "id": "cmu9u32po00qqb76r7sav83er",
+        "id": "cmu9u8si600rpb76r5hucnlxc",
         "productId": "cmu9u32po00qpb76rquiwsvbm",
-        "url": "images/floor1.jpg",
-        "alt": "Подложка XPS",
+        "url": "images/related/podlozhka-xps.jpg",
+        "alt": "Подложка XPS 3 мм",
         "isPrimary": true,
         "sortOrder": 0,
         "storageKey": null,
-        "createdAt": "2026-09-20T13:10:07.741Z"
+        "createdAt": "2026-09-20T13:14:34.447Z"
       }
     ],
     "characteristics": [
@@ -11356,7 +11356,7 @@
     "brandId": "cmu9okcpb000fb75far2odao6",
     "collectionId": null,
     "createdAt": "2026-09-20T10:35:36.450Z",
-    "updatedAt": "2026-09-20T10:35:36.450Z",
+    "updatedAt": "2026-09-20T13:14:34.761Z",
     "category": {
       "id": "cmu9okcp3000ab75fno4ubrc0",
       "name": "Плинтусы",
@@ -11384,24 +11384,14 @@
     "collection": null,
     "images": [
       {
-        "id": "cmu9okcxt002bb75fr0v4kc1e",
+        "id": "cmu9u8sr000rrb76r18n8kbnr",
         "productId": "cmu9okcxt002ab75fon34c0c0",
-        "url": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
+        "url": "images/related/plintus.jpg",
         "alt": "Плинтус МДФ Белый 80",
         "isPrimary": true,
         "sortOrder": 0,
         "storageKey": null,
-        "createdAt": "2026-09-20T10:35:36.450Z"
-      },
-      {
-        "id": "cmu9okcxt002cb75fpgbpoj4q",
-        "productId": "cmu9okcxt002ab75fon34c0c0",
-        "url": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
-        "alt": "Плинтус МДФ Белый 80 в интерьере",
-        "isPrimary": false,
-        "sortOrder": 1,
-        "storageKey": null,
-        "createdAt": "2026-09-20T10:35:36.450Z"
+        "createdAt": "2026-09-20T13:14:34.765Z"
       }
     ],
     "characteristics": [
