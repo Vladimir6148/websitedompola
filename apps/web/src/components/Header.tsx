@@ -156,7 +156,7 @@ export function Header() {
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
           <a
-            href="tel:+78182650000"
+            href="tel:+79214994979"
             aria-label="Позвонить"
             className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
           >

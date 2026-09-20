@@ -2,17 +2,17 @@
   {
     "id": "cmu9ls8q4002jw1h4sj7650xf",
     "name": "ДОМПОЛА — Архангельск",
-    "address": "пр. Троицкий, 52",
-    "phone": "+7 (8182) 65-00-00",
+    "address": "ТЦ «Новосёл», Московский проспект, 25, корп. 4, стр. 1",
+    "phone": "+7 (921) 499-49-79",
     "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
     "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
     "photos": "[\"images/store.jpg\"]",
-    "lat": 64.5393,
-    "lng": 40.5187,
+    "lat": 64.532847,
+    "lng": 40.594182,
     "active": true,
     "cityId": "cmu9ls8kf0002w1h4cd495ihe",
     "createdAt": "2026-09-20T09:17:45.388Z",
-    "updatedAt": "2026-09-20T09:17:45.388Z",
+    "updatedAt": "2026-09-20T15:15:00.000Z",
     "city": {
       "id": "cmu9ls8kf0002w1h4cd495ihe",
       "name": "Архангельск",
@@ -21,44 +21,44 @@
     }
   },
   {
-    "id": "cmu9ls8qc002nw1h4gcztqxyz",
-    "name": "ДОМПОЛА — Вологда",
-    "address": "ул. Мира, 30",
-    "phone": "+7 (8182) 65-00-00",
-    "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
-    "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
-    "photos": "[\"images/store.jpg\"]",
-    "lat": 59.2205,
-    "lng": 39.8886,
-    "active": true,
-    "cityId": "cmu9ls8kg0004w1h49exwifna",
-    "createdAt": "2026-09-20T09:17:45.396Z",
-    "updatedAt": "2026-09-20T09:17:45.396Z",
-    "city": {
-      "id": "cmu9ls8kg0004w1h49exwifna",
-      "name": "Вологда",
-      "slug": "vologda",
-      "active": true
-    }
-  },
-  {
     "id": "cmu9ls8q7002lw1h4s4hc9s7w",
     "name": "ДОМПОЛА — Северодвинск",
-    "address": "ул. Ломоносова, 81",
-    "phone": "+7 (8182) 65-00-00",
+    "address": "ул. Южная, 4",
+    "phone": "+7 (921) 249-49-79",
     "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
     "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
     "photos": "[\"images/store.jpg\"]",
-    "lat": 64.5625,
-    "lng": 39.8302,
+    "lat": 64.5581,
+    "lng": 39.8565,
     "active": true,
     "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
     "createdAt": "2026-09-20T09:17:45.392Z",
-    "updatedAt": "2026-09-20T09:17:45.392Z",
+    "updatedAt": "2026-09-20T15:15:00.000Z",
     "city": {
       "id": "cmu9ls8kg0003w1h45f5wk9h6",
       "name": "Северодвинск",
       "slug": "severodvinsk",
+      "active": true
+    }
+  },
+  {
+    "id": "cmu9ls8qc002nw1h4gcztqxyz",
+    "name": "ДОМПОЛА — Вологда",
+    "address": "ул. Чернышевского, 97А",
+    "phone": "",
+    "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
+    "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
+    "photos": "[\"images/store.jpg\"]",
+    "lat": 59.237315,
+    "lng": 39.902258,
+    "active": true,
+    "cityId": "cmu9ls8kg0004w1h49exwifna",
+    "createdAt": "2026-09-20T09:17:45.396Z",
+    "updatedAt": "2026-09-20T15:15:00.000Z",
+    "city": {
+      "id": "cmu9ls8kg0004w1h49exwifna",
+      "name": "Вологда",
+      "slug": "vologda",
       "active": true
     }
   }

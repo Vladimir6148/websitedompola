@@ -127,10 +127,30 @@ export function ContactsPage() {
       <div className="container-dp py-10 md:py-14">
         <h1 className="section-title">Контакты</h1>
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          <div className="space-y-4 text-lg">
-            <p><a href="tel:+78182650000" className="font-semibold hover:text-brand">+7 (8182) 65-00-00</a></p>
-            <p><a href="mailto:hello@dompola.ru" className="hover:text-brand">hello@dompola.ru</a></p>
-            <p className="text-graphite/65">Архангельск · Северодвинск · Вологда</p>
+          <div className="space-y-5 text-base sm:text-lg">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-brand">Архангельск</p>
+              <p className="mt-1 text-graphite/80">ТЦ «Новосёл», Московский проспект, 25, корп. 4, стр. 1</p>
+              <a href="tel:+79214994979" className="mt-1 inline-block font-semibold hover:text-brand">
+                +7 (921) 499-49-79
+              </a>
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-brand">Северодвинск</p>
+              <p className="mt-1 text-graphite/80">ул. Южная, 4</p>
+              <a href="tel:+79212494979" className="mt-1 inline-block font-semibold hover:text-brand">
+                +7 (921) 249-49-79
+              </a>
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-brand">Вологда</p>
+              <p className="mt-1 text-graphite/80">ул. Чернышевского, 97А</p>
+            </div>
+            <p>
+              <a href="mailto:hello@dompola.ru" className="hover:text-brand">
+                hello@dompola.ru
+              </a>
+            </p>
             <p className="text-graphite/65">Пн–Сб 10:00–20:00, Вс 10:00–18:00</p>
           </div>
           <div className="rounded-3xl bg-mist p-6">

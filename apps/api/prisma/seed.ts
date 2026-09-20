@@ -329,16 +329,21 @@ async function main() {
         name: `ДОМПОЛА — ${city.name}`,
         address:
           city.slug === 'arkhangelsk'
-            ? 'пр. Троицкий, 52'
+            ? 'ТЦ «Новосёл», Московский проспект, 25, корп. 4, стр. 1'
             : city.slug === 'severodvinsk'
-              ? 'ул. Ломоносова, 81'
-              : 'ул. Мира, 30',
-        phone: '+7 (8182) 65-00-00',
+              ? 'ул. Южная, 4'
+              : 'ул. Чернышевского, 97А',
+        phone:
+          city.slug === 'arkhangelsk'
+            ? '+7 (921) 499-49-79'
+            : city.slug === 'severodvinsk'
+              ? '+7 (921) 249-49-79'
+              : '',
         schedule: 'Пн–Сб 10:00–20:00, Вс 10:00–18:00',
         description: 'Шоурум напольных покрытий, консультации и расчёт материалов.',
         photos: JSON.stringify([IMG.store]),
-        lat: city.slug === 'arkhangelsk' ? 64.5393 : city.slug === 'severodvinsk' ? 64.5625 : 59.2205,
-        lng: city.slug === 'arkhangelsk' ? 40.5187 : city.slug === 'severodvinsk' ? 39.8302 : 39.8886,
+        lat: city.slug === 'arkhangelsk' ? 64.532847 : city.slug === 'severodvinsk' ? 64.5581 : 59.237315,
+        lng: city.slug === 'arkhangelsk' ? 40.594182 : city.slug === 'severodvinsk' ? 39.8565 : 39.902258,
         cityId: city.id,
       },
     });
@@ -429,7 +434,7 @@ async function main() {
 
   await prisma.contactInfo.createMany({
     data: [
-      { key: 'phone', label: 'Телефон', value: '+7 (8182) 65-00-00' },
+      { key: 'phone', label: 'Телефон', value: '+7 (921) 499-49-79' },
       { key: 'email', label: 'Email', value: 'hello@dompola.ru' },
       { key: 'hours', label: 'Режим работы', value: 'Пн–Сб 10:00–20:00' },
     ],

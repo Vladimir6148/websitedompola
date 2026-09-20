@@ -30,7 +30,7 @@ export function Footer() {
         <div>
           <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/50">Контакты</div>
           <div className="grid gap-2 text-sm text-white/80">
-            <a href="tel:+78182650000" className="hover:text-brand">+7 (8182) 65-00-00</a>
+            <a href="tel:+79214994979" className="hover:text-brand">+7 (921) 499-49-79</a>
             <a href="mailto:hello@dompola.ru" className="hover:text-brand">hello@dompola.ru</a>
             <p>Пн–Сб 10:00–20:00</p>
           </div>
