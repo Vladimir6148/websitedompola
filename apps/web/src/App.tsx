@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { StoreLayout } from './components/StoreLayout';
+import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductPage } from './pages/ProductPage';
@@ -34,6 +35,7 @@ export default function App() {
         <CartProvider>
           <FavoritesProvider>
             <BrowserRouter basename={(import.meta.env.BASE_URL.replace(/\/$/, '') || undefined) as string | undefined}>
+              <ScrollToTop />
               <Routes>
                 <Route element={<StoreLayout />}>
                   <Route index element={<HomePage />} />
