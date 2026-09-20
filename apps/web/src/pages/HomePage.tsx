@@ -141,13 +141,12 @@ export function HomePage() {
             eyebrow="Сервис"
             title="Услуги"
             description="Замер, укладка и расчёт материалов — без лишней суеты."
-            action={{ to: '/services', label: 'Все услуги' }}
           />
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
             {(data?.services || []).map((s) => (
-              <div key={s.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-graphite/5">
-                <h3 className="font-display text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-graphite/65">{s.description}</p>
+              <div key={s.id} className="rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-graphite/5 sm:p-5">
+                <h3 className="font-display text-sm font-semibold leading-snug sm:text-base">{s.title}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">{s.description}</p>
               </div>
             ))}
           </div>
@@ -160,12 +159,12 @@ export function HomePage() {
           title="Доверяют ДОМПОЛА"
           description="Шоурумы, подбор под задачу и монтаж — от образца до готового пола."
         />
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
           {(data?.advantages || []).map((a) => (
-            <div key={a.id} className="rounded-2xl border border-graphite/8 bg-mist/60 p-6">
-              <div className="mb-4 text-brand">{icons[a.icon || ''] || <Compass />}</div>
-              <h3 className="font-display text-lg font-semibold">{a.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-graphite/65">{a.description}</p>
+            <div key={a.id} className="rounded-xl border border-graphite/8 bg-mist/60 p-3.5 sm:p-5">
+              <div className="mb-2 text-brand sm:mb-3">{icons[a.icon || ''] || <Compass />}</div>
+              <h3 className="font-display text-sm font-semibold leading-snug sm:text-base">{a.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">{a.description}</p>
             </div>
           ))}
         </div>
