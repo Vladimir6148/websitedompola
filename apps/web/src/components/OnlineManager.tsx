@@ -2,19 +2,15 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { Headphones, X } from 'lucide-react';
 import { api } from '../lib/api';
 
-const DISMISS_KEY = 'dompola_manager_dismissed_at';
-const DISMISS_TTL_MS = 1000 * 60 * 60 * 4; // 4 часа
+const SESSION_DISMISS_KEY = 'dompola_manager_dismissed';
+const LEGACY_DISMISS_KEY = 'dompola_manager_dismissed_at';
 const AUTO_OPEN_MS = 15_000;
 
 type Step = 'ask' | 'form' | 'done';
 
-function wasRecentlyDismissed() {
+function wasDismissedThisSession() {
   try {
-    const raw = localStorage.getItem(DISMISS_KEY);
-    if (!raw) return false;
-    const at = Number(raw);
-    if (!Number.isFinite(at)) return false;
-    return Date.now() - at < DISMISS_TTL_MS;
+    return sessionStorage.getItem(SESSION_DISMISS_KEY) === '1';
   } catch {
     return false;
   }
@@ -28,14 +24,22 @@ export function OnlineManager() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
 
   useEffect(() => {
-    if (wasRecentlyDismissed()) return;
+    // Сбрасываем старый ключ (раньше прятал виджет на 4 часа)
+    try {
+      localStorage.removeItem(LEGACY_DISMISS_KEY);
+    } catch {
+      /* ignore */
+    }
+
+    if (wasDismissedThisSession()) return;
+
     const timer = window.setTimeout(() => setVisible(true), AUTO_OPEN_MS);
     return () => window.clearTimeout(timer);
   }, []);
 
   function dismiss() {
     try {
-      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      sessionStorage.setItem(SESSION_DISMISS_KEY, '1');
     } catch {
       /* ignore */
     }
