@@ -125,7 +125,7 @@ export function Header() {
 
         <Link
           to="/"
-          className="hidden shrink-0 font-display text-xl font-bold tracking-tight text-brand-dark sm:text-2xl md:inline"
+          className="sr-only"
         >
           ДОМПОЛА
         </Link>
