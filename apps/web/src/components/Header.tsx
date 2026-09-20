@@ -59,17 +59,10 @@ export function Header() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            aria-label="Открыть каталог и поиск"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
+            aria-label="Открыть каталог"
+            className="inline-flex h-9 shrink-0 items-center rounded-full border border-graphite/20 bg-white px-2.5 text-xs font-semibold text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:px-3.5 sm:text-sm"
           >
-            <span className="relative inline-flex items-center">
-              <span className="mr-0.5 flex flex-col gap-[2.5px]" aria-hidden>
-                <span className="block h-[1.5px] w-2.5 rounded-full bg-current" />
-                <span className="block h-[1.5px] w-2 rounded-full bg-current" />
-                <span className="block h-[1.5px] w-1.5 rounded-full bg-current" />
-              </span>
-              <Search size={15} strokeWidth={2.25} />
-            </span>
+            Каталог
           </button>
 
           <Link
@@ -80,13 +73,6 @@ export function Header() {
               <Percent size={10} strokeWidth={2.5} />
             </span>
             <span>Акции</span>
-          </Link>
-
-          <Link
-            to="/services"
-            className="inline-flex h-9 shrink-0 items-center rounded-full border border-graphite/20 bg-white px-2.5 text-xs font-semibold text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:px-3.5 sm:text-sm"
-          >
-            Услуги
           </Link>
         </div>
 
