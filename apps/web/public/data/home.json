@@ -214,7 +214,7 @@
       "createdAt": "2026-09-20T10:35:36.122Z",
       "updatedAt": "2026-09-20T10:35:36.122Z",
       "_count": {
-        "products": 82
+        "products": 152
       }
     },
     {
@@ -324,6 +324,606 @@
     }
   ],
   "featured": [
+    {
+      "id": "prod_2f0fad0a77381c5c",
+      "name": "Alta Step Дуб античный",
+      "slug": "alta-step-dub-antichnyy-spc8806",
+      "sku": "ALTA-SPC8806",
+      "description": "Дуб античный\nКоллекция: Perfecto\nАртикул: SPC8806\nИмитация: Дуб\nТолщина: 5.3 мм\nРазмер: 1218×180 мм\nВ упаковке: 2.6309 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": null,
+      "packArea": 2.6309,
+      "thickness": 5.3,
+      "wearClass": "43",
+      "length": 1218,
+      "width": 180,
+      "color": "Дуб",
+      "bevel": null,
+      "lockType": "Замковый",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": "0,3 мм",
+      "seoTitle": "Alta Step Дуб античный — ДОМПОЛА",
+      "seoDescription": "Дуб античный, коллекция Perfecto",
+      "published": true,
+      "featured": true,
+      "sortOrder": 1000,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_0edde33e45a7b0fa",
+      "collectionId": "coll_83fc9fb90639ea60",
+      "createdAt": "2026-09-20T17:21:38.009Z",
+      "updatedAt": "2026-09-20T17:21:38.009Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_0edde33e45a7b0fa",
+        "name": "Alta Step",
+        "slug": "alta-step",
+        "logo": null,
+        "description": "Каменно-полимерные SPC покрытия Alta Step",
+        "website": "https://alta-step.ru/",
+        "sortOrder": 2,
+        "active": true,
+        "createdAt": "2026-09-20T17:21:29.963Z",
+        "updatedAt": "2026-09-20T17:21:29.964Z"
+      },
+      "collection": {
+        "id": "coll_83fc9fb90639ea60",
+        "name": "Perfecto",
+        "slug": "perfecto",
+        "brandId": "brand_0edde33e45a7b0fa",
+        "createdAt": "2026-09-20T17:21:29.966Z",
+        "updatedAt": "2026-09-20T17:21:29.966Z"
+      },
+      "images": [
+        {
+          "id": "img_6f760b7876dc781a",
+          "productId": "prod_2f0fad0a77381c5c",
+          "url": "https://alta-step.ru/files/products/25_1690981547.jpg",
+          "alt": "Дуб античный",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.009Z"
+        },
+        {
+          "id": "img_b0f9a052e7adc318",
+          "productId": "prod_2f0fad0a77381c5c",
+          "url": "https://alta-step.ru/files/products/80_1690980925.jpg",
+          "alt": "Дуб античный",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.009Z"
+        },
+        {
+          "id": "img_fc2d3331ab53ff2a",
+          "productId": "prod_2f0fad0a77381c5c",
+          "url": "https://alta-step.ru/files/products/84_1769766619.jpg",
+          "alt": "Дуб античный",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.009Z"
+        },
+        {
+          "id": "img_54d3ffa796ecea9b",
+          "productId": "prod_2f0fad0a77381c5c",
+          "url": "https://alta-step.ru/files/products/85_1690981110.jpg",
+          "alt": "Дуб античный",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.009Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_24002e251aedff35",
+          "productId": "prod_2f0fad0a77381c5c",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Alta Step",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_e6411b4388a9cb38",
+          "productId": "prod_2f0fad0a77381c5c",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Perfecto",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_fa551810a94ead1c",
+          "productId": "prod_2f0fad0a77381c5c",
+          "key": "sku",
+          "label": "Артикул",
+          "value": "SPC8806",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_b083c8d5613ea2b6",
+          "productId": "prod_2f0fad0a77381c5c",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "5.3 мм",
+          "sortOrder": 3
+        },
+        {
+          "id": "ch_29387df3196ba573",
+          "productId": "prod_2f0fad0a77381c5c",
+          "key": "wearLayer",
+          "label": "Защитный слой",
+          "value": "0,3 мм",
+          "sortOrder": 4
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_786e7b1285b387f5",
+      "name": "Alta Step Дуб австрийский",
+      "slug": "alta-step-dub-avstriyskiy-spc4407",
+      "sku": "ALTA-SPC4407",
+      "description": "Дуб австрийский\nКоллекция: Mirada\nАртикул: SPC4407\nИмитация: Дуб\nТолщина: 4 мм\nРазмер: 640×128 мм\nВ упаковке: 1.31 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": null,
+      "packArea": 1.31,
+      "thickness": 4,
+      "wearClass": "43",
+      "length": 640,
+      "width": 128,
+      "color": "Дуб",
+      "bevel": null,
+      "lockType": "Замковый",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": "0,3 мм",
+      "seoTitle": "Alta Step Дуб австрийский — ДОМПОЛА",
+      "seoDescription": "Дуб австрийский, коллекция Mirada",
+      "published": true,
+      "featured": true,
+      "sortOrder": 1001,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_0edde33e45a7b0fa",
+      "collectionId": "coll_e116ff24cf214e93",
+      "createdAt": "2026-09-20T17:21:38.010Z",
+      "updatedAt": "2026-09-20T17:21:38.010Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_0edde33e45a7b0fa",
+        "name": "Alta Step",
+        "slug": "alta-step",
+        "logo": null,
+        "description": "Каменно-полимерные SPC покрытия Alta Step",
+        "website": "https://alta-step.ru/",
+        "sortOrder": 2,
+        "active": true,
+        "createdAt": "2026-09-20T17:21:29.963Z",
+        "updatedAt": "2026-09-20T17:21:29.964Z"
+      },
+      "collection": {
+        "id": "coll_e116ff24cf214e93",
+        "name": "Mirada",
+        "slug": "mirada",
+        "brandId": "brand_0edde33e45a7b0fa",
+        "createdAt": "2026-09-20T17:21:29.966Z",
+        "updatedAt": "2026-09-20T17:21:29.966Z"
+      },
+      "images": [
+        {
+          "id": "img_ded76ba2cedb7bf6",
+          "productId": "prod_786e7b1285b387f5",
+          "url": "https://alta-step.ru/files/products/113_1690980475.jpg",
+          "alt": "Дуб австрийский",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_ea5d5f7e6b75a79f",
+          "productId": "prod_786e7b1285b387f5",
+          "url": "https://alta-step.ru/files/products/107_1690980214.jpg",
+          "alt": "Дуб австрийский",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_d341358f2bc35840",
+          "productId": "prod_786e7b1285b387f5",
+          "url": "https://alta-step.ru/files/products/108_1751269797.jpg",
+          "alt": "Дуб австрийский",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_f25529ba190aae5c",
+          "productId": "prod_786e7b1285b387f5",
+          "url": "https://alta-step.ru/files/products/109_1690980314.jpg",
+          "alt": "Дуб австрийский",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_219a4eaf89cd7f24",
+          "productId": "prod_786e7b1285b387f5",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Alta Step",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_a4bd4f6b34d5c304",
+          "productId": "prod_786e7b1285b387f5",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Mirada",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_84c90ac1c71c6a4b",
+          "productId": "prod_786e7b1285b387f5",
+          "key": "sku",
+          "label": "Артикул",
+          "value": "SPC4407",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_725e7afb750f86b0",
+          "productId": "prod_786e7b1285b387f5",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "4 мм",
+          "sortOrder": 3
+        },
+        {
+          "id": "ch_cf925a9af3f941c4",
+          "productId": "prod_786e7b1285b387f5",
+          "key": "wearLayer",
+          "label": "Защитный слой",
+          "value": "0,3 мм",
+          "sortOrder": 4
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_117e4776dc60f9f4",
+      "name": "Alta Step Дуб азиатский",
+      "slug": "alta-step-dub-aziatskiy-spc8812",
+      "sku": "ALTA-SPC8812",
+      "description": "Дуб азиатский\nКоллекция: Perfecto\nАртикул: SPC8812\nИмитация: Дуб\nТолщина: 5.3 мм\nРазмер: 1218×180 мм\nВ упаковке: 2.6309 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": null,
+      "packArea": 2.6309,
+      "thickness": 5.3,
+      "wearClass": "43",
+      "length": 1218,
+      "width": 180,
+      "color": "Дуб",
+      "bevel": null,
+      "lockType": "Замковый",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": "0,3 мм",
+      "seoTitle": "Alta Step Дуб азиатский — ДОМПОЛА",
+      "seoDescription": "Дуб азиатский, коллекция Perfecto",
+      "published": true,
+      "featured": true,
+      "sortOrder": 1002,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_0edde33e45a7b0fa",
+      "collectionId": "coll_83fc9fb90639ea60",
+      "createdAt": "2026-09-20T17:21:38.010Z",
+      "updatedAt": "2026-09-20T17:21:38.010Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_0edde33e45a7b0fa",
+        "name": "Alta Step",
+        "slug": "alta-step",
+        "logo": null,
+        "description": "Каменно-полимерные SPC покрытия Alta Step",
+        "website": "https://alta-step.ru/",
+        "sortOrder": 2,
+        "active": true,
+        "createdAt": "2026-09-20T17:21:29.963Z",
+        "updatedAt": "2026-09-20T17:21:29.964Z"
+      },
+      "collection": {
+        "id": "coll_83fc9fb90639ea60",
+        "name": "Perfecto",
+        "slug": "perfecto",
+        "brandId": "brand_0edde33e45a7b0fa",
+        "createdAt": "2026-09-20T17:21:29.966Z",
+        "updatedAt": "2026-09-20T17:21:29.966Z"
+      },
+      "images": [
+        {
+          "id": "img_990745955dda0b02",
+          "productId": "prod_117e4776dc60f9f4",
+          "url": "https://alta-step.ru/files/products/90_1690981618.jpg",
+          "alt": "Дуб азиатский",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_5f7c508d321cd6db",
+          "productId": "prod_117e4776dc60f9f4",
+          "url": "https://alta-step.ru/files/products/106_1690979832.jpg",
+          "alt": "Дуб азиатский",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_984b30755a930a76",
+          "productId": "prod_117e4776dc60f9f4",
+          "url": "https://alta-step.ru/files/products/105_1690979792.jpg",
+          "alt": "Дуб азиатский",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_b948f72e81fe4e69",
+          "productId": "prod_117e4776dc60f9f4",
+          "url": "https://alta-step.ru/files/products/107_1690980214.jpg",
+          "alt": "Дуб азиатский",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_e68fcbee832255ff",
+          "productId": "prod_117e4776dc60f9f4",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Alta Step",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_72ef97957e33ea9e",
+          "productId": "prod_117e4776dc60f9f4",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Perfecto",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_3f6e6a9719aeb265",
+          "productId": "prod_117e4776dc60f9f4",
+          "key": "sku",
+          "label": "Артикул",
+          "value": "SPC8812",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_effa82106a7c5859",
+          "productId": "prod_117e4776dc60f9f4",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "5.3 мм",
+          "sortOrder": 3
+        },
+        {
+          "id": "ch_3717f6c008139e7f",
+          "productId": "prod_117e4776dc60f9f4",
+          "key": "wearLayer",
+          "label": "Защитный слой",
+          "value": "0,3 мм",
+          "sortOrder": 4
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_7cade83a17b92f6e",
+      "name": "Alta Step Дуб баноффи",
+      "slug": "alta-step-dub-banoffi-spc3302",
+      "sku": "ALTA-SPC3302",
+      "description": "Дуб баноффи\nКоллекция: Gusto\nАртикул: SPC3302\nИмитация: Дуб\nТолщина: 4.3 мм\nРазмер: 1218×180 мм\nВ упаковке: 3.069 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": null,
+      "packArea": 3.069,
+      "thickness": 4.3,
+      "wearClass": "43",
+      "length": 1218,
+      "width": 180,
+      "color": "Дуб",
+      "bevel": null,
+      "lockType": "Замковый",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": "0,3 мм",
+      "seoTitle": "Alta Step Дуб баноффи — ДОМПОЛА",
+      "seoDescription": "Дуб баноффи, коллекция Gusto",
+      "published": true,
+      "featured": true,
+      "sortOrder": 1003,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_0edde33e45a7b0fa",
+      "collectionId": "coll_ba45dedbcbb6cb29",
+      "createdAt": "2026-09-20T17:21:38.010Z",
+      "updatedAt": "2026-09-20T17:21:38.010Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_0edde33e45a7b0fa",
+        "name": "Alta Step",
+        "slug": "alta-step",
+        "logo": null,
+        "description": "Каменно-полимерные SPC покрытия Alta Step",
+        "website": "https://alta-step.ru/",
+        "sortOrder": 2,
+        "active": true,
+        "createdAt": "2026-09-20T17:21:29.963Z",
+        "updatedAt": "2026-09-20T17:21:29.964Z"
+      },
+      "collection": {
+        "id": "coll_ba45dedbcbb6cb29",
+        "name": "Gusto",
+        "slug": "gusto",
+        "brandId": "brand_0edde33e45a7b0fa",
+        "createdAt": "2026-09-20T17:21:29.966Z",
+        "updatedAt": "2026-09-20T17:21:29.966Z"
+      },
+      "images": [
+        {
+          "id": "img_73630e5dc49595db",
+          "productId": "prod_7cade83a17b92f6e",
+          "url": "https://alta-step.ru/files/products/98_1690979514.jpg",
+          "alt": "Дуб баноффи",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_ac20987765706319",
+          "productId": "prod_7cade83a17b92f6e",
+          "url": "https://alta-step.ru/files/products/88_16909793307.jpg",
+          "alt": "Дуб баноффи",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_e000db6fa1b77f4d",
+          "productId": "prod_7cade83a17b92f6e",
+          "url": "https://alta-step.ru/files/products/89_16909793907.jpg",
+          "alt": "Дуб баноффи",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        },
+        {
+          "id": "img_0e22effc87fa0456",
+          "productId": "prod_7cade83a17b92f6e",
+          "url": "https://alta-step.ru/files/products/20_1690981361.jpg",
+          "alt": "Дуб баноффи",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "storageKey": null,
+          "createdAt": "2026-09-20T17:21:38.010Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_32ba9bc0e66a8820",
+          "productId": "prod_7cade83a17b92f6e",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Alta Step",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_0d0588c7dea382a4",
+          "productId": "prod_7cade83a17b92f6e",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Gusto",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_87698c778ef86f4d",
+          "productId": "prod_7cade83a17b92f6e",
+          "key": "sku",
+          "label": "Артикул",
+          "value": "SPC3302",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_84a8d1868c864a5a",
+          "productId": "prod_7cade83a17b92f6e",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "4.3 мм",
+          "sortOrder": 3
+        },
+        {
+          "id": "ch_6517180f785143f9",
+          "productId": "prod_7cade83a17b92f6e",
+          "key": "wearLayer",
+          "label": "Защитный слой",
+          "value": "0,3 мм",
+          "sortOrder": 4
+        }
+      ],
+      "stocks": []
+    },
     {
       "id": "prod_10cdd6d13c591e96",
       "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый",

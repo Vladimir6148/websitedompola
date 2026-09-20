@@ -1,5 +1,20 @@
 [
   {
+    "id": "brand_0edde33e45a7b0fa",
+    "name": "Alta Step",
+    "slug": "alta-step",
+    "logo": null,
+    "description": "Каменно-полимерные SPC покрытия Alta Step",
+    "website": "https://alta-step.ru/",
+    "sortOrder": 2,
+    "active": true,
+    "createdAt": "2026-09-20T17:21:29.963Z",
+    "updatedAt": "2026-09-20T17:21:29.964Z",
+    "_count": {
+      "products": 70
+    }
+  },
+  {
     "id": "brand_2bf80f35803771e0",
     "name": "Pergo",
     "slug": "pergo",

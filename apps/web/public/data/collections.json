@@ -1,5 +1,61 @@
 [
   {
+    "id": "coll_83fc9fb90639ea60",
+    "name": "Perfecto",
+    "slug": "perfecto",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_e116ff24cf214e93",
+    "name": "Mirada",
+    "slug": "mirada",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_ba45dedbcbb6cb29",
+    "name": "Gusto",
+    "slug": "gusto",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_680145d49450eeed",
+    "name": "Excelente",
+    "slug": "excelente",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_ea953f14a1d02b51",
+    "name": "Arriba",
+    "slug": "arriba",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_266fc118d07305c9",
+    "name": "Roca",
+    "slug": "roca",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
+    "id": "coll_7211c0301b97d899",
+    "name": "Nativo",
+    "slug": "nativo",
+    "brandId": "brand_0edde33e45a7b0fa",
+    "createdAt": "2026-09-20T17:21:29.966Z",
+    "updatedAt": "2026-09-20T17:21:29.966Z"
+  },
+  {
     "id": "coll_0988e729c1fe1a98",
     "name": "Isefjord Pad Pro",
     "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",

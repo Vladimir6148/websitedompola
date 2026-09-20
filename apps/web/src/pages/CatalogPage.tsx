@@ -5,7 +5,7 @@ import { Layers, PanelBottom, Pipette, SlidersHorizontal, X } from 'lucide-react
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { api } from '../lib/api';
-import type { Brand, Category, ProductsResponse } from '../types';
+import type { Brand, Category, Product, ProductsResponse } from '../types';
 
 const ACCESSORY_SLUGS = ['underlayment', 'baseboards', 'accessories'] as const;
 
@@ -32,6 +32,7 @@ export function CatalogPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
+  const [categoryPool, setCategoryPool] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const productsTopRef = useRef<HTMLDivElement>(null);
@@ -88,6 +89,27 @@ export function CatalogPage() {
       },
     );
   }, []);
+
+  useEffect(() => {
+    if (!categoryQuery || accessoryHub || inAccessorySection) {
+      setCategoryPool([]);
+      return;
+    }
+    let cancelled = false;
+    const qs = new URLSearchParams();
+    qs.set('category', categoryQuery);
+    qs.set('limit', '200');
+    api<ProductsResponse>(`/api/products?${qs}`)
+      .then((res) => {
+        if (!cancelled) setCategoryPool(res.items || []);
+      })
+      .catch(() => {
+        if (!cancelled) setCategoryPool([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [categoryQuery, accessoryHub, inAccessorySection]);
 
   useEffect(() => {
     setLoading(true);
@@ -181,17 +203,28 @@ export function CatalogPage() {
     [categories],
   );
 
-  const collectionChips = useMemo(() => {
+  const brandChips = useMemo(() => {
     const map = new Map<string, string>();
-    for (const p of data?.items || []) {
+    for (const p of categoryPool) {
+      if (p.brand?.slug && p.brand?.name) map.set(p.brand.slug, p.brand.name);
+    }
+    return [...map.entries()].sort((a, b) => a[1].localeCompare(b[1], 'ru'));
+  }, [categoryPool]);
+
+  const collectionChips = useMemo(() => {
+    if (!brand) return [];
+    const map = new Map<string, string>();
+    for (const p of categoryPool) {
+      if (p.brand?.slug !== brand) continue;
       if (p.collection?.slug && p.collection?.name) {
         map.set(p.collection.slug, p.collection.name);
       }
     }
     return [...map.entries()].sort((a, b) => a[1].localeCompare(b[1], 'ru'));
-  }, [data]);
+  }, [categoryPool, brand]);
 
   const collectionGroups = useMemo(() => {
+    if (!brand) return [];
     const items = data?.items || [];
     const map = new Map<string, typeof items>();
     for (const p of items) {
@@ -200,7 +233,7 @@ export function CatalogPage() {
       map.get(key)!.push(p);
     }
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
-  }, [data]);
+  }, [data, brand]);
 
   const coatingValue = inAccessorySection
     ? 'accessories'
@@ -214,10 +247,21 @@ export function CatalogPage() {
     setParams(next);
   }
 
+  function setBrand(slug: string) {
+    const next = new URLSearchParams(params);
+    if (!slug) next.delete('brand');
+    else next.set('brand', slug);
+    next.delete('collection');
+    next.delete('page');
+    setParams(next);
+  }
+
   function setCoatingType(slug: string) {
     const next = new URLSearchParams(params);
     next.delete('chip');
     next.delete('page');
+    next.delete('brand');
+    next.delete('collection');
     const qs = next.toString();
     if (!slug) {
       navigate(qs ? `/catalog?${qs}` : '/catalog');
@@ -232,7 +276,7 @@ export function CatalogPage() {
 
   function clearFilters() {
     const next = new URLSearchParams(params);
-    ['q', 'brand', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating', 'chip'].forEach(
+    ['q', 'brand', 'collection', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating', 'chip'].forEach(
       (key) => next.delete(key),
     );
     next.delete('page');
@@ -295,12 +339,15 @@ export function CatalogPage() {
           </label>
           <select
             value={brand}
-            onChange={(e) => update('brand', e.target.value)}
+            onChange={(e) => setBrand(e.target.value)}
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
           >
             <option value="">Любой</option>
-            {brands.map((b) => (
-              <option key={b.id} value={b.slug}>
+            {(brandChips.length
+              ? brandChips.map(([slug, name]) => ({ slug, name }))
+              : brands.map((b) => ({ slug: b.slug, name: b.name }))
+            ).map((b) => (
+              <option key={b.slug} value={b.slug}>
                 {b.name}
               </option>
             ))}
@@ -523,7 +570,32 @@ export function CatalogPage() {
         </div>
 
         <div ref={productsTopRef} className="scroll-mt-28">
-          {collectionChips.length > 1 ? (
+          {!inAccessorySection && categorySlug && brandChips.length > 0 ? (
+            <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
+              <button
+                type="button"
+                onClick={() => setBrand('')}
+                className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                  !brand ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
+                }`}
+              >
+                Все бренды
+              </button>
+              {brandChips.map(([slug, name]) => (
+                <button
+                  key={slug}
+                  type="button"
+                  onClick={() => setBrand(slug)}
+                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                    brand === slug ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          ) : null}
+          {brand && collectionChips.length > 0 ? (
             <div className="mb-5 flex gap-2 overflow-x-auto pb-1">
               <button
                 type="button"
