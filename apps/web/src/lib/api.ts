@@ -190,7 +190,7 @@ export function stockLabel(status: string) {
 
 export function primaryImage(product: { images?: { url: string; isPrimary?: boolean }[] }) {
   if (!product.images?.length) {
-    return 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=800&q=80';
+    return 'images/floor1.jpg';
   }
   return product.images.find((i) => i.isPrimary)?.url || product.images[0].url;
 }

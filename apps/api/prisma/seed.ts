@@ -5,15 +5,15 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const IMG = {
-  hero: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1600&q=80',
-  living: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
-  wood: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80',
-  floor1: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=1000&q=80',
-  floor2: 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1000&q=80',
-  floor3: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1000&q=80',
-  store: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80',
-  work: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80',
-  promo: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
+  hero: 'images/hero.jpg',
+  living: 'images/living.jpg',
+  wood: 'images/wood.jpg',
+  floor1: 'images/floor1.jpg',
+  floor2: 'images/floor2.jpg',
+  floor3: 'images/floor3.jpg',
+  store: 'images/store.jpg',
+  work: 'images/work.jpg',
+  promo: 'images/promo.jpg',
 };
 
 async function main() {

@@ -4,6 +4,7 @@ import { Heart, ShoppingCart } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { ProductCard } from '../components/ProductCard';
+import { SmartImage } from '../components/SmartImage';
 import { api, formatPrice, primaryImage, stockLabel } from '../lib/api';
 import type { Product, ProductsResponse } from '../types';
 import { useCart } from '../store/cart';
@@ -77,10 +78,11 @@ export function ProductPage() {
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-mist">
-              <img
+              <SmartImage
                 src={images[activeImage]?.url}
                 alt={images[activeImage]?.alt || product.name}
                 className="h-full w-full object-cover"
+                loading="eager"
               />
             </div>
             <div className="mt-3 grid grid-cols-4 gap-2">
@@ -91,7 +93,7 @@ export function ProductPage() {
                   onClick={() => setActiveImage(i)}
                   className={`aspect-square overflow-hidden rounded-lg border ${i === activeImage ? 'border-brand' : 'border-transparent'}`}
                 >
-                  <img src={img.url} alt={img.alt || `${product.name} фото ${i + 1}`} className="h-full w-full object-cover" />
+                  <SmartImage src={img.url} alt={img.alt || `${product.name} фото ${i + 1}`} className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>

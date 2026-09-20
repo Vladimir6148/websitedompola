@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
+import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
 import { useFavorites } from '../store/favorites';
 
@@ -21,7 +22,7 @@ export function FavoritesPage() {
             {items.map((item) => (
               <article key={item.productId} className="overflow-hidden rounded-2xl border border-graphite/8">
                 <Link to={`/product/${item.slug}`} className="block aspect-[4/3] bg-mist">
-                  <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                  <SmartImage src={item.image} alt={item.name} className="h-full w-full object-cover" />
                 </Link>
                 <div className="p-4">
                   <Link to={`/product/${item.slug}`} className="font-semibold hover:text-brand">{item.name}</Link>

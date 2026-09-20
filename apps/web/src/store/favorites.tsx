@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Product } from '../types';
 import { primaryImage } from '../lib/api';
+import { resolveImageUrl } from '../lib/images';
 
 export type FavoriteItem = {
   productId: string;
@@ -52,7 +53,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
               slug: product.slug,
               name: product.name,
               price: product.price,
-              image: primaryImage(product),
+              image: resolveImageUrl(primaryImage(product)),
             },
           ];
         });

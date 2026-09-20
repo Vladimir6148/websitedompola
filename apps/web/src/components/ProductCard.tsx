@@ -4,6 +4,7 @@ import type { Product } from '../types';
 import { formatPrice, primaryImage } from '../lib/api';
 import { useCart } from '../store/cart';
 import { useFavorites } from '../store/favorites';
+import { SmartImage } from './SmartImage';
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
@@ -14,11 +15,10 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/8 bg-white transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(15,92,40,0.12)]">
       <Link to={`/product/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-mist">
-        <img
+        <SmartImage
           src={image}
           alt={product.images?.[0]?.alt || product.name}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          loading="lazy"
         />
         {product.discountPercent ? (
           <span className="absolute left-3 top-3 rounded-md bg-brand px-2 py-1 text-xs font-bold text-white">

@@ -4,6 +4,7 @@ import { ArrowRight, Calculator, Compass, Hammer, Store as StoreIcon } from 'luc
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { LeadForm } from '../components/LeadForm';
+import { SmartImage } from '../components/SmartImage';
 import { api } from '../lib/api';
 import type { HomePayload } from '../types';
 
@@ -33,10 +34,13 @@ export function HomePage() {
       />
 
       <section className="relative min-h-[78vh] overflow-hidden bg-graphite text-white">
-        <img
-          src={hero?.image || 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1800&q=80'}
+        <SmartImage
+          src={hero?.image || 'images/hero.jpg'}
+          fallback="images/hero.jpg"
           alt="Интерьер с напольным покрытием ДОМПОЛА"
           className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/65 to-brand-deep/35" />
         <div className="container-dp relative flex min-h-[78vh] flex-col justify-end pb-16 pt-28 md:justify-center md:pb-24">
@@ -74,8 +78,8 @@ export function HomePage() {
               to={`/catalog/${c.slug}`}
               className={`group relative overflow-hidden rounded-2xl ${i === 0 ? 'sm:col-span-2 sm:row-span-2 min-h-[280px]' : 'min-h-[180px]'}`}
             >
-              <img
-                src={c.image || ''}
+              <SmartImage
+                src={c.image}
                 alt={c.name}
                 className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
@@ -105,7 +109,7 @@ export function HomePage() {
                   to="/promotions"
                   className="group relative min-h-[220px] overflow-hidden rounded-2xl"
                 >
-                  <img src={p.image || ''} alt={p.title} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <SmartImage src={p.image} alt={p.title} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-graphite/55" />
                   <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
                     {p.discountPercent ? (
@@ -197,7 +201,7 @@ export function HomePage() {
           {(data?.works || []).map((w) => (
             <article key={w.id} className="overflow-hidden rounded-2xl">
               <div className="aspect-[4/3] overflow-hidden">
-                <img src={w.image || ''} alt={w.title} className="h-full w-full object-cover" loading="lazy" />
+                <SmartImage src={w.image} alt={w.title} className="h-full w-full object-cover" />
               </div>
               <div className="pt-3">
                 <h3 className="font-semibold">{w.title}</h3>

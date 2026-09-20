@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
+import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
 import { useCart } from '../store/cart';
 
@@ -23,7 +24,7 @@ export function CartPage() {
               {items.map((item) => (
                 <div key={item.productId} className="flex flex-col gap-4 rounded-2xl border border-graphite/8 p-4 sm:flex-row">
                   <Link to={`/product/${item.slug}`} className="h-28 w-full overflow-hidden rounded-xl bg-mist sm:w-36">
-                    <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                    <SmartImage src={item.image} alt={item.name} className="h-full w-full object-cover" />
                   </Link>
                   <div className="flex flex-1 flex-col">
                     <Link to={`/product/${item.slug}`} className="font-semibold hover:text-brand">{item.name}</Link>

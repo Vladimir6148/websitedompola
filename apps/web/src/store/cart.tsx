@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Product } from '../types';
+import { resolveImageUrl } from '../lib/images';
 
 export type CartItem = {
   productId: string;
@@ -55,7 +56,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             name: product.name,
             price: product.price,
             unit: product.unit,
-            image: product.images?.[0]?.url || '',
+            image: resolveImageUrl(product.images?.[0]?.url),
             quantity: qty,
             packArea: product.packArea,
           },

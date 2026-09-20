@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
+import { SmartImage } from '../components/SmartImage';
 import { api } from '../lib/api';
 import type { Promotion, Store, Work } from '../types';
 
@@ -17,7 +18,7 @@ export function PromotionsPage() {
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {items.map((p) => (
             <article key={p.id} className="overflow-hidden rounded-2xl border border-graphite/8">
-              {p.image ? <img src={p.image} alt={p.title} className="aspect-[16/9] w-full object-cover" /> : null}
+              {p.image ? <SmartImage src={p.image} alt={p.title} className="aspect-[16/9] w-full object-cover" /> : null}
               <div className="p-5">
                 {p.discountPercent ? <span className="text-sm font-bold text-brand">−{p.discountPercent}%</span> : null}
                 <h2 className="mt-1 font-display text-xl font-semibold">{p.title}</h2>
@@ -44,7 +45,7 @@ export function WorksPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((w) => (
             <article key={w.id}>
-              <img src={w.image || ''} alt={w.title} className="aspect-[4/3] w-full rounded-2xl object-cover" />
+              <SmartImage src={w.image} alt={w.title} className="aspect-[4/3] w-full rounded-2xl object-cover" />
               <h2 className="mt-3 font-semibold">{w.title}</h2>
               <p className="text-sm text-graphite/55">{[w.city, w.category].filter(Boolean).join(' · ')}</p>
             </article>
