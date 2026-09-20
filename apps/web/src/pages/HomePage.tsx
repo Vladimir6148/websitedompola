@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calculator, Compass, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
-import { ProductCard } from '../components/ProductCard';
 import { OfferProductCard } from '../components/OfferProductCard';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
@@ -113,16 +112,16 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section className="container-dp py-16 md:py-20">
-        <div className="mb-8 flex items-end justify-between">
+      <section className="container-dp py-12 md:py-16">
+        <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
           <h2 className="section-title">Популярные товары</h2>
           <Link to="/catalog" className="text-sm font-semibold text-brand hover:underline">
             В каталог
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {(data?.featured || []).map((p) => (
-            <ProductCard key={p.id} product={p} />
+        <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+          {(data?.featured || []).slice(0, 8).map((p) => (
+            <OfferProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
