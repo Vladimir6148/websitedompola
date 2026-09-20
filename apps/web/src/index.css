@@ -9,8 +9,8 @@
   --color-mist: #f3f6f2;
   --color-wood: #c4a574;
   --color-wood-dark: #8a6a3e;
-  --font-display: "PT Serif", Georgia, "Times New Roman", serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "PT Serif", "Times New Roman", Times, serif;
+  --font-sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 }
 
 @layer base {

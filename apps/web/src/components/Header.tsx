@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -26,7 +26,7 @@ export function Header() {
   const [q, setQ] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
   const navigate = useNavigate();
-  const searchInputRef = useRef<HTMLInputElement>(null);
+
 
   useEffect(() => {
     api<Category[]>('/api/categories').then(setCategories).catch(() => undefined);
@@ -36,10 +36,8 @@ export function Header() {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const t = window.setTimeout(() => searchInputRef.current?.focus(), 180);
     return () => {
       document.body.style.overflow = prev;
-      window.clearTimeout(t);
     };
   }, [open]);
 
@@ -180,7 +178,6 @@ export function Header() {
                     <div className="flex items-center gap-2 rounded-xl border border-graphite/15 px-3 py-2.5">
                       <Search size={16} className="shrink-0 text-graphite/35" />
                       <input
-                        ref={searchInputRef}
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         placeholder="Поиск"

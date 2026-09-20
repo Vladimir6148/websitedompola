@@ -94,7 +94,7 @@ export function HomePage() {
         <SectionHeader
           eyebrow="Скидки недели"
           title="Выгодные предложения"
-          description="Актуальные цены на покрытия со скидкой — с доставкой и укладкой."
+          description="Актуальные цены на покрытия со скидкой"
           action={{ to: '/catalog', label: 'Весь каталог' }}
         />
         <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">

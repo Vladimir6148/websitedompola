@@ -126,7 +126,12 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
       );
     }
     if (category) {
-      items = items.filter((p) => p.category?.slug === category || p.category?.id === category);
+      const slugs = category.split(',').map((s) => s.trim()).filter(Boolean);
+      items = items.filter(
+        (p) =>
+          slugs.includes(p.category?.slug || '') ||
+          slugs.includes(p.category?.id || ''),
+      );
     }
     if (brand) {
       items = items.filter((p) => p.brand?.slug === brand || p.brand?.id === brand);

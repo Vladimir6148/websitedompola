@@ -60,7 +60,12 @@ router.get(
     }
 
     if (typeof category === 'string' && category) {
-      where.category = { OR: [{ slug: category }, { id: category }] };
+      const slugs = category.split(',').map((s) => s.trim()).filter(Boolean);
+      if (slugs.length > 1) {
+        where.category = { slug: { in: slugs } };
+      } else {
+        where.category = { OR: [{ slug: slugs[0] }, { id: slugs[0] }] };
+      }
     }
 
     if (typeof brand === 'string' && brand) {

@@ -34,7 +34,7 @@ export function SectionHeader({
           </h2>
           {description ? (
             <p
-              className={`mt-2 text-sm leading-relaxed md:text-base ${
+              className={`mt-2 font-display text-base leading-relaxed md:text-lg ${
                 isDark ? 'text-white/65' : 'text-graphite/60'
               }`}
             >
