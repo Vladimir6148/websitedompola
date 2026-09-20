@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Layers, PanelBottom, Pipette, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
@@ -15,6 +15,8 @@ const ACCESSORY_CHIPS = [
   { slug: 'accessories', label: 'Клей', icon: Pipette, to: '/catalog/accessories?chip=glue' },
 ] as const;
 
+const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
+
 function productWord(n: number) {
   const mod10 = n % 10;
   const mod100 = n % 100;
@@ -26,6 +28,7 @@ function productWord(n: number) {
 export function CatalogPage() {
   const { categorySlug } = useParams();
   const [params, setParams] = useSearchParams();
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
@@ -170,6 +173,15 @@ export function CatalogPage() {
     };
   }, [filtersOpen]);
 
+  const flooringCategories = useMemo(
+    () => categories.filter((c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number])),
+    [categories],
+  );
+
+  const coatingValue = inAccessorySection
+    ? 'accessories'
+    : categorySlug || '';
+
   function update(key: string, value: string) {
     const next = new URLSearchParams(params);
     if (!value) next.delete(key);
@@ -178,13 +190,30 @@ export function CatalogPage() {
     setParams(next);
   }
 
+  function setCoatingType(slug: string) {
+    const next = new URLSearchParams(params);
+    next.delete('chip');
+    next.delete('page');
+    const qs = next.toString();
+    if (!slug) {
+      navigate(qs ? `/catalog?${qs}` : '/catalog');
+      return;
+    }
+    if (slug === 'accessories') {
+      navigate(qs ? `/catalog/accessories?${qs}` : '/catalog/accessories');
+      return;
+    }
+    navigate(qs ? `/catalog/${slug}?${qs}` : `/catalog/${slug}`);
+  }
+
   function clearFilters() {
     const next = new URLSearchParams(params);
-    ['q', 'brand', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating'].forEach(
+    ['q', 'brand', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating', 'chip'].forEach(
       (key) => next.delete(key),
     );
     next.delete('page');
-    setParams(next);
+    const qs = next.toString();
+    navigate(qs ? `/catalog?${qs}` : '/catalog');
   }
 
   const filterPanel = (
@@ -217,6 +246,24 @@ export function CatalogPage() {
             placeholder="Название или артикул"
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
           />
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+            Тип покрытия
+          </label>
+          <select
+            value={coatingValue}
+            onChange={(e) => setCoatingType(e.target.value)}
+            className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
+          >
+            <option value="">Все покрытия</option>
+            {flooringCategories.map((c) => (
+              <option key={c.id} value={c.slug}>
+                {c.name}
+              </option>
+            ))}
+            <option value="accessories">Комплектующие</option>
+          </select>
         </div>
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
@@ -263,12 +310,18 @@ export function CatalogPage() {
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
             Класс
           </label>
-          <input
+          <select
             value={wearClass}
             onChange={(e) => update('wearClass', e.target.value)}
-            placeholder="32 / 33 / 43"
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
-          />
+          >
+            <option value="">Любой</option>
+            {WEAR_CLASS_OPTIONS.map((c) => (
+              <option key={c} value={c}>
+                {c} класс
+              </option>
+            ))}
+          </select>
         </div>
         <label className="flex items-center gap-2 text-sm">
           <input

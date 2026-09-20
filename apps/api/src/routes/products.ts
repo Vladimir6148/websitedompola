@@ -78,7 +78,9 @@ router.get(
       if (maxPrice) where.price.lte = Number(maxPrice);
     }
 
-    if (typeof wearClass === 'string' && wearClass) where.wearClass = wearClass;
+    if (typeof wearClass === 'string' && wearClass) {
+      where.wearClass = { contains: wearClass };
+    }
     if (typeof thickness === 'string' && thickness) where.thickness = Number(thickness);
     if (typeof color === 'string' && color) where.color = { contains: color };
     if (moistureResistant === '1') where.moistureResistant = true;
