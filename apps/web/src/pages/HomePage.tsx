@@ -110,12 +110,12 @@ export function HomePage() {
 
       <section className="border-b border-graphite/8 bg-white">
         <div className="container-dp py-2.5 sm:py-3">
-          <div className="grid grid-cols-2 gap-1.5 xs:grid-cols-4 sm:grid-cols-4 md:grid-cols-8 md:gap-2">
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-8 md:gap-2 md:overflow-visible">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-9 w-full items-center justify-center rounded-full border border-graphite/15 bg-mist/70 px-2 text-center text-xs font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white sm:h-10 sm:text-sm"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-graphite/15 bg-mist/70 px-4 text-sm font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-[0.98] md:h-10 md:w-full md:px-2 md:text-sm"
               >
                 {item.label}
               </Link>
