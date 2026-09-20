@@ -87,13 +87,13 @@ export function Header() {
         </div>
       </div>
 
-      <div className="container-dp flex items-center gap-2 py-3 sm:gap-3 lg:gap-4">
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+      <div className="container-dp flex min-w-0 items-center gap-1.5 overflow-hidden py-2.5 sm:gap-3 sm:py-3 lg:gap-4">
+        <div className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
           <button
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Открыть каталог и поиск"
-            className="grid h-10 w-10 place-items-center rounded-full border border-graphite/20 text-graphite transition hover:border-brand hover:text-brand"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
           >
             <span className="relative inline-flex items-center">
               <span className="mr-0.5 flex flex-col gap-[2.5px]" aria-hidden>
@@ -107,23 +107,26 @@ export function Header() {
 
           <Link
             to="/promotions"
-            className="inline-flex h-10 items-center gap-1.5 rounded-full border border-graphite/20 bg-white px-3 text-sm font-semibold text-rose-600 transition hover:border-rose-400 sm:px-3.5"
+            className="inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-graphite/20 bg-white px-2 text-xs font-semibold text-rose-600 transition hover:border-rose-400 sm:h-10 sm:gap-1.5 sm:px-3.5 sm:text-sm"
           >
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-rose-500 text-white">
-              <Percent size={11} strokeWidth={2.5} />
+            <span className="grid h-4 w-4 place-items-center rounded-full bg-rose-500 text-white sm:h-5 sm:w-5">
+              <Percent size={10} strokeWidth={2.5} />
             </span>
             <span>Акции</span>
           </Link>
 
           <Link
             to="/services"
-            className="inline-flex h-10 items-center rounded-full border border-graphite/20 bg-white px-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand sm:px-3.5"
+            className="inline-flex h-9 shrink-0 items-center rounded-full border border-graphite/20 bg-white px-2.5 text-xs font-semibold text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:px-3.5 sm:text-sm"
           >
             Услуги
           </Link>
         </div>
 
-        <Link to="/" className="shrink-0 font-display text-xl font-bold tracking-tight text-brand-dark sm:text-2xl">
+        <Link
+          to="/"
+          className="hidden shrink-0 font-display text-xl font-bold tracking-tight text-brand-dark sm:text-2xl md:inline"
+        >
           ДОМПОЛА
         </Link>
 
@@ -166,8 +169,8 @@ export function Header() {
           </NavLink>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-          <Link to="/favorites" className="relative rounded-full p-2 hover:bg-mist" aria-label="Избранное">
+        <div className="ml-auto flex shrink-0 items-center">
+          <Link to="/favorites" className="relative rounded-full p-1.5 hover:bg-mist sm:p-2" aria-label="Избранное">
             <Heart size={20} />
             {favCount > 0 ? (
               <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] text-white">
@@ -175,7 +178,11 @@ export function Header() {
               </span>
             ) : null}
           </Link>
-          <Link to="/cart" className="relative rounded-full p-2 hover:bg-mist" aria-label="Корзина">
+          <Link
+            to="/cart"
+            className="relative hidden rounded-full p-2 hover:bg-mist md:inline-flex"
+            aria-label="Корзина"
+          >
             <ShoppingCart size={20} />
             {count > 0 ? (
               <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] text-white">
