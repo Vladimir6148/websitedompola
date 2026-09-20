@@ -14,6 +14,7 @@ import { useCart } from '../store/cart';
 import { useFavorites } from '../store/favorites';
 import { useCity } from '../store/city';
 import { api } from '../lib/api';
+import { MobileBottomNav } from './MobileBottomNav';
 import type { Category } from '../types';
 
 const primaryLinks = [
@@ -59,6 +60,7 @@ export function Header() {
   }
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
       <div className="bg-graphite text-white">
         <div className="container-dp flex items-center justify-between gap-4 py-2 text-xs sm:text-sm">
@@ -91,7 +93,7 @@ export function Header() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Открыть каталог и поиск"
-            className="grid h-10 w-10 place-items-center rounded-full bg-brand text-white transition hover:bg-brand-dark"
+            className="grid h-10 w-10 place-items-center rounded-full border border-graphite/20 text-graphite transition hover:border-brand hover:text-brand"
           >
             <span className="relative inline-flex items-center">
               <span className="mr-0.5 flex flex-col gap-[2.5px]" aria-hidden>
@@ -105,17 +107,17 @@ export function Header() {
 
           <Link
             to="/promotions"
-            className="inline-flex h-10 items-center gap-1.5 rounded-full bg-brand px-3 text-sm font-semibold text-white transition hover:bg-brand-dark sm:px-3.5"
+            className="inline-flex h-10 items-center gap-1.5 rounded-full border border-graphite/20 bg-white px-3 text-sm font-semibold text-rose-600 transition hover:border-rose-400 sm:px-3.5"
           >
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-white/20">
-              <Percent size={12} strokeWidth={2.5} />
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-rose-500 text-white">
+              <Percent size={11} strokeWidth={2.5} />
             </span>
             <span>Акции</span>
           </Link>
 
           <Link
             to="/services"
-            className="inline-flex h-10 items-center rounded-full bg-brand px-3 text-sm font-semibold text-white transition hover:bg-brand-dark sm:px-3.5"
+            className="inline-flex h-10 items-center rounded-full border border-graphite/20 bg-white px-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand sm:px-3.5"
           >
             Услуги
           </Link>
@@ -278,5 +280,7 @@ export function Header() {
           )
         : null}
     </header>
+    <MobileBottomNav onSearch={() => setOpen(true)} />
+    </>
   );
 }
