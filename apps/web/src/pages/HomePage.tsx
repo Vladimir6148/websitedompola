@@ -28,7 +28,14 @@ export function HomePage() {
     api<HomePayload>('/api/content/home')
       .then((home) => {
         if (cancelled) return;
-        setData(home);
+        setData({
+          ...home,
+          advantages: (home.advantages || []).map((a) =>
+            /трёх городах|трех городах/i.test(a.title)
+              ? { ...a, title: 'Шоурумы с живыми образцами' }
+              : a,
+          ),
+        });
         if (home.promotions?.length) setPromos(home.promotions);
       })
       .catch(() => undefined);

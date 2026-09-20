@@ -367,7 +367,7 @@ async function main() {
 
   await prisma.advantage.createMany({
     data: [
-      { title: 'Шоурумы в трёх городах', description: 'Живые образцы покрытий и консультация технолога', icon: 'store', sortOrder: 1 },
+      { title: 'Шоурумы с живыми образцами', description: 'Живые образцы покрытий и консультация технолога', icon: 'store', sortOrder: 1 },
       { title: 'Подбор под задачу', description: 'Учитываем влажность, нагрузку, тёплый пол и стиль', icon: 'compass', sortOrder: 2 },
       { title: 'Профессиональный монтаж', description: 'Бригады с опытом укладки SPC, ламината и плитки', icon: 'hammer', sortOrder: 3 },
       { title: 'Честный расчёт', description: 'Считаем площадь, запас и комплектующие без сюрпризов', icon: 'calculator', sortOrder: 4 },
