@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { OnlineManager } from './OnlineManager';
 
 export function StoreLayout() {
   return (
@@ -10,6 +11,7 @@ export function StoreLayout() {
         <Outlet />
       </main>
       <Footer />
+      <OnlineManager />
     </div>
   );
 }
