@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #1f8a3d;
+  --color-brand-dark: #0f5c28;
+  --color-brand-deep: #0a3d1b;
+  --color-graphite: #1c1f1d;
+  --color-ink: #0b0d0c;
+  --color-mist: #f3f6f2;
+  --color-wood: #c4a574;
+  --color-wood-dark: #8a6a3e;
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-graphite font-sans antialiased;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .container-dp {
+    @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-10;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-graphite/15 bg-white px-5 py-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight text-graphite md:text-4xl lg:text-5xl;
+  }
+}
