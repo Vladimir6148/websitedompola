@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { OfferProductCard } from '../components/OfferProductCard';
@@ -14,6 +15,19 @@ const icons: Record<string, ReactNode> = {
   hammer: <Hammer />,
   calculator: <Calculator />,
 };
+
+/** Flooring assortment chips after hero (short labels) */
+const ASSORTMENT = [
+  { to: '/catalog/laminate', label: 'Ламинат' },
+  { to: '/catalog/quartzvinyl-spc', label: 'SPC' },
+  { to: '/catalog/quartzvinyl-spc', label: 'Кварцвинил' },
+  { to: '/catalog/mspc', label: 'MSPC' },
+  { to: '/catalog/linoleum', label: 'Линолеум' },
+  { to: '/catalog/porcelain', label: 'Керамогранит' },
+  { to: '/catalog/parquet', label: 'Паркет' },
+  { to: '/catalog/accessories', label: 'Комплектующие' },
+];
+
 
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
