@@ -6,10 +6,9 @@ import type { Promotion } from '../types';
 
 type Props = {
   slides: Promotion[];
-  loading?: boolean;
 };
 
-export function PromoCarousel({ slides, loading = false }: Props) {
+export function PromoCarousel({ slides }: Props) {
   const items = slides.filter((s) => s.active !== false && s.image);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -26,38 +25,8 @@ export function PromoCarousel({ slides, loading = false }: Props) {
     setIndex(0);
   }, [items.length]);
 
-  if (loading && !items.length) {
-    return (
-      <section
-        className="relative min-h-[52vh] overflow-hidden bg-graphite md:min-h-[55vh]"
-        aria-busy="true"
-        aria-label="Загрузка акций"
-      >
-        <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-ink via-graphite to-brand-deep/40" />
-      </section>
-    );
-  }
-
   if (!items.length) {
-    return (
-      <section className="relative min-h-[52vh] overflow-hidden bg-graphite text-white md:min-h-[55vh]">
-        <div className="absolute inset-0 bg-gradient-to-br from-ink via-graphite to-brand-deep/50" />
-        <div className="container-dp relative flex min-h-[52vh] flex-col justify-end pb-10 pt-16 md:min-h-[55vh] md:justify-center md:pb-14 md:pt-20">
-          <p className="mb-2 font-display text-xs font-semibold uppercase tracking-[0.2em] text-brand">ДОМПОЛА</p>
-          <h1 className="max-w-2xl font-display text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-5xl">
-            Напольные покрытия для дома
-          </h1>
-          <p className="mt-3 max-w-lg text-sm text-white/80 sm:text-base">
-            Каталог кварцвинила, ламината, MSPC и других покрытий в Архангельске, Северодвинске и Вологде.
-          </p>
-          <div className="mt-5">
-            <Link to="/catalog" className="btn-primary px-4 py-2.5 text-sm">
-              Смотреть каталог
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   const current = items[index];

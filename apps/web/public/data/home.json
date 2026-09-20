@@ -852,28 +852,26 @@
   ],
   "promotions": [
     {
-      "id": "cmu9okczw0033b75frn80j196",
+      "id": "promo-nordic",
       "title": "Скидка на Nordic",
       "slug": "skidka-nordic",
       "description": "Специальная цена на коллекцию Alpine Floor Nordic",
-      "image": "https://vladimir6148.github.io/websitedompola/images/promo.jpg",
+      "image": "images/promo.jpg",
       "discountPercent": 17,
       "startsAt": null,
       "endsAt": null,
       "productIds": null,
-      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "categoryId": null,
       "cityId": null,
       "active": true,
-      "sortOrder": 1,
-      "createdAt": "2026-09-20T10:35:36.525Z",
-      "updatedAt": "2026-09-20T10:35:36.525Z"
+      "sortOrder": 1
     },
     {
-      "id": "cmu9qapvu0000b76rgsklwu6e",
-      "title": "??????? ?? ??????? ?? 15%",
-      "slug": "15",
-      "description": "?????????? ??????????? ?? ?????????? ????????? ????????",
-      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
+      "id": "promo-laminate",
+      "title": "Ламинат со скидкой до 15%",
+      "slug": "laminat-skidka-15",
+      "description": "Актуальные предложения на популярные коллекции ламината",
+      "image": "images/wood.jpg",
       "discountPercent": 15,
       "startsAt": null,
       "endsAt": null,
@@ -881,16 +879,14 @@
       "categoryId": null,
       "cityId": null,
       "active": true,
-      "sortOrder": 2,
-      "createdAt": "2026-09-20T11:24:05.898Z",
-      "updatedAt": "2026-09-20T11:24:05.898Z"
+      "sortOrder": 2
     },
     {
-      "id": "cmu9qaq2y0001b76re6i5srzd",
-      "title": "SPC ??? ??????? ????",
-      "slug": "spc",
-      "description": "???????????? ?????????? - ???????? ????????? ??????",
-      "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
+      "id": "promo-spc",
+      "title": "SPC для тёплого пола",
+      "slug": "spc-teplyy-pol",
+      "description": "Влагостойкий кварцвинил — выгодные комплекты месяца",
+      "image": "images/living.jpg",
       "discountPercent": 10,
       "startsAt": null,
       "endsAt": null,
@@ -898,16 +894,14 @@
       "categoryId": null,
       "cityId": null,
       "active": true,
-      "sortOrder": 3,
-      "createdAt": "2026-09-20T11:24:06.154Z",
-      "updatedAt": "2026-09-20T11:24:06.154Z"
+      "sortOrder": 3
     },
     {
-      "id": "cmu9qaq990002b76rv3zooc7o",
-      "title": "????? ?????? ??????",
-      "slug": "",
-      "description": "?? ?20% ?? ????????? ????????? ????????? ????????",
-      "image": "https://vladimir6148.github.io/websitedompola/images/hero.jpg",
+      "id": "promo-season",
+      "title": "Сезон тёплых скидок",
+      "slug": "sezon-teplykh-skidok",
+      "description": "До −20% на избранные коллекции напольных покрытий",
+      "image": "images/hero.jpg",
       "discountPercent": 20,
       "startsAt": null,
       "endsAt": null,
@@ -915,9 +909,7 @@
       "categoryId": null,
       "cityId": null,
       "active": true,
-      "sortOrder": 4,
-      "createdAt": "2026-09-20T11:24:06.382Z",
-      "updatedAt": "2026-09-20T11:24:06.382Z"
+      "sortOrder": 4
     }
   ],
   "stores": [

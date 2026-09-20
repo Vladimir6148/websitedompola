@@ -9,6 +9,7 @@ import { SmartImage } from '../components/SmartImage';
 import { PromoCarousel } from '../components/PromoCarousel';
 import { api } from '../lib/api';
 import type { HomePayload, Product, ProductsResponse, Promotion } from '../types';
+import initialPromotions from '../data/promotions.json';
 
 const icons: Record<string, ReactNode> = {
   store: <StoreIcon />,
@@ -19,18 +20,11 @@ const icons: Record<string, ReactNode> = {
 
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
-  const [promos, setPromos] = useState<Promotion[]>([]);
+  const [promos, setPromos] = useState<Promotion[]>(initialPromotions as Promotion[]);
   const [deals, setDeals] = useState<Product[]>([]);
-  const [carouselLoading, setCarouselLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    let pending = 2;
-
-    function done() {
-      pending -= 1;
-      if (!cancelled && pending <= 0) setCarouselLoading(false);
-    }
 
     api<HomePayload>('/api/content/home')
       .then((home) => {
@@ -38,15 +32,13 @@ export function HomePage() {
         setData(home);
         if (home.promotions?.length) setPromos(home.promotions);
       })
-      .catch(() => undefined)
-      .finally(done);
+      .catch(() => undefined);
 
     api<Promotion[]>('/api/promotions')
       .then((list) => {
         if (!cancelled && list?.length) setPromos(list);
       })
-      .catch(() => undefined)
-      .finally(done);
+      .catch(() => undefined);
 
     api<ProductsResponse>('/api/products?limit=24&sort=price_asc')
       .then((res) => {
@@ -73,7 +65,7 @@ export function HomePage() {
         image={carouselSlides[0]?.image || undefined}
       />
 
-      <PromoCarousel slides={carouselSlides} loading={carouselLoading} />
+      <PromoCarousel slides={carouselSlides} />
 
       <section className="container-dp py-12 md:py-16">
         <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
