@@ -3,16 +3,12 @@ import { createPortal } from 'react-dom';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
-  Heart,
-  MapPin,
   Percent,
   Phone,
   Search,
   ShoppingCart,
 } from 'lucide-react';
 import { useCart } from '../store/cart';
-import { useFavorites } from '../store/favorites';
-import { useCity } from '../store/city';
 import { api } from '../lib/api';
 import { MobileBottomNav } from './MobileBottomNav';
 import type { Category } from '../types';
@@ -26,8 +22,6 @@ const primaryLinks = [
 
 export function Header() {
   const { count } = useCart();
-  const { count: favCount } = useFavorites();
-  const { cities, city, setCityId } = useCity();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const [categories, setCategories] = useState<Category[]>([]);
@@ -62,31 +56,6 @@ export function Header() {
   return (
     <>
     <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
-      <div className="bg-graphite text-white">
-        <div className="container-dp flex items-center justify-between gap-4 py-2 text-xs sm:text-sm">
-          <div className="flex items-center gap-2">
-            <MapPin size={14} className="text-brand" />
-            <select
-              value={city?.id || ''}
-              onChange={(e) => setCityId(e.target.value)}
-              className="bg-transparent outline-none"
-              aria-label="Город"
-            >
-              {cities.map((c) => (
-                <option key={c.id} value={c.id} className="text-graphite">
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <a href="tel:+78182650000" className="inline-flex items-center gap-2 hover:text-brand">
-            <Phone size={14} />
-            <span className="hidden sm:inline">+7 (8182) 65-00-00</span>
-            <span className="sm:hidden">Позвонить</span>
-          </a>
-        </div>
-      </div>
-
       <div className="container-dp flex min-w-0 items-center gap-1.5 overflow-hidden py-2.5 sm:gap-3 sm:py-3 lg:gap-4">
         <div className="flex min-w-0 flex-1 items-center gap-1 sm:gap-2">
           <button
@@ -169,23 +138,22 @@ export function Header() {
           </NavLink>
         </nav>
 
-        <div className="ml-auto flex shrink-0 items-center">
-          <Link to="/favorites" className="relative rounded-full p-1.5 hover:bg-mist sm:p-2" aria-label="Избранное">
-            <Heart size={20} />
-            {favCount > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] text-white">
-                {favCount}
-              </span>
-            ) : null}
-          </Link>
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <a
+            href="tel:+78182650000"
+            aria-label="Позвонить"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-graphite shadow-sm ring-1 ring-graphite/15 transition hover:ring-brand hover:text-brand sm:h-10 sm:w-10"
+          >
+            <Phone size={18} strokeWidth={2.25} />
+          </a>
           <Link
             to="/cart"
-            className="relative hidden rounded-full p-2 hover:bg-mist md:inline-flex"
             aria-label="Корзина"
+            className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
           >
-            <ShoppingCart size={20} />
+            <ShoppingCart size={18} strokeWidth={2.25} />
             {count > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] text-white">
+              <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] font-bold text-white">
                 {count}
               </span>
             ) : null}
