@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Pencil, Plus, Save, Search, Trash2 } from 'lucide-react';
 import { api, formatPrice, primaryImage } from '../../lib/api';
+import { suggestedPackArea } from '../../lib/packaging';
 import type { Brand, Category, City, Product, ProductsResponse } from '../../types';
 import {
   AdminPageHeader,
@@ -142,6 +143,7 @@ const emptyForm = {
   oldPrice: '',
   unit: 'м²',
   packArea: '',
+  packQty: '',
   thickness: '',
   wearClass: '',
   length: '',
@@ -209,6 +211,7 @@ export function AdminProductFormPage() {
         oldPrice: p.oldPrice ? String(p.oldPrice) : '',
         unit: p.unit,
         packArea: p.packArea ? String(p.packArea) : '',
+        packQty: p.packQty != null ? String(p.packQty) : '',
         thickness: p.thickness ? String(p.thickness) : '',
         wearClass: p.wearClass || '',
         length: p.length ? String(p.length) : '',
@@ -284,6 +287,7 @@ export function AdminProductFormPage() {
       oldPrice,
       unit: form.unit,
       packArea: form.packArea ? Number(form.packArea) : null,
+      packQty: form.packQty ? Number(form.packQty) : null,
       thickness: form.thickness ? Number(form.thickness) : null,
       wearClass: form.wearClass || null,
       length: form.length ? Number(form.length) : null,
@@ -383,14 +387,50 @@ export function AdminProductFormPage() {
               ))}
             </select>
           </div>
-          <Field label="Цена" value={form.price} onChange={(v) => setField('price', v)} required />
+          <Field label="Цена за м² / ед." value={form.price} onChange={(v) => setField('price', v)} required />
           <Field label="Старая цена" value={form.oldPrice} onChange={(v) => setField('oldPrice', v)} />
           <Field label="Ед. изм." value={form.unit} onChange={(v) => setField('unit', v)} />
-          <Field label="Площадь упаковки" value={form.packArea} onChange={(v) => setField('packArea', v)} />
-          <Field label="Толщина" value={form.thickness} onChange={(v) => setField('thickness', v)} />
+          <Field label="Толщина, мм" value={form.thickness} onChange={(v) => setField('thickness', v)} />
           <Field label="Класс" value={form.wearClass} onChange={(v) => setField('wearClass', v)} />
-          <Field label="Длина" value={form.length} onChange={(v) => setField('length', v)} />
-          <Field label="Ширина" value={form.width} onChange={(v) => setField('width', v)} />
+          <Field
+            label="Длина доски, мм"
+            value={form.length}
+            onChange={(v) => setField('length', v)}
+          />
+          <Field
+            label="Ширина доски, мм"
+            value={form.width}
+            onChange={(v) => setField('width', v)}
+          />
+          <Field
+            label="Штук в упаковке"
+            value={form.packQty}
+            onChange={(v) => setField('packQty', v)}
+          />
+          <div>
+            <Field
+              label="Площадь упаковки, м²"
+              value={form.packArea}
+              onChange={(v) => setField('packArea', v)}
+            />
+            {(() => {
+              const hint = suggestedPackArea(
+                Number(form.length) || 0,
+                Number(form.width) || 0,
+                Number(form.packQty) || 0,
+              );
+              if (!hint) return null;
+              return (
+                <button
+                  type="button"
+                  className="mt-1 text-xs font-medium text-brand hover:underline"
+                  onClick={() => setField('packArea', String(hint))}
+                >
+                  Подставить расчёт: {hint} м² (длина × ширина × шт)
+                </button>
+              );
+            })()}
+          </div>
           <Field label="Цвет" value={form.color} onChange={(v) => setField('color', v)} />
           <Field label="Фаска" value={form.bevel} onChange={(v) => setField('bevel', v)} />
           <Field label="Замок" value={form.lockType} onChange={(v) => setField('lockType', v)} />

@@ -2,6 +2,13 @@ import { Heart, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, primaryImage } from '../lib/api';
+import {
+  formatBoardSize,
+  formatPackArea,
+  isPackSold,
+  packPrice,
+  resolvePackArea,
+} from '../lib/packaging';
 import { useCart } from '../store/cart';
 import { useFavorites } from '../store/favorites';
 import { SmartImage } from './SmartImage';
@@ -11,6 +18,10 @@ export function ProductCard({ product }: { product: Product }) {
   const { toggle, has } = useFavorites();
   const image = primaryImage(product);
   const liked = has(product.id);
+  const byPack = isPackSold(product);
+  const area = resolvePackArea(product);
+  const pPack = packPrice(product);
+  const board = formatBoardSize(product);
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/8 bg-white transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(15,92,40,0.12)]">
@@ -45,18 +56,30 @@ export function ProductCard({ product }: { product: Product }) {
         <Link to={`/product/${product.slug}`} className="line-clamp-2 font-semibold leading-snug hover:text-brand">
           {product.name}
         </Link>
+        {(board || product.packQty || area) ? (
+          <div className="space-y-0.5 text-xs text-graphite/55">
+            {board ? <div>Доска {board}</div> : null}
+            {product.packQty ? <div>{product.packQty} шт. в упаковке</div> : null}
+            {area ? <div>{formatPackArea(area)} м² в упаковке</div> : null}
+          </div>
+        ) : null}
         <div className="mt-auto flex items-end justify-between gap-3">
           <div>
-            <div className="text-lg font-bold text-graphite">{formatPrice(product.price)}</div>
+            <div className="text-lg font-bold text-graphite">
+              {formatPrice(product.price)}
+              <span className="text-sm font-semibold text-graphite/50">/{product.unit}</span>
+            </div>
+            {byPack && pPack != null ? (
+              <div className="text-sm font-semibold text-graphite">{formatPrice(pPack)}/упак</div>
+            ) : null}
             {product.oldPrice ? (
               <div className="text-sm text-graphite/40 line-through">{formatPrice(product.oldPrice)}</div>
             ) : null}
-            <div className="text-xs text-graphite/50">за {product.unit}</div>
           </div>
           <button
             type="button"
             className="btn-primary px-3 py-2"
-            onClick={() => add(product)}
+            onClick={() => add(product, 1)}
             aria-label="В корзину"
           >
             <ShoppingCart size={16} />

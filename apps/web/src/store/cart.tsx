@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Product } from '../types';
 import { resolveImageUrl } from '../lib/images';
+import { isPackSold, lineTotal, resolvePackArea } from '../lib/packaging';
 
 export type CartItem = {
   productId: string;
@@ -9,8 +10,13 @@ export type CartItem = {
   price: number;
   unit: string;
   image: string;
+  /** Packs for flooring; pieces for piece-sold goods */
   quantity: number;
   packArea?: number | null;
+  packQty?: number | null;
+  length?: number | null;
+  width?: number | null;
+  soldByPack: boolean;
 };
 
 type CartContextValue = {
@@ -24,7 +30,25 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
-const KEY = 'dompola_cart';
+const KEY = 'dompola_cart_v2';
+
+function toCartItem(product: Product, quantity: number): CartItem {
+  const soldByPack = isPackSold(product);
+  return {
+    productId: product.id,
+    slug: product.slug,
+    name: product.name,
+    price: product.price,
+    unit: product.unit,
+    image: resolveImageUrl(product.images?.[0]?.url),
+    quantity: Math.max(1, Math.round(quantity)),
+    packArea: resolvePackArea(product),
+    packQty: product.packQty,
+    length: product.length,
+    width: product.width,
+    soldByPack,
+  };
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(() => {
@@ -41,26 +65,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<CartContextValue>(() => {
     const add = (product: Product, qty = 1) => {
+      const addQty = Math.max(1, Math.round(qty));
       setItems((prev) => {
         const existing = prev.find((i) => i.productId === product.id);
         if (existing) {
           return prev.map((i) =>
-            i.productId === product.id ? { ...i, quantity: i.quantity + qty } : i,
+            i.productId === product.id ? { ...i, quantity: i.quantity + addQty } : i,
           );
         }
-        return [
-          ...prev,
-          {
-            productId: product.id,
-            slug: product.slug,
-            name: product.name,
-            price: product.price,
-            unit: product.unit,
-            image: resolveImageUrl(product.images?.[0]?.url),
-            quantity: qty,
-            packArea: product.packArea,
-          },
-        ];
+        return [...prev, toCartItem(product, addQty)];
       });
     };
 
@@ -71,12 +84,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setQty: (productId, quantity) =>
         setItems((prev) =>
           prev
-            .map((i) => (i.productId === productId ? { ...i, quantity: Math.max(1, quantity) } : i))
+            .map((i) =>
+              i.productId === productId ? { ...i, quantity: Math.max(1, Math.round(quantity)) } : i,
+            )
             .filter((i) => i.quantity > 0),
         ),
       clear: () => setItems([]),
       count: items.reduce((s, i) => s + i.quantity, 0),
-      total: items.reduce((s, i) => s + i.quantity * i.price, 0),
+      total: items.reduce(
+        (s, i) =>
+          s +
+          lineTotal(i.quantity, {
+            price: i.price,
+            unit: i.unit,
+            packArea: i.packArea,
+            packQty: i.packQty,
+            length: i.length,
+            width: i.width,
+          }),
+        0,
+      ),
     };
   }, [items]);
 

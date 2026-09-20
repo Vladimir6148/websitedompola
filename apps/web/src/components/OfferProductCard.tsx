@@ -2,6 +2,13 @@ import { BadgePercent, Layers, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, primaryImage } from '../lib/api';
+import {
+  formatBoardSize,
+  formatPackArea,
+  isPackSold,
+  packPrice,
+  resolvePackArea,
+} from '../lib/packaging';
 import { useCart } from '../store/cart';
 import { SmartImage } from './SmartImage';
 
@@ -14,6 +21,10 @@ export function OfferProductCard({ product }: { product: Product }) {
       ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
       : null);
   const hasDeal = Boolean(discount && product.oldPrice && product.oldPrice > product.price);
+  const byPack = isPackSold(product);
+  const area = resolvePackArea(product);
+  const pPack = packPrice(product);
+  const board = formatBoardSize(product);
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-sm">
@@ -40,9 +51,16 @@ export function OfferProductCard({ product }: { product: Product }) {
       </Link>
 
       <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
-        <div className="text-lg font-bold leading-none text-[#e11d48] sm:text-xl">
-          {formatPrice(product.price)}
-          <span className="ml-0.5 text-sm font-semibold">/{product.unit}</span>
+        <div>
+          <div className="text-lg font-bold leading-none text-[#e11d48] sm:text-xl">
+            {formatPrice(product.price)}
+            <span className="ml-0.5 text-sm font-semibold">/{product.unit}</span>
+          </div>
+          {byPack && pPack != null ? (
+            <div className="mt-1 text-sm font-semibold text-graphite">
+              {formatPrice(pPack)}/упак
+            </div>
+          ) : null}
         </div>
         <Link
           to={`/product/${product.slug}`}
@@ -50,6 +68,13 @@ export function OfferProductCard({ product }: { product: Product }) {
         >
           {product.name}
         </Link>
+        {(board || product.packQty || area) ? (
+          <div className="space-y-0.5 text-xs text-graphite/55">
+            {board ? <div>Доска {board}</div> : null}
+            {product.packQty ? <div>{product.packQty} шт. в упаковке</div> : null}
+            {area ? <div>{formatPackArea(area)} м² в упаковке</div> : null}
+          </div>
+        ) : null}
         <div className="mt-1 space-y-1 text-xs text-graphite/55">
           <div className="flex items-center gap-1.5">
             <Truck size={13} />
@@ -62,10 +87,10 @@ export function OfferProductCard({ product }: { product: Product }) {
         </div>
         <button
           type="button"
-          onClick={() => add(product)}
+          onClick={() => add(product, 1)}
           className="mt-auto w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-white shadow-[0_8px_18px_rgba(31,138,61,0.28)] transition hover:bg-brand-dark active:scale-[0.98]"
         >
-          В корзину
+          В корзину{byPack ? ' · 1 уп.' : ''}
         </button>
       </div>
     </article>
