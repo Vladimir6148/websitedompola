@@ -13,3 +13,5 @@ apps/api/prisma/*.db-journal
 .vscode/
 .idea/
 *.tsbuildinfo
+mspc-source.json
+mspc-products-raw.json

@@ -1,98 +1,137 @@
 [
   {
-    "id": "cmu9ls8li0005w1h45fur6b8m",
+    "id": "cmu9rliyv0003b76rl8kw80ew",
+    "name": "MSPC",
+    "slug": "mspc",
+    "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
+    "image": "images/mspc/category.jpg",
+    "sortOrder": 0,
+    "active": true,
+    "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+    "createdAt": "2026-09-20T12:00:29.768Z",
+    "updatedAt": "2026-09-20T12:00:29.768Z",
+    "_count": {
+      "products": 48
+    }
+  },
+  {
+    "id": "cmu9okcop0005b75fl93r803d",
     "name": "Кварцвинил / SPC",
     "slug": "quartzvinyl-spc",
     "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
-    "image": "images/floor1.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
     "sortOrder": 1,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-    "createdAt": "2026-09-20T09:17:45.222Z",
-    "updatedAt": "2026-09-20T09:17:45.222Z"
+    "createdAt": "2026-09-20T10:35:36.122Z",
+    "updatedAt": "2026-09-20T10:35:36.122Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8ll0006w1h4i8qm08of",
+    "id": "cmu9okcot0006b75f41xm1mp1",
     "name": "Ламинат",
     "slug": "laminate",
     "description": "Практичные и выразительные решения для жилых интерьеров",
-    "image": "images/wood.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
     "sortOrder": 2,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
-    "createdAt": "2026-09-20T09:17:45.226Z",
-    "updatedAt": "2026-09-20T09:17:45.226Z"
+    "createdAt": "2026-09-20T10:35:36.125Z",
+    "updatedAt": "2026-09-20T10:35:36.125Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8lo0007w1h4w936spyq",
+    "id": "cmu9okcow0007b75fm47thg1r",
     "name": "Линолеум",
     "slug": "linoleum",
     "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
-    "image": "images/floor2.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
     "sortOrder": 3,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
-    "createdAt": "2026-09-20T09:17:45.229Z",
-    "updatedAt": "2026-09-20T09:17:45.229Z"
+    "createdAt": "2026-09-20T10:35:36.128Z",
+    "updatedAt": "2026-09-20T10:35:36.128Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8lr0008w1h4m3geass9",
+    "id": "cmu9okcoz0008b75f3cosjb31",
     "name": "Керамогранит",
     "slug": "porcelain",
     "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
-    "image": "images/floor3.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
     "sortOrder": 4,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
-    "createdAt": "2026-09-20T09:17:45.231Z",
-    "updatedAt": "2026-09-20T09:17:45.231Z"
+    "createdAt": "2026-09-20T10:35:36.131Z",
+    "updatedAt": "2026-09-20T10:35:36.131Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8lt0009w1h4oz6kn5wg",
+    "id": "cmu9okcp10009b75f1hzkq56x",
     "name": "Паркет",
     "slug": "parquet",
     "description": "Натуральное дерево с характером и теплом",
-    "image": "images/living.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
     "sortOrder": 5,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
-    "createdAt": "2026-09-20T09:17:45.234Z",
-    "updatedAt": "2026-09-20T09:17:45.234Z"
+    "createdAt": "2026-09-20T10:35:36.133Z",
+    "updatedAt": "2026-09-20T10:35:36.133Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8lw000aw1h4zsr3bqso",
+    "id": "cmu9okcp3000ab75fno4ubrc0",
     "name": "Плинтусы",
     "slug": "baseboards",
     "description": "Завершающий штрих для любого покрытия",
-    "image": "images/wood.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
     "sortOrder": 6,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
-    "createdAt": "2026-09-20T09:17:45.237Z",
-    "updatedAt": "2026-09-20T09:17:45.237Z"
+    "createdAt": "2026-09-20T10:35:36.136Z",
+    "updatedAt": "2026-09-20T10:35:36.136Z",
+    "_count": {
+      "products": 1
+    }
   },
   {
-    "id": "cmu9ls8m0000bw1h47klh4gyn",
+    "id": "cmu9okcp6000bb75ftfkpvq3k",
     "name": "Подложка",
     "slug": "underlayment",
     "description": "Основа для тишины, тепла и ровного пола",
-    "image": "images/floor1.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
     "sortOrder": 7,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
-    "createdAt": "2026-09-20T09:17:45.240Z",
-    "updatedAt": "2026-09-20T09:17:45.240Z"
+    "createdAt": "2026-09-20T10:35:36.138Z",
+    "updatedAt": "2026-09-20T10:35:36.138Z",
+    "_count": {
+      "products": 0
+    }
   },
   {
-    "id": "cmu9ls8m3000cw1h45v059co0",
+    "id": "cmu9okcp8000cb75f9m9yvcs9",
     "name": "Комплектующие",
     "slug": "accessories",
     "description": "Пороги, профили и всё для аккуратного монтажа",
-    "image": "images/floor2.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
     "sortOrder": 8,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"color\"]",
-    "createdAt": "2026-09-20T09:17:45.244Z",
-    "updatedAt": "2026-09-20T09:17:45.244Z"
+    "createdAt": "2026-09-20T10:35:36.140Z",
+    "updatedAt": "2026-09-20T10:35:36.140Z",
+    "_count": {
+      "products": 0
+    }
   }
 ]

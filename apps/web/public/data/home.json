@@ -1,33 +1,33 @@
 {
   "banners": [
     {
-      "id": "cmu9ls8qm002ow1h45tc9m7ib",
+      "id": "cmu9okcyf002ob75fqjthh7qb",
       "title": "ДомПола — сеть магазинов напольных покрытий",
       "subtitle": "Кварцвинил, ламинат и паркет для Архангельска, Северодвинска и Вологды",
-      "image": "images/hero.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/hero.jpg",
       "ctaText": "Смотреть каталог",
       "ctaLink": "/catalog",
       "sortOrder": 1,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.406Z",
-      "updatedAt": "2026-09-20T09:17:45.406Z"
+      "createdAt": "2026-09-20T10:35:36.472Z",
+      "updatedAt": "2026-09-20T10:35:36.472Z"
     },
     {
-      "id": "cmu9ls8qm002pw1h4i8frpp0j",
+      "id": "cmu9okcyf002pb75fvarcmgz5",
       "title": "Сезон тёплых скидок",
       "subtitle": "До −20% на избранные коллекции SPC и ламината",
-      "image": "images/promo.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/promo.jpg",
       "ctaText": "К акциям",
       "ctaLink": "/promotions",
       "sortOrder": 2,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.406Z",
-      "updatedAt": "2026-09-20T09:17:45.406Z"
+      "createdAt": "2026-09-20T10:35:36.472Z",
+      "updatedAt": "2026-09-20T10:35:36.472Z"
     }
   ],
   "advantages": [
     {
-      "id": "cmu9ls8qq002qw1h4l4yol5vy",
+      "id": "cmu9okczb002qb75fi282yblu",
       "title": "Шоурумы в трёх городах",
       "description": "Живые образцы покрытий и консультация технолога",
       "icon": "store",
@@ -35,7 +35,7 @@
       "active": true
     },
     {
-      "id": "cmu9ls8qq002rw1h4weuf7mb6",
+      "id": "cmu9okczb002rb75fw2w5vrms",
       "title": "Подбор под задачу",
       "description": "Учитываем влажность, нагрузку, тёплый пол и стиль",
       "icon": "compass",
@@ -43,7 +43,7 @@
       "active": true
     },
     {
-      "id": "cmu9ls8qq002sw1h4cbmqnppt",
+      "id": "cmu9okczb002sb75fuqj8x0ci",
       "title": "Профессиональный монтаж",
       "description": "Бригады с опытом укладки SPC, ламината и плитки",
       "icon": "hammer",
@@ -51,7 +51,7 @@
       "active": true
     },
     {
-      "id": "cmu9ls8qq002tw1h43y5stxir",
+      "id": "cmu9okczb002tb75fpoef1xjc",
       "title": "Честный расчёт",
       "description": "Считаем площадь, запас и комплектующие без сюрпризов",
       "icon": "calculator",
@@ -61,7 +61,7 @@
   ],
   "services": [
     {
-      "id": "cmu9ls8qu002uw1h4nrmuiczz",
+      "id": "cmu9okczh002ub75f0txg2ht6",
       "title": "Замер помещения",
       "slug": "zamer",
       "description": "Выезд специалиста и точный расчёт материалов",
@@ -69,11 +69,11 @@
       "icon": "ruler",
       "sortOrder": 1,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.415Z",
-      "updatedAt": "2026-09-20T09:17:45.415Z"
+      "createdAt": "2026-09-20T10:35:36.510Z",
+      "updatedAt": "2026-09-20T10:35:36.510Z"
     },
     {
-      "id": "cmu9ls8qu002vw1h4gygffay8",
+      "id": "cmu9okczh002vb75fo81k59tu",
       "title": "Укладка покрытий",
       "slug": "ukladka",
       "description": "Монтаж ламината, SPC, линолеума и керамогранита",
@@ -81,11 +81,11 @@
       "icon": "layers",
       "sortOrder": 2,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.415Z",
-      "updatedAt": "2026-09-20T09:17:45.415Z"
+      "createdAt": "2026-09-20T10:35:36.510Z",
+      "updatedAt": "2026-09-20T10:35:36.510Z"
     },
     {
-      "id": "cmu9ls8qu002ww1h4ogmetjf9",
+      "id": "cmu9okczh002wb75f4haucsiq",
       "title": "Демонтаж старого пола",
       "slug": "demontazh",
       "description": "Аккуратно снимем покрытие и подготовим основание",
@@ -93,11 +93,11 @@
       "icon": "trash",
       "sortOrder": 3,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.415Z",
-      "updatedAt": "2026-09-20T09:17:45.415Z"
+      "createdAt": "2026-09-20T10:35:36.510Z",
+      "updatedAt": "2026-09-20T10:35:36.510Z"
     },
     {
-      "id": "cmu9ls8qu002xw1h47lgpz72m",
+      "id": "cmu9okczh002xb75fx7z8braj",
       "title": "Подготовка основания",
       "slug": "podgotovka",
       "description": "Выравнивание, грунтовка и гидроизоляция",
@@ -105,81 +105,81 @@
       "icon": "grid",
       "sortOrder": 4,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.415Z",
-      "updatedAt": "2026-09-20T09:17:45.415Z"
+      "createdAt": "2026-09-20T10:35:36.510Z",
+      "updatedAt": "2026-09-20T10:35:36.510Z"
     }
   ],
   "works": [
     {
-      "id": "cmu9ls8qy002yw1h4xcgly28b",
+      "id": "cmu9okczo002yb75fvh8cz7dm",
       "title": "SPC в гостиной",
       "slug": "spc-gostinaya",
       "description": null,
-      "image": "images/living.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
       "city": "Архангельск",
       "category": "Кварцвинил / SPC",
       "sortOrder": 1,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.419Z",
-      "updatedAt": "2026-09-20T09:17:45.419Z"
+      "createdAt": "2026-09-20T10:35:36.516Z",
+      "updatedAt": "2026-09-20T10:35:36.516Z"
     },
     {
-      "id": "cmu9ls8qy002zw1h4j4moh1nj",
+      "id": "cmu9okczo002zb75f6zp3lnm9",
       "title": "Ламинат в квартире",
       "slug": "laminat-kvartira",
       "description": null,
-      "image": "images/wood.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
       "city": "Северодвинск",
       "category": "Ламинат",
       "sortOrder": 2,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.419Z",
-      "updatedAt": "2026-09-20T09:17:45.419Z"
+      "createdAt": "2026-09-20T10:35:36.516Z",
+      "updatedAt": "2026-09-20T10:35:36.516Z"
     },
     {
-      "id": "cmu9ls8qy0030w1h4ip44m747",
+      "id": "cmu9okczo0030b75fwghslnnr",
       "title": "Керамогранит на кухне",
       "slug": "keramogranit-kuhnya",
       "description": null,
-      "image": "images/floor3.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
       "city": "Вологда",
       "category": "Керамогранит",
       "sortOrder": 3,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.419Z",
-      "updatedAt": "2026-09-20T09:17:45.419Z"
+      "createdAt": "2026-09-20T10:35:36.516Z",
+      "updatedAt": "2026-09-20T10:35:36.516Z"
     },
     {
-      "id": "cmu9ls8qy0031w1h4xtjxxqh3",
+      "id": "cmu9okczo0031b75fltoseoa4",
       "title": "Паркет в кабинете",
       "slug": "parket-kabinet",
       "description": null,
-      "image": "images/work.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/work.jpg",
       "city": "Архангельск",
       "category": "Паркет",
       "sortOrder": 4,
       "active": true,
-      "createdAt": "2026-09-20T09:17:45.419Z",
-      "updatedAt": "2026-09-20T09:17:45.419Z"
+      "createdAt": "2026-09-20T10:35:36.516Z",
+      "updatedAt": "2026-09-20T10:35:36.516Z"
     }
   ],
   "contacts": [
     {
-      "id": "cmu9ls8rc0034w1h4yg8hk7ck",
+      "id": "cmu9okd020034b75f7kn50r0p",
       "key": "phone",
       "label": "Телефон",
       "value": "+7 (8182) 65-00-00",
       "active": true
     },
     {
-      "id": "cmu9ls8rc0035w1h4eo27vlj3",
+      "id": "cmu9okd020035b75f4gdhbpwh",
       "key": "email",
       "label": "Email",
       "value": "hello@dompola.ru",
       "active": true
     },
     {
-      "id": "cmu9ls8rc0036w1h4w2nnpwrp",
+      "id": "cmu9okd020036b75fr78dg2fa",
       "key": "hours",
       "label": "Режим работы",
       "value": "Пн–Сб 10:00–20:00",
@@ -188,105 +188,117 @@
   ],
   "categories": [
     {
-      "id": "cmu9ls8li0005w1h45fur6b8m",
+      "id": "cmu9rliyv0003b76rl8kw80ew",
+      "name": "MSPC",
+      "slug": "mspc",
+      "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
+      "image": "images/mspc/category.jpg",
+      "sortOrder": 0,
+      "active": true,
+      "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+      "createdAt": "2026-09-20T12:00:29.768Z",
+      "updatedAt": "2026-09-20T12:00:29.768Z"
+    },
+    {
+      "id": "cmu9okcop0005b75fl93r803d",
       "name": "Кварцвинил / SPC",
       "slug": "quartzvinyl-spc",
       "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
-      "image": "images/floor1.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
       "sortOrder": 1,
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-      "createdAt": "2026-09-20T09:17:45.222Z",
-      "updatedAt": "2026-09-20T09:17:45.222Z"
+      "createdAt": "2026-09-20T10:35:36.122Z",
+      "updatedAt": "2026-09-20T10:35:36.122Z"
     },
     {
-      "id": "cmu9ls8ll0006w1h4i8qm08of",
+      "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
       "slug": "laminate",
       "description": "Практичные и выразительные решения для жилых интерьеров",
-      "image": "images/wood.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
       "sortOrder": 2,
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
-      "createdAt": "2026-09-20T09:17:45.226Z",
-      "updatedAt": "2026-09-20T09:17:45.226Z"
+      "createdAt": "2026-09-20T10:35:36.125Z",
+      "updatedAt": "2026-09-20T10:35:36.125Z"
     },
     {
-      "id": "cmu9ls8lo0007w1h4w936spyq",
+      "id": "cmu9okcow0007b75fm47thg1r",
       "name": "Линолеум",
       "slug": "linoleum",
       "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
-      "image": "images/floor2.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
       "sortOrder": 3,
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
-      "createdAt": "2026-09-20T09:17:45.229Z",
-      "updatedAt": "2026-09-20T09:17:45.229Z"
+      "createdAt": "2026-09-20T10:35:36.128Z",
+      "updatedAt": "2026-09-20T10:35:36.128Z"
     },
     {
-      "id": "cmu9ls8lr0008w1h4m3geass9",
+      "id": "cmu9okcoz0008b75f3cosjb31",
       "name": "Керамогранит",
       "slug": "porcelain",
       "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
-      "image": "images/floor3.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
       "sortOrder": 4,
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
-      "createdAt": "2026-09-20T09:17:45.231Z",
-      "updatedAt": "2026-09-20T09:17:45.231Z"
+      "createdAt": "2026-09-20T10:35:36.131Z",
+      "updatedAt": "2026-09-20T10:35:36.131Z"
     },
     {
-      "id": "cmu9ls8lt0009w1h4oz6kn5wg",
+      "id": "cmu9okcp10009b75f1hzkq56x",
       "name": "Паркет",
       "slug": "parquet",
       "description": "Натуральное дерево с характером и теплом",
-      "image": "images/living.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
       "sortOrder": 5,
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
-      "createdAt": "2026-09-20T09:17:45.234Z",
-      "updatedAt": "2026-09-20T09:17:45.234Z"
+      "createdAt": "2026-09-20T10:35:36.133Z",
+      "updatedAt": "2026-09-20T10:35:36.133Z"
     },
     {
-      "id": "cmu9ls8lw000aw1h4zsr3bqso",
+      "id": "cmu9okcp3000ab75fno4ubrc0",
       "name": "Плинтусы",
       "slug": "baseboards",
       "description": "Завершающий штрих для любого покрытия",
-      "image": "images/wood.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
       "sortOrder": 6,
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
-      "createdAt": "2026-09-20T09:17:45.237Z",
-      "updatedAt": "2026-09-20T09:17:45.237Z"
+      "createdAt": "2026-09-20T10:35:36.136Z",
+      "updatedAt": "2026-09-20T10:35:36.136Z"
     },
     {
-      "id": "cmu9ls8m0000bw1h47klh4gyn",
+      "id": "cmu9okcp6000bb75ftfkpvq3k",
       "name": "Подложка",
       "slug": "underlayment",
       "description": "Основа для тишины, тепла и ровного пола",
-      "image": "images/floor1.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
       "sortOrder": 7,
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
-      "createdAt": "2026-09-20T09:17:45.240Z",
-      "updatedAt": "2026-09-20T09:17:45.240Z"
+      "createdAt": "2026-09-20T10:35:36.138Z",
+      "updatedAt": "2026-09-20T10:35:36.138Z"
     },
     {
-      "id": "cmu9ls8m3000cw1h45v059co0",
+      "id": "cmu9okcp8000cb75f9m9yvcs9",
       "name": "Комплектующие",
       "slug": "accessories",
       "description": "Пороги, профили и всё для аккуратного монтажа",
-      "image": "images/floor2.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
       "sortOrder": 8,
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"color\"]",
-      "createdAt": "2026-09-20T09:17:45.244Z",
-      "updatedAt": "2026-09-20T09:17:45.244Z"
+      "createdAt": "2026-09-20T10:35:36.140Z",
+      "updatedAt": "2026-09-20T10:35:36.140Z"
     }
   ],
   "featured": [
     {
-      "id": "cmu9ls8ot000tw1h4g7pxt8b6",
+      "id": "cmu9okcup000tb75fa0dlhc0f",
       "name": "Alpine Floor Дуб Нордик",
       "slug": "alpine-floor-dub-nordic",
       "sku": "AF-ND-01",
@@ -312,25 +324,25 @@
       "published": true,
       "featured": true,
       "sortOrder": 0,
-      "categoryId": "cmu9ls8li0005w1h45fur6b8m",
-      "brandId": "cmu9ls8m7000dw1h4h3wpxxti",
-      "collectionId": "cmu9ls8o3000jw1h4zemm3ldf",
-      "createdAt": "2026-09-20T09:17:45.341Z",
-      "updatedAt": "2026-09-20T09:17:45.341Z",
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "cmu9okcpa000db75fwdh6s3ka",
+      "collectionId": "cmu9okcrs000jb75f54onsaq7",
+      "createdAt": "2026-09-20T10:35:36.337Z",
+      "updatedAt": "2026-09-20T10:35:36.337Z",
       "images": [
         {
-          "id": "cmu9ls8ot000uw1h4roorpis0",
-          "productId": "cmu9ls8ot000tw1h4g7pxt8b6",
-          "url": "images/floor1.jpg",
+          "id": "cmu9okcup000ub75fgakvu21j",
+          "productId": "cmu9okcup000tb75fa0dlhc0f",
+          "url": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
           "alt": "Alpine Floor Дуб Нордик",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T09:17:45.341Z"
+          "createdAt": "2026-09-20T10:35:36.337Z"
         }
       ],
       "brand": {
-        "id": "cmu9ls8m7000dw1h4h3wpxxti",
+        "id": "cmu9okcpa000db75fwdh6s3ka",
         "name": "Alpine Floor",
         "slug": "alpine-floor",
         "logo": null,
@@ -338,24 +350,24 @@
         "website": "https://alpinefloor.ru",
         "sortOrder": 1,
         "active": true,
-        "createdAt": "2026-09-20T09:17:45.247Z",
-        "updatedAt": "2026-09-20T09:17:45.247Z"
+        "createdAt": "2026-09-20T10:35:36.143Z",
+        "updatedAt": "2026-09-20T10:35:36.143Z"
       },
       "category": {
-        "id": "cmu9ls8li0005w1h45fur6b8m",
+        "id": "cmu9okcop0005b75fl93r803d",
         "name": "Кварцвинил / SPC",
         "slug": "quartzvinyl-spc",
         "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
-        "image": "images/floor1.jpg",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
         "sortOrder": 1,
         "active": true,
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-        "createdAt": "2026-09-20T09:17:45.222Z",
-        "updatedAt": "2026-09-20T09:17:45.222Z"
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
       }
     },
     {
-      "id": "cmu9ls8oz0014w1h4azx9ctpu",
+      "id": "cmu9okcv50014b75fslmof8zu",
       "name": "Quick-Step Дуб Классик",
       "slug": "quick-step-dub-classic",
       "sku": "QS-CL-12",
@@ -381,25 +393,25 @@
       "published": true,
       "featured": true,
       "sortOrder": 0,
-      "categoryId": "cmu9ls8ll0006w1h4i8qm08of",
-      "brandId": "cmu9ls8m7000fw1h4dti2ht2t",
-      "collectionId": "cmu9ls8o7000lw1h44d58zbkc",
-      "createdAt": "2026-09-20T09:17:45.347Z",
-      "updatedAt": "2026-09-20T09:17:45.347Z",
+      "categoryId": "cmu9okcot0006b75f41xm1mp1",
+      "brandId": "cmu9okcpb000fb75far2odao6",
+      "collectionId": "cmu9okcu7000lb75f2d4srgh2",
+      "createdAt": "2026-09-20T10:35:36.354Z",
+      "updatedAt": "2026-09-20T10:35:36.354Z",
       "images": [
         {
-          "id": "cmu9ls8oz0015w1h471b5ukxh",
-          "productId": "cmu9ls8oz0014w1h4azx9ctpu",
-          "url": "images/wood.jpg",
+          "id": "cmu9okcv50015b75fs9lg97q2",
+          "productId": "cmu9okcv50014b75fslmof8zu",
+          "url": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
           "alt": "Quick-Step Дуб Классик",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T09:17:45.347Z"
+          "createdAt": "2026-09-20T10:35:36.354Z"
         }
       ],
       "brand": {
-        "id": "cmu9ls8m7000fw1h4dti2ht2t",
+        "id": "cmu9okcpb000fb75far2odao6",
         "name": "Quick-Step",
         "slug": "quick-step",
         "logo": null,
@@ -407,24 +419,24 @@
         "website": "https://www.quick-step.ru",
         "sortOrder": 2,
         "active": true,
-        "createdAt": "2026-09-20T09:17:45.247Z",
-        "updatedAt": "2026-09-20T09:17:45.247Z"
+        "createdAt": "2026-09-20T10:35:36.143Z",
+        "updatedAt": "2026-09-20T10:35:36.143Z"
       },
       "category": {
-        "id": "cmu9ls8ll0006w1h4i8qm08of",
+        "id": "cmu9okcot0006b75f41xm1mp1",
         "name": "Ламинат",
         "slug": "laminate",
         "description": "Практичные и выразительные решения для жилых интерьеров",
-        "image": "images/wood.jpg",
+        "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
         "sortOrder": 2,
         "active": true,
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
-        "createdAt": "2026-09-20T09:17:45.226Z",
-        "updatedAt": "2026-09-20T09:17:45.226Z"
+        "createdAt": "2026-09-20T10:35:36.125Z",
+        "updatedAt": "2026-09-20T10:35:36.125Z"
       }
     },
     {
-      "id": "cmu9ls8p4001fw1h4ydx2cbit",
+      "id": "cmu9okcvf001fb75fpmcp4p9v",
       "name": "Tarkett Idylle Дуб",
       "slug": "tarkett-idylle-dub",
       "sku": "TR-ID-08",
@@ -450,25 +462,25 @@
       "published": true,
       "featured": true,
       "sortOrder": 0,
-      "categoryId": "cmu9ls8lo0007w1h4w936spyq",
-      "brandId": "cmu9ls8m7000ew1h42bicd01e",
+      "categoryId": "cmu9okcow0007b75fm47thg1r",
+      "brandId": "cmu9okcpa000eb75fbf9nxu7c",
       "collectionId": null,
-      "createdAt": "2026-09-20T09:17:45.352Z",
-      "updatedAt": "2026-09-20T09:17:45.352Z",
+      "createdAt": "2026-09-20T10:35:36.364Z",
+      "updatedAt": "2026-09-20T10:35:36.364Z",
       "images": [
         {
-          "id": "cmu9ls8p4001gw1h4vfoexudk",
-          "productId": "cmu9ls8p4001fw1h4ydx2cbit",
-          "url": "images/floor2.jpg",
+          "id": "cmu9okcvf001gb75f4dg1vgms",
+          "productId": "cmu9okcvf001fb75fpmcp4p9v",
+          "url": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
           "alt": "Tarkett Idylle Дуб",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T09:17:45.352Z"
+          "createdAt": "2026-09-20T10:35:36.364Z"
         }
       ],
       "brand": {
-        "id": "cmu9ls8m7000ew1h42bicd01e",
+        "id": "cmu9okcpa000eb75fbf9nxu7c",
         "name": "Tarkett",
         "slug": "tarkett",
         "logo": null,
@@ -476,24 +488,24 @@
         "website": "https://www.tarkett.ru",
         "sortOrder": 3,
         "active": true,
-        "createdAt": "2026-09-20T09:17:45.247Z",
-        "updatedAt": "2026-09-20T09:17:45.247Z"
+        "createdAt": "2026-09-20T10:35:36.143Z",
+        "updatedAt": "2026-09-20T10:35:36.143Z"
       },
       "category": {
-        "id": "cmu9ls8lo0007w1h4w936spyq",
+        "id": "cmu9okcow0007b75fm47thg1r",
         "name": "Линолеум",
         "slug": "linoleum",
         "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
-        "image": "images/floor2.jpg",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
         "sortOrder": 3,
         "active": true,
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
-        "createdAt": "2026-09-20T09:17:45.229Z",
-        "updatedAt": "2026-09-20T09:17:45.229Z"
+        "createdAt": "2026-09-20T10:35:36.128Z",
+        "updatedAt": "2026-09-20T10:35:36.128Z"
       }
     },
     {
-      "id": "cmu9ls8pa001qw1h4rctdcbl8",
+      "id": "cmu9okcx5001qb75fv7jflthg",
       "name": "Kerama Marazzi Вуд Эффект",
       "slug": "kerama-marazzi-wood-effect",
       "sku": "KM-WE-60",
@@ -519,25 +531,25 @@
       "published": true,
       "featured": true,
       "sortOrder": 0,
-      "categoryId": "cmu9ls8lr0008w1h4m3geass9",
-      "brandId": "cmu9ls8m7000gw1h40sb5uq6y",
+      "categoryId": "cmu9okcoz0008b75f3cosjb31",
+      "brandId": "cmu9okcrn000hb75f7o353zwc",
       "collectionId": null,
-      "createdAt": "2026-09-20T09:17:45.358Z",
-      "updatedAt": "2026-09-20T09:17:45.358Z",
+      "createdAt": "2026-09-20T10:35:36.425Z",
+      "updatedAt": "2026-09-20T10:35:36.425Z",
       "images": [
         {
-          "id": "cmu9ls8pa001rw1h4z5glhl6z",
-          "productId": "cmu9ls8pa001qw1h4rctdcbl8",
-          "url": "images/floor3.jpg",
+          "id": "cmu9okcx5001rb75fks7hlgme",
+          "productId": "cmu9okcx5001qb75fv7jflthg",
+          "url": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
           "alt": "Kerama Marazzi Вуд Эффект",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T09:17:45.358Z"
+          "createdAt": "2026-09-20T10:35:36.425Z"
         }
       ],
       "brand": {
-        "id": "cmu9ls8m7000gw1h40sb5uq6y",
+        "id": "cmu9okcrn000hb75f7o353zwc",
         "name": "Kerama Marazzi",
         "slug": "kerama-marazzi",
         "logo": null,
@@ -545,24 +557,24 @@
         "website": null,
         "sortOrder": 4,
         "active": true,
-        "createdAt": "2026-09-20T09:17:45.247Z",
-        "updatedAt": "2026-09-20T09:17:45.247Z"
+        "createdAt": "2026-09-20T10:35:36.143Z",
+        "updatedAt": "2026-09-20T10:35:36.143Z"
       },
       "category": {
-        "id": "cmu9ls8lr0008w1h4m3geass9",
+        "id": "cmu9okcoz0008b75f3cosjb31",
         "name": "Керамогранит",
         "slug": "porcelain",
         "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
-        "image": "images/floor3.jpg",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
         "sortOrder": 4,
         "active": true,
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
-        "createdAt": "2026-09-20T09:17:45.231Z",
-        "updatedAt": "2026-09-20T09:17:45.231Z"
+        "createdAt": "2026-09-20T10:35:36.131Z",
+        "updatedAt": "2026-09-20T10:35:36.131Z"
       }
     },
     {
-      "id": "cmu9ls8pf0020w1h4ehx3znyy",
+      "id": "cmu9okcxi0020b75fme9i1n0g",
       "name": "Barlinek Дуб Масло",
       "slug": "barlinek-dub-maslo",
       "sku": "BL-DM-01",
@@ -588,25 +600,25 @@
       "published": true,
       "featured": true,
       "sortOrder": 0,
-      "categoryId": "cmu9ls8lt0009w1h4oz6kn5wg",
-      "brandId": "cmu9ls8m7000hw1h494kre08n",
+      "categoryId": "cmu9okcp10009b75f1hzkq56x",
+      "brandId": "cmu9okcrh000gb75f10z1adku",
       "collectionId": null,
-      "createdAt": "2026-09-20T09:17:45.364Z",
-      "updatedAt": "2026-09-20T09:17:45.364Z",
+      "createdAt": "2026-09-20T10:35:36.438Z",
+      "updatedAt": "2026-09-20T10:35:36.438Z",
       "images": [
         {
-          "id": "cmu9ls8pf0021w1h4mazw9uf6",
-          "productId": "cmu9ls8pf0020w1h4ehx3znyy",
-          "url": "images/living.jpg",
+          "id": "cmu9okcxi0021b75fk9cc0g9m",
+          "productId": "cmu9okcxi0020b75fme9i1n0g",
+          "url": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
           "alt": "Barlinek Дуб Масло",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T09:17:45.364Z"
+          "createdAt": "2026-09-20T10:35:36.438Z"
         }
       ],
       "brand": {
-        "id": "cmu9ls8m7000hw1h494kre08n",
+        "id": "cmu9okcrh000gb75f10z1adku",
         "name": "Barlinek",
         "slug": "barlinek",
         "logo": null,
@@ -614,47 +626,254 @@
         "website": null,
         "sortOrder": 5,
         "active": true,
-        "createdAt": "2026-09-20T09:17:45.247Z",
-        "updatedAt": "2026-09-20T09:17:45.247Z"
+        "createdAt": "2026-09-20T10:35:36.143Z",
+        "updatedAt": "2026-09-20T10:35:36.143Z"
       },
       "category": {
-        "id": "cmu9ls8lt0009w1h4oz6kn5wg",
+        "id": "cmu9okcp10009b75f1hzkq56x",
         "name": "Паркет",
         "slug": "parquet",
         "description": "Натуральное дерево с характером и теплом",
-        "image": "images/living.jpg",
+        "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
         "sortOrder": 5,
         "active": true,
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
-        "createdAt": "2026-09-20T09:17:45.234Z",
-        "updatedAt": "2026-09-20T09:17:45.234Z"
+        "createdAt": "2026-09-20T10:35:36.133Z",
+        "updatedAt": "2026-09-20T10:35:36.133Z"
+      }
+    },
+    {
+      "id": "cmu9rlk3x0006b76rc49g1qjs",
+      "name": "Ламинат MSPC Дуб Брэдли",
+      "slug": "laminat-mspc-dub-bredli",
+      "sku": "SF-MSPC-306318227412",
+      "description": "Дуб Брэдли — это MSPC полы классического коричневого мягкого оттенка. Именно этот тон работает на подсознательном уровне как наиболее безопасный, натуральный и теплый.\n\nЦвет Дуба Брэдли прекрасно совместим со всеми бежевыми и другими коричневыми оттенками. Выразительности бежевому и коричневому, конечно, добавят благородные оттенки холодного синего и серого. Кто-то может поэкспериментировать с бордо. Сам декор имеет изящный размер доски в универсальной 141 мм ширине.\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 1220x141 мм\n• Упаковка — 10 досок = 1,72 м2\n• Вес 1 упаковки — 21,5 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
+      "price": 6465,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 10,
+      "packArea": 1.72,
+      "thickness": 8,
+      "wearClass": "33 (43)",
+      "length": 1220,
+      "width": 141,
+      "color": "Дуб Брэдли",
+      "bevel": "4-сторонняя",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Ламинат MSPC Дуб Брэдли — ДОМПОЛА",
+      "seoDescription": "Дуб Брэдли — это MSPC полы классического коричневого мягкого оттенка. Именно этот тон работает на подсознательном уровне как наиболее безопасный, натуральный и теплый.",
+      "published": true,
+      "featured": true,
+      "sortOrder": 0,
+      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
+      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+      "collectionId": null,
+      "createdAt": "2026-09-20T12:00:31.245Z",
+      "updatedAt": "2026-09-20T12:00:31.245Z",
+      "images": [
+        {
+          "id": "cmu9rlk3x0007b76rqgqumwlc",
+          "productId": "cmu9rlk3x0006b76rc49g1qjs",
+          "url": "images/mspc/306318227412.jpg",
+          "alt": "Ламинат MSPC Дуб Брэдли",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T12:00:31.245Z"
+        }
+      ],
+      "brand": {
+        "id": "cmu9rlj7r0004b76rfha9yx7f",
+        "name": "Stone Floor",
+        "slug": "stone-floor",
+        "logo": null,
+        "description": "Производитель минерально-каменного MSPC ламината",
+        "website": "https://stone-floor.com",
+        "sortOrder": 0,
+        "active": true,
+        "createdAt": "2026-09-20T12:00:30.087Z",
+        "updatedAt": "2026-09-20T12:00:30.087Z"
+      },
+      "category": {
+        "id": "cmu9rliyv0003b76rl8kw80ew",
+        "name": "MSPC",
+        "slug": "mspc",
+        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
+        "image": "images/mspc/category.jpg",
+        "sortOrder": 0,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T12:00:29.768Z",
+        "updatedAt": "2026-09-20T12:00:29.768Z"
+      }
+    },
+    {
+      "id": "cmu9rlkjt000qb76rkyilad4w",
+      "name": "Ламинат MSPC Дуб Саммерфилд",
+      "slug": "laminat-mspc-dub-sammerfild",
+      "sku": "SF-MSPC-269382461612",
+      "description": "Минерально-каменный ламинат Дуб Саммерфилд от Stone Floor — один из наиболее популярных цветов коллекции с укладкой в рисунке «Английская Ёлка».\n\nЧем привлекателен Дуб Саммерфилд? Светлым оттенком, который расширяет пространство и наполняет его объемом и, конечно, зигзагообразным рисунком монтажа, который делает помещение концептуально более сложным. Интерьерные стили для Дуба Саммерфилд, это — контемпорари, минимализм, прованс, сканди. Сочетающиеся с Дубом Саммерфилд оттенки для помещений с северной стороны — теплые, для южной — более холодные.\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 564x141 мм\n• Упаковка — 20 досок = 1,59 м2\n• Вес 1 упаковки — 21 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
+      "price": 7345,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 20,
+      "packArea": 1.59,
+      "thickness": 8,
+      "wearClass": "33 (43)",
+      "length": 564,
+      "width": 141,
+      "color": "Дуб Саммерфилд",
+      "bevel": "4-сторонняя",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Ламинат MSPC Дуб Саммерфилд — ДОМПОЛА",
+      "seoDescription": "Минерально-каменный ламинат Дуб Саммерфилд от Stone Floor — один из наиболее популярных цветов коллекции с укладкой в рисунке «Английская Ёлка».",
+      "published": true,
+      "featured": true,
+      "sortOrder": 1,
+      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
+      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+      "collectionId": null,
+      "createdAt": "2026-09-20T12:00:31.817Z",
+      "updatedAt": "2026-09-20T12:00:31.817Z",
+      "images": [
+        {
+          "id": "cmu9rlkjt000rb76r916gglyo",
+          "productId": "cmu9rlkjt000qb76rkyilad4w",
+          "url": "images/mspc/269382461612.jpg",
+          "alt": "Ламинат MSPC Дуб Саммерфилд",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T12:00:31.817Z"
+        }
+      ],
+      "brand": {
+        "id": "cmu9rlj7r0004b76rfha9yx7f",
+        "name": "Stone Floor",
+        "slug": "stone-floor",
+        "logo": null,
+        "description": "Производитель минерально-каменного MSPC ламината",
+        "website": "https://stone-floor.com",
+        "sortOrder": 0,
+        "active": true,
+        "createdAt": "2026-09-20T12:00:30.087Z",
+        "updatedAt": "2026-09-20T12:00:30.087Z"
+      },
+      "category": {
+        "id": "cmu9rliyv0003b76rl8kw80ew",
+        "name": "MSPC",
+        "slug": "mspc",
+        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
+        "image": "images/mspc/category.jpg",
+        "sortOrder": 0,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T12:00:29.768Z",
+        "updatedAt": "2026-09-20T12:00:29.768Z"
+      }
+    },
+    {
+      "id": "cmu9rlkyc001ab76rhgu42l4k",
+      "name": "Ламинат MSPC Дуб Тейлор",
+      "slug": "laminat-mspc-dub-teylor",
+      "sku": "SF-MSPC-467304157482",
+      "description": "Минерально-каменный ламинат Дуб Тейлор имеет благородные оливковые оттенки дуба. Причем дуба не обычного, а селективного.\n\nВ декоре отсутствуют дефекты, привлекающие внимание, такие как сучки, заболонь и трещины. Именно по этой причине, Дуб Тейлор используют при работе над неоклассическим интерьером, в котором соседствует минимализм и пышность одновременно. Когда классические лепные элементы расставляют акценты и подчеркивают минимализм, а фактура напольного покрытия усиливает и дополняет эти впечатления\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 1220x141 мм\n• Упаковка — 10 досок = 1,72 м2\n• Вес 1 упаковки — 21,5 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
+      "price": 6465,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 10,
+      "packArea": 1.72,
+      "thickness": 8,
+      "wearClass": "33 (43)",
+      "length": 1220,
+      "width": 141,
+      "color": "Дуб Тейлор",
+      "bevel": "4-сторонняя",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Ламинат MSPC Дуб Тейлор — ДОМПОЛА",
+      "seoDescription": "Минерально-каменный ламинат Дуб Тейлор имеет благородные оливковые оттенки дуба. Причем дуба не обычного, а селективного.",
+      "published": true,
+      "featured": true,
+      "sortOrder": 2,
+      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
+      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
+      "collectionId": null,
+      "createdAt": "2026-09-20T12:00:32.340Z",
+      "updatedAt": "2026-09-20T12:00:32.340Z",
+      "images": [
+        {
+          "id": "cmu9rlkyc001bb76rns14exhs",
+          "productId": "cmu9rlkyc001ab76rhgu42l4k",
+          "url": "images/mspc/467304157482.jpg",
+          "alt": "Ламинат MSPC Дуб Тейлор",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T12:00:32.340Z"
+        }
+      ],
+      "brand": {
+        "id": "cmu9rlj7r0004b76rfha9yx7f",
+        "name": "Stone Floor",
+        "slug": "stone-floor",
+        "logo": null,
+        "description": "Производитель минерально-каменного MSPC ламината",
+        "website": "https://stone-floor.com",
+        "sortOrder": 0,
+        "active": true,
+        "createdAt": "2026-09-20T12:00:30.087Z",
+        "updatedAt": "2026-09-20T12:00:30.087Z"
+      },
+      "category": {
+        "id": "cmu9rliyv0003b76rl8kw80ew",
+        "name": "MSPC",
+        "slug": "mspc",
+        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
+        "image": "images/mspc/category.jpg",
+        "sortOrder": 0,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T12:00:29.768Z",
+        "updatedAt": "2026-09-20T12:00:29.768Z"
       }
     }
   ],
   "promotions": [
     {
-      "id": "promo-nordic",
+      "id": "cmu9okczw0033b75frn80j196",
       "title": "Скидка на Nordic",
       "slug": "skidka-nordic",
       "description": "Специальная цена на коллекцию Alpine Floor Nordic",
-      "image": "images/promo.jpg",
+      "image": "https://vladimir6148.github.io/websitedompola/images/promo.jpg",
       "discountPercent": 17,
       "startsAt": null,
       "endsAt": null,
       "productIds": null,
-      "categoryId": null,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
       "cityId": null,
       "active": true,
       "sortOrder": 1,
-      "createdAt": "2026-09-20T09:17:45.426Z",
-      "updatedAt": "2026-09-20T09:17:45.426Z"
+      "createdAt": "2026-09-20T10:35:36.525Z",
+      "updatedAt": "2026-09-20T10:35:36.525Z"
     },
     {
-      "id": "promo-laminate",
-      "title": "Ламинат со скидкой до 15%",
-      "slug": "laminat-skidka-15",
-      "description": "Актуальные предложения на популярные коллекции ламината",
-      "image": "images/wood.jpg",
+      "id": "cmu9qapvu0000b76rgsklwu6e",
+      "title": "??????? ?? ??????? ?? 15%",
+      "slug": "15",
+      "description": "?????????? ??????????? ?? ?????????? ????????? ????????",
+      "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
       "discountPercent": 15,
       "startsAt": null,
       "endsAt": null,
@@ -663,15 +882,15 @@
       "cityId": null,
       "active": true,
       "sortOrder": 2,
-      "createdAt": "2026-09-20T09:17:45.426Z",
-      "updatedAt": "2026-09-20T09:17:45.426Z"
+      "createdAt": "2026-09-20T11:24:05.898Z",
+      "updatedAt": "2026-09-20T11:24:05.898Z"
     },
     {
-      "id": "promo-spc",
-      "title": "SPC для тёплого пола",
-      "slug": "spc-teplyy-pol",
-      "description": "Влагостойкий кварцвинил — выгодные комплекты месяца",
-      "image": "images/living.jpg",
+      "id": "cmu9qaq2y0001b76re6i5srzd",
+      "title": "SPC ??? ??????? ????",
+      "slug": "spc",
+      "description": "???????????? ?????????? - ???????? ????????? ??????",
+      "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
       "discountPercent": 10,
       "startsAt": null,
       "endsAt": null,
@@ -680,71 +899,88 @@
       "cityId": null,
       "active": true,
       "sortOrder": 3,
-      "createdAt": "2026-09-20T09:17:45.426Z",
-      "updatedAt": "2026-09-20T09:17:45.426Z"
+      "createdAt": "2026-09-20T11:24:06.154Z",
+      "updatedAt": "2026-09-20T11:24:06.154Z"
+    },
+    {
+      "id": "cmu9qaq990002b76rv3zooc7o",
+      "title": "????? ?????? ??????",
+      "slug": "",
+      "description": "?? ?20% ?? ????????? ????????? ????????? ????????",
+      "image": "https://vladimir6148.github.io/websitedompola/images/hero.jpg",
+      "discountPercent": 20,
+      "startsAt": null,
+      "endsAt": null,
+      "productIds": null,
+      "categoryId": null,
+      "cityId": null,
+      "active": true,
+      "sortOrder": 4,
+      "createdAt": "2026-09-20T11:24:06.382Z",
+      "updatedAt": "2026-09-20T11:24:06.382Z"
     }
   ],
   "stores": [
     {
-      "id": "cmu9ls8q4002jw1h4sj7650xf",
+      "id": "cmu9okcy6002jb75frtgr0vfd",
       "name": "ДОМПОЛА — Архангельск",
       "address": "пр. Троицкий, 52",
       "phone": "+7 (8182) 65-00-00",
       "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
       "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
-      "photos": "[\"images/store.jpg\"]",
+      "photos": "[\"https://vladimir6148.github.io/websitedompola/images/store.jpg\"]",
       "lat": 64.5393,
       "lng": 40.5187,
       "active": true,
-      "cityId": "cmu9ls8kf0002w1h4cd495ihe",
-      "createdAt": "2026-09-20T09:17:45.388Z",
-      "updatedAt": "2026-09-20T09:17:45.388Z",
+      "cityId": "cmu9okcln0002b75fquqggimp",
+      "createdAt": "2026-09-20T10:35:36.462Z",
+      "updatedAt": "2026-09-20T10:35:36.462Z",
       "city": {
-        "id": "cmu9ls8kf0002w1h4cd495ihe",
+        "id": "cmu9okcln0002b75fquqggimp",
         "name": "Архангельск",
         "slug": "arkhangelsk",
         "active": true
       }
     },
     {
-      "id": "cmu9ls8qc002nw1h4gcztqxyz",
-      "name": "ДОМПОЛА — Вологда",
-      "address": "ул. Мира, 30",
-      "phone": "+7 (8182) 65-00-00",
-      "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
-      "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
-      "photos": "[\"images/store.jpg\"]",
-      "lat": 59.2205,
-      "lng": 39.8886,
-      "active": true,
-      "cityId": "cmu9ls8kg0004w1h49exwifna",
-      "createdAt": "2026-09-20T09:17:45.396Z",
-      "updatedAt": "2026-09-20T09:17:45.396Z",
-      "city": {
-        "id": "cmu9ls8kg0004w1h49exwifna",
-        "name": "Вологда",
-        "slug": "vologda",
-        "active": true
-      }
-    },
-    {
-      "id": "cmu9ls8q7002lw1h4s4hc9s7w",
+      "id": "cmu9okcya002lb75frq70masy",
       "name": "ДОМПОЛА — Северодвинск",
       "address": "ул. Ломоносова, 81",
       "phone": "+7 (8182) 65-00-00",
       "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
       "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
-      "photos": "[\"images/store.jpg\"]",
+      "photos": "[\"https://vladimir6148.github.io/websitedompola/images/store.jpg\"]",
       "lat": 64.5625,
       "lng": 39.8302,
       "active": true,
-      "cityId": "cmu9ls8kg0003w1h45f5wk9h6",
-      "createdAt": "2026-09-20T09:17:45.392Z",
-      "updatedAt": "2026-09-20T09:17:45.392Z",
+      "cityId": "cmu9okcoa0004b75fqaue1tnd",
+      "createdAt": "2026-09-20T10:35:36.466Z",
+      "updatedAt": "2026-09-20T10:35:36.466Z",
       "city": {
-        "id": "cmu9ls8kg0003w1h45f5wk9h6",
+        "id": "cmu9okcoa0004b75fqaue1tnd",
         "name": "Северодвинск",
         "slug": "severodvinsk",
+        "active": true
+      }
+    },
+    {
+      "id": "cmu9okcyd002nb75fyxulc067",
+      "name": "ДОМПОЛА — Вологда",
+      "address": "ул. Мира, 30",
+      "phone": "+7 (8182) 65-00-00",
+      "schedule": "Пн–Сб 10:00–20:00, Вс 10:00–18:00",
+      "description": "Шоурум напольных покрытий, консультации и расчёт материалов.",
+      "photos": "[\"https://vladimir6148.github.io/websitedompola/images/store.jpg\"]",
+      "lat": 59.2205,
+      "lng": 39.8886,
+      "active": true,
+      "cityId": "cmu9okco80003b75fu3siu2mx",
+      "createdAt": "2026-09-20T10:35:36.469Z",
+      "updatedAt": "2026-09-20T10:35:36.469Z",
+      "city": {
+        "id": "cmu9okco80003b75fu3siu2mx",
+        "name": "Вологда",
+        "slug": "vologda",
         "active": true
       }
     }
