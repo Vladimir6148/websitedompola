@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
+  Home,
   MapPin,
   Percent,
   Phone,
@@ -15,6 +16,7 @@ import { MobileBottomNav } from './MobileBottomNav';
 import type { Category } from '../types';
 
 const primaryLinks = [
+  { to: '/', label: 'Главная' },
   { to: '/catalog', label: 'Напольные покрытия' },
   { to: '/catalog/accessories', label: 'Аксессуары' },
   { to: '/services', label: 'Услуги' },
@@ -57,6 +59,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
       <div className="container-dp flex min-w-0 items-center gap-1.5 py-2.5 sm:gap-3 sm:py-3 lg:gap-4">
         <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto sm:gap-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <Link
+            to="/"
+            aria-label="Главная"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
+          >
+            <Home size={18} strokeWidth={1.75} />
+          </Link>
+
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -79,12 +89,25 @@ export function Header() {
 
         <Link
           to="/"
-          className="sr-only"
+          className="hidden shrink-0 px-2 text-sm font-bold tracking-wide text-graphite transition hover:text-brand sm:inline"
         >
           ДОМПОЛА
         </Link>
 
         <nav className="ml-1 hidden items-center gap-2 lg:flex">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `rounded-full border px-3.5 py-1.5 text-sm font-semibold transition ${
+                isActive
+                  ? 'border-brand bg-brand text-white'
+                  : 'border-graphite/20 text-graphite hover:border-brand hover:text-brand'
+              }`
+            }
+          >
+            Главная
+          </NavLink>
           <NavLink
             to="/catalog"
             className={({ isActive }) =>
