@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { OfferProductCard } from '../components/OfferProductCard';
@@ -95,7 +94,7 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
-      <section className="container-dp py-8 md:py-16">
+      <section className="container-dp py-6 md:py-10">
         <SectionHeader
           eyebrow="Скидки недели"
           title="Выгодные предложения"
@@ -109,7 +108,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-mist py-8 md:py-16">
+      <section className="bg-mist py-6 md:py-10">
         <div className="container-dp">
           <SectionHeader
             eyebrow="Выбор покупателей"
@@ -126,7 +125,7 @@ export function HomePage() {
       </section>
 
       {related.length ? (
-        <section className="container-dp py-8 md:py-16">
+        <section className="container-dp py-6 md:py-10">
           <SectionHeader
             eyebrow="К монтажу покрытия"
             title="Подложка, плинтус и клей"
@@ -141,7 +140,7 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section className="bg-mist py-8 md:py-16">
+      <section className="bg-mist py-6 md:py-10">
         <div className="container-dp">
           <SectionHeader
             eyebrow="Сервис"
@@ -159,7 +158,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-8 md:py-16">
+      <section className="container-dp py-6 md:py-10">
         <SectionHeader
           eyebrow="Почему мы"
           title="Доверяют ДОМПОЛА"
@@ -176,17 +175,14 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-graphite/8 bg-mist py-6 md:py-10">
+      <section className="border-t border-graphite/8 bg-mist py-5 md:py-8">
         <div className="container-dp">
-          <div className="mb-4 flex flex-col gap-2 sm:mb-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Где купить</p>
-              <h2 className="font-display text-xl font-bold text-graphite sm:text-2xl md:text-3xl">Магазины</h2>
-            </div>
-            <Link to="/stores" className="text-sm font-semibold text-brand hover:underline">
-              Все магазины →
-            </Link>
-          </div>
+          <SectionHeader
+            eyebrow="Где купить"
+            title="Магазины"
+            description="Приходите за образцами и консультацией."
+            action={{ to: '/stores', label: 'Все магазины' }}
+          />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {(data?.stores || []).map((s) => (
               <div

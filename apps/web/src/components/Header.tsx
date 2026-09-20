@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
+  MapPin,
   Percent,
   Phone,
   Search,
@@ -126,16 +127,23 @@ export function Header() {
           <a
             href="tel:+78182650000"
             aria-label="Позвонить"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-graphite shadow-sm ring-1 ring-graphite/15 transition hover:ring-brand hover:text-brand sm:h-10 sm:w-10"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
           >
-            <Phone size={18} strokeWidth={2.25} />
+            <Phone size={18} strokeWidth={1.75} />
           </a>
+          <Link
+            to="/stores"
+            aria-label="Магазины на карте"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
+          >
+            <MapPin size={18} strokeWidth={1.75} />
+          </Link>
           <Link
             to="/cart"
             aria-label="Корзина"
-            className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
+            className="relative grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
           >
-            <ShoppingCart size={18} strokeWidth={2.25} />
+            <ShoppingCart size={18} strokeWidth={1.75} />
             {count > 0 ? (
               <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] font-bold text-white">
                 {count}

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SmartImage } from './SmartImage';
 import type { Promotion } from '../types';
 
@@ -12,6 +11,8 @@ export function PromoCarousel({ slides }: Props) {
   const items = slides.filter((s) => s.active !== false && s.image);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const pointerStart = useRef<{ x: number; y: number } | null>(null);
+  const wheelLock = useRef(false);
 
   useEffect(() => {
     if (items.length <= 1 || paused) return;
@@ -32,18 +33,61 @@ export function PromoCarousel({ slides }: Props) {
   const current = items[index];
   const detailLink = (current as Promotion & { ctaLink?: string }).ctaLink || '/promotions';
 
-  function prev() {
-    setIndex((i) => (i - 1 + items.length) % items.length);
+  function go(delta: number) {
+    setIndex((i) => (i + delta + items.length) % items.length);
   }
-  function next() {
-    setIndex((i) => (i + 1) % items.length);
+
+  function onPointerDown(e: ReactPointerEvent<HTMLElement>) {
+    if ((e.target as HTMLElement).closest('a, button')) return;
+    pointerStart.current = { x: e.clientX, y: e.clientY };
+  }
+
+  function onPointerUp(e: ReactPointerEvent<HTMLElement>) {
+    const start = pointerStart.current;
+    pointerStart.current = null;
+    if (!start || items.length <= 1) return;
+    if ((e.target as HTMLElement).closest('a, button')) return;
+
+    const dx = e.clientX - start.x;
+    const dy = e.clientY - start.y;
+
+    // Swipe left/right
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      go(dx < 0 ? 1 : -1);
+      return;
+    }
+
+    // Tap: left half = prev, right half = next
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const mid = rect.left + rect.width / 2;
+      go(e.clientX < mid ? -1 : 1);
+    }
+  }
+
+  function onWheel(e: React.WheelEvent<HTMLElement>) {
+    if (items.length <= 1 || wheelLock.current) return;
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(delta) < 18) return;
+    e.preventDefault();
+    wheelLock.current = true;
+    go(delta > 0 ? 1 : -1);
+    window.setTimeout(() => {
+      wheelLock.current = false;
+    }, 450);
   }
 
   return (
     <section
-      className="relative min-h-[52vh] overflow-hidden bg-graphite text-white md:min-h-[55vh]"
+      className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white select-none md:min-h-[55vh]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={() => {
+        pointerStart.current = null;
+      }}
+      onWheel={onWheel}
       aria-roledescription="carousel"
       aria-label="Акции и скидки"
     >
@@ -57,15 +101,15 @@ export function PromoCarousel({ slides }: Props) {
             src={slide.image}
             fallback="images/promo.jpg"
             alt={slide.title}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
             loading={i === 0 ? 'eager' : 'lazy'}
           />
         </div>
       ))}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
 
-      <div className="container-dp relative flex min-h-[52vh] flex-col justify-end pb-12 pt-16 md:min-h-[55vh] md:justify-center md:pb-14 md:pt-20">
+      <div className="container-dp relative flex min-h-[52vh] flex-col justify-end pb-14 pt-16 md:min-h-[55vh] md:justify-center md:pb-16 md:pt-20">
         <p className="mb-2 font-display text-xs font-semibold uppercase tracking-[0.2em] text-brand">Акции</p>
         {current.discountPercent ? (
           <span className="mb-2 inline-flex w-fit rounded-md bg-brand px-2.5 py-0.5 text-xs font-bold text-white">
@@ -92,35 +136,17 @@ export function PromoCarousel({ slides }: Props) {
       </div>
 
       {items.length > 1 ? (
-        <>
-          <button
-            type="button"
-            onClick={prev}
-            className="absolute left-2 top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/35 text-white backdrop-blur transition hover:bg-black/55 md:left-5"
-            aria-label="Предыдущий слайд"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={next}
-            className="absolute right-2 top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-black/35 text-white backdrop-blur transition hover:bg-black/55 md:right-5"
-            aria-label="Следующий слайд"
-          >
-            <ChevronRight size={18} />
-          </button>
-          <div className="absolute bottom-4 left-0 right-0 z-10 flex justify-center gap-1.5">
-            {items.map((slide, i) => (
-              <button
-                key={slide.id}
-                type="button"
-                aria-label={`Слайд ${i + 1}`}
-                onClick={() => setIndex(i)}
-                className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-brand' : 'w-2 bg-white/45 hover:bg-white/70'}`}
-              />
-            ))}
-          </div>
-        </>
+        <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-5">
+          {items.map((slide, i) => (
+            <button
+              key={slide.id}
+              type="button"
+              aria-label={`Слайд ${i + 1}`}
+              onClick={() => setIndex(i)}
+              className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-brand' : 'w-2 bg-white/45 hover:bg-white/70'}`}
+            />
+          ))}
+        </div>
       ) : null}
     </section>
   );

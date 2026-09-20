@@ -61,12 +61,35 @@ export function StoresPage() {
   useEffect(() => {
     api<Store[]>('/api/stores').then(setItems).catch(() => undefined);
   }, []);
+
+  const withCoords = items.filter((s) => s.lat != null && s.lng != null);
+  const mapSrc = (() => {
+    if (!withCoords.length) return null;
+    const avgLng = withCoords.reduce((sum, s) => sum + Number(s.lng), 0) / withCoords.length;
+    const avgLat = withCoords.reduce((sum, s) => sum + Number(s.lat), 0) / withCoords.length;
+    const points = withCoords.map((s) => `${s.lng},${s.lat},pm2rdm`).join('~');
+    return `https://yandex.ru/map-widget/v1/?ll=${avgLng},${avgLat}&z=5&l=map&pt=${points}`;
+  })();
+
   return (
     <>
       <Seo title="Магазины" path="/stores" />
       <div className="container-dp py-10 md:py-14">
         <h1 className="section-title">Магазины</h1>
-        <p className="mt-3 text-graphite/60">Шоурумы ДОМПОЛА. Карты Яндекс будут подключены на следующем этапе.</p>
+        <p className="mt-3 text-graphite/60">Магазины ДОМПОЛА — адреса на карте и в списке ниже.</p>
+
+        {mapSrc ? (
+          <div id="map" className="mt-6 overflow-hidden rounded-2xl border border-graphite/10 bg-mist">
+            <iframe
+              title="Карта салонов ДОМПОЛА"
+              src={mapSrc}
+              className="h-[280px] w-full border-0 sm:h-[380px] md:h-[440px]"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        ) : null}
+
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {items.map((s) => (
             <article key={s.id} className="rounded-2xl border border-graphite/8 p-5">
@@ -74,9 +97,20 @@ export function StoresPage() {
               <h2 className="mt-1 font-display text-xl font-semibold">{s.name}</h2>
               <p className="mt-3 text-sm">{s.address}</p>
               <p className="text-sm text-graphite/60">{s.schedule}</p>
-              {s.phone ? <a className="mt-3 inline-block text-brand" href={`tel:${s.phone}`}>{s.phone}</a> : null}
-              {s.lat && s.lng ? (
-                <p className="mt-2 text-xs text-graphite/40">Координаты: {s.lat}, {s.lng}</p>
+              {s.phone ? (
+                <a className="mt-3 inline-block text-brand" href={`tel:${s.phone}`}>
+                  {s.phone}
+                </a>
+              ) : null}
+              {s.lat != null && s.lng != null ? (
+                <a
+                  className="mt-3 block text-sm font-medium text-graphite/70 underline-offset-2 hover:text-brand hover:underline"
+                  href={`https://yandex.ru/maps/?pt=${s.lng},${s.lat}&z=16&l=map`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Открыть на Яндекс.Картах
+                </a>
               ) : null}
             </article>
           ))}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Flame } from 'lucide-react';
 
 type Props = {
   eyebrow: string;
@@ -19,14 +19,15 @@ export function SectionHeader({
   const isDark = tone === 'dark';
 
   return (
-    <div className="mb-8 md:mb-10">
-      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-xl">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+    <div className="mb-4 md:mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+        <div className="min-w-0 max-w-2xl flex-1">
+          <span className="mb-2 inline-flex items-center gap-1.5 rounded-md bg-[#ea580c] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
+            <Flame size={13} strokeWidth={2.5} className="shrink-0" />
             {eyebrow}
-          </p>
+          </span>
           <h2
-            className={`font-display text-2xl font-bold sm:text-3xl md:text-4xl ${
+            className={`font-display text-2xl font-bold leading-tight tracking-tight sm:text-3xl md:text-[2.1rem] ${
               isDark ? 'text-white' : 'text-graphite'
             }`}
           >
@@ -34,25 +35,29 @@ export function SectionHeader({
           </h2>
           {description ? (
             <p
-              className={`mt-2 font-display text-sm leading-relaxed sm:text-base md:text-lg ${
-                isDark ? 'text-white/65' : 'text-graphite/60'
+              className={`mt-1.5 max-w-xl text-sm leading-relaxed sm:text-[15px] ${
+                isDark ? 'text-white/55' : 'text-graphite/55'
               }`}
             >
               {description}
             </p>
           ) : null}
         </div>
+
         {action ? (
           <Link
             to={action.to}
-            className={`inline-flex shrink-0 items-center gap-2 self-start rounded-full border px-4 py-2 text-sm font-semibold transition md:self-auto ${
+            className={`group inline-flex shrink-0 items-center gap-1.5 self-start rounded-md border px-3.5 py-2 text-sm font-medium transition sm:self-auto ${
               isDark
-                ? 'border-white/20 bg-white/10 text-white hover:border-brand hover:bg-brand'
-                : 'border-brand/25 bg-white text-brand hover:border-brand hover:bg-brand hover:text-white'
+                ? 'border-white/15 bg-white/8 text-white/85 hover:border-white/30 hover:bg-white/15'
+                : 'border-graphite/12 bg-graphite/[0.04] text-graphite/75 hover:border-graphite/25 hover:bg-graphite hover:text-white'
             }`}
           >
             {action.label}
-            <ArrowRight size={16} />
+            <ArrowRight
+              size={15}
+              className="transition-transform group-hover:translate-x-0.5"
+            />
           </Link>
         ) : null}
       </div>
