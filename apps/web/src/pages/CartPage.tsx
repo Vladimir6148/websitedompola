@@ -128,6 +128,7 @@ export function CartPage() {
                     })
                     .join('; ')}
                   compact
+                  submitLabel="Оформить заказ"
                 />
               </div>
               <button

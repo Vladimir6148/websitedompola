@@ -156,7 +156,7 @@ export function ContactsPage() {
           <div className="rounded-3xl bg-mist p-6">
             <h2 className="font-display text-xl font-semibold">Написать нам</h2>
             <div className="mt-4">
-              <LeadForm source="contacts" />
+              <LeadForm source="contacts" submitLabel="Отправить сообщение" />
             </div>
           </div>
         </div>

@@ -6,9 +6,15 @@ type LeadFormProps = {
   source?: string;
   productName?: string;
   compact?: boolean;
+  submitLabel?: string;
 };
 
-export function LeadForm({ source = 'site', productName, compact }: LeadFormProps) {
+export function LeadForm({
+  source = 'site',
+  productName,
+  compact,
+  submitLabel = 'Отправить заявку',
+}: LeadFormProps) {
   const { city, cities, setCityId } = useCity();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -75,7 +81,7 @@ export function LeadForm({ source = 'site', productName, compact }: LeadFormProp
         className="w-full rounded-md border border-graphite/15 bg-white px-4 py-3 outline-none ring-brand focus:ring-2"
       />
       <button type="submit" disabled={status === 'loading'} className="btn-primary w-full sm:w-auto">
-        {status === 'loading' ? 'Отправляем…' : 'Получить консультацию'}
+        {status === 'loading' ? 'Отправляем…' : submitLabel}
       </button>
       {status === 'ok' ? (
         <p className="text-sm text-brand-dark">Заявка принята. Мы свяжемся с вами.</p>

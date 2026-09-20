@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Calculator, Heart, ShoppingCart } from 'lucide-react';
 import { Seo } from '../components/Seo';
-import { LeadForm } from '../components/LeadForm';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
 import { api, formatPrice, primaryImage, stockLabel } from '../lib/api';
@@ -299,12 +298,11 @@ export function ProductPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="font-display text-2xl font-semibold">Описание</h2>
-            <p className="mt-3 leading-relaxed text-graphite/70">{product.description}</p>
-            <h3 className="mt-8 font-display text-xl font-semibold">Характеристики</h3>
-            <dl className="mt-3 divide-y divide-graphite/8 border-y border-graphite/8">
+        <div className="mt-12">
+          <h2 className="font-display text-2xl font-semibold">Описание</h2>
+          <p className="mt-3 max-w-3xl leading-relaxed text-graphite/70">{product.description}</p>
+          <h3 className="mt-8 font-display text-xl font-semibold">Характеристики</h3>
+          <dl className="mt-3 max-w-3xl divide-y divide-graphite/8 border-y border-graphite/8">
               {[
                 product.thickness ? ['Толщина', `${product.thickness} мм`] : null,
                 product.length ? ['Длина доски', `${product.length} мм`] : null,
@@ -330,15 +328,7 @@ export function ProductPage() {
                     </div>
                   );
                 })}
-            </dl>
-          </div>
-          <div className="rounded-2xl bg-mist p-6">
-            <h2 className="font-display text-2xl font-semibold">Получить консультацию</h2>
-            <p className="mt-2 text-sm text-graphite/60">Подскажем по наличию, укладке и комплектующим.</p>
-            <div className="mt-4">
-              <LeadForm source="product" productName={product.name} compact />
-            </div>
-          </div>
+          </dl>
         </div>
 
         {related.length ? (

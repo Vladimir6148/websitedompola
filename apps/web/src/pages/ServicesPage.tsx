@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Seo } from '../components/Seo';
-import { LeadForm } from '../components/LeadForm';
 import { api } from '../lib/api';
 import type { Service } from '../types';
 
@@ -22,12 +21,6 @@ export function ServicesPage() {
               <p className="mt-2 text-graphite/65">{s.description}</p>
             </div>
           ))}
-        </div>
-        <div className="mt-12 rounded-3xl bg-mist p-6 md:p-8">
-          <h2 className="font-display text-2xl font-semibold">Заказать услугу</h2>
-          <div className="mt-4 max-w-xl">
-            <LeadForm source="services" />
-          </div>
         </div>
       </div>
     </>

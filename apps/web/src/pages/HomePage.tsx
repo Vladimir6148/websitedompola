@@ -180,7 +180,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Где купить"
             title="Магазины"
-            description="Приходите за образцами и консультацией."
+            description="Приходите за образцами в наши магазины."
             action={{ to: '/stores', label: 'Все магазины' }}
           />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
