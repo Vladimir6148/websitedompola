@@ -96,11 +96,6 @@ export function HomePage() {
           title="Выгодные предложения"
           description="Актуальные цены на покрытия со скидкой — с доставкой и укладкой."
           action={{ to: '/catalog', label: 'Весь каталог' }}
-          chips={[
-            { to: '/catalog/mspc', label: 'MSPC' },
-            { to: '/catalog/quartzvinyl-spc', label: 'SPC' },
-            { to: '/catalog/laminate', label: 'Ламинат' },
-          ]}
         />
         <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
           {offerProducts.map((p) => (
@@ -114,7 +109,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Выбор покупателей"
             title="Популярные товары"
-            description="Проверенные коллекции, которые чаще всего берут в наши салоны."
+            description="Проверенные коллекции, которые чаще всего покупают"
             action={{ to: '/catalog', label: 'В каталог' }}
           />
           <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
@@ -132,11 +127,6 @@ export function HomePage() {
             title="Подложка, плинтус и клей"
             description="Сопутствующие материалы для ровной укладки и аккуратного финиша."
             action={{ to: '/catalog/accessories', label: 'Все комплектующие' }}
-            chips={[
-              { to: '/catalog/underlayment', label: 'Подложка' },
-              { to: '/catalog/baseboards', label: 'Плинтусы' },
-              { to: '/catalog/accessories', label: 'Клей и крепёж' },
-            ]}
           />
           <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
             {related.map((p) => (

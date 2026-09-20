@@ -1,17 +1,12 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import type { ReactNode } from 'react';
-
-type Chip = { to: string; label: string };
 
 type Props = {
   eyebrow: string;
   title: string;
   description?: string;
   action?: { to: string; label: string };
-  chips?: Chip[];
   tone?: 'light' | 'dark';
-  children?: ReactNode;
 };
 
 export function SectionHeader({
@@ -19,7 +14,6 @@ export function SectionHeader({
   title,
   description,
   action,
-  chips,
   tone = 'light',
 }: Props) {
   const isDark = tone === 'dark';
@@ -28,11 +22,7 @@ export function SectionHeader({
     <div className="mb-8 md:mb-10">
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-xl">
-          <p
-            className={`mb-2 text-xs font-semibold uppercase tracking-[0.18em] ${
-              isDark ? 'text-brand' : 'text-brand'
-            }`}
-          >
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
             {eyebrow}
           </p>
           <h2
@@ -66,23 +56,6 @@ export function SectionHeader({
           </Link>
         ) : null}
       </div>
-      {chips?.length ? (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {chips.map((chip) => (
-            <Link
-              key={chip.to}
-              to={chip.to}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-                isDark
-                  ? 'bg-white/10 text-white/80 ring-1 ring-white/15 hover:bg-brand hover:text-white'
-                  : 'bg-white text-graphite/75 shadow-sm ring-1 ring-graphite/8 hover:text-brand hover:ring-brand/30'
-              }`}
-            >
-              {chip.label}
-            </Link>
-          ))}
-        </div>
-      ) : null}
     </div>
   );
 }
