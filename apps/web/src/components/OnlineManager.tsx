@@ -21,7 +21,7 @@ function wasRecentlyDismissed() {
 }
 
 export function OnlineManager() {
-  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [step, setStep] = useState<Step>('ask');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -29,7 +29,7 @@ export function OnlineManager() {
 
   useEffect(() => {
     if (wasRecentlyDismissed()) return;
-    const timer = window.setTimeout(() => setOpen(true), AUTO_OPEN_MS);
+    const timer = window.setTimeout(() => setVisible(true), AUTO_OPEN_MS);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -39,14 +39,9 @@ export function OnlineManager() {
     } catch {
       /* ignore */
     }
-    setOpen(false);
+    setVisible(false);
     setStep('ask');
     setStatus('idle');
-  }
-
-  function openChat() {
-    setOpen(true);
-    if (step === 'done') setStep('ask');
   }
 
   async function onSubmit(e: FormEvent) {
@@ -70,108 +65,99 @@ export function OnlineManager() {
     }
   }
 
+  if (!visible) return null;
+
   return (
-    <div className="fixed bottom-[5.25rem] right-4 z-[70] flex flex-col items-end gap-3 md:bottom-6 md:right-6">
-      {open ? (
-        <div className="w-[min(100vw-2rem,20rem)] overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-[0_16px_40px_rgba(15,40,20,0.18)]">
-          <div className="flex items-center justify-between gap-2 bg-graphite px-4 py-3 text-white">
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-white">
-                <Headphones size={16} />
-              </span>
-              <div>
-                <div className="text-sm font-semibold">Онлайн-менеджер</div>
-                <div className="text-[11px] text-white/55">ДОМПОЛА</div>
+    <div className="fixed bottom-[5.25rem] right-4 z-[70] w-[min(100vw-2rem,20rem)] md:bottom-6 md:right-6">
+      <div className="overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-[0_16px_40px_rgba(15,40,20,0.18)]">
+        <div className="flex items-center justify-between gap-2 bg-graphite px-4 py-3 text-white">
+          <div className="flex items-center gap-2">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-white">
+              <Headphones size={16} />
+            </span>
+            <div>
+              <div className="text-sm font-semibold">Онлайн-менеджер</div>
+              <div className="text-[11px] text-white/55">ДОМПОЛА</div>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={dismiss}
+            aria-label="Закрыть"
+            className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="p-4">
+          {step === 'ask' ? (
+            <div>
+              <p className="font-display text-lg font-semibold text-graphite">Требуется ли помощь?</p>
+              <p className="mt-1 text-sm text-graphite/60">
+                Подскажем по покрытию, расчёту и наличию в салоне.
+              </p>
+              <div className="mt-4 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setStep('form')}
+                  className="flex-1 rounded-md bg-brand px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark"
+                >
+                  Да, нужна
+                </button>
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  className="flex-1 rounded-md border border-graphite/15 px-3 py-2.5 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
+                >
+                  Нет, спасибо
+                </button>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={dismiss}
-              aria-label="Закрыть"
-              className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white"
-            >
-              <X size={16} />
-            </button>
-          </div>
+          ) : null}
 
-          <div className="p-4">
-            {step === 'ask' ? (
-              <div>
-                <p className="font-display text-lg font-semibold text-graphite">Требуется ли помощь?</p>
-                <p className="mt-1 text-sm text-graphite/60">
-                  Подскажем по покрытию, расчёту и наличию в салоне.
-                </p>
-                <div className="mt-4 flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setStep('form')}
-                    className="flex-1 rounded-md bg-brand px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark"
-                  >
-                    Да, нужна
-                  </button>
-                  <button
-                    type="button"
-                    onClick={dismiss}
-                    className="flex-1 rounded-md border border-graphite/15 px-3 py-2.5 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
-                  >
-                    Нет, спасибо
-                  </button>
-                </div>
-              </div>
-            ) : null}
+          {step === 'form' ? (
+            <form onSubmit={onSubmit} className="space-y-3">
+              <p className="text-sm font-semibold text-graphite">Оставьте контакты — перезвоним</p>
+              <input
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Имя"
+                autoComplete="name"
+                className="w-full rounded-md border border-graphite/15 px-3 py-2.5 text-sm outline-none focus:border-brand"
+              />
+              <input
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Телефон"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                className="w-full rounded-md border border-graphite/15 px-3 py-2.5 text-sm outline-none focus:border-brand"
+              />
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full rounded-md bg-brand px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark disabled:opacity-60"
+              >
+                {status === 'loading' ? 'Отправляем…' : 'Заказать звонок'}
+              </button>
+              {status === 'error' ? (
+                <p className="text-xs text-red-600">Не удалось отправить. Попробуйте ещё раз.</p>
+              ) : null}
+            </form>
+          ) : null}
 
-            {step === 'form' ? (
-              <form onSubmit={onSubmit} className="space-y-3">
-                <p className="text-sm font-semibold text-graphite">Оставьте контакты — перезвоним</p>
-                <input
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Имя"
-                  autoComplete="name"
-                  className="w-full rounded-md border border-graphite/15 px-3 py-2.5 text-sm outline-none focus:border-brand"
-                />
-                <input
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Телефон"
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  className="w-full rounded-md border border-graphite/15 px-3 py-2.5 text-sm outline-none focus:border-brand"
-                />
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="w-full rounded-md bg-brand px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark disabled:opacity-60"
-                >
-                  {status === 'loading' ? 'Отправляем…' : 'Заказать звонок'}
-                </button>
-                {status === 'error' ? (
-                  <p className="text-xs text-red-600">Не удалось отправить. Попробуйте ещё раз.</p>
-                ) : null}
-              </form>
-            ) : null}
-
-            {step === 'done' ? (
-              <div className="py-2 text-center">
-                <p className="font-display text-lg font-semibold text-graphite">Заявка принята</p>
-                <p className="mt-1 text-sm text-graphite/60">Менеджер свяжется с вами в ближайшее время.</p>
-              </div>
-            ) : null}
-          </div>
+          {step === 'done' ? (
+            <div className="py-2 text-center">
+              <p className="font-display text-lg font-semibold text-graphite">Заявка принята</p>
+              <p className="mt-1 text-sm text-graphite/60">Менеджер свяжется с вами в ближайшее время.</p>
+            </div>
+          ) : null}
         </div>
-      ) : null}
-
-      <button
-        type="button"
-        onClick={() => (open ? dismiss() : openChat())}
-        aria-label={open ? 'Закрыть онлайн-менеджера' : 'Открыть онлайн-менеджера'}
-        className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-[0_10px_28px_rgba(31,138,61,0.4)] transition hover:bg-brand-dark active:scale-95"
-      >
-        {open ? <X size={22} /> : <Headphones size={22} />}
-      </button>
+      </div>
     </div>
   );
 }
