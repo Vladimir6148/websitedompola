@@ -117,10 +117,10 @@ export function PromoCarousel({ slides }: Props) {
             href="https://vk.com/dompola29"
             target="_blank"
             rel="noreferrer"
-            aria-label="Мы в VK"
+            aria-label="ДОМПОЛА VK"
             className="btn-vk-shimmer absolute right-3 top-3 z-20 inline-flex items-center justify-center rounded-md border border-white/10 px-3.5 py-2 text-center text-[16px] font-bold uppercase leading-none tracking-wide text-white shadow-[0_1px_0_rgba(10,61,27,0.55),0_2px_5px_rgba(31,138,61,0.15)] transition hover:brightness-110 active:translate-y-px active:shadow-[0_1px_0_rgba(10,61,27,0.4),0_1px_3px_rgba(31,138,61,0.12)] sm:right-5 sm:top-5 sm:px-4 sm:py-2.5 sm:text-lg"
           >
-            Мы в VK
+            ДОМПОЛА VK
           </a>
 
           <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-16 sm:px-6 md:min-h-[420px] md:justify-center md:px-10 md:pb-16 md:pt-16 lg:min-h-[480px] lg:px-12">
