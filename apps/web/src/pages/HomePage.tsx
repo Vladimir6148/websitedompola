@@ -1,13 +1,14 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calculator, Compass, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
+import { OfferProductCard } from '../components/OfferProductCard';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { PromoCarousel } from '../components/PromoCarousel';
 import { api } from '../lib/api';
-import type { HomePayload, Promotion } from '../types';
+import type { HomePayload, Product, ProductsResponse, Promotion } from '../types';
 
 const icons: Record<string, ReactNode> = {
   store: <StoreIcon />,
@@ -19,6 +20,7 @@ const icons: Record<string, ReactNode> = {
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
   const [promos, setPromos] = useState<Promotion[]>([]);
+  const [deals, setDeals] = useState<Product[]>([]);
 
   useEffect(() => {
     api<HomePayload>('/api/content/home')
@@ -30,9 +32,17 @@ export function HomePage() {
     api<Promotion[]>('/api/promotions')
       .then(setPromos)
       .catch(() => undefined);
+    api<ProductsResponse>('/api/products?limit=24&sort=price_asc')
+      .then((res) => {
+        const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
+        const list = (withDiscount.length ? withDiscount : res.items).slice(0, 8);
+        setDeals(list);
+      })
+      .catch(() => undefined);
   }, []);
 
   const carouselSlides = promos.length ? promos : data?.promotions || [];
+  const offerProducts = useMemo(() => deals.slice(0, 8), [deals]);
 
   return (
     <>
@@ -45,31 +55,16 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
-      <section className="container-dp py-16 md:py-20">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <h2 className="section-title">Категории</h2>
-          <Link to="/catalog" className="hidden text-sm font-semibold text-brand hover:underline sm:inline">
+      <section className="container-dp py-12 md:py-16">
+        <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
+          <h2 className="section-title">Выгодные предложения</h2>
+          <Link to="/catalog" className="text-sm font-semibold text-brand hover:underline">
             Весь каталог
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {(data?.categories || []).map((c, i) => (
-            <Link
-              key={c.id}
-              to={`/catalog/${c.slug}`}
-              className={`group relative overflow-hidden rounded-2xl ${i === 0 ? 'sm:col-span-2 sm:row-span-2 min-h-[280px]' : 'min-h-[180px]'}`}
-            >
-              <SmartImage
-                src={c.image}
-                alt={c.name}
-                className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <h3 className="font-display text-xl font-semibold text-white md:text-2xl">{c.name}</h3>
-                <p className="mt-1 line-clamp-2 text-sm text-white/70">{c.description}</p>
-              </div>
-            </Link>
+        <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+          {offerProducts.map((p) => (
+            <OfferProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>
