@@ -39,6 +39,7 @@ export function CatalogPage() {
 
   const q = params.get('q') || '';
   const brand = params.get('brand') || '';
+  const collection = params.get('collection') || '';
   const sort = params.get('sort') || 'newest';
   const page = params.get('page') || '1';
   const minPrice = params.get('minPrice') || '';
@@ -60,6 +61,7 @@ export function CatalogPage() {
   const activeFilters = [
     q,
     brand,
+    collection,
     minPrice,
     maxPrice,
     wearClass,
@@ -92,6 +94,7 @@ export function CatalogPage() {
     const qs = new URLSearchParams();
     if (q) qs.set('q', q);
     if (brand) qs.set('brand', brand);
+    if (collection) qs.set('collection', collection);
     if (sort) qs.set('sort', sort);
     if (page) qs.set('page', page);
     if (minPrice) qs.set('minPrice', minPrice);
@@ -136,7 +139,7 @@ export function CatalogPage() {
         });
     } else {
       if (categoryQuery) qs.set('category', categoryQuery);
-      qs.set('limit', '12');
+      qs.set('limit', '100');
       api<ProductsResponse>(`/api/products?${qs}`)
         .then((res) => {
           if (!cancelled) setData(res);
@@ -149,7 +152,7 @@ export function CatalogPage() {
     return () => {
       cancelled = true;
     };
-  }, [accessoryHub, categoryQuery, q, brand, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
+  }, [accessoryHub, categoryQuery, q, brand, collection, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
 
   useEffect(() => {
     if (prevPageRef.current !== page) {
@@ -177,6 +180,27 @@ export function CatalogPage() {
     () => categories.filter((c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number])),
     [categories],
   );
+
+  const collectionChips = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const p of data?.items || []) {
+      if (p.collection?.slug && p.collection?.name) {
+        map.set(p.collection.slug, p.collection.name);
+      }
+    }
+    return [...map.entries()].sort((a, b) => a[1].localeCompare(b[1], 'ru'));
+  }, [data]);
+
+  const collectionGroups = useMemo(() => {
+    const items = data?.items || [];
+    const map = new Map<string, typeof items>();
+    for (const p of items) {
+      const key = p.collection?.name || 'Прочее';
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(p);
+    }
+    return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
+  }, [data]);
 
   const coatingValue = inAccessorySection
     ? 'accessories'
@@ -499,6 +523,31 @@ export function CatalogPage() {
         </div>
 
         <div ref={productsTopRef} className="scroll-mt-28">
+          {collectionChips.length > 1 ? (
+            <div className="mb-5 flex gap-2 overflow-x-auto pb-1">
+              <button
+                type="button"
+                onClick={() => update('collection', '')}
+                className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                  !collection ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
+                }`}
+              >
+                Все коллекции
+              </button>
+              {collectionChips.map(([slug, name]) => (
+                <button
+                  key={slug}
+                  type="button"
+                  onClick={() => update('collection', slug)}
+                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
+                    collection === slug ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          ) : null}
           {loading ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -507,11 +556,26 @@ export function CatalogPage() {
             </div>
           ) : data?.items?.length ? (
             <>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {data.items.map((p) => (
-                  <ProductCard key={p.id} product={p} />
-                ))}
-              </div>
+              {collectionGroups.length > 1 && !collection ? (
+                <div className="space-y-10">
+                  {collectionGroups.map(([name, items]) => (
+                    <section key={name}>
+                      <h2 className="mb-4 font-display text-xl font-bold text-graphite sm:text-2xl">{name}</h2>
+                      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        {items.map((p) => (
+                          <ProductCard key={p.id} product={p} />
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {data.items.map((p) => (
+                    <ProductCard key={p.id} product={p} />
+                  ))}
+                </div>
+              )}
               {data.pages > 1 ? (
                 <div className="mt-8 flex flex-wrap gap-2">
                   {Array.from({ length: data.pages }).map((_, i) => {

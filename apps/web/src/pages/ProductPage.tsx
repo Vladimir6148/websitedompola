@@ -4,7 +4,7 @@ import { Calculator, ShoppingCart } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
-import { api, formatPrice, primaryImage, stockLabel } from '../lib/api';
+import { api, formatPrice, hasPrice, primaryImage, stockLabel } from '../lib/api';
 import {
   areaToPacks,
   formatBoardSize,
@@ -160,20 +160,24 @@ export function ProductPage() {
 
             <div className="mt-5">
               <div className="flex flex-wrap items-center gap-2">
-                {discount ? (
+                {hasPrice(product.price) && discount ? (
                   <span className="rounded-full bg-[#e11d48] px-2.5 py-1 text-xs font-bold text-white">
                     −{discount}%
                   </span>
                 ) : null}
-                {product.oldPrice ? (
+                {hasPrice(product.price) && product.oldPrice ? (
                   <span className="text-base text-graphite/40 line-through">{formatPrice(product.oldPrice)}</span>
                 ) : null}
               </div>
-              <div className="mt-1 text-3xl font-bold text-[#e11d48] md:text-4xl">
+              <div className={`mt-1 text-3xl font-bold md:text-4xl ${hasPrice(product.price) ? 'text-[#e11d48]' : 'text-graphite'}`}>
                 {formatPrice(product.price)}
-                <span className="text-lg font-semibold">/{product.unit}</span>
+                {hasPrice(product.price) ? (
+                  <span className="text-lg font-semibold">/{product.unit}</span>
+                ) : (
+                  <span className="ml-2 text-base font-semibold text-graphite/50">цену уточняйте</span>
+                )}
               </div>
-              {byPack && pPack != null ? (
+              {hasPrice(product.price) && byPack && pPack != null ? (
                 <div className="mt-1 text-lg font-bold text-graphite">{formatPrice(pPack)}/упак</div>
               ) : null}
             </div>
@@ -193,7 +197,7 @@ export function ProductPage() {
               </div>
             </div>
 
-            {byPack && packArea ? (
+            {byPack && packArea && hasPrice(product.price) ? (
               <div className="mt-6 rounded-2xl border border-graphite/10 bg-white p-5">
                 <h2 className="font-display text-xl font-semibold">Заказать онлайн</h2>
                 <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
@@ -279,11 +283,20 @@ export function ProductPage() {
                   <span>{formatPrice(cartSum)}</span>
                 </button>
               </div>
-            ) : (
+            ) : hasPrice(product.price) ? (
               <div className="mt-6 flex flex-wrap gap-3">
                 <button type="button" className="btn-primary" onClick={() => add(product, 1)}>
                   <ShoppingCart size={16} /> В корзину
                 </button>
+              </div>
+            ) : (
+              <div className="mt-6 rounded-2xl border border-graphite/10 bg-mist p-5">
+                <p className="text-sm text-graphite/70">
+                  Цену уточняйте у менеджера — наличие и актуальная стоимость зависят от склада.
+                </p>
+                <a href="tel:+79214994979" className="btn-primary mt-4 inline-flex">
+                  Позвонить
+                </a>
               </div>
             )}
           </div>

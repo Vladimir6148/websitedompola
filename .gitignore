@@ -15,3 +15,5 @@ apps/api/prisma/*.db-journal
 *.tsbuildinfo
 mspc-source.json
 mspc-products-raw.json
+pergo-source.json
+tmp-pergo/

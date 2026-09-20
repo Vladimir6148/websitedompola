@@ -38,6 +38,7 @@ type Product = {
   featured?: boolean;
   category?: { slug?: string; id?: string; name?: string };
   brand?: { slug?: string; id?: string; name?: string };
+  collection?: { slug?: string; id?: string; name?: string };
   color?: string | null;
   wearClass?: string | null;
   thickness?: number | null;
@@ -105,9 +106,10 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     const q = (url.searchParams.get('q') || '').trim().toLowerCase();
     const category = url.searchParams.get('category') || '';
     const brand = url.searchParams.get('brand') || '';
+    const collection = url.searchParams.get('collection') || '';
     const sort = url.searchParams.get('sort') || 'newest';
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
-    const limit = Math.min(48, Math.max(1, Number(url.searchParams.get('limit') || 12)));
+    const limit = Math.min(200, Math.max(1, Number(url.searchParams.get('limit') || 12)));
     const minPrice = url.searchParams.get('minPrice');
     const maxPrice = url.searchParams.get('maxPrice');
     const wearClass = url.searchParams.get('wearClass') || '';
@@ -136,8 +138,13 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     if (brand) {
       items = items.filter((p) => p.brand?.slug === brand || p.brand?.id === brand);
     }
+    if (collection) {
+      items = items.filter(
+        (p) => p.collection?.slug === collection || p.collection?.id === collection,
+      );
+    }
     if (minPrice) items = items.filter((p) => p.price >= Number(minPrice));
-    if (maxPrice) items = items.filter((p) => p.price <= Number(maxPrice));
+    if (maxPrice) items = items.filter((p) => hasPrice(p.price) && p.price <= Number(maxPrice));
     if (wearClass) {
       items = items.filter((p) => (p.wearClass || '').includes(wearClass));
     }
@@ -183,12 +190,17 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   return data as T;
 }
 
-export function formatPrice(value: number) {
+export function formatPrice(value: number | null | undefined) {
+  if (value == null || value <= 0) return '—';
   return new Intl.NumberFormat('ru-RU', {
     style: 'currency',
     currency: 'RUB',
     maximumFractionDigits: 0,
   }).format(value);
+}
+
+export function hasPrice(value: number | null | undefined) {
+  return value != null && value > 0;
 }
 
 export function stockLabel(status: string) {

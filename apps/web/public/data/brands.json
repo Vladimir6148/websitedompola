@@ -1,5 +1,20 @@
 [
   {
+    "id": "brand_2bf80f35803771e0",
+    "name": "Pergo",
+    "slug": "pergo",
+    "logo": null,
+    "description": "Влагостойкий ламинат и винил Pergo",
+    "website": "https://pergo-floor.ru/",
+    "sortOrder": 1,
+    "active": true,
+    "createdAt": "2026-09-20T16:48:24.460Z",
+    "updatedAt": "2026-09-20T16:48:24.460Z",
+    "_count": {
+      "products": 284
+    }
+  },
+  {
     "id": "cmu9rlj7r0004b76rfha9yx7f",
     "name": "Stone Floor",
     "slug": "stone-floor",

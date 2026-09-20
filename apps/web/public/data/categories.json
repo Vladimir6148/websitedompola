@@ -26,7 +26,7 @@
     "createdAt": "2026-09-20T10:35:36.122Z",
     "updatedAt": "2026-09-20T10:35:36.122Z",
     "_count": {
-      "products": 1
+      "products": 82
     }
   },
   {
@@ -41,7 +41,7 @@
     "createdAt": "2026-09-20T10:35:36.125Z",
     "updatedAt": "2026-09-20T10:35:36.125Z",
     "_count": {
-      "products": 1
+      "products": 97
     }
   },
   {
@@ -101,7 +101,7 @@
     "createdAt": "2026-09-20T10:35:36.136Z",
     "updatedAt": "2026-09-20T10:35:36.136Z",
     "_count": {
-      "products": 1
+      "products": 59
     }
   },
   {
@@ -116,7 +116,7 @@
     "createdAt": "2026-09-20T10:35:36.138Z",
     "updatedAt": "2026-09-20T10:35:36.138Z",
     "_count": {
-      "products": 0
+      "products": 23
     }
   },
   {
@@ -131,7 +131,7 @@
     "createdAt": "2026-09-20T10:35:36.140Z",
     "updatedAt": "2026-09-20T10:35:36.140Z",
     "_count": {
-      "products": 0
+      "products": 30
     }
   }
 ]

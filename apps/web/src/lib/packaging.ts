@@ -28,7 +28,7 @@ export function isPackSold(p: PackDims): boolean {
 
 export function packPrice(p: PackDims): number | null {
   const area = resolvePackArea(p);
-  if (area == null) return null;
+  if (area == null || !p.price || p.price <= 0) return null;
   return p.price * area;
 }
 

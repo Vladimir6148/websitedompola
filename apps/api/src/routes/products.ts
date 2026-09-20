@@ -22,6 +22,7 @@ router.get(
       q,
       category,
       brand,
+      collection,
       minPrice,
       maxPrice,
       sort = 'newest',
@@ -70,6 +71,10 @@ router.get(
 
     if (typeof brand === 'string' && brand) {
       where.brand = { OR: [{ slug: brand }, { id: brand }] };
+    }
+
+    if (typeof collection === 'string' && collection) {
+      where.collection = { OR: [{ slug: collection }, { id: collection }] };
     }
 
     if (minPrice || maxPrice) {
@@ -180,8 +185,8 @@ const productSchema = z.object({
   slug: z.string().optional(),
   sku: z.string().min(1),
   description: z.string().optional().nullable(),
-  price: z.number().positive(),
-  oldPrice: z.number().positive().optional().nullable(),
+  price: z.number().min(0),
+  oldPrice: z.number().min(0).optional().nullable(),
   discountPercent: z.number().optional().nullable(),
   unit: z.string().optional(),
   packQty: z.number().optional().nullable(),

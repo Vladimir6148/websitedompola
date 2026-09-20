@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/categories.js';
 import brandRoutes from './routes/brands.js';
+import collectionRoutes from './routes/collections.js';
 import productRoutes from './routes/products.js';
 import storeRoutes from './routes/stores.js';
 import promotionRoutes from './routes/promotions.js';
@@ -39,6 +40,7 @@ app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'dompola-api
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/brands', brandRoutes);
+app.use('/api/collections', collectionRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/stores', storeRoutes);
 app.use('/api/promotions', promotionRoutes);

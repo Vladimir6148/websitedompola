@@ -1,0 +1,162 @@
+[
+  {
+    "id": "coll_0988e729c1fe1a98",
+    "name": "Isefjord Pad Pro",
+    "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:48:24.462Z",
+    "updatedAt": "2026-09-20T16:48:24.462Z"
+  },
+  {
+    "id": "coll_9de679b1347e7ef9",
+    "name": "Vorma Pad Pro",
+    "slug": "vorma-pad-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:02.464Z",
+    "updatedAt": "2026-09-20T16:49:02.464Z"
+  },
+  {
+    "id": "coll_0f37754a105cfb51",
+    "name": "Namsen Pad Pro",
+    "slug": "namsen-pad-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:03.736Z",
+    "updatedAt": "2026-09-20T16:49:03.736Z"
+  },
+  {
+    "id": "coll_0a523525868298f1",
+    "name": "Glomma Pad Pro",
+    "slug": "glomma-pad-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:06.076Z",
+    "updatedAt": "2026-09-20T16:49:06.076Z"
+  },
+  {
+    "id": "coll_6078a83ceb3f8d1e",
+    "name": "Chevron 12 Pro",
+    "slug": "chevron-12-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:09.524Z",
+    "updatedAt": "2026-09-20T16:49:09.524Z"
+  },
+  {
+    "id": "coll_83ac149144f9f4b0",
+    "name": "Göteborg Pro",
+    "slug": "goteborg-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:09.684Z",
+    "updatedAt": "2026-09-20T16:49:09.684Z"
+  },
+  {
+    "id": "coll_d1a01653060c9d50",
+    "name": "Uppsala Pro",
+    "slug": "uppsala-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:10.615Z",
+    "updatedAt": "2026-09-20T16:49:10.615Z"
+  },
+  {
+    "id": "coll_b5da1d0627c5ab24",
+    "name": "Skara 12 Pro",
+    "slug": "skara-12-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:11.286Z",
+    "updatedAt": "2026-09-20T16:49:11.286Z"
+  },
+  {
+    "id": "coll_3e5d5589d9a2f10d",
+    "name": "Skara Pro",
+    "slug": "skara-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:12.985Z",
+    "updatedAt": "2026-09-20T16:49:12.985Z"
+  },
+  {
+    "id": "coll_0299f214eb680517",
+    "name": "Подложка",
+    "slug": "podlozhka-pergo",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:20.647Z",
+    "updatedAt": "2026-09-20T16:49:20.647Z"
+  },
+  {
+    "id": "coll_f60d91f4e3dc09a1",
+    "name": "Viskan Pro",
+    "slug": "viskan-pro-click",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:24.423Z",
+    "updatedAt": "2026-09-20T16:49:24.423Z"
+  },
+  {
+    "id": "coll_b9e2dfe6ee02887b",
+    "name": "Namsen Pro",
+    "slug": "namsen-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:25.476Z",
+    "updatedAt": "2026-09-20T16:49:25.476Z"
+  },
+  {
+    "id": "coll_f1cd841daca7c883",
+    "name": "Профиль для ламината «5-В-1»",
+    "slug": "perehodnik-5-v-1",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:28.808Z",
+    "updatedAt": "2026-09-20T16:49:28.808Z"
+  },
+  {
+    "id": "coll_d0d9bba01c3dfb98",
+    "name": "Viskan Pad Pro",
+    "slug": "viskan-pad-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:33.100Z",
+    "updatedAt": "2026-09-20T16:49:33.100Z"
+  },
+  {
+    "id": "coll_47f2f0678166b74b",
+    "name": "Плинтус для ламината",
+    "slug": "plintus-dlya-laminata",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:41.502Z",
+    "updatedAt": "2026-09-20T16:49:41.502Z"
+  },
+  {
+    "id": "coll_96394b36acd22514",
+    "name": "Kalmar",
+    "slug": "kalmar",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:43.421Z",
+    "updatedAt": "2026-09-20T16:49:43.421Z"
+  },
+  {
+    "id": "coll_eee4f7aea1cacf0b",
+    "name": "Malmö Pro",
+    "slug": "malmo-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:45.247Z",
+    "updatedAt": "2026-09-20T16:49:45.247Z"
+  },
+  {
+    "id": "coll_1c9b6ac2500b1912",
+    "name": "Ebeltoft 12 Pro",
+    "slug": "ebeltoft-12-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:49:45.559Z",
+    "updatedAt": "2026-09-20T16:49:45.559Z"
+  },
+  {
+    "id": "coll_c391a3ed7b7671c0",
+    "name": "Elements 12 Pro",
+    "slug": "elements-12-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:50:19.512Z",
+    "updatedAt": "2026-09-20T16:50:19.512Z"
+  },
+  {
+    "id": "coll_20a3edcae582ff72",
+    "name": "Stavanger Pro",
+    "slug": "stavanger-pro",
+    "brandId": "brand_2bf80f35803771e0",
+    "createdAt": "2026-09-20T16:50:24.336Z",
+    "updatedAt": "2026-09-20T16:50:24.336Z"
+  }
+]

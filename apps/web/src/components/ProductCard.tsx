@@ -1,7 +1,7 @@
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Product } from '../types';
-import { formatPrice, primaryImage } from '../lib/api';
+import { formatPrice, hasPrice, primaryImage } from '../lib/api';
 import {
   formatBoardSize,
   formatPackArea,
@@ -19,6 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
   const area = resolvePackArea(product);
   const pPack = packPrice(product);
   const board = formatBoardSize(product);
+  const priced = hasPrice(product.price);
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/8 bg-white transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(15,92,40,0.12)]">
@@ -27,6 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
           src={image}
           alt={product.images?.[0]?.alt || product.name}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          loading="lazy"
         />
         {product.discountPercent ? (
           <span className="absolute left-3 top-3 rounded-md bg-brand px-2 py-1 text-xs font-bold text-white">
@@ -53,23 +55,29 @@ export function ProductCard({ product }: { product: Product }) {
           <div>
             <div className="text-lg font-bold text-graphite">
               {formatPrice(product.price)}
-              <span className="text-sm font-semibold text-graphite/50">/{product.unit}</span>
+              {priced ? <span className="text-sm font-semibold text-graphite/50">/{product.unit}</span> : null}
             </div>
-            {byPack && pPack != null ? (
+            {priced && byPack && pPack != null ? (
               <div className="text-sm font-semibold text-graphite">{formatPrice(pPack)}/упак</div>
             ) : null}
-            {product.oldPrice ? (
+            {priced && product.oldPrice ? (
               <div className="text-sm text-graphite/40 line-through">{formatPrice(product.oldPrice)}</div>
             ) : null}
           </div>
-          <button
-            type="button"
-            className="btn-primary px-3 py-2"
-            onClick={() => add(product, 1)}
-            aria-label="В корзину"
-          >
-            <ShoppingCart size={16} />
-          </button>
+          {priced ? (
+            <button
+              type="button"
+              className="btn-primary px-3 py-2"
+              onClick={() => add(product, 1)}
+              aria-label="В корзину"
+            >
+              <ShoppingCart size={16} />
+            </button>
+          ) : (
+            <Link to={`/product/${product.slug}`} className="btn-secondary px-3 py-2 text-xs">
+              Подробнее
+            </Link>
+          )}
         </div>
       </div>
     </article>

@@ -197,7 +197,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
       "createdAt": "2026-09-20T12:00:29.768Z",
-      "updatedAt": "2026-09-20T12:00:29.768Z"
+      "updatedAt": "2026-09-20T12:00:29.768Z",
+      "_count": {
+        "products": 48
+      }
     },
     {
       "id": "cmu9okcop0005b75fl93r803d",
@@ -209,7 +212,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
       "createdAt": "2026-09-20T10:35:36.122Z",
-      "updatedAt": "2026-09-20T10:35:36.122Z"
+      "updatedAt": "2026-09-20T10:35:36.122Z",
+      "_count": {
+        "products": 82
+      }
     },
     {
       "id": "cmu9okcot0006b75f41xm1mp1",
@@ -221,7 +227,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
       "createdAt": "2026-09-20T10:35:36.125Z",
-      "updatedAt": "2026-09-20T10:35:36.125Z"
+      "updatedAt": "2026-09-20T10:35:36.125Z",
+      "_count": {
+        "products": 97
+      }
     },
     {
       "id": "cmu9okcow0007b75fm47thg1r",
@@ -233,7 +242,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
       "createdAt": "2026-09-20T10:35:36.128Z",
-      "updatedAt": "2026-09-20T10:35:36.128Z"
+      "updatedAt": "2026-09-20T10:35:36.128Z",
+      "_count": {
+        "products": 1
+      }
     },
     {
       "id": "cmu9okcoz0008b75f3cosjb31",
@@ -245,7 +257,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
       "createdAt": "2026-09-20T10:35:36.131Z",
-      "updatedAt": "2026-09-20T10:35:36.131Z"
+      "updatedAt": "2026-09-20T10:35:36.131Z",
+      "_count": {
+        "products": 1
+      }
     },
     {
       "id": "cmu9okcp10009b75f1hzkq56x",
@@ -257,7 +272,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
       "createdAt": "2026-09-20T10:35:36.133Z",
-      "updatedAt": "2026-09-20T10:35:36.133Z"
+      "updatedAt": "2026-09-20T10:35:36.133Z",
+      "_count": {
+        "products": 1
+      }
     },
     {
       "id": "cmu9okcp3000ab75fno4ubrc0",
@@ -269,7 +287,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
       "createdAt": "2026-09-20T10:35:36.136Z",
-      "updatedAt": "2026-09-20T10:35:36.136Z"
+      "updatedAt": "2026-09-20T10:35:36.136Z",
+      "_count": {
+        "products": 59
+      }
     },
     {
       "id": "cmu9okcp6000bb75ftfkpvq3k",
@@ -281,7 +302,10 @@
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
       "createdAt": "2026-09-20T10:35:36.138Z",
-      "updatedAt": "2026-09-20T10:35:36.138Z"
+      "updatedAt": "2026-09-20T10:35:36.138Z",
+      "_count": {
+        "products": 23
+      }
     },
     {
       "id": "cmu9okcp8000cb75f9m9yvcs9",
@@ -293,66 +317,45 @@
       "active": true,
       "filterSchema": "[\"brand\",\"price\",\"color\"]",
       "createdAt": "2026-09-20T10:35:36.140Z",
-      "updatedAt": "2026-09-20T10:35:36.140Z"
+      "updatedAt": "2026-09-20T10:35:36.140Z",
+      "_count": {
+        "products": 30
+      }
     }
   ],
   "featured": [
     {
-      "id": "cmu9okcup000tb75fa0dlhc0f",
-      "name": "Alpine Floor Дуб Нордик",
-      "slug": "alpine-floor-dub-nordic",
-      "sku": "AF-ND-01",
-      "description": "Жёсткий SPC с натуральным рисунком дуба. Подходит для кухни, прихожей и тёплого пола.",
-      "price": 1890,
-      "oldPrice": 2290,
-      "discountPercent": 17,
+      "id": "prod_10cdd6d13c591e96",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49241-tsement-bezhevyy",
+      "sku": "PERGO-V4422-49241",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Цемент бежевый — современное напольное покрытие, сочетающее элегантный дизайн под бежевый цемент с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
       "unit": "м²",
-      "packQty": null,
-      "packArea": 2.23,
-      "thickness": 5,
-      "wearClass": "43",
-      "length": null,
-      "width": null,
-      "color": "светлый дуб",
-      "bevel": null,
-      "lockType": "Click",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": "Uniclic",
       "moistureResistant": true,
       "underfloorHeating": true,
-      "wearLayer": "0.5 мм",
-      "seoTitle": "Alpine Floor Дуб Нордик — купить в ДОМПОЛА",
-      "seoDescription": "Жёсткий SPC с натуральным рисунком дуба. Подходит для кухни, прихожей и тёплого пола.",
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Цемент бежевый — современное напольное покрытие, сочетающее элегантный дизайн под бежевый цемент",
       "published": true,
       "featured": true,
       "sortOrder": 0,
       "categoryId": "cmu9okcop0005b75fl93r803d",
-      "brandId": "cmu9okcpa000db75fwdh6s3ka",
-      "collectionId": "cmu9okcrs000jb75f54onsaq7",
-      "createdAt": "2026-09-20T10:35:36.337Z",
-      "updatedAt": "2026-09-20T10:35:36.337Z",
-      "images": [
-        {
-          "id": "cmu9okcup000ub75fgakvu21j",
-          "productId": "cmu9okcup000tb75fa0dlhc0f",
-          "url": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
-          "alt": "Alpine Floor Дуб Нордик",
-          "isPrimary": true,
-          "sortOrder": 0,
-          "storageKey": null,
-          "createdAt": "2026-09-20T10:35:36.337Z"
-        }
-      ],
-      "brand": {
-        "id": "cmu9okcpa000db75fwdh6s3ka",
-        "name": "Alpine Floor",
-        "slug": "alpine-floor",
-        "logo": null,
-        "description": "SPC и кварцвинил",
-        "website": "https://alpinefloor.ru",
-        "sortOrder": 1,
-        "active": true,
-        "createdAt": "2026-09-20T10:35:36.143Z",
-        "updatedAt": "2026-09-20T10:35:36.143Z"
-      },
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:48:35.075Z",
+      "updatedAt": "2026-09-20T16:48:35.075Z",
       "category": {
         "id": "cmu9okcop0005b75fl93r803d",
         "name": "Кварцвинил / SPC",
@@ -364,490 +367,998 @@
         "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
         "createdAt": "2026-09-20T10:35:36.122Z",
         "updatedAt": "2026-09-20T10:35:36.122Z"
-      }
-    },
-    {
-      "id": "cmu9okcv50014b75fslmof8zu",
-      "name": "Quick-Step Дуб Классик",
-      "slug": "quick-step-dub-classic",
-      "sku": "QS-CL-12",
-      "description": "Ламинат с выразительной фактурой дерева и устойчивостью к повседневной нагрузке.",
-      "price": 1450,
-      "oldPrice": 1690,
-      "discountPercent": 14,
-      "unit": "м²",
-      "packQty": null,
-      "packArea": 1.72,
-      "thickness": 8,
-      "wearClass": "32",
-      "length": null,
-      "width": null,
-      "color": "натуральный дуб",
-      "bevel": "4V",
-      "lockType": null,
-      "moistureResistant": true,
-      "underfloorHeating": true,
-      "wearLayer": null,
-      "seoTitle": "Quick-Step Дуб Классик — купить в ДОМПОЛА",
-      "seoDescription": "Ламинат с выразительной фактурой дерева и устойчивостью к повседневной нагрузке.",
-      "published": true,
-      "featured": true,
-      "sortOrder": 0,
-      "categoryId": "cmu9okcot0006b75f41xm1mp1",
-      "brandId": "cmu9okcpb000fb75far2odao6",
-      "collectionId": "cmu9okcu7000lb75f2d4srgh2",
-      "createdAt": "2026-09-20T10:35:36.354Z",
-      "updatedAt": "2026-09-20T10:35:36.354Z",
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
       "images": [
         {
-          "id": "cmu9okcv50015b75fs9lg97q2",
-          "productId": "cmu9okcv50014b75fslmof8zu",
-          "url": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
-          "alt": "Quick-Step Дуб Классик",
+          "id": "img_ef827fed9e68c9c3",
+          "productId": "prod_10cdd6d13c591e96",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49241.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T10:35:36.354Z"
+          "createdAt": "2026-09-20T16:48:35.075Z"
+        },
+        {
+          "id": "img_a0d87f4a0166c949",
+          "productId": "prod_10cdd6d13c591e96",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:35.075Z"
+        },
+        {
+          "id": "img_68ac9538a2434c0c",
+          "productId": "prod_10cdd6d13c591e96",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49241_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49241 Цемент бежевый",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:35.075Z"
         }
       ],
-      "brand": {
-        "id": "cmu9okcpb000fb75far2odao6",
-        "name": "Quick-Step",
-        "slug": "quick-step",
-        "logo": null,
-        "description": "Ламинат и винил",
-        "website": "https://www.quick-step.ru",
-        "sortOrder": 2,
-        "active": true,
-        "createdAt": "2026-09-20T10:35:36.143Z",
-        "updatedAt": "2026-09-20T10:35:36.143Z"
-      },
-      "category": {
-        "id": "cmu9okcot0006b75f41xm1mp1",
-        "name": "Ламинат",
-        "slug": "laminate",
-        "description": "Практичные и выразительные решения для жилых интерьеров",
-        "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
-        "sortOrder": 2,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
-        "createdAt": "2026-09-20T10:35:36.125Z",
-        "updatedAt": "2026-09-20T10:35:36.125Z"
-      }
+      "characteristics": [
+        {
+          "id": "ch_98fc6a008e110da7",
+          "productId": "prod_10cdd6d13c591e96",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_18d1e4678105627c",
+          "productId": "prod_10cdd6d13c591e96",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_e559e5773d2ccd64",
+          "productId": "prod_10cdd6d13c591e96",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_ef39b43469faf0f6",
+          "productId": "prod_10cdd6d13c591e96",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
     },
     {
-      "id": "cmu9okcvf001fb75fpmcp4p9v",
-      "name": "Tarkett Idylle Дуб",
-      "slug": "tarkett-idylle-dub",
-      "sku": "TR-ID-08",
-      "description": "Мягкий и тёплый линолеум для спален и детских.",
-      "price": 790,
+      "id": "prod_a13561d50b1fee20",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49239 Травертин серо-бежевый",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49239-travertin-sero-bezhevyy",
+      "sku": "PERGO-V4422-49239",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Травертин серо-бежевый — современное напольное покрытие, сочетающее элегантный дизайн под серо-бежевый натуральный камень с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
       "oldPrice": null,
       "discountPercent": null,
       "unit": "м²",
-      "packQty": null,
-      "packArea": null,
-      "thickness": 3.2,
-      "wearClass": "33",
-      "length": null,
-      "width": null,
-      "color": "дуб светлый",
-      "bevel": null,
-      "lockType": null,
-      "moistureResistant": true,
-      "underfloorHeating": false,
-      "wearLayer": null,
-      "seoTitle": "Tarkett Idylle Дуб — купить в ДОМПОЛА",
-      "seoDescription": "Мягкий и тёплый линолеум для спален и детских.",
-      "published": true,
-      "featured": true,
-      "sortOrder": 0,
-      "categoryId": "cmu9okcow0007b75fm47thg1r",
-      "brandId": "cmu9okcpa000eb75fbf9nxu7c",
-      "collectionId": null,
-      "createdAt": "2026-09-20T10:35:36.364Z",
-      "updatedAt": "2026-09-20T10:35:36.364Z",
-      "images": [
-        {
-          "id": "cmu9okcvf001gb75f4dg1vgms",
-          "productId": "cmu9okcvf001fb75fpmcp4p9v",
-          "url": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
-          "alt": "Tarkett Idylle Дуб",
-          "isPrimary": true,
-          "sortOrder": 0,
-          "storageKey": null,
-          "createdAt": "2026-09-20T10:35:36.364Z"
-        }
-      ],
-      "brand": {
-        "id": "cmu9okcpa000eb75fbf9nxu7c",
-        "name": "Tarkett",
-        "slug": "tarkett",
-        "logo": null,
-        "description": "Линолеум и ламинат",
-        "website": "https://www.tarkett.ru",
-        "sortOrder": 3,
-        "active": true,
-        "createdAt": "2026-09-20T10:35:36.143Z",
-        "updatedAt": "2026-09-20T10:35:36.143Z"
-      },
-      "category": {
-        "id": "cmu9okcow0007b75fm47thg1r",
-        "name": "Линолеум",
-        "slug": "linoleum",
-        "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
-        "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
-        "sortOrder": 3,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
-        "createdAt": "2026-09-20T10:35:36.128Z",
-        "updatedAt": "2026-09-20T10:35:36.128Z"
-      }
-    },
-    {
-      "id": "cmu9okcx5001qb75fv7jflthg",
-      "name": "Kerama Marazzi Вуд Эффект",
-      "slug": "kerama-marazzi-wood-effect",
-      "sku": "KM-WE-60",
-      "description": "Керамогранит под дерево — для зон с высокой влажностью и коммерческих пространств.",
-      "price": 2100,
-      "oldPrice": null,
-      "discountPercent": null,
-      "unit": "м²",
-      "packQty": null,
-      "packArea": null,
-      "thickness": 9,
-      "wearClass": null,
-      "length": 600,
-      "width": 150,
-      "color": "тёмный орех",
-      "bevel": null,
-      "lockType": null,
-      "moistureResistant": false,
-      "underfloorHeating": false,
-      "wearLayer": null,
-      "seoTitle": "Kerama Marazzi Вуд Эффект — купить в ДОМПОЛА",
-      "seoDescription": "Керамогранит под дерево — для зон с высокой влажностью и коммерческих пространств.",
-      "published": true,
-      "featured": true,
-      "sortOrder": 0,
-      "categoryId": "cmu9okcoz0008b75f3cosjb31",
-      "brandId": "cmu9okcrn000hb75f7o353zwc",
-      "collectionId": null,
-      "createdAt": "2026-09-20T10:35:36.425Z",
-      "updatedAt": "2026-09-20T10:35:36.425Z",
-      "images": [
-        {
-          "id": "cmu9okcx5001rb75fks7hlgme",
-          "productId": "cmu9okcx5001qb75fv7jflthg",
-          "url": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
-          "alt": "Kerama Marazzi Вуд Эффект",
-          "isPrimary": true,
-          "sortOrder": 0,
-          "storageKey": null,
-          "createdAt": "2026-09-20T10:35:36.425Z"
-        }
-      ],
-      "brand": {
-        "id": "cmu9okcrn000hb75f7o353zwc",
-        "name": "Kerama Marazzi",
-        "slug": "kerama-marazzi",
-        "logo": null,
-        "description": "Керамогранит",
-        "website": null,
-        "sortOrder": 4,
-        "active": true,
-        "createdAt": "2026-09-20T10:35:36.143Z",
-        "updatedAt": "2026-09-20T10:35:36.143Z"
-      },
-      "category": {
-        "id": "cmu9okcoz0008b75f3cosjb31",
-        "name": "Керамогранит",
-        "slug": "porcelain",
-        "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
-        "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
-        "sortOrder": 4,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
-        "createdAt": "2026-09-20T10:35:36.131Z",
-        "updatedAt": "2026-09-20T10:35:36.131Z"
-      }
-    },
-    {
-      "id": "cmu9okcxi0020b75fme9i1n0g",
-      "name": "Barlinek Дуб Масло",
-      "slug": "barlinek-dub-maslo",
-      "sku": "BL-DM-01",
-      "description": "Паркетная доска с масляным покрытием и живой фактурой натурального дуба.",
-      "price": 4200,
-      "oldPrice": 4800,
-      "discountPercent": 13,
-      "unit": "м²",
-      "packQty": null,
-      "packArea": 2.77,
-      "thickness": 14,
-      "wearClass": null,
-      "length": null,
-      "width": null,
-      "color": "натуральный дуб",
-      "bevel": null,
-      "lockType": null,
-      "moistureResistant": false,
-      "underfloorHeating": true,
-      "wearLayer": null,
-      "seoTitle": "Barlinek Дуб Масло — купить в ДОМПОЛА",
-      "seoDescription": "Паркетная доска с масляным покрытием и живой фактурой натурального дуба.",
-      "published": true,
-      "featured": true,
-      "sortOrder": 0,
-      "categoryId": "cmu9okcp10009b75f1hzkq56x",
-      "brandId": "cmu9okcrh000gb75f10z1adku",
-      "collectionId": null,
-      "createdAt": "2026-09-20T10:35:36.438Z",
-      "updatedAt": "2026-09-20T10:35:36.438Z",
-      "images": [
-        {
-          "id": "cmu9okcxi0021b75fk9cc0g9m",
-          "productId": "cmu9okcxi0020b75fme9i1n0g",
-          "url": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
-          "alt": "Barlinek Дуб Масло",
-          "isPrimary": true,
-          "sortOrder": 0,
-          "storageKey": null,
-          "createdAt": "2026-09-20T10:35:36.438Z"
-        }
-      ],
-      "brand": {
-        "id": "cmu9okcrh000gb75f10z1adku",
-        "name": "Barlinek",
-        "slug": "barlinek",
-        "logo": null,
-        "description": "Паркетная доска",
-        "website": null,
-        "sortOrder": 5,
-        "active": true,
-        "createdAt": "2026-09-20T10:35:36.143Z",
-        "updatedAt": "2026-09-20T10:35:36.143Z"
-      },
-      "category": {
-        "id": "cmu9okcp10009b75f1hzkq56x",
-        "name": "Паркет",
-        "slug": "parquet",
-        "description": "Натуральное дерево с характером и теплом",
-        "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
-        "sortOrder": 5,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
-        "createdAt": "2026-09-20T10:35:36.133Z",
-        "updatedAt": "2026-09-20T10:35:36.133Z"
-      }
-    },
-    {
-      "id": "cmu9rlk3x0006b76rc49g1qjs",
-      "name": "Ламинат MSPC Дуб Брэдли",
-      "slug": "laminat-mspc-dub-bredli",
-      "sku": "SF-MSPC-306318227412",
-      "description": "Дуб Брэдли — это MSPC полы классического коричневого мягкого оттенка. Именно этот тон работает на подсознательном уровне как наиболее безопасный, натуральный и теплый.\n\nЦвет Дуба Брэдли прекрасно совместим со всеми бежевыми и другими коричневыми оттенками. Выразительности бежевому и коричневому, конечно, добавят благородные оттенки холодного синего и серого. Кто-то может поэкспериментировать с бордо. Сам декор имеет изящный размер доски в универсальной 141 мм ширине.\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 1220x141 мм\n• Упаковка — 10 досок = 1,72 м2\n• Вес 1 упаковки — 21,5 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
-      "price": 6465,
-      "oldPrice": null,
-      "discountPercent": null,
-      "unit": "м²",
-      "packQty": 10,
-      "packArea": 1.72,
-      "thickness": 8,
-      "wearClass": "33 (43)",
-      "length": 1220,
-      "width": 141,
-      "color": "Дуб Брэдли",
-      "bevel": "4-сторонняя",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
       "lockType": "Uniclic",
       "moistureResistant": true,
       "underfloorHeating": true,
       "wearLayer": null,
-      "seoTitle": "Ламинат MSPC Дуб Брэдли — ДОМПОЛА",
-      "seoDescription": "Дуб Брэдли — это MSPC полы классического коричневого мягкого оттенка. Именно этот тон работает на подсознательном уровне как наиболее безопасный, натуральный и теплый.",
-      "published": true,
-      "featured": true,
-      "sortOrder": 0,
-      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
-      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
-      "collectionId": null,
-      "createdAt": "2026-09-20T12:00:31.245Z",
-      "updatedAt": "2026-09-20T12:00:31.245Z",
-      "images": [
-        {
-          "id": "cmu9rlk3x0007b76rqgqumwlc",
-          "productId": "cmu9rlk3x0006b76rc49g1qjs",
-          "url": "images/mspc/306318227412.jpg",
-          "alt": "Ламинат MSPC Дуб Брэдли",
-          "isPrimary": true,
-          "sortOrder": 0,
-          "storageKey": null,
-          "createdAt": "2026-09-20T12:00:31.245Z"
-        }
-      ],
-      "brand": {
-        "id": "cmu9rlj7r0004b76rfha9yx7f",
-        "name": "Stone Floor",
-        "slug": "stone-floor",
-        "logo": null,
-        "description": "Производитель минерально-каменного MSPC ламината",
-        "website": "https://stone-floor.com",
-        "sortOrder": 0,
-        "active": true,
-        "createdAt": "2026-09-20T12:00:30.087Z",
-        "updatedAt": "2026-09-20T12:00:30.087Z"
-      },
-      "category": {
-        "id": "cmu9rliyv0003b76rl8kw80ew",
-        "name": "MSPC",
-        "slug": "mspc",
-        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
-        "image": "images/mspc/category.jpg",
-        "sortOrder": 0,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-        "createdAt": "2026-09-20T12:00:29.768Z",
-        "updatedAt": "2026-09-20T12:00:29.768Z"
-      }
-    },
-    {
-      "id": "cmu9rlkjt000qb76rkyilad4w",
-      "name": "Ламинат MSPC Дуб Саммерфилд",
-      "slug": "laminat-mspc-dub-sammerfild",
-      "sku": "SF-MSPC-269382461612",
-      "description": "Минерально-каменный ламинат Дуб Саммерфилд от Stone Floor — один из наиболее популярных цветов коллекции с укладкой в рисунке «Английская Ёлка».\n\nЧем привлекателен Дуб Саммерфилд? Светлым оттенком, который расширяет пространство и наполняет его объемом и, конечно, зигзагообразным рисунком монтажа, который делает помещение концептуально более сложным. Интерьерные стили для Дуба Саммерфилд, это — контемпорари, минимализм, прованс, сканди. Сочетающиеся с Дубом Саммерфилд оттенки для помещений с северной стороны — теплые, для южной — более холодные.\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 564x141 мм\n• Упаковка — 20 досок = 1,59 м2\n• Вес 1 упаковки — 21 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
-      "price": 7345,
-      "oldPrice": null,
-      "discountPercent": null,
-      "unit": "м²",
-      "packQty": 20,
-      "packArea": 1.59,
-      "thickness": 8,
-      "wearClass": "33 (43)",
-      "length": 564,
-      "width": 141,
-      "color": "Дуб Саммерфилд",
-      "bevel": "4-сторонняя",
-      "lockType": "Uniclic",
-      "moistureResistant": true,
-      "underfloorHeating": true,
-      "wearLayer": null,
-      "seoTitle": "Ламинат MSPC Дуб Саммерфилд — ДОМПОЛА",
-      "seoDescription": "Минерально-каменный ламинат Дуб Саммерфилд от Stone Floor — один из наиболее популярных цветов коллекции с укладкой в рисунке «Английская Ёлка».",
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49239 Травертин серо-бежевый — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Травертин серо-бежевый — современное напольное покрытие, сочетающее элегантный дизайн под серо-б",
       "published": true,
       "featured": true,
       "sortOrder": 1,
-      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
-      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
-      "collectionId": null,
-      "createdAt": "2026-09-20T12:00:31.817Z",
-      "updatedAt": "2026-09-20T12:00:31.817Z",
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:48:45.716Z",
+      "updatedAt": "2026-09-20T16:48:45.716Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
       "images": [
         {
-          "id": "cmu9rlkjt000rb76r916gglyo",
-          "productId": "cmu9rlkjt000qb76rkyilad4w",
-          "url": "images/mspc/269382461612.jpg",
-          "alt": "Ламинат MSPC Дуб Саммерфилд",
+          "id": "img_f92a6bb1b4741154",
+          "productId": "prod_a13561d50b1fee20",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49239.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49239 Травертин серо-бежевый",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T12:00:31.817Z"
+          "createdAt": "2026-09-20T16:48:45.716Z"
+        },
+        {
+          "id": "img_1faa16e123c32347",
+          "productId": "prod_a13561d50b1fee20",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49239_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49239 Травертин серо-бежевый",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:45.716Z"
+        },
+        {
+          "id": "img_49fdca8785697175",
+          "productId": "prod_a13561d50b1fee20",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49239 Травертин серо-бежевый",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:45.716Z"
         }
       ],
-      "brand": {
-        "id": "cmu9rlj7r0004b76rfha9yx7f",
-        "name": "Stone Floor",
-        "slug": "stone-floor",
-        "logo": null,
-        "description": "Производитель минерально-каменного MSPC ламината",
-        "website": "https://stone-floor.com",
-        "sortOrder": 0,
-        "active": true,
-        "createdAt": "2026-09-20T12:00:30.087Z",
-        "updatedAt": "2026-09-20T12:00:30.087Z"
-      },
-      "category": {
-        "id": "cmu9rliyv0003b76rl8kw80ew",
-        "name": "MSPC",
-        "slug": "mspc",
-        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
-        "image": "images/mspc/category.jpg",
-        "sortOrder": 0,
-        "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-        "createdAt": "2026-09-20T12:00:29.768Z",
-        "updatedAt": "2026-09-20T12:00:29.768Z"
-      }
+      "characteristics": [
+        {
+          "id": "ch_dc6157b66ac2f1d4",
+          "productId": "prod_a13561d50b1fee20",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_fec6330fdd763ac8",
+          "productId": "prod_a13561d50b1fee20",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_5475c608597b2d70",
+          "productId": "prod_a13561d50b1fee20",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_840005c93043bcb3",
+          "productId": "prod_a13561d50b1fee20",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
     },
     {
-      "id": "cmu9rlkyc001ab76rhgu42l4k",
-      "name": "Ламинат MSPC Дуб Тейлор",
-      "slug": "laminat-mspc-dub-teylor",
-      "sku": "SF-MSPC-467304157482",
-      "description": "Минерально-каменный ламинат Дуб Тейлор имеет благородные оливковые оттенки дуба. Причем дуба не обычного, а селективного.\n\nВ декоре отсутствуют дефекты, привлекающие внимание, такие как сучки, заболонь и трещины. Именно по этой причине, Дуб Тейлор используют при работе над неоклассическим интерьером, в котором соседствует минимализм и пышность одновременно. Когда классические лепные элементы расставляют акценты и подчеркивают минимализм, а фактура напольного покрытия усиливает и дополняет эти впечатления\n\nХарактеристики:\n• Теплопроводность — 0,214 Вт/(м*К)\n• Класс истираемости — 33 (43)\n• Подходит для теплого пола — Без ограничений\n• Фаска — 4-сторонняя\n• Толщина — 8 мм\n• Размер доски — 1220x141 мм\n• Упаковка — 10 досок = 1,72 м2\n• Вес 1 упаковки — 21,5 кг\n• Особенность — 100% водостойкий\n• Гарантия — 30 лет\n• Производство — КНР",
-      "price": 6465,
+      "id": "prod_a73916c43d00b26e",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49238 Травертин светло-бежевый",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49238-travertin-svetlo-bezhevyy",
+      "sku": "PERGO-V4422-49238",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Травертин светло-бежевый — современное напольное покрытие, сочетающее элегантный дизайн под светло-бежевый натуральный камень с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
       "oldPrice": null,
       "discountPercent": null,
       "unit": "м²",
-      "packQty": 10,
-      "packArea": 1.72,
-      "thickness": 8,
-      "wearClass": "33 (43)",
-      "length": 1220,
-      "width": 141,
-      "color": "Дуб Тейлор",
-      "bevel": "4-сторонняя",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
       "lockType": "Uniclic",
       "moistureResistant": true,
       "underfloorHeating": true,
       "wearLayer": null,
-      "seoTitle": "Ламинат MSPC Дуб Тейлор — ДОМПОЛА",
-      "seoDescription": "Минерально-каменный ламинат Дуб Тейлор имеет благородные оливковые оттенки дуба. Причем дуба не обычного, а селективного.",
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49238 Травертин светло-бежевый — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Травертин светло-бежевый — современное напольное покрытие, сочетающее элегантный дизайн под свет",
       "published": true,
       "featured": true,
       "sortOrder": 2,
-      "categoryId": "cmu9rliyv0003b76rl8kw80ew",
-      "brandId": "cmu9rlj7r0004b76rfha9yx7f",
-      "collectionId": null,
-      "createdAt": "2026-09-20T12:00:32.340Z",
-      "updatedAt": "2026-09-20T12:00:32.340Z",
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:48:50.194Z",
+      "updatedAt": "2026-09-20T16:48:50.194Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
       "images": [
         {
-          "id": "cmu9rlkyc001bb76rns14exhs",
-          "productId": "cmu9rlkyc001ab76rhgu42l4k",
-          "url": "images/mspc/467304157482.jpg",
-          "alt": "Ламинат MSPC Дуб Тейлор",
+          "id": "img_f6abb20f147f634b",
+          "productId": "prod_a73916c43d00b26e",
+          "url": "images/pergo/5081.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49238 Травертин светло-бежевый",
           "isPrimary": true,
           "sortOrder": 0,
           "storageKey": null,
-          "createdAt": "2026-09-20T12:00:32.340Z"
+          "createdAt": "2026-09-20T16:48:50.194Z"
+        },
+        {
+          "id": "img_22c39d2fbd79eddd",
+          "productId": "prod_a73916c43d00b26e",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49238_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49238 Травертин светло-бежевый",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:50.194Z"
+        },
+        {
+          "id": "img_1bad4a1589f76805",
+          "productId": "prod_a73916c43d00b26e",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49238 Травертин светло-бежевый",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:48:50.194Z"
         }
       ],
-      "brand": {
-        "id": "cmu9rlj7r0004b76rfha9yx7f",
-        "name": "Stone Floor",
-        "slug": "stone-floor",
-        "logo": null,
-        "description": "Производитель минерально-каменного MSPC ламината",
-        "website": "https://stone-floor.com",
-        "sortOrder": 0,
-        "active": true,
-        "createdAt": "2026-09-20T12:00:30.087Z",
-        "updatedAt": "2026-09-20T12:00:30.087Z"
-      },
+      "characteristics": [
+        {
+          "id": "ch_d80d38d19387c492",
+          "productId": "prod_a73916c43d00b26e",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_174d4b57406bfe11",
+          "productId": "prod_a73916c43d00b26e",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_6df63710e056d344",
+          "productId": "prod_a73916c43d00b26e",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_d4aac2dcf4aa4b37",
+          "productId": "prod_a73916c43d00b26e",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_e2f7e52e3cf5ad54",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49237 Песчаник серый",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49237-peschanik-seryy",
+      "sku": "PERGO-V4422-49237",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник серый — современное напольное покрытие, сочетающее элегантный дизайн под серый натуральный камень с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49237 Песчаник серый — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник серый — современное напольное покрытие, сочетающее элегантный дизайн под серый натураль",
+      "published": true,
+      "featured": true,
+      "sortOrder": 3,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:49:00.820Z",
+      "updatedAt": "2026-09-20T16:49:00.820Z",
       "category": {
-        "id": "cmu9rliyv0003b76rl8kw80ew",
-        "name": "MSPC",
-        "slug": "mspc",
-        "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
-        "image": "images/mspc/category.jpg",
-        "sortOrder": 0,
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
         "active": true,
-        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
-        "createdAt": "2026-09-20T12:00:29.768Z",
-        "updatedAt": "2026-09-20T12:00:29.768Z"
-      }
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
+      "images": [
+        {
+          "id": "img_5b85740619504b92",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49237.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49237 Песчаник серый",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:00.820Z"
+        },
+        {
+          "id": "img_acce1b7de0baa1cf",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49237_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49237 Песчаник серый",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:00.820Z"
+        },
+        {
+          "id": "img_c6c4b54b0387d223",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49237 Песчаник серый",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:00.820Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_7c352613df6be7ec",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_2e0a086572895cde",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_266e5410590f8c0d",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_37ca147995e4bc4e",
+          "productId": "prod_e2f7e52e3cf5ad54",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_f2f84ff9928a5ee7",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49236 Песчаник бежевый",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49236-peschanik-bezhevyy",
+      "sku": "PERGO-V4422-49236",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник бежевый — современное напольное покрытие, сочетающее элегантный дизайн под бежевый натуральный камень с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49236 Песчаник бежевый — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник бежевый — современное напольное покрытие, сочетающее элегантный дизайн под бежевый нату",
+      "published": true,
+      "featured": true,
+      "sortOrder": 4,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:49:01.410Z",
+      "updatedAt": "2026-09-20T16:49:01.410Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
+      "images": [
+        {
+          "id": "img_e85c1da872fb09ec",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "url": "images/pergo/5075.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49236 Песчаник бежевый",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:01.410Z"
+        },
+        {
+          "id": "img_8424a69610be6b13",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49236_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49236 Песчаник бежевый",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:01.410Z"
+        },
+        {
+          "id": "img_fd2846eedd793f31",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49236 Песчаник бежевый",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:01.410Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_25a2237bc5a4dea0",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_38ec8e0cb207dc37",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_bb36a9e001a857bd",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_57c35c36d297a00c",
+          "productId": "prod_f2f84ff9928a5ee7",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_b617a67189a99a09",
+      "name": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49235 Песчаник тёмный",
+      "slug": "plitka-pvh-pergo-isefjord-pad-pro-v4422-49235-peschanik-temnyy",
+      "sku": "PERGO-V4422-49235",
+      "description": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник тёмный — современное напольное покрытие, сочетающее элегантный дизайн под темный натуральный камень с высокой прочностью и практичностью. Универсальный формат планок гармонично смотрится как в жилых, так и в коммерческих помещениях, легко вписываясь в современные интерьеры в стиле лофт, минимализм, хай-тек и сканди. Кварц виниловый ламинат Pergo Isefjord pad pro, имеет защитный слой 33 класса, который обеспечивает надежную защиту от царапин и сколов. Благодаря всем выше перечисленным качествам срок службы винилового пола PERGO до 25 лет! &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Viskan Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 856 мм Ширина: 428 мм Толщина: 6 мм Кол-во в упаковке: 2,198 м² (6 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 1,848 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 6,
+      "packArea": 2.198,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 856,
+      "width": 428,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": "Uniclic",
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49235 Песчаник тёмный — ДОМПОЛА",
+      "seoDescription": "Виниловый ламинат Pergo Isefjord pad pro (Исефьёрд с подложкой) Песчаник тёмный — современное напольное покрытие, сочетающее элегантный дизайн под темный натура",
+      "published": true,
+      "featured": true,
+      "sortOrder": 5,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_0988e729c1fe1a98",
+      "createdAt": "2026-09-20T16:49:02.464Z",
+      "updatedAt": "2026-09-20T16:49:02.464Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_0988e729c1fe1a98",
+        "name": "Isefjord Pad Pro",
+        "slug": "isefjord-pad-pro-iseferd-s-podlozhkoy",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:48:24.462Z",
+        "updatedAt": "2026-09-20T16:48:24.462Z"
+      },
+      "images": [
+        {
+          "id": "img_ed4fbc0ea1d4ec93",
+          "productId": "prod_b617a67189a99a09",
+          "url": "images/pergo/5071.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49235 Песчаник тёмный",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:02.464Z"
+        },
+        {
+          "id": "img_d42a01d117f80db6",
+          "productId": "prod_b617a67189a99a09",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/V4422-49235_1.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49235 Песчаник тёмный",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:02.464Z"
+        },
+        {
+          "id": "img_db97ee9948a4c37f",
+          "productId": "prod_b617a67189a99a09",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2023/11/pergo_rigid_pad.webp",
+          "alt": "Плитка ПВХ Pergo Isefjord Pad Pro V4422-49235 Песчаник тёмный",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:02.464Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_6f7a38f86f392d79",
+          "productId": "prod_b617a67189a99a09",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_8c9e85ec03dd6071",
+          "productId": "prod_b617a67189a99a09",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Isefjord Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_03f686214cb4764e",
+          "productId": "prod_b617a67189a99a09",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_94973bdbec956189",
+          "productId": "prod_b617a67189a99a09",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Uniclic Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_426bf6479b054a4c",
+      "name": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49243 Дуб горный теплый &#8212; ЕЛОЧКА",
+      "slug": "plitka-pvh-pergo-vorma-pad-pro-v4524-49243-dub-gornyy-teplyy-8212-elochka",
+      "sku": "PERGO-V4524-49243",
+      "description": "Жесткий виниловый пол Rigid Vorma Pad Pro горный теплый — это современный дизайн паркета «елочка» в натуральном тоне натурального дуба. Небольшие сучки и трещины оживляют пол, сохраняя при этом его чистоту и изысканность. Превосходная деревянная структура этого винилового пола придает ему очень натуралистичный вид. Большой размер досок пола Перго Ворма с подложкой с узором «елочка» придаст вашей комнате ощущение элегантности и роскоши. Ворма устанавливается очень быстро и легко благодаря уникальной системе замков Unizip и предварительно прикрепленной подложке. Как и все виниловые полы Rigid, Vorma имеет водонепроницаемую поверхность, что делает его пригодным даже для кухонь и коридоров. &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Vorma Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 630 мм Ширина: 126 мм Толщина: 6 мм Кол-во в упаковке: 0,794 м² (10 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 0,794 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 10,
+      "packArea": 0.794,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 630,
+      "width": 126,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": null,
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49243 Дуб горный теплый &#8212; ЕЛОЧКА — ДОМПОЛА",
+      "seoDescription": "Жесткий виниловый пол Rigid Vorma Pad Pro горный теплый — это современный дизайн паркета «елочка» в натуральном тоне натурального дуба. Небольшие сучки и трещин",
+      "published": true,
+      "featured": false,
+      "sortOrder": 6,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_9de679b1347e7ef9",
+      "createdAt": "2026-09-20T16:49:02.891Z",
+      "updatedAt": "2026-09-20T16:49:02.891Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_9de679b1347e7ef9",
+        "name": "Vorma Pad Pro",
+        "slug": "vorma-pad-pro",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:49:02.464Z",
+        "updatedAt": "2026-09-20T16:49:02.464Z"
+      },
+      "images": [
+        {
+          "id": "img_6b202854dc7ae455",
+          "productId": "prod_426bf6479b054a4c",
+          "url": "images/pergo/5068.webp",
+          "alt": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49243 Дуб горный теплый &#8212; ЕЛОЧКА",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:02.891Z"
+        },
+        {
+          "id": "img_4f36caee3d32bcd6",
+          "productId": "prod_426bf6479b054a4c",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/Pergeo-Vorma-pad-pro-V4524-49243_1.webp",
+          "alt": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49243 Дуб горный теплый &#8212; ЕЛОЧКА",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:02.891Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_c45247da3059c93f",
+          "productId": "prod_426bf6479b054a4c",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_d61443b8b405aab0",
+          "productId": "prod_426bf6479b054a4c",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Vorma Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_df4dc5a087be32a2",
+          "productId": "prod_426bf6479b054a4c",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_1098a7c700d5e4bb",
+          "productId": "prod_426bf6479b054a4c",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
+    },
+    {
+      "id": "prod_9355b82a4418467e",
+      "name": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49234 Дуб норвежский серо-бежевый &#8212; ЕЛОЧКА",
+      "slug": "plitka-pvh-pergo-vorma-pad-pro-v4524-49234-dub-norvezhskiy-sero-bezhevyy-8212-elochka",
+      "sku": "PERGO-V4524-49234",
+      "description": "Жесткий виниловый пол Rigid Vorma Pad Pro норвежский серо-бежевый — это современный дизайн паркета «елочка» в серо-бежевом тоном натурального дуба. Небольшие сучки и трещины оживляют пол, сохраняя при этом его чистоту и изысканность. Превосходная деревянная структура этого винилового пола придает ему очень натуралистичный вид. Большой размер досок пола Перго Ворма с подложкой с узором «елочка» придаст вашей комнате ощущение элегантности и роскоши. Ворма устанавливается очень быстро и легко благодаря уникальной системе замков Unizip и предварительно прикрепленной подложке. Как и все виниловые полы Rigid, Vorma имеет водонепроницаемую поверхность, что делает его пригодным даже для кухонь и коридоров. &nbsp; Оцените как пол будет смотреться в вашем интерьере с помощью инструмента FloorLab от Pergo ! Чтобы воспользоваться FloorLab от Pergo, загрузите фотографию своего помещения и нажмите «Выбрать покрытие», введите в поиске артикул нужного вам покрытия и выберите его. При желании, вы можете поменять направление укладки, цвет стен и мебели, а также выбрать другую комнату. &nbsp;\n\nХАРАКТЕРИСТИКИ: Тип продукции: Виниловый пол Pergo Коллекция: Vorma Pad Pro Страна производства: Бельгия Класс эксплуатации: 33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм. Длина: 630 мм Ширина: 126 мм Толщина: 6 мм Кол-во в упаковке: 0,794 м² (10 планок) ВАЖНО! Цветопередача Вашего монитора не в состоянии отразить палитру цветов и оттенков. Рекомендуем ознакомиться с образцом в нашем шоу-руме . &nbsp; Товар продаётся упаковками: 1 уп. = 0,794 м²",
+      "price": 0,
+      "oldPrice": null,
+      "discountPercent": null,
+      "unit": "м²",
+      "packQty": 10,
+      "packArea": 0.794,
+      "thickness": 6,
+      "wearClass": "33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "length": 630,
+      "width": 126,
+      "color": null,
+      "bevel": "4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+      "lockType": null,
+      "moistureResistant": true,
+      "underfloorHeating": true,
+      "wearLayer": null,
+      "seoTitle": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49234 Дуб норвежский серо-бежевый &#8212; ЕЛОЧКА — ДОМПОЛА",
+      "seoDescription": "Жесткий виниловый пол Rigid Vorma Pad Pro норвежский серо-бежевый — это современный дизайн паркета «елочка» в серо-бежевом тоном натурального дуба. Небольшие су",
+      "published": true,
+      "featured": false,
+      "sortOrder": 7,
+      "categoryId": "cmu9okcop0005b75fl93r803d",
+      "brandId": "brand_2bf80f35803771e0",
+      "collectionId": "coll_9de679b1347e7ef9",
+      "createdAt": "2026-09-20T16:49:03.065Z",
+      "updatedAt": "2026-09-20T16:49:03.065Z",
+      "category": {
+        "id": "cmu9okcop0005b75fl93r803d",
+        "name": "Кварцвинил / SPC",
+        "slug": "quartzvinyl-spc",
+        "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
+        "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+        "sortOrder": 1,
+        "active": true,
+        "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
+        "createdAt": "2026-09-20T10:35:36.122Z",
+        "updatedAt": "2026-09-20T10:35:36.122Z"
+      },
+      "brand": {
+        "id": "brand_2bf80f35803771e0",
+        "name": "Pergo",
+        "slug": "pergo",
+        "logo": null,
+        "description": "Влагостойкий ламинат и винил Pergo",
+        "website": "https://pergo-floor.ru/",
+        "sortOrder": 1,
+        "active": true,
+        "createdAt": "2026-09-20T16:48:24.460Z",
+        "updatedAt": "2026-09-20T16:48:24.460Z"
+      },
+      "collection": {
+        "id": "coll_9de679b1347e7ef9",
+        "name": "Vorma Pad Pro",
+        "slug": "vorma-pad-pro",
+        "brandId": "brand_2bf80f35803771e0",
+        "createdAt": "2026-09-20T16:49:02.464Z",
+        "updatedAt": "2026-09-20T16:49:02.464Z"
+      },
+      "images": [
+        {
+          "id": "img_3aa2cb332e3ab26e",
+          "productId": "prod_9355b82a4418467e",
+          "url": "images/pergo/5065.webp",
+          "alt": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49234 Дуб норвежский серо-бежевый &#8212; ЕЛОЧКА",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:03.065Z"
+        },
+        {
+          "id": "img_ea30d1d94a4242c6",
+          "productId": "prod_9355b82a4418467e",
+          "url": "https://pergo-floor.ru/wp-content/uploads/2026/08/Pergeo-Vorma-pad-pro-V4524-49234_1.webp",
+          "alt": "Плитка ПВХ Pergo Vorma Pad Pro V4524-49234 Дуб норвежский серо-бежевый &#8212; ЕЛОЧКА",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "storageKey": null,
+          "createdAt": "2026-09-20T16:49:03.065Z"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "ch_8ba3606d50517ae9",
+          "productId": "prod_9355b82a4418467e",
+          "key": "brand",
+          "label": "Бренд",
+          "value": "Pergo",
+          "sortOrder": 0
+        },
+        {
+          "id": "ch_22dd5d646c668a9f",
+          "productId": "prod_9355b82a4418467e",
+          "key": "collection",
+          "label": "Коллекция",
+          "value": "Vorma Pad Pro",
+          "sortOrder": 1
+        },
+        {
+          "id": "ch_e3b9c989657debe0",
+          "productId": "prod_9355b82a4418467e",
+          "key": "thickness",
+          "label": "Толщина",
+          "value": "6 мм",
+          "sortOrder": 2
+        },
+        {
+          "id": "ch_83b10efdf74b40cd",
+          "productId": "prod_9355b82a4418467e",
+          "key": "wearClass",
+          "label": "Класс",
+          "value": "33 класс Гарантия: Пожизненная Тип соединения: Замок Unizip Фаска: 4 -х сторонняя, U-образная Подложка: Интегрированная 1 мм",
+          "sortOrder": 3
+        }
+      ],
+      "stocks": []
     }
   ],
   "promotions": [
