@@ -79,75 +79,81 @@ export function PromoCarousel({ slides }: Props) {
 
   return (
     <section
-      className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white select-none md:min-h-[55vh]"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      onPointerCancel={() => {
-        pointerStart.current = null;
-      }}
-      onWheel={onWheel}
+      className="bg-white select-none md:pb-2 md:pt-4"
       aria-roledescription="carousel"
       aria-label="Акции и скидки"
     >
-      {items.map((slide, i) => (
+      <div className="mx-auto w-full max-w-[1440px] md:px-6 lg:px-10">
         <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-700 ${i === index ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
-          aria-hidden={i !== index}
+          className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[420px] md:rounded-2xl lg:min-h-[480px]"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => {
+            pointerStart.current = null;
+          }}
+          onWheel={onWheel}
         >
-          <SmartImage
-            src={slide.image}
-            fallback="images/promo.jpg"
-            alt={slide.title}
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-            loading={i === 0 ? 'eager' : 'lazy'}
-          />
-        </div>
-      ))}
+          {items.map((slide, i) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-700 ${i === index ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+              aria-hidden={i !== index}
+            >
+              <SmartImage
+                src={slide.image}
+                fallback="images/promo.jpg"
+                alt={slide.title}
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
+          ))}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
 
-      <div className="container-dp relative flex min-h-[52vh] flex-col justify-end pb-14 pt-16 md:min-h-[55vh] md:justify-center md:pb-16 md:pt-20">
-        <p className="mb-2 font-display text-xs font-semibold uppercase tracking-[0.2em] text-brand">Акции</p>
-        {current.discountPercent ? (
-          <span className="mb-2 inline-flex w-fit rounded-md bg-brand px-2.5 py-0.5 text-xs font-bold text-white">
-            −{current.discountPercent}%
-          </span>
-        ) : null}
-        <h1 className="max-w-2xl font-display text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-5xl">
-          {current.title}
-        </h1>
-        {current.description ? (
-          <p className="mt-3 max-w-lg text-sm text-white/80 sm:text-base">{current.description}</p>
-        ) : null}
-        <div className="mt-5 flex flex-wrap gap-2.5">
-          <Link to={detailLink} className="btn-primary px-4 py-2.5 text-sm">
-            Узнать подробнее
-          </Link>
-          <Link
-            to="/catalog"
-            className="btn-secondary border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white hover:border-white hover:text-white"
-          >
-            Смотреть каталог
-          </Link>
+          <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-16 sm:px-6 md:min-h-[420px] md:justify-center md:px-10 md:pb-16 md:pt-16 lg:min-h-[480px] lg:px-12">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Акции</p>
+            {current.discountPercent ? (
+              <span className="mb-2 inline-flex w-fit rounded-md bg-brand px-2.5 py-0.5 text-xs font-bold text-white">
+                −{current.discountPercent}%
+              </span>
+            ) : null}
+            <h1 className="max-w-2xl text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-5xl">
+              {current.title}
+            </h1>
+            {current.description ? (
+              <p className="mt-3 max-w-lg text-sm text-white/80 sm:text-base">{current.description}</p>
+            ) : null}
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              <Link to={detailLink} className="btn-primary px-4 py-2.5 text-sm">
+                Узнать подробнее
+              </Link>
+              <Link
+                to="/catalog"
+                className="btn-secondary border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white hover:border-white hover:text-white"
+              >
+                Смотреть каталог
+              </Link>
+            </div>
+          </div>
+
+          {items.length > 1 ? (
+            <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-5">
+              {items.map((slide, i) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  aria-label={`Слайд ${i + 1}`}
+                  onClick={() => setIndex(i)}
+                  className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-brand' : 'w-2 bg-white/45 hover:bg-white/70'}`}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
-
-      {items.length > 1 ? (
-        <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-5">
-          {items.map((slide, i) => (
-            <button
-              key={slide.id}
-              type="button"
-              aria-label={`Слайд ${i + 1}`}
-              onClick={() => setIndex(i)}
-              className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-brand' : 'w-2 bg-white/45 hover:bg-white/70'}`}
-            />
-          ))}
-        </div>
-      ) : null}
     </section>
   );
 }
