@@ -1,6 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/auth';
+import { api } from '../../lib/api';
+import type { ProductsResponse } from '../../types';
 
 export function AdminLoginPage() {
   const { login, user, loading } = useAuth();
@@ -111,22 +113,20 @@ export function AdminDashboard() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/products?published=all&limit=1', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('dompola_token')}` },
-      }).then((r) => r.json()),
-      fetch('/api/leads', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('dompola_token')}` },
-      }).then((r) => r.json()),
-      fetch('/api/categories?all=1').then((r) => r.json()),
-      fetch('/api/brands?all=1').then((r) => r.json()),
-    ]).then(([products, leads, categories, brands]) => {
-      setStats({
-        products: products.total || 0,
-        leads: Array.isArray(leads) ? leads.length : 0,
-        categories: Array.isArray(categories) ? categories.length : 0,
-        brands: Array.isArray(brands) ? brands.length : 0,
-      });
-    });
+      api<ProductsResponse>('/api/products?published=all&limit=1'),
+      api<unknown[]>('/api/leads'),
+      api<unknown[]>('/api/categories?all=1'),
+      api<unknown[]>('/api/brands?all=1'),
+    ])
+      .then(([products, leads, categories, brands]) => {
+        setStats({
+          products: products.total || 0,
+          leads: Array.isArray(leads) ? leads.length : 0,
+          categories: Array.isArray(categories) ? categories.length : 0,
+          brands: Array.isArray(brands) ? brands.length : 0,
+        });
+      })
+      .catch(() => undefined);
   }, []);
 
   return (
