@@ -41,6 +41,6 @@
   }
 
   .section-title {
-    @apply font-display text-3xl font-normal tracking-normal text-graphite md:text-4xl lg:text-5xl;
+    @apply font-display text-3xl font-bold tracking-normal text-graphite md:text-4xl lg:text-5xl;
   }
 }
