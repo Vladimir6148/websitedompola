@@ -6,6 +6,7 @@ import { OfferProductCard } from '../components/OfferProductCard';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { PromoCarousel } from '../components/PromoCarousel';
+import { SectionHeader } from '../components/SectionHeader';
 import { api } from '../lib/api';
 import type { HomePayload, Product, ProductsResponse, Promotion } from '../types';
 import initialPromotions from '../data/promotions.json';
@@ -55,7 +56,13 @@ export function HomePage() {
     ])
       .then(([under, base, acc]) => {
         if (cancelled) return;
-        const preferred = ['podlozhka-xps-3mm', 'plintus-pvh-dub-natural', 'klej-dlya-spc', 'podlozhka-khvoynaya-7mm', 'plintus-mdf-belyj-80'];
+        const preferred = [
+          'podlozhka-xps-3mm',
+          'plintus-pvh-dub-natural',
+          'klej-dlya-spc',
+          'podlozhka-khvoynaya-7mm',
+          'plintus-mdf-belyj-80',
+        ];
         const pool = [...(under.items || []), ...(base.items || []), ...(acc.items || [])];
         const bySlug = new Map(pool.map((p) => [p.slug, p]));
         const ordered = preferred.map((s) => bySlug.get(s)).filter(Boolean) as Product[];
@@ -84,12 +91,17 @@ export function HomePage() {
       <PromoCarousel slides={carouselSlides} />
 
       <section className="container-dp py-12 md:py-16">
-        <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
-          <h2 className="section-title">Выгодные предложения</h2>
-          <Link to="/catalog" className="text-sm font-semibold text-brand hover:underline">
-            Весь каталог
-          </Link>
-        </div>
+        <SectionHeader
+          eyebrow="Скидки недели"
+          title="Выгодные предложения"
+          description="Актуальные цены на покрытия со скидкой — с доставкой и укладкой."
+          action={{ to: '/catalog', label: 'Весь каталог' }}
+          chips={[
+            { to: '/catalog/mspc', label: 'MSPC' },
+            { to: '/catalog/quartzvinyl-spc', label: 'SPC' },
+            { to: '/catalog/laminate', label: 'Ламинат' },
+          ]}
+        />
         <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
           {offerProducts.map((p) => (
             <OfferProductCard key={p.id} product={p} />
@@ -97,65 +109,39 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-12 md:py-16">
-        <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
-          <h2 className="section-title">Популярные товары</h2>
-          <Link to="/catalog" className="text-sm font-semibold text-brand hover:underline">
-            В каталог
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
-          {(data?.featured || []).slice(0, 8).map((p) => (
-            <OfferProductCard key={p.id} product={p} />
-          ))}
+      <section className="bg-mist py-12 md:py-16">
+        <div className="container-dp">
+          <SectionHeader
+            eyebrow="Выбор покупателей"
+            title="Популярные товары"
+            description="Проверенные коллекции, которые чаще всего берут в наши салоны."
+            action={{ to: '/catalog', label: 'В каталог' }}
+          />
+          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+            {(data?.featured || []).slice(0, 8).map((p) => (
+              <OfferProductCard key={p.id} product={p} />
+            ))}
+          </div>
         </div>
       </section>
 
       {related.length ? (
-        <section className="bg-mist py-12 md:py-16">
-          <div className="container-dp">
-            <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-xl">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
-                  К монтажу покрытия
-                </p>
-                <h2 className="font-display text-3xl font-bold text-graphite md:text-4xl">
-                  Подложка, плинтус и клей
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-graphite/60 md:text-base">
-                  Сопутствующие материалы для ровной укладки и аккуратного финиша.
-                </p>
-              </div>
-              <Link
-                to="/catalog/accessories"
-                className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-brand/25 bg-white px-4 py-2 text-sm font-semibold text-brand transition hover:border-brand hover:bg-brand hover:text-white md:self-auto"
-              >
-                Все комплектующие
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-
-            <div className="mb-6 flex flex-wrap gap-2">
-              {[
-                { to: '/catalog/underlayment', label: 'Подложка' },
-                { to: '/catalog/baseboards', label: 'Плинтусы' },
-                { to: '/catalog/accessories', label: 'Клей и крепёж' },
-              ].map((chip) => (
-                <Link
-                  key={chip.to}
-                  to={chip.to}
-                  className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-graphite/75 shadow-sm ring-1 ring-graphite/8 transition hover:text-brand hover:ring-brand/30"
-                >
-                  {chip.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
-              {related.map((p) => (
-                <OfferProductCard key={p.id} product={p} />
-              ))}
-            </div>
+        <section className="container-dp py-12 md:py-16">
+          <SectionHeader
+            eyebrow="К монтажу покрытия"
+            title="Подложка, плинтус и клей"
+            description="Сопутствующие материалы для ровной укладки и аккуратного финиша."
+            action={{ to: '/catalog/accessories', label: 'Все комплектующие' }}
+            chips={[
+              { to: '/catalog/underlayment', label: 'Подложка' },
+              { to: '/catalog/baseboards', label: 'Плинтусы' },
+              { to: '/catalog/accessories', label: 'Клей и крепёж' },
+            ]}
+          />
+          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+            {related.map((p) => (
+              <OfferProductCard key={p.id} product={p} />
+            ))}
           </div>
         </section>
       ) : null}
@@ -163,8 +149,11 @@ export function HomePage() {
       <section className="bg-graphite py-16 text-white md:py-20">
         <div className="container-dp grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-3xl font-semibold md:text-5xl">Подбор покрытия за 4 шага</h2>
-            <p className="mt-4 max-w-lg text-white/70">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Онлайн-подбор</p>
+            <h2 className="font-display text-3xl font-bold md:text-4xl lg:text-5xl">
+              Покрытие за 4 шага
+            </h2>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/65 md:text-base">
               Укажите помещение, приоритет, тёплый пол и стиль — покажем подходящие позиции из каталога.
             </p>
             <Link to="/picker" className="btn-primary mt-8">
@@ -183,8 +172,12 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-16 md:py-20">
-        <h2 className="section-title mb-8">Почему ДОМПОЛА</h2>
+      <section className="container-dp py-12 md:py-16">
+        <SectionHeader
+          eyebrow="Почему мы"
+          title="Доверяют ДОМПОЛА"
+          description="Шоурумы, подбор под задачу и монтаж — от образца до готового пола."
+        />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {(data?.advantages || []).map((a) => (
             <div key={a.id} className="rounded-2xl border border-graphite/8 bg-mist/60 p-6">
@@ -196,15 +189,17 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-mist py-16 md:py-20">
+      <section className="bg-mist py-12 md:py-16">
         <div className="container-dp">
-          <div className="mb-8 flex items-end justify-between">
-            <h2 className="section-title">Услуги</h2>
-            <Link to="/services" className="text-sm font-semibold text-brand hover:underline">Все услуги</Link>
-          </div>
+          <SectionHeader
+            eyebrow="Сервис"
+            title="Услуги"
+            description="Замер, укладка и расчёт материалов — без лишней суеты."
+            action={{ to: '/services', label: 'Все услуги' }}
+          />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {(data?.services || []).map((s) => (
-              <div key={s.id} className="rounded-2xl bg-white p-6 shadow-sm">
+              <div key={s.id} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-graphite/5">
                 <h3 className="font-display text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-graphite/65">{s.description}</p>
               </div>
@@ -213,15 +208,17 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-16 md:py-20">
-        <div className="mb-8 flex items-end justify-between">
-          <h2 className="section-title">Наши работы</h2>
-          <Link to="/works" className="text-sm font-semibold text-brand hover:underline">Смотреть все</Link>
-        </div>
+      <section className="container-dp py-12 md:py-16">
+        <SectionHeader
+          eyebrow="Портфолио"
+          title="Наши работы"
+          description="Реальные объекты в Архангельске, Северодвинске и Вологде."
+          action={{ to: '/works', label: 'Смотреть все' }}
+        />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {(data?.works || []).map((w) => (
             <article key={w.id} className="overflow-hidden rounded-2xl">
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-mist">
                 <SmartImage src={w.image} alt={w.title} className="h-full w-full object-cover" />
               </div>
               <div className="pt-3">
@@ -233,28 +230,39 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-graphite py-16 text-white md:py-20">
+      <section className="bg-graphite py-12 text-white md:py-16">
         <div className="container-dp">
-          <h2 className="font-display text-3xl font-semibold md:text-4xl">Магазины</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <SectionHeader
+            tone="dark"
+            eyebrow="Где купить"
+            title="Магазины"
+            description="Приходите за образцами и консультацией технолога."
+            action={{ to: '/stores', label: 'Все магазины' }}
+          />
+          <div className="grid gap-4 md:grid-cols-3">
             {(data?.stores || []).map((s) => (
               <div key={s.id} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                 <div className="text-sm text-brand">{s.city?.name}</div>
                 <h3 className="mt-1 font-display text-xl">{s.name}</h3>
                 <p className="mt-3 text-sm text-white/70">{s.address}</p>
                 <p className="mt-1 text-sm text-white/70">{s.schedule}</p>
-                {s.phone ? <a href={`tel:${s.phone}`} className="mt-3 inline-block text-sm text-brand hover:underline">{s.phone}</a> : null}
+                {s.phone ? (
+                  <a href={`tel:${s.phone}`} className="mt-3 inline-block text-sm text-brand hover:underline">
+                    {s.phone}
+                  </a>
+                ) : null}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="container-dp py-16 md:py-20">
+      <section className="container-dp py-12 md:py-16">
         <div className="grid gap-10 rounded-3xl bg-mist p-6 md:grid-cols-2 md:p-10">
           <div>
-            <h2 className="section-title">Нужна консультация?</h2>
-            <p className="mt-3 text-graphite/65">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">Связь</p>
+            <h2 className="font-display text-3xl font-bold text-graphite md:text-4xl">Нужна консультация?</h2>
+            <p className="mt-3 text-sm leading-relaxed text-graphite/60 md:text-base">
               Оставьте заявку — поможем с выбором покрытия, расчётом количества и записью на замер.
             </p>
           </div>
