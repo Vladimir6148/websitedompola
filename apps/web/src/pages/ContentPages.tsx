@@ -141,6 +141,7 @@ export function ContactsPage() {
               <a href="tel:+79212494979" className="mt-1 inline-block font-semibold hover:text-brand">
                 +7 (921) 249-49-79
               </a>
+              <p className="mt-1 text-sm text-graphite/55">Пн–Пт 11:00–19:00, Сб–Вс 11:00–18:00</p>
             </div>
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-brand">Вологда</p>
