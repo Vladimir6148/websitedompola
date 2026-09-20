@@ -33,7 +33,7 @@ export default function App() {
       <CityProvider>
         <CartProvider>
           <FavoritesProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={(import.meta.env.BASE_URL.replace(/\/$/, '') || undefined) as string | undefined}>
               <Routes>
                 <Route element={<StoreLayout />}>
                   <Route index element={<HomePage />} />

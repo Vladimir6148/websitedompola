@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // GitHub Pages project site: https://user.github.io/websitedompola/
+  base: process.env.VITE_BASE || '/',
   server: {
     port: 5173,
     proxy: {
