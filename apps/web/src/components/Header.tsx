@@ -90,7 +90,7 @@ export function Header() {
             </Link>
           </div>
 
-          <form onSubmit={onSearch} className="w-[9.5rem] shrink-0 sm:w-[13rem] md:w-[16rem] lg:w-[18rem]">
+          <form onSubmit={onSearch} className="hidden w-[13rem] shrink-0 md:block lg:w-[16rem] xl:w-[18rem]">
             <label className="flex h-9 items-center gap-2 rounded-full border border-graphite/20 bg-mist/80 px-3 transition focus-within:border-brand focus-within:bg-white sm:h-10 sm:px-3.5">
               <Search size={16} strokeWidth={1.75} className="shrink-0 text-graphite/40" />
               <input
