@@ -22,11 +22,7 @@ const uploadRoot = path.resolve(__dirname, '../', process.env.UPLOAD_DIR || 'upl
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'https://vladimir6148.github.io',
-      /\.onrender\.com$/,
-    ],
+    origin: true,
     credentials: true,
   }),
 );
