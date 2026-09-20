@@ -151,9 +151,11 @@ export function Header() {
               target="_blank"
               rel="noreferrer"
               aria-label="Группа ВКонтакте"
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-[11px] font-bold tracking-tight text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10 sm:text-xs"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-10 sm:w-10"
             >
-              VK
+              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor">
+                <path d="M12.785 15.543h.914s.275-.03.415-.185c.128-.143.124-.41.124-.41s-.014-1.254.57-1.44c.575-.183 1.314 1.212 2.097 1.748.592.405 1.042.316 1.042.316l2.08-.029s1.088-.066.572-.91c-.042-.069-.3-.628-1.546-1.768-1.304-1.194-1.13-1.001.441-3.066.956-1.254 1.338-2.018 1.218-2.348-.114-.315-.574-.232-.574-.232h-2.16s-.16.004-.279.075c-.116.069-.19.228-.19.228s-.342.908-.797 1.68c-.574.975-.804 1.026-.897.966-.217-.14-.163-.565-.163-.867V8.18c0-.276-.09-.445-.331-.533-.156-.057-.257-.038-.635.01-.64.079-1.054.24-1.054.24s-.366.22-.127.22c.293 0 .475.136.649.467.224.426.215 1.38.215 1.38s.011.788-.183.902c-.133.078-.315-.081-.794-.706-.78-1.02-1.329-2.687-1.329-2.687s-.109-.268-.306-.412c-.189-.138-.453-.182-.453-.182H6.78s-.368.01-.504.17c-.121.144-.01.453-.01.453s3.007 6.99 6.407 6.99h.112z" />
+              </svg>
             </a>
             <a
               href="tel:+79214994979"
