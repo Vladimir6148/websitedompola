@@ -138,7 +138,9 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     }
     if (minPrice) items = items.filter((p) => p.price >= Number(minPrice));
     if (maxPrice) items = items.filter((p) => p.price <= Number(maxPrice));
-    if (wearClass) items = items.filter((p) => p.wearClass === wearClass);
+    if (wearClass) {
+      items = items.filter((p) => (p.wearClass || '').includes(wearClass));
+    }
     if (moistureResistant) items = items.filter((p) => p.moistureResistant);
     if (underfloorHeating) items = items.filter((p) => p.underfloorHeating);
 
