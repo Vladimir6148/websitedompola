@@ -112,17 +112,50 @@ export function HomePage() {
       </section>
 
       {related.length ? (
-        <section className="container-dp py-12 md:py-16">
-          <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
-            <h2 className="section-title">Сопутствующие товары</h2>
-            <Link to="/catalog/accessories" className="text-sm font-semibold text-brand hover:underline">
-              Все комплектующие
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
-            {related.map((p) => (
-              <OfferProductCard key={p.id} product={p} />
-            ))}
+        <section className="bg-mist py-12 md:py-16">
+          <div className="container-dp">
+            <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-xl">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
+                  К монтажу покрытия
+                </p>
+                <h2 className="font-display text-3xl font-bold text-graphite md:text-4xl">
+                  Подложка, плинтус и клей
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-graphite/60 md:text-base">
+                  Сопутствующие материалы для ровной укладки и аккуратного финиша.
+                </p>
+              </div>
+              <Link
+                to="/catalog/accessories"
+                className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-brand/25 bg-white px-4 py-2 text-sm font-semibold text-brand transition hover:border-brand hover:bg-brand hover:text-white md:self-auto"
+              >
+                Все комплектующие
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            <div className="mb-6 flex flex-wrap gap-2">
+              {[
+                { to: '/catalog/underlayment', label: 'Подложка' },
+                { to: '/catalog/baseboards', label: 'Плинтусы' },
+                { to: '/catalog/accessories', label: 'Клей и крепёж' },
+              ].map((chip) => (
+                <Link
+                  key={chip.to}
+                  to={chip.to}
+                  className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-graphite/75 shadow-sm ring-1 ring-graphite/8 transition hover:text-brand hover:ring-brand/30"
+                >
+                  {chip.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+              {related.map((p) => (
+                <OfferProductCard key={p.id} product={p} />
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
