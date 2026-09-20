@@ -80,38 +80,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {(data?.promotions?.length || 0) > 0 ? (
-        <section className="bg-mist py-16 md:py-20">
-          <div className="container-dp">
-            <div className="mb-8 flex items-end justify-between">
-              <h2 className="section-title">Акции</h2>
-              <Link to="/promotions" className="text-sm font-semibold text-brand hover:underline">
-                Все акции
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {data!.promotions.map((p) => (
-                <Link
-                  key={p.id}
-                  to="/promotions"
-                  className="group relative min-h-[220px] overflow-hidden rounded-2xl"
-                >
-                  <SmartImage src={p.image} alt={p.title} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-graphite/55" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                    {p.discountPercent ? (
-                      <span className="mb-2 w-fit rounded-md bg-brand px-2 py-1 text-xs font-bold">−{p.discountPercent}%</span>
-                    ) : null}
-                    <h3 className="font-display text-2xl font-semibold">{p.title}</h3>
-                    <p className="mt-2 max-w-md text-sm text-white/75">{p.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
       <section className="container-dp py-12 md:py-16">
         <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
           <h2 className="section-title">Популярные товары</h2>
