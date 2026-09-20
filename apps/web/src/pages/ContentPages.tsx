@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Seo } from '../components/Seo';
+import { LeadForm } from '../components/LeadForm';
 import { api } from '../lib/api';
 import type { Promotion, Store, Work } from '../types';
 
