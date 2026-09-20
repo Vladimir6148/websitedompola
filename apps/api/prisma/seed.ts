@@ -347,7 +347,7 @@ async function main() {
   await prisma.banner.createMany({
     data: [
       {
-        title: 'Пол, который держит характер',
+        title: 'ДомПола федеральная сеть магазинов напольных покрытий',
         subtitle: 'Кварцвинил, ламинат и паркет для Архангельска, Северодвинска и Вологды',
         image: IMG.hero,
         ctaText: 'Смотреть каталог',
