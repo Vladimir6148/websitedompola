@@ -193,15 +193,13 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
               </div>
 
               <div className="mt-6 flex flex-col gap-4 md:mt-8 md:gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-                <div className="hidden grid-cols-2 gap-3 sm:grid md:flex md:flex-wrap md:gap-5">
+                <div className="hidden sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3 lg:flex lg:min-w-0 lg:flex-1 lg:flex-nowrap lg:items-center lg:gap-5 xl:gap-7">
                   {FEATURES.map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-start gap-2.5 sm:max-w-[11rem]">
-                      <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
+                    <div key={label} className="flex min-w-0 items-center gap-2.5 lg:max-w-[12.5rem]">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
                         <Icon size={15} strokeWidth={1.75} />
                       </span>
-                      <span className="text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
-                        {label}
-                      </span>
+                      <span className="text-xs font-medium leading-snug text-white/90">{label}</span>
                     </div>
                   ))}
                 </div>
@@ -219,7 +217,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
 
                 <Link
                   to={current.ctaTo}
-                  className="group flex w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/95 p-2 pr-2.5 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white sm:gap-3 sm:p-2.5 sm:pr-3"
+                  className="group flex w-full max-w-md shrink-0 items-center gap-2.5 rounded-2xl bg-white/95 p-2 pr-2.5 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white sm:gap-3 sm:p-2.5 sm:pr-3 lg:max-w-sm"
                 >
                   {current.thumb ? (
                     <span className="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-mist sm:h-14 sm:w-14">
