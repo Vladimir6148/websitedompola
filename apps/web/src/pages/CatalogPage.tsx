@@ -98,7 +98,7 @@ export function CatalogPage() {
     let cancelled = false;
     const qs = new URLSearchParams();
     qs.set('category', categoryQuery);
-    qs.set('limit', '200');
+    qs.set('limit', '2000');
     api<ProductsResponse>(`/api/products?${qs}`)
       .then((res) => {
         if (!cancelled) setCategoryPool(res.items || []);
