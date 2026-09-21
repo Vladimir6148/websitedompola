@@ -799,8 +799,37 @@ export function CatalogPage() {
                 );
               })}
             </>
+          ) : categorySlug ? (
+            brandChips.length > 0 || collectionChips.length > 0 ? (
+              <div className="space-y-3 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:space-y-3.5 sm:p-4 lg:p-5">
+                {brandChips.length > 0 ? (
+                  <CompactChipRow
+                    label="Бренд"
+                    items={brandChips}
+                    selected={brandSlugs}
+                    preview={isDesktop ? BRAND_PREVIEW_DESKTOP : BRAND_PREVIEW}
+                    allLabel="Все бренды"
+                    onClear={() => setBrandList([])}
+                    onSelectOne={toggleBrandChip}
+                    onOpenMore={() => setBrandModalOpen(true)}
+                  />
+                ) : null}
+                {collectionChips.length > 0 ? (
+                  <CompactChipRow
+                    label="Коллекция"
+                    items={collectionChips}
+                    selected={collectionSlugs}
+                    preview={isDesktop ? COLLECTION_PREVIEW_DESKTOP : COLLECTION_PREVIEW}
+                    allLabel="Все коллекции"
+                    onClear={() => setCollectionList([])}
+                    onSelectOne={toggleCollectionChip}
+                    onOpenMore={() => setCollectionModalOpen(true)}
+                  />
+                ) : null}
+              </div>
+            ) : null
           ) : (
-            <div className="space-y-3 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:space-y-3.5 sm:p-4 lg:p-5">
+            <div className="overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:p-4 lg:p-5">
               <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
                 <div className="hidden shrink-0 text-[13px] font-semibold text-graphite/55 lg:block lg:w-24 lg:text-right">
                   Покрытие
@@ -819,32 +848,6 @@ export function CatalogPage() {
                   </button>
                 </div>
               </div>
-
-              {!inAccessorySection && categorySlug && brandChips.length > 0 ? (
-                <CompactChipRow
-                  label="Бренд"
-                  items={brandChips}
-                  selected={brandSlugs}
-                  preview={isDesktop ? BRAND_PREVIEW_DESKTOP : BRAND_PREVIEW}
-                  allLabel="Все бренды"
-                  onClear={() => setBrandList([])}
-                  onSelectOne={toggleBrandChip}
-                  onOpenMore={() => setBrandModalOpen(true)}
-                />
-              ) : null}
-
-              {!inAccessorySection && categorySlug && collectionChips.length > 0 ? (
-                <CompactChipRow
-                  label="Коллекция"
-                  items={collectionChips}
-                  selected={collectionSlugs}
-                  preview={isDesktop ? COLLECTION_PREVIEW_DESKTOP : COLLECTION_PREVIEW}
-                  allLabel="Все коллекции"
-                  onClear={() => setCollectionList([])}
-                  onSelectOne={toggleCollectionChip}
-                  onOpenMore={() => setCollectionModalOpen(true)}
-                />
-              ) : null}
             </div>
           )}
         </div>
