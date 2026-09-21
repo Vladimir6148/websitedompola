@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
 import { SmartImage } from './SmartImage';
 
 export type HeroSlide = {
@@ -85,6 +85,10 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
     setIndex((i) => (i + delta + items.length) % items.length);
   }
 
+  function goTo(i: number) {
+    setIndex(((i % items.length) + items.length) % items.length);
+  }
+
   function onPointerDown(e: ReactPointerEvent<HTMLElement>) {
     if ((e.target as HTMLElement).closest('a, button')) return;
     pointerStart.current = { x: e.clientX, y: e.clientY };
@@ -95,10 +99,20 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
     pointerStart.current = null;
     if (!start || items.length <= 1) return;
     if ((e.target as HTMLElement).closest('a, button')) return;
+
     const dx = e.clientX - start.x;
     const dy = e.clientY - start.y;
+
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
       go(dx < 0 ? 1 : -1);
+      return;
+    }
+
+    // Click / tap: left side → previous, right side → next
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / Math.max(rect.width, 1);
+      go(ratio < 0.28 ? -1 : 1);
     }
   }
 
@@ -122,7 +136,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
     >
       <div className="w-full md:px-5 lg:px-6">
         <div
-          className="relative touch-pan-y overflow-hidden bg-graphite text-white md:rounded-2xl"
+          className="relative cursor-pointer touch-pan-y overflow-hidden bg-graphite text-white md:rounded-2xl"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onPointerDown={onPointerDown}
@@ -138,31 +152,52 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
               const preloadNext = i === (index + 1) % items.length;
               const shouldLoad = active || preloadNext;
               return (
-              <div
-                key={slide.id}
-                className={`absolute inset-0 transition-opacity duration-700 ${
-                  active ? 'opacity-100' : 'pointer-events-none opacity-0'
-                }`}
-                aria-hidden={!active}
-              >
-                {shouldLoad ? (
-                  <SmartImage
-                    src={slide.image}
-                    fallback="images/wood.webp"
-                    alt={slide.title}
-                    className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-                    loading={active ? 'eager' : 'lazy'}
-                    priority={active}
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-ink/40" aria-hidden />
-                )}
-              </div>
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 transition-opacity duration-700 ${
+                    active ? 'opacity-100' : 'pointer-events-none opacity-0'
+                  }`}
+                  aria-hidden={!active}
+                >
+                  {shouldLoad ? (
+                    <SmartImage
+                      src={slide.image}
+                      fallback="images/wood.webp"
+                      alt={slide.title}
+                      className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+                      loading={active ? 'eager' : 'lazy'}
+                      priority={active}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-ink/40" aria-hidden />
+                  )}
+                </div>
               );
             })}
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
+
+            {items.length > 1 ? (
+              <>
+                <button
+                  type="button"
+                  aria-label="Предыдущий слайд"
+                  onClick={() => go(-1)}
+                  className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-ink/40 text-white backdrop-blur transition hover:bg-ink/60 sm:left-3 sm:h-11 sm:w-11 md:left-4"
+                >
+                  <ArrowLeft size={18} strokeWidth={2} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Следующий слайд"
+                  onClick={() => go(1)}
+                  className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-ink/40 text-white backdrop-blur transition hover:bg-ink/60 sm:right-3 sm:h-11 sm:w-11 md:right-4"
+                >
+                  <ArrowRight size={18} strokeWidth={2} />
+                </button>
+              </>
+            ) : null}
 
             <div className="relative flex min-h-[52vh] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
               <div className="max-w-xl">
@@ -233,9 +268,10 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                     key={slide.id}
                     type="button"
                     aria-label={`Слайд ${i + 1}: ${slide.title}`}
-                    onClick={() => setIndex(i)}
-                    className={`h-2 rounded-full transition-all ${
-                      i === index ? 'w-7 bg-white' : 'w-2 bg-white/45 hover:bg-white/70'
+                    aria-current={i === index ? 'true' : undefined}
+                    onClick={() => goTo(i)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      i === index ? 'w-8 bg-white' : 'w-2.5 bg-white/45 hover:bg-white/75'
                     }`}
                   />
                 ))}

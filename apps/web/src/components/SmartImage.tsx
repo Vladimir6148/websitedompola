@@ -26,40 +26,39 @@ export function SmartImage({
   useEffect(() => {
     setFailed(false);
     setLoaded(false);
-  }, [src]);
+  }, [src, resolved]);
 
   return (
-    <>
-      {!loaded ? (
-        <span
-          aria-hidden
-          className="absolute inset-0 animate-pulse bg-gradient-to-br from-mist via-[#e8eee6] to-mist"
-        />
-      ) : null}
-      <img
-        {...rest}
-        src={resolved}
-        alt={alt}
-        className={`${className || ''} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`.trim()}
-        sizes={sizes}
-        loading={loading}
-        decoding={priority ? 'sync' : 'async'}
-        fetchPriority={priority || loading === 'eager' ? 'high' : rest.fetchPriority}
-        referrerPolicy={isRemote ? undefined : 'no-referrer'}
-        onLoad={(e) => {
+    <img
+      {...rest}
+      key={resolved}
+      src={resolved}
+      alt={alt}
+      className={`${className || ''} ${loaded ? 'opacity-100' : 'opacity-0'}`.trim()}
+      sizes={sizes}
+      loading={loading}
+      decoding={priority ? 'sync' : 'async'}
+      fetchPriority={priority || loading === 'eager' ? 'high' : rest.fetchPriority}
+      referrerPolicy={isRemote ? undefined : 'no-referrer'}
+      ref={(el) => {
+        // Cached images often skip onLoad if it fired before React attached the handler.
+        if (el && el.complete && el.naturalWidth > 0) {
           setLoaded(true);
-          rest.onLoad?.(e);
-        }}
-        onError={(e) => {
-          if (!failed) {
-            setFailed(true);
-            setLoaded(false);
-          } else {
-            setLoaded(true);
-          }
-          rest.onError?.(e);
-        }}
-      />
-    </>
+        }
+      }}
+      onLoad={(e) => {
+        setLoaded(true);
+        rest.onLoad?.(e);
+      }}
+      onError={(e) => {
+        if (!failed) {
+          setFailed(true);
+          setLoaded(false);
+        } else {
+          setLoaded(true);
+        }
+        rest.onError?.(e);
+      }}
+    />
   );
 }
