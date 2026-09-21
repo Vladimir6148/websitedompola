@@ -32,7 +32,7 @@ export function useGoBack(fallback = '/') {
   };
 }
 
-/** Fixed floating back control — restores previous page scroll position. */
+/** Fixed floating glass back control — restores previous page scroll position. */
 export function BackButton({ fallback = '/', label = 'Назад' }: Props) {
   const goBack = useGoBack(fallback);
   const location = useLocation();
@@ -44,9 +44,9 @@ export function BackButton({ fallback = '/', label = 'Назад' }: Props) {
       type="button"
       onClick={goBack}
       aria-label={label}
-      className="fixed bottom-[4.75rem] left-4 z-[70] inline-flex items-center gap-2 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(15,92,40,0.35)] transition hover:bg-brand-dark active:scale-[0.97] md:bottom-6 md:left-6 md:px-5 md:py-3.5 md:text-base"
+      className="fixed bottom-[4.75rem] left-4 z-[70] inline-flex items-center gap-2 rounded-full border border-white/55 bg-white/45 px-4 py-3 text-sm font-semibold text-graphite shadow-[0_10px_32px_rgba(15,40,20,0.18)] backdrop-blur-md transition hover:border-brand/40 hover:bg-white/70 hover:text-brand active:scale-[0.97] md:bottom-6 md:left-6 md:px-5 md:py-3.5 md:text-base"
     >
-      <ArrowLeft size={18} strokeWidth={2.25} className="shrink-0" />
+      <ArrowLeft size={18} strokeWidth={2.25} className="shrink-0 text-brand" />
       <span>{label}</span>
     </button>
   );
