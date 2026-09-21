@@ -27,7 +27,7 @@ import { useCity } from '../store/city';
 export function ProductPage() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
-  const packsFromUrl = Math.max(1, Math.round(Number(searchParams.get('packs')) || 0));
+  const packsFromUrl = Math.max(0, Number(searchParams.get('packs') || searchParams.get('qty') || 0));
   const [product, setProduct] = useState<Product | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [related, setRelated] = useState<Product[]>([]);
@@ -233,10 +233,10 @@ export function ProductPage() {
               </div>
             </div>
 
-            {byPack && hasPrice(product.price) ? (
+            {hasPrice(product.price) ? (
               <div className="mt-6 rounded-2xl border border-graphite/10 bg-white p-5">
                 <h2 className="font-display text-xl font-semibold">Заказать онлайн</h2>
-                {roomReady && packArea ? (
+                {byPack && roomReady && packArea ? (
                   <>
                     <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
                     <div className="mt-3 flex items-end gap-2">
@@ -272,9 +272,9 @@ export function ProductPage() {
                       </button>
                     </div>
                   </>
-                ) : (
+                ) : byPack ? (
                   <>
-                    <p className="mt-1 text-sm text-graphite/55">Количество упаковок:</p>
+                    <p className="mt-1 text-sm text-graphite/55">Количество:</p>
                     <div className="mt-3 max-w-xs">
                       <QtyStepper
                         label="упак"
@@ -284,13 +284,29 @@ export function ProductPage() {
                         onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
                       />
                     </div>
-                    <p className="mt-2 text-xs text-graphite/45">
-                      Площадь упаковки в карточке не указана — пересчёт м² недоступен.
-                    </p>
+                    {!packArea ? (
+                      <p className="mt-2 text-xs text-graphite/45">
+                        Площадь упаковки не указана — пересчёт м² недоступен.
+                      </p>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-1 text-sm text-graphite/55">Количество:</p>
+                    <div className="mt-3 max-w-xs">
+                      <QtyStepper
+                        label={formatUnit(product.unit, { short: true })}
+                        value={packs}
+                        min={0.1}
+                        step={0.1}
+                        displayValue={Number(packs.toFixed(1))}
+                        onChange={(n) => setPacks(Math.max(0.1, n))}
+                      />
+                    </div>
                   </>
                 )}
 
-                {roomReady && showRoomCalc ? (
+                {byPack && roomReady && showRoomCalc ? (
                   <form
                     className="mt-4 rounded-xl bg-mist p-4"
                     onSubmit={(e: FormEvent) => {
@@ -330,12 +346,6 @@ export function ProductPage() {
                     <ShoppingCart size={16} /> В корзину
                   </span>
                   <span>{formatPrice(cartSum)}</span>
-                </button>
-              </div>
-            ) : hasPrice(product.price) ? (
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button type="button" className="btn-primary" onClick={() => add(product, 1)}>
-                  <ShoppingCart size={16} /> В корзину
                 </button>
               </div>
             ) : (

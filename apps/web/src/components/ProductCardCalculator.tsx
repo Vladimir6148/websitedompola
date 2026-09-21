@@ -19,7 +19,6 @@ import { QtyStepper } from './QtyStepper';
 
 type Props = {
   product: Product;
-  /** Compact layout for 2-column mobile grids */
   compact?: boolean;
   returnState?: { from?: string };
   onBeforeNavigate?: () => void;
@@ -33,7 +32,7 @@ export function ProductCardCalculator({
 }: Props) {
   const { add } = useCart();
   const navigate = useNavigate();
-  const [packs, setPacks] = useState(1);
+  const [qty, setQty] = useState(1);
   const [showRoom, setShowRoom] = useState(false);
   const [roomArea, setRoomArea] = useState(20);
 
@@ -47,22 +46,22 @@ export function ProductCardCalculator({
     (product.oldPrice && product.oldPrice > product.price
       ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
       : null);
-  const selectedArea = roomReady ? packsToArea(packs, product) : null;
-  const total = priced ? lineTotal(byPack ? packs : packs, product) : 0;
+  const selectedArea = roomReady ? packsToArea(qty, product) : null;
+  const total = priced ? lineTotal(Math.max(1, qty), product) : 0;
   const showPackAlt = priced && byPack && pPack != null && !isPackPriced(product);
-  const primaryIsM2 = priced && !isPackPriced(product) && (normLooksM2(product.unit) || packArea != null);
+  const unitShort = formatUnit(product.unit, { short: true });
+  const isM2 = normLooksM2(product.unit);
 
-  function setPacksFromArea(m2: number) {
-    setPacks(areaToPacks(m2, product));
+  function setQtyFromArea(m2: number) {
+    setQty(areaToPacks(m2, product));
   }
 
   function goOrder() {
     if (!priced) return;
-    const qty = byPack ? packs : Math.max(1, packs);
-    // Save list scroll before leaving so «Назад» can restore it
+    const amount = Math.max(1, byPack ? Math.round(qty) : qty);
     onBeforeNavigate?.();
-    add(product, qty);
-    const qs = byPack ? `?packs=${qty}` : '';
+    add(product, amount);
+    const qs = byPack ? `?packs=${Math.round(amount)}` : `?qty=${amount}`;
     navigate(`/product/${product.slug}${qs}`, { state: returnState });
   }
 
@@ -100,101 +99,110 @@ export function ProductCardCalculator({
           className={`font-bold leading-tight text-[#e11d48] ${compact ? 'text-sm sm:text-lg' : 'text-lg sm:text-xl'}`}
         >
           {formatPrice(product.price)}
-          <span className="text-[11px] font-semibold sm:text-sm">
-            /{formatUnit(product.unit, { short: true })}
-          </span>
+          <span className="text-[11px] font-semibold sm:text-sm">/{unitShort}</span>
         </div>
         {showPackAlt ? (
-          <div className={`font-semibold text-graphite ${compact ? 'text-xs sm:text-sm' : 'text-sm'}`}>
-            {formatPrice(pPack)}/{formatUnit('упак', { short: true })}
-          </div>
-        ) : primaryIsM2 && pPack != null ? (
           <div className={`font-semibold text-graphite ${compact ? 'text-xs sm:text-sm' : 'text-sm'}`}>
             {formatPrice(pPack)}/упак
           </div>
         ) : null}
       </div>
 
-      {byPack ? (
-        <div className="rounded-xl border border-graphite/10 bg-white p-1.5 sm:p-2">
-          {roomReady && packArea ? (
-            <>
-              <div className="mb-1.5 text-[10px] font-medium text-graphite/50 sm:text-xs">Площадь:</div>
-              <div className="flex items-end gap-1">
-                <div className="flex min-w-0 flex-1 items-end gap-1">
-                  <QtyStepper
-                    compact={compact}
-                    label="упак"
-                    value={packs}
-                    min={1}
-                    step={1}
-                    onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
-                  />
-                  <span className="mb-2.5 shrink-0 text-xs font-semibold text-graphite/35">=</span>
-                  <QtyStepper
-                    compact={compact}
-                    label="м²"
-                    value={selectedArea || packArea}
-                    min={packArea}
-                    step={packArea}
-                    displayValue={Number((selectedArea || packArea).toFixed(2))}
-                    onChange={setPacksFromArea}
-                  />
-                </div>
-                <button
-                  type="button"
-                  aria-label="Калькулятор площади"
-                  onClick={() => setShowRoom((v) => !v)}
-                  className={`mb-0.5 grid shrink-0 place-items-center rounded-lg border transition ${
-                    compact ? 'h-9 w-9' : 'h-11 w-11'
-                  } ${
-                    showRoom
-                      ? 'border-brand bg-brand/10 text-brand'
-                      : 'border-graphite/15 bg-mist text-graphite/60 hover:border-brand hover:text-brand'
-                  }`}
-                >
-                  <Calculator size={compact ? 15 : 17} strokeWidth={1.75} />
-                </button>
+      {/* Always show quantity calculator so cards look consistent */}
+      <div className="rounded-xl border border-graphite/10 bg-white p-1.5 sm:p-2">
+        {roomReady && packArea ? (
+          <>
+            <div className="mb-1.5 text-[10px] font-medium text-graphite/50 sm:text-xs">Площадь:</div>
+            <div className="flex items-end gap-1">
+              <div className="flex min-w-0 flex-1 items-end gap-1">
+                <QtyStepper
+                  compact={compact}
+                  label="упак"
+                  value={qty}
+                  min={1}
+                  step={1}
+                  onChange={(n) => setQty(Math.max(1, Math.round(n)))}
+                />
+                <span className="mb-2.5 shrink-0 text-xs font-semibold text-graphite/35">=</span>
+                <QtyStepper
+                  compact={compact}
+                  label="м²"
+                  value={selectedArea || packArea}
+                  min={packArea}
+                  step={packArea}
+                  displayValue={Number((selectedArea || packArea).toFixed(2))}
+                  onChange={setQtyFromArea}
+                />
               </div>
-              {showRoom ? (
-                <div className="mt-1.5 rounded-lg bg-mist p-2">
-                  <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wide text-graphite/50">
-                    Помещение, м²
-                  </label>
-                  <div className="flex gap-1">
-                    <input
-                      type="number"
-                      min={1}
-                      value={roomArea}
-                      onChange={(e) => setRoomArea(Number(e.target.value) || 1)}
-                      className="w-full rounded-md border border-graphite/15 px-2 py-1.5 text-xs [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPacks(areaToPacks(roomArea * 1.07, product));
-                        setShowRoom(false);
-                      }}
-                      className="shrink-0 rounded-md bg-brand px-2 py-1.5 text-[10px] font-semibold text-white"
-                    >
-                      +7%
-                    </button>
-                  </div>
+              <button
+                type="button"
+                aria-label="Калькулятор площади"
+                onClick={() => setShowRoom((v) => !v)}
+                className={`mb-0.5 grid shrink-0 place-items-center rounded-lg border transition ${
+                  compact ? 'h-9 w-9' : 'h-11 w-11'
+                } ${
+                  showRoom
+                    ? 'border-brand bg-brand/10 text-brand'
+                    : 'border-graphite/15 bg-mist text-graphite/60 hover:border-brand hover:text-brand'
+                }`}
+              >
+                <Calculator size={compact ? 15 : 17} strokeWidth={1.75} />
+              </button>
+            </div>
+            {showRoom ? (
+              <div className="mt-1.5 rounded-lg bg-mist p-2">
+                <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wide text-graphite/50">
+                  Помещение, м²
+                </label>
+                <div className="flex gap-1">
+                  <input
+                    type="number"
+                    min={1}
+                    value={roomArea}
+                    onChange={(e) => setRoomArea(Number(e.target.value) || 1)}
+                    className="w-full rounded-md border border-graphite/15 px-2 py-1.5 text-xs [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQty(areaToPacks(roomArea * 1.07, product));
+                      setShowRoom(false);
+                    }}
+                    className="shrink-0 rounded-md bg-brand px-2 py-1.5 text-[10px] font-semibold text-white"
+                  >
+                    +7%
+                  </button>
                 </div>
-              ) : null}
-            </>
-          ) : (
+              </div>
+            ) : null}
+          </>
+        ) : byPack ? (
+          <>
+            <div className="mb-1.5 text-[10px] font-medium text-graphite/50 sm:text-xs">Количество:</div>
             <QtyStepper
               compact={compact}
               label="упак"
-              value={packs}
+              value={qty}
               min={1}
               step={1}
-              onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+              onChange={(n) => setQty(Math.max(1, Math.round(n)))}
             />
-          )}
-        </div>
-      ) : null}
+          </>
+        ) : (
+          <>
+            <div className="mb-1.5 text-[10px] font-medium text-graphite/50 sm:text-xs">Количество:</div>
+            <QtyStepper
+              compact={compact}
+              label={isM2 ? 'м²' : unitShort || 'шт'}
+              value={qty}
+              min={isM2 ? 0.1 : 1}
+              step={isM2 ? 0.1 : 1}
+              displayValue={isM2 ? Number(qty.toFixed(1)) : Math.round(qty)}
+              onChange={(n) => setQty(Math.max(isM2 ? 0.1 : 1, n))}
+            />
+          </>
+        )}
+      </div>
 
       <button
         type="button"
