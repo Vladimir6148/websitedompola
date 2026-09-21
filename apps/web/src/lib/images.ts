@@ -19,19 +19,28 @@ function toLocalPath(url: string): string | null {
   return null;
 }
 
+function withBuildBust(url: string) {
+  const bust = import.meta.env.VITE_BUILD_ID;
+  if (!bust || bust === 'dev' || url.startsWith('data:') || url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}v=${encodeURIComponent(String(bust))}`;
+}
+
 export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.webp') {
-  if (!url) return assetUrl(fallback);
+  if (!url) return withBuildBust(assetUrl(fallback));
 
   const localFromAbsolute = toLocalPath(url);
-  if (localFromAbsolute) return assetUrl(preferWebp(localFromAbsolute));
+  if (localFromAbsolute) return withBuildBust(assetUrl(preferWebp(localFromAbsolute)));
 
   if (url.startsWith('images/') || url.startsWith('/images/')) {
-    return assetUrl(preferWebp(url.replace(/^\//, '')));
+    return withBuildBust(assetUrl(preferWebp(url.replace(/^\//, ''))));
   }
 
   // Legacy Unsplash placeholders → local fallbacks
   if (url.includes('images.unsplash.com') || url.includes('unsplash.com')) {
-    return assetUrl(fallback);
+    return withBuildBust(assetUrl(fallback));
   }
 
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
@@ -39,10 +48,10 @@ export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.w
   }
 
   if (url.startsWith(import.meta.env.BASE_URL) || url.startsWith('/websitedompola/')) {
-    return url;
+    return withBuildBust(url);
   }
 
-  return assetUrl(preferWebp(url));
+  return withBuildBust(assetUrl(preferWebp(url)));
 }
 
 /** Local catalog assets are optimized to WebP; keep old .jpg/.png refs working. */
