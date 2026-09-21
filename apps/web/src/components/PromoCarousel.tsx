@@ -132,8 +132,8 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           }}
           onWheel={onWheel}
         >
-          {/* Mobile: landscape frame so the room photo is not side-cropped; desktop: taller hero */}
-          <div className="relative aspect-[16/10] w-full md:aspect-auto md:min-h-[400px] lg:min-h-[460px]">
+          {/* Mobile: taller full-bleed hero; desktop: fixed height */}
+          <div className="relative min-h-[min(70vh,640px)] w-full md:min-h-[400px] lg:min-h-[460px]">
             {items.map((slide, i) => (
               <div
                 key={slide.id}
@@ -146,7 +146,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                   src={slide.image}
                   fallback="images/wood.webp"
                   alt={slide.title}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_40%] md:object-center"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
               </div>
@@ -155,20 +155,20 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
 
-            <div className="relative flex h-full flex-col justify-end px-4 pb-11 pt-8 sm:px-6 md:min-h-[400px] md:justify-between md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
+            <div className="relative flex min-h-[min(70vh,640px)] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
               <div className="max-w-xl">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
                   {current.eyebrow}
                 </p>
-                <h1 className="mt-1.5 font-display text-3xl font-bold leading-none tracking-tight sm:text-4xl md:mt-2 md:text-5xl lg:text-6xl">
+                <h1 className="mt-2 font-display text-3xl font-bold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
                   {current.title}
                 </h1>
-                <p className="mt-2 max-w-md text-sm text-white/85 sm:mt-3 sm:text-base md:text-lg">
+                <p className="mt-3 max-w-md text-sm text-white/85 sm:text-base md:text-lg">
                   {current.description}
                 </p>
               </div>
 
-              <div className="mt-5 flex flex-col gap-3.5 md:mt-8 md:gap-5 lg:mt-0 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+              <div className="mt-6 flex flex-col gap-4 md:mt-8 md:gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
                 <div className="hidden grid-cols-2 gap-3 sm:grid md:flex md:flex-wrap md:gap-5">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div key={label} className="flex items-start gap-2.5 sm:max-w-[11rem]">
@@ -182,7 +182,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                   ))}
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 sm:hidden">
+                <div className="grid grid-cols-2 gap-2.5 sm:hidden">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div key={label} className="flex items-center gap-2">
                       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
