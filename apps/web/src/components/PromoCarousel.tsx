@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
 import { SmartImage } from './SmartImage';
 
 export type HeroSlide = {
@@ -108,11 +108,12 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
       return;
     }
 
-    // Click / tap: left side → previous, right side → next
+    // Click / tap on left or right edge → change slide
     if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       const ratio = (e.clientX - rect.left) / Math.max(rect.width, 1);
-      go(ratio < 0.28 ? -1 : 1);
+      if (ratio < 0.22) go(-1);
+      else if (ratio > 0.78) go(1);
     }
   }
 
@@ -177,27 +178,6 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
-
-            {items.length > 1 ? (
-              <>
-                <button
-                  type="button"
-                  aria-label="Предыдущий слайд"
-                  onClick={() => go(-1)}
-                  className="absolute left-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-ink/40 text-white backdrop-blur transition hover:bg-ink/60 sm:left-3 sm:h-11 sm:w-11 md:left-4"
-                >
-                  <ArrowLeft size={18} strokeWidth={2} />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Следующий слайд"
-                  onClick={() => go(1)}
-                  className="absolute right-2 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-ink/40 text-white backdrop-blur transition hover:bg-ink/60 sm:right-3 sm:h-11 sm:w-11 md:right-4"
-                >
-                  <ArrowRight size={18} strokeWidth={2} />
-                </button>
-              </>
-            ) : null}
 
             <div className="relative flex min-h-[52vh] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
               <div className="max-w-xl">
