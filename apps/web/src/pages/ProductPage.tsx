@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Calculator, ShoppingCart } from 'lucide-react';
 import { BackButton } from '../components/BackButton';
 import { Seo } from '../components/Seo';
@@ -25,6 +25,8 @@ import { useCity } from '../store/city';
 
 export function ProductPage() {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
+  const packsFromUrl = Math.max(1, Math.round(Number(searchParams.get('packs')) || 0));
   const [product, setProduct] = useState<Product | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [related, setRelated] = useState<Product[]>([]);
@@ -43,7 +45,8 @@ export function ProductPage() {
       .then((p) => {
         setProduct(p);
         setActiveImage(0);
-        setPacks(1);
+        const initial = Math.max(1, Math.round(Number(new URLSearchParams(window.location.search).get('packs')) || 1));
+        setPacks(initial);
         if (p.category?.slug) {
           api<ProductsResponse>(`/api/products?category=${p.category.slug}&limit=4`).then((res) => {
             setRelated(res.items.filter((i) => i.id !== p.id).slice(0, 4));
@@ -55,6 +58,10 @@ export function ProductPage() {
         setLoadError(true);
       });
   }, [slug]);
+
+  useEffect(() => {
+    if (packsFromUrl > 0) setPacks(packsFromUrl);
+  }, [packsFromUrl, slug]);
 
   const byPack = product ? isPackSold(product) : false;
   const packArea = product ? resolvePackArea(product) : null;
@@ -324,7 +331,7 @@ export function ProductPage() {
 
                 <button
                   type="button"
-                  className="btn-primary mt-4 w-full justify-between px-5"
+                  className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-ink px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-graphite active:scale-[0.98]"
                   onClick={() => add(product, packs)}
                 >
                   <span className="inline-flex items-center gap-2">
