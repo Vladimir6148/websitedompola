@@ -23,6 +23,7 @@ const uploadRoot = path.resolve(__dirname, '../', process.env.UPLOAD_DIR || 'upl
 
 app.use(
   cors({
+    // Reflect request Origin. Note: some CDNs omit ACAO for http://127.0.0.1 — prefer localhost or static local.
     origin: true,
     credentials: true,
   }),

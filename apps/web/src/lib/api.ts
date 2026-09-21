@@ -151,8 +151,16 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     if (moistureResistant) items = items.filter((p) => p.moistureResistant);
     if (underfloorHeating) items = items.filter((p) => p.underfloorHeating);
 
-    if (sort === 'price_asc') items.sort((a, b) => a.price - b.price);
-    if (sort === 'price_desc') items.sort((a, b) => b.price - a.price);
+    if (sort === 'price_asc') {
+      items.sort((a, b) => {
+        const ap = a.price > 0 ? a.price : Number.POSITIVE_INFINITY;
+        const bp = b.price > 0 ? b.price : Number.POSITIVE_INFINITY;
+        return ap - bp;
+      });
+    }
+    if (sort === 'price_desc') {
+      items.sort((a, b) => (b.price || 0) - (a.price || 0));
+    }
     if (sort === 'name') items.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
 
     const total = items.length;

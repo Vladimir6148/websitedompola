@@ -4,7 +4,7 @@
     "name": "MSPC",
     "slug": "mspc",
     "description": "Минерально-каменный (MSPC) ламинат Stone Floor: водостойкий, термостойкий, без ПВХ, замок Uniclic, 8 мм.",
-    "image": "images/mspc/category.jpg",
+    "image": "images/mspc/category.webp",
     "sortOrder": 0,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearClass\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
@@ -19,14 +19,14 @@
     "name": "Кварцвинил / SPC",
     "slug": "quartzvinyl-spc",
     "description": "Влагостойкие жёсткие покрытия для дома и коммерции",
-    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.webp",
     "sortOrder": 1,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"wearLayer\",\"wearClass\",\"moistureResistant\",\"underfloorHeating\",\"lockType\"]",
     "createdAt": "2026-09-20T10:35:36.122Z",
     "updatedAt": "2026-09-20T10:35:36.122Z",
     "_count": {
-      "products": 152
+      "products": 1577
     }
   },
   {
@@ -34,14 +34,14 @@
     "name": "Ламинат",
     "slug": "laminate",
     "description": "Практичные и выразительные решения для жилых интерьеров",
-    "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/wood.webp",
     "sortOrder": 2,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"wearClass\",\"thickness\",\"color\",\"bevel\",\"moistureResistant\",\"underfloorHeating\"]",
     "createdAt": "2026-09-20T10:35:36.125Z",
     "updatedAt": "2026-09-20T10:35:36.125Z",
     "_count": {
-      "products": 97
+      "products": 708
     }
   },
   {
@@ -49,7 +49,7 @@
     "name": "Линолеум",
     "slug": "linoleum",
     "description": "Комфортные рулонные покрытия с большим выбором дизайнов",
-    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.webp",
     "sortOrder": 3,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"wearClass\"]",
@@ -64,14 +64,14 @@
     "name": "Керамогранит",
     "slug": "porcelain",
     "description": "Прочный и стильный выбор для кухни, санузла и коммерции",
-    "image": "https://vladimir6148.github.io/websitedompola/images/floor3.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor3.webp",
     "sortOrder": 4,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"length\",\"width\"]",
     "createdAt": "2026-09-20T10:35:36.131Z",
     "updatedAt": "2026-09-20T10:35:36.131Z",
     "_count": {
-      "products": 1
+      "products": 142
     }
   },
   {
@@ -79,7 +79,7 @@
     "name": "Паркет",
     "slug": "parquet",
     "description": "Натуральное дерево с характером и теплом",
-    "image": "https://vladimir6148.github.io/websitedompola/images/living.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/living.webp",
     "sortOrder": 5,
     "active": true,
     "filterSchema": "[\"brand\",\"collection\",\"price\",\"thickness\",\"color\",\"underfloorHeating\"]",
@@ -94,14 +94,14 @@
     "name": "Плинтусы",
     "slug": "baseboards",
     "description": "Завершающий штрих для любого покрытия",
-    "image": "https://vladimir6148.github.io/websitedompola/images/wood.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/wood.webp",
     "sortOrder": 6,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"color\",\"height\"]",
     "createdAt": "2026-09-20T10:35:36.136Z",
     "updatedAt": "2026-09-20T10:35:36.136Z",
     "_count": {
-      "products": 59
+      "products": 219
     }
   },
   {
@@ -109,7 +109,7 @@
     "name": "Подложка",
     "slug": "underlayment",
     "description": "Основа для тишины, тепла и ровного пола",
-    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor1.webp",
     "sortOrder": 7,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"thickness\"]",
@@ -124,14 +124,14 @@
     "name": "Комплектующие",
     "slug": "accessories",
     "description": "Пороги, профили и всё для аккуратного монтажа",
-    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.jpg",
+    "image": "https://vladimir6148.github.io/websitedompola/images/floor2.webp",
     "sortOrder": 8,
     "active": true,
     "filterSchema": "[\"brand\",\"price\",\"color\"]",
     "createdAt": "2026-09-20T10:35:36.140Z",
     "updatedAt": "2026-09-20T10:35:36.140Z",
     "_count": {
-      "products": 30
+      "products": 586
     }
   }
 ]

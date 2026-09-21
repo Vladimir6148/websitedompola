@@ -59,7 +59,7 @@ export function HomePage() {
       })
       .catch(() => undefined);
 
-    api<ProductsResponse>('/api/products?limit=24&sort=price_asc')
+    api<ProductsResponse>('/api/products?limit=24&sort=price_asc&minPrice=1')
       .then((res) => {
         const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
         const list = (withDiscount.length ? withDiscount : res.items).slice(0, 8);
