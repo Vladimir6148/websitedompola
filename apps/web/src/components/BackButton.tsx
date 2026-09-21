@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { parsePath, readScroll, setPendingRestore } from '../lib/scrollMemory';
 
 export type ReturnNavState = {
   from?: string;
@@ -10,7 +11,7 @@ type Props = {
   label?: string;
 };
 
-/** Fixed floating back control — always visible on product pages. */
+/** Fixed floating back control — restores previous page scroll position. */
 export function BackButton({ fallback = '/catalog', label = 'Назад' }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +19,9 @@ export function BackButton({ fallback = '/catalog', label = 'Назад' }: Prop
 
   function goBack() {
     if (from) {
+      const { pathname, search } = parsePath(from);
+      const y = readScroll(pathname, search) ?? 0;
+      setPendingRestore(from, y);
       navigate(-1);
       return;
     }

@@ -1,10 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Layers, PanelBottom, Pipette, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { api } from '../lib/api';
+import {
+  clearPendingRestore,
+  peekPendingRestore,
+  readScroll,
+  restoreScrollWithRetries,
+} from '../lib/scrollMemory';
 import type { Brand, Category, Product, ProductsResponse } from '../types';
 
 const ACCESSORY_SLUGS = ['underlayment', 'baseboards', 'accessories'] as const;
@@ -239,6 +245,7 @@ export function CatalogPage() {
   const { categorySlug } = useParams();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [allCollections, setAllCollections] = useState<CatalogCollection[]>([]);
@@ -393,16 +400,38 @@ export function CatalogPage() {
 
   useEffect(() => {
     if (prevPageRef.current !== page) {
-      shouldScrollToProducts.current = true;
+      // Don't jump to products top when returning via «Назад» with saved scroll
+      if (peekPendingRestore(location.pathname, location.search) == null) {
+        shouldScrollToProducts.current = true;
+      }
       prevPageRef.current = page;
     }
-  }, [page]);
+  }, [page, location.pathname, location.search]);
 
   useEffect(() => {
     if (loading || !shouldScrollToProducts.current) return;
+    if (peekPendingRestore(location.pathname, location.search) != null) {
+      shouldScrollToProducts.current = false;
+      return;
+    }
     shouldScrollToProducts.current = false;
     productsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [loading, data]);
+  }, [loading, data, location.pathname, location.search]);
+
+  // After catalog data loads, restore the scroll position from before opening a product
+  useEffect(() => {
+    if (loading) return;
+    const pending = peekPendingRestore(location.pathname, location.search);
+    const saved = readScroll(location.pathname, location.search);
+    const y = pending ?? saved;
+    if (y == null || y <= 0) return;
+    const cancel = restoreScrollWithRetries(y);
+    const done = window.setTimeout(() => clearPendingRestore(), 2200);
+    return () => {
+      cancel();
+      window.clearTimeout(done);
+    };
+  }, [loading, data, location.pathname, location.search]);
 
   useEffect(() => {
     if (!filtersOpen) return;

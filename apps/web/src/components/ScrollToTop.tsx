@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
-import { readScroll, restoreScroll, saveScroll } from '../lib/scrollMemory';
+import {
+  clearPendingRestore,
+  peekPendingRestore,
+  readScroll,
+  restoreScrollWithRetries,
+  saveScroll,
+} from '../lib/scrollMemory';
 
-/** Scroll to top on push/replace; restore saved position on browser/back navigation. */
+/** Scroll to top on push/replace; restore saved position on back navigation. */
 export function ScrollToTop() {
   const location = useLocation();
   const navType = useNavigationType();
@@ -10,20 +16,24 @@ export function ScrollToTop() {
   useEffect(() => {
     if (location.hash) return;
 
-    if (navType === 'POP') {
-      const y = readScroll(location.pathname, location.search);
-      if (y != null) {
-        restoreScroll(y);
-        const t1 = window.setTimeout(() => restoreScroll(y), 120);
-        const t2 = window.setTimeout(() => restoreScroll(y), 400);
+    const pending = peekPendingRestore(location.pathname, location.search);
+    const saved = readScroll(location.pathname, location.search);
+
+    if (navType === 'POP' || pending != null) {
+      const y = pending ?? saved;
+      if (y != null && y > 0) {
+        const cancel = restoreScrollWithRetries(y);
+        // Clear pending after first successful schedule; CatalogPage may also restore after load
         return () => {
-          window.clearTimeout(t1);
-          window.clearTimeout(t2);
+          cancel();
         };
       }
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    if (navType !== 'POP') {
+      clearPendingRestore();
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
   }, [location.pathname, location.search, location.hash, location.key, navType]);
 
   useEffect(() => {

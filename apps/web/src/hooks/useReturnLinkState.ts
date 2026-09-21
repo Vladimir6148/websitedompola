@@ -10,5 +10,6 @@ export function useReturnLinkState(): ReturnNavState {
 
 /** Call before navigating to a product so scroll can be restored on return. */
 export function rememberCurrentScroll(pathname: string, search: string) {
-  saveScroll(pathname, search, window.scrollY);
+  const y = window.scrollY;
+  saveScroll(pathname, search, y);
 }

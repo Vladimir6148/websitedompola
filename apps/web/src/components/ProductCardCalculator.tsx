@@ -59,8 +59,9 @@ export function ProductCardCalculator({
   function goOrder() {
     if (!priced) return;
     const qty = byPack ? packs : Math.max(1, packs);
-    add(product, qty);
+    // Save list scroll before leaving so «Назад» can restore it
     onBeforeNavigate?.();
+    add(product, qty);
     const qs = byPack ? `?packs=${qty}` : '';
     navigate(`/product/${product.slug}${qs}`, { state: returnState });
   }
