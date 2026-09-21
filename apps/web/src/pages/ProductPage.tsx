@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Calculator, ShoppingCart } from 'lucide-react';
 import { BackButton } from '../components/BackButton';
+import { QtyStepper } from '../components/QtyStepper';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
@@ -237,61 +238,52 @@ export function ProductPage() {
                 <h2 className="font-display text-xl font-semibold">Заказать онлайн</h2>
                 {roomReady && packArea ? (
                   <>
-                <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
-                <div className="mt-3 flex items-stretch gap-2">
-                  <div className="flex flex-1 items-center overflow-hidden rounded-xl border border-graphite/15">
-                    <label className="flex flex-1 items-center gap-1 px-3 py-3">
-                      <input
-                        type="number"
-                        min={1}
-                        step={1}
-                        value={packs}
-                        onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
-                        className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
-                      />
-                      <span className="shrink-0 text-sm text-graphite/50">упак</span>
-                    </label>
-                    <span className="px-1 text-graphite/30">=</span>
-                    <label className="flex flex-1 items-center gap-1 px-3 py-3">
-                      <input
-                        type="number"
-                        min={packArea}
-                        step={0.1}
-                        value={Number(selectedArea.toFixed(2))}
-                        onChange={(e) => setPacksFromArea(Number(e.target.value) || packArea)}
-                        className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
-                      />
-                      <span className="shrink-0 text-sm text-graphite/50">м²</span>
-                    </label>
-                  </div>
-                  <button
-                    type="button"
-                    aria-label="Калькулятор площади"
-                    onClick={() => setShowRoomCalc((v) => !v)}
-                    className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl border transition ${
-                      showRoomCalc
-                        ? 'border-brand bg-brand/10 text-brand'
-                        : 'border-graphite/15 bg-mist text-graphite/70 hover:border-brand hover:text-brand'
-                    }`}
-                  >
-                    <Calculator size={18} strokeWidth={1.75} />
-                  </button>
-                </div>
+                    <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
+                    <div className="mt-3 flex items-end gap-2">
+                      <div className="flex min-w-0 flex-1 items-end gap-2">
+                        <QtyStepper
+                          label="упак"
+                          value={packs}
+                          min={1}
+                          step={1}
+                          onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+                        />
+                        <span className="mb-3 shrink-0 text-base font-semibold text-graphite/35">=</span>
+                        <QtyStepper
+                          label="м²"
+                          value={selectedArea}
+                          min={packArea}
+                          step={packArea}
+                          displayValue={Number(selectedArea.toFixed(2))}
+                          onChange={(n) => setPacksFromArea(n)}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        aria-label="Калькулятор площади"
+                        onClick={() => setShowRoomCalc((v) => !v)}
+                        className={`mb-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition ${
+                          showRoomCalc
+                            ? 'border-brand bg-brand/10 text-brand'
+                            : 'border-graphite/15 bg-mist text-graphite/70 hover:border-brand hover:text-brand'
+                        }`}
+                      >
+                        <Calculator size={18} strokeWidth={1.75} />
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <>
                     <p className="mt-1 text-sm text-graphite/55">Количество упаковок:</p>
-                    <label className="mt-3 flex items-center gap-2 rounded-xl border border-graphite/15 px-3 py-3">
-                      <input
-                        type="number"
+                    <div className="mt-3 max-w-xs">
+                      <QtyStepper
+                        label="упак"
+                        value={packs}
                         min={1}
                         step={1}
-                        value={packs}
-                        onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
-                        className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
+                        onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
                       />
-                      <span className="shrink-0 text-sm text-graphite/50">упак</span>
-                    </label>
+                    </div>
                     <p className="mt-2 text-xs text-graphite/45">
                       Площадь упаковки в карточке не указана — пересчёт м² недоступен.
                     </p>

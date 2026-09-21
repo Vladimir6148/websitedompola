@@ -15,6 +15,7 @@ import {
   resolvePackArea,
 } from '../lib/packaging';
 import { useCart } from '../store/cart';
+import { QtyStepper } from './QtyStepper';
 
 type Props = {
   product: Product;
@@ -49,7 +50,6 @@ export function ProductCardCalculator({
   const selectedArea = roomReady ? packsToArea(packs, product) : null;
   const total = priced ? lineTotal(byPack ? packs : packs, product) : 0;
   const showPackAlt = priced && byPack && pPack != null && !isPackPriced(product);
-  // When price is per m², highlight м²; when per pack, highlight pack price
   const primaryIsM2 = priced && !isPackPriced(product) && (normLooksM2(product.unit) || packArea != null);
 
   function setPacksFromArea(m2: number) {
@@ -118,46 +118,41 @@ export function ProductCardCalculator({
         <div className="rounded-xl border border-graphite/10 bg-white p-1.5 sm:p-2">
           {roomReady && packArea ? (
             <>
-              <div className="mb-1 text-[10px] font-medium text-graphite/50 sm:text-xs">Площадь:</div>
-              <div className="flex items-stretch gap-1">
-                <div className="flex min-w-0 flex-1 items-center overflow-hidden rounded-lg border border-graphite/15">
-                  <label className="flex min-w-0 flex-1 items-center gap-0.5 px-1.5 py-1.5 sm:px-2 sm:py-2">
-                    <input
-                      type="number"
-                      min={1}
-                      step={1}
-                      value={packs}
-                      onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
-                      className="w-full min-w-0 border-0 bg-transparent text-xs font-semibold outline-none sm:text-sm"
-                    />
-                    <span className="shrink-0 text-[10px] text-graphite/50 sm:text-xs">упак</span>
-                  </label>
-                  <span className="px-0.5 text-[10px] text-graphite/30 sm:text-xs">=</span>
-                  <label className="flex min-w-0 flex-1 items-center gap-0.5 px-1.5 py-1.5 sm:px-2 sm:py-2">
-                    <input
-                      type="number"
-                      min={packArea}
-                      step={0.1}
-                      value={Number((selectedArea || packArea).toFixed(2))}
-                      onChange={(e) => setPacksFromArea(Number(e.target.value) || packArea)}
-                      className="w-full min-w-0 border-0 bg-transparent text-xs font-semibold outline-none sm:text-sm"
-                    />
-                    <span className="shrink-0 text-[10px] text-graphite/50 sm:text-xs">м²</span>
-                  </label>
+              <div className="mb-1.5 text-[10px] font-medium text-graphite/50 sm:text-xs">Площадь:</div>
+              <div className="flex items-end gap-1">
+                <div className="flex min-w-0 flex-1 items-end gap-1">
+                  <QtyStepper
+                    compact={compact}
+                    label="упак"
+                    value={packs}
+                    min={1}
+                    step={1}
+                    onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+                  />
+                  <span className="mb-2.5 shrink-0 text-xs font-semibold text-graphite/35">=</span>
+                  <QtyStepper
+                    compact={compact}
+                    label="м²"
+                    value={selectedArea || packArea}
+                    min={packArea}
+                    step={packArea}
+                    displayValue={Number((selectedArea || packArea).toFixed(2))}
+                    onChange={setPacksFromArea}
+                  />
                 </div>
                 <button
                   type="button"
                   aria-label="Калькулятор площади"
                   onClick={() => setShowRoom((v) => !v)}
-                  className={`grid shrink-0 place-items-center rounded-lg border transition ${
-                    compact ? 'h-8 w-8' : 'h-10 w-10'
+                  className={`mb-0.5 grid shrink-0 place-items-center rounded-lg border transition ${
+                    compact ? 'h-9 w-9' : 'h-11 w-11'
                   } ${
                     showRoom
                       ? 'border-brand bg-brand/10 text-brand'
                       : 'border-graphite/15 bg-mist text-graphite/60 hover:border-brand hover:text-brand'
                   }`}
                 >
-                  <Calculator size={compact ? 14 : 16} strokeWidth={1.75} />
+                  <Calculator size={compact ? 15 : 17} strokeWidth={1.75} />
                 </button>
               </div>
               {showRoom ? (
@@ -171,7 +166,7 @@ export function ProductCardCalculator({
                       min={1}
                       value={roomArea}
                       onChange={(e) => setRoomArea(Number(e.target.value) || 1)}
-                      className="w-full rounded-md border border-graphite/15 px-2 py-1.5 text-xs"
+                      className="w-full rounded-md border border-graphite/15 px-2 py-1.5 text-xs [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     />
                     <button
                       type="button"
@@ -188,17 +183,14 @@ export function ProductCardCalculator({
               ) : null}
             </>
           ) : (
-            <label className="flex items-center gap-1 rounded-lg border border-graphite/15 px-2 py-1.5">
-              <input
-                type="number"
-                min={1}
-                step={1}
-                value={packs}
-                onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
-                className="w-full min-w-0 border-0 bg-transparent text-xs font-semibold outline-none sm:text-sm"
-              />
-              <span className="shrink-0 text-[10px] text-graphite/50 sm:text-xs">упак</span>
-            </label>
+            <QtyStepper
+              compact={compact}
+              label="упак"
+              value={packs}
+              min={1}
+              step={1}
+              onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+            />
           )}
         </div>
       ) : null}
