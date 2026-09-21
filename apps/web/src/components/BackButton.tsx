@@ -8,10 +8,10 @@ export type ReturnNavState = {
 type Props = {
   fallback?: string;
   label?: string;
-  className?: string;
 };
 
-export function BackButton({ fallback = '/catalog', label = 'Назад', className = '' }: Props) {
+/** Fixed floating back control — always visible on product pages. */
+export function BackButton({ fallback = '/catalog', label = 'Назад' }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as ReturnNavState | null)?.from;
@@ -29,9 +29,9 @@ export function BackButton({ fallback = '/catalog', label = 'Назад', classN
       type="button"
       onClick={goBack}
       aria-label={label}
-      className={`inline-flex items-center gap-2 rounded-full border border-graphite/15 bg-white/95 px-3.5 py-2 text-sm font-semibold text-graphite shadow-[0_4px_14px_rgba(15,92,40,0.08)] backdrop-blur transition hover:border-brand hover:text-brand active:scale-[0.98] ${className}`}
+      className="fixed bottom-[4.75rem] left-4 z-[70] inline-flex items-center gap-2 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(15,92,40,0.35)] transition hover:bg-brand-dark active:scale-[0.97] md:bottom-6 md:left-6 md:px-5 md:py-3.5 md:text-base"
     >
-      <ArrowLeft size={16} strokeWidth={2} className="shrink-0" />
+      <ArrowLeft size={18} strokeWidth={2.25} className="shrink-0" />
       <span>{label}</span>
     </button>
   );

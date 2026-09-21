@@ -112,32 +112,27 @@ export function ProductPage() {
       />
 
       <div className="container-dp py-8 md:py-12">
-        <div className="sticky top-[3.25rem] z-30 -mx-4 mb-4 border-b border-graphite/8 bg-white/95 px-4 py-2.5 backdrop-blur sm:top-[3.5rem] sm:mx-0 sm:mb-5 sm:rounded-2xl sm:border sm:px-3 sm:py-2.5 md:static md:z-auto md:mb-6 md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none">
-          <div className="flex flex-wrap items-center gap-3">
-            <BackButton
-              fallback={product.category ? `/catalog/${product.category.slug}` : '/catalog'}
-            />
-            <nav className="min-w-0 flex-1 truncate text-sm text-graphite/50">
-              <Link to="/" className="hover:text-brand">
-                Главная
-              </Link>
+        <nav className="mb-6 text-sm text-graphite/50">
+          <Link to="/" className="hover:text-brand">
+            Главная
+          </Link>
+          <span className="mx-2">/</span>
+          <Link to="/catalog" className="hover:text-brand">
+            Каталог
+          </Link>
+          {product.category ? (
+            <>
               <span className="mx-2">/</span>
-              <Link to="/catalog" className="hover:text-brand">
-                Каталог
+              <Link to={`/catalog/${product.category.slug}`} className="hover:text-brand">
+                {product.category.name}
               </Link>
-              {product.category ? (
-                <>
-                  <span className="mx-2">/</span>
-                  <Link to={`/catalog/${product.category.slug}`} className="hover:text-brand">
-                    {product.category.name}
-                  </Link>
-                </>
-              ) : null}
-              <span className="mx-2">/</span>
-              <span className="text-graphite/70">{product.name}</span>
-            </nav>
-          </div>
-        </div>
+            </>
+          ) : null}
+          <span className="mx-2">/</span>
+          <span>{product.name}</span>
+        </nav>
+
+        <BackButton fallback={product.category ? `/catalog/${product.category.slug}` : '/catalog'} />
 
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
