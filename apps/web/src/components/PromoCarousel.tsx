@@ -147,7 +147,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           }}
           onWheel={onWheel}
         >
-          <div className="relative min-h-[52vh] w-full md:min-h-[400px] lg:min-h-[460px]">
+          <div className="relative min-h-[58vh] w-full md:min-h-[440px] lg:min-h-[520px]">
             {items.map((slide, i) => {
               const active = i === index;
               const preloadNext = i === (index + 1) % items.length;
@@ -179,48 +179,42 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
 
-            <div className="relative flex min-h-[52vh] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
-              <div className="max-w-xl">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
+            <div className="relative flex min-h-[58vh] flex-col justify-between px-4 pb-14 pt-10 sm:px-6 md:min-h-[440px] md:px-8 md:pb-11 md:pt-12 lg:min-h-[520px] lg:px-10">
+              <div className="max-w-2xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75 sm:text-sm">
                   {current.eyebrow}
                 </p>
-                <h1 className="mt-2 font-display text-3xl font-bold leading-none tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                <h1 className="mt-3 font-display text-4xl font-bold leading-[0.95] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
                   {current.title}
                 </h1>
-                <p className="mt-3 max-w-md text-sm text-white/85 sm:text-base md:text-lg">
+                <p className="mt-4 max-w-lg text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
                   {current.description}
                 </p>
               </div>
 
-              <div className="mt-6 flex flex-col gap-4 md:mt-8 md:gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-                <div className="hidden sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3 lg:flex lg:min-w-0 lg:flex-1 lg:flex-nowrap lg:items-center lg:gap-5 xl:gap-7">
+              <div className="mt-8 flex flex-col gap-5 md:mt-10 md:gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:flex lg:min-w-0 lg:flex-1 lg:flex-nowrap lg:items-stretch lg:gap-4 xl:gap-6">
                   {FEATURES.map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex min-w-0 items-center gap-2.5 lg:max-w-[12.5rem]">
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
-                        <Icon size={15} strokeWidth={1.75} />
+                    <div
+                      key={label}
+                      className="flex min-w-0 items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm sm:gap-3.5 sm:px-3.5 sm:py-3.5 lg:max-w-[14rem] lg:flex-1"
+                    >
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
+                        <Icon size={22} strokeWidth={1.85} className="text-white" />
                       </span>
-                      <span className="text-xs font-medium leading-snug text-white/90">{label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="grid grid-cols-2 gap-2.5 sm:hidden">
-                  {FEATURES.map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-center gap-2">
-                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
-                        <Icon size={13} strokeWidth={1.75} />
+                      <span className="min-w-0 text-[13px] font-semibold leading-snug text-white sm:text-sm md:text-[15px]">
+                        {label}
                       </span>
-                      <span className="text-[10px] font-medium leading-snug text-white/90">{label}</span>
                     </div>
                   ))}
                 </div>
 
                 <Link
                   to={current.ctaTo}
-                  className="group flex w-full max-w-md shrink-0 items-center gap-2.5 rounded-2xl bg-white/95 p-2 pr-2.5 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white sm:gap-3 sm:p-2.5 sm:pr-3 lg:max-w-sm"
+                  className="pointer-events-auto group flex w-full max-w-xl shrink-0 items-center gap-3 rounded-2xl bg-white p-3 pr-3 text-graphite shadow-[0_16px_48px_rgba(0,0,0,0.28)] transition hover:bg-white sm:gap-4 sm:p-3.5 sm:pr-3.5 lg:max-w-md"
                 >
                   {current.thumb ? (
-                    <span className="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-mist sm:h-14 sm:w-14">
+                    <span className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-mist sm:h-[4.5rem] sm:w-[4.5rem]">
                       <SmartImage
                         src={current.thumb}
                         alt=""
@@ -229,11 +223,11 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                       />
                     </span>
                   ) : null}
-                  <span className="min-w-0 flex-1 text-[13px] font-semibold leading-snug sm:text-[15px]">
+                  <span className="min-w-0 flex-1 text-base font-bold leading-snug sm:text-lg">
                     {current.ctaLabel}
                   </span>
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand text-white transition group-hover:bg-brand-dark">
-                    <ArrowRight size={16} />
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_8px_20px_rgba(31,138,61,0.35)] transition group-hover:bg-brand-dark sm:h-14 sm:w-14">
+                    <ArrowRight size={22} strokeWidth={2.25} />
                   </span>
                 </Link>
               </div>
