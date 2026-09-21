@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { BackButton } from './BackButton';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { OnlineManager } from './OnlineManager';
@@ -19,6 +20,7 @@ export function StoreLayout() {
           </main>
           <Footer />
           <OnlineManager />
+          <BackButton />
         </div>
       </div>
     </div>

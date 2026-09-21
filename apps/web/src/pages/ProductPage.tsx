@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Calculator, ShoppingCart } from 'lucide-react';
-import { BackButton } from '../components/BackButton';
 import { QtyStepper } from '../components/QtyStepper';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
@@ -139,8 +138,6 @@ export function ProductPage() {
           <span className="mx-2">/</span>
           <span>{product.name}</span>
         </nav>
-
-        <BackButton fallback={product.category ? `/catalog/${product.category.slug}` : '/catalog'} />
 
         <div className="grid gap-10 lg:grid-cols-2">
           <div>

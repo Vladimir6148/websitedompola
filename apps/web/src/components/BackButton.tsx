@@ -11,7 +11,7 @@ type Props = {
   label?: string;
 };
 
-export function useGoBack(fallback = '/catalog') {
+export function useGoBack(fallback = '/') {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as ReturnNavState | null)?.from;
@@ -32,18 +32,21 @@ export function useGoBack(fallback = '/catalog') {
   };
 }
 
-/** Inline back control for product page (header also has a global back). */
-export function BackButton({ fallback = '/catalog', label = 'Назад' }: Props) {
+/** Fixed floating back control — restores previous page scroll position. */
+export function BackButton({ fallback = '/', label = 'Назад' }: Props) {
   const goBack = useGoBack(fallback);
+  const location = useLocation();
+
+  if (location.pathname === '/') return null;
 
   return (
     <button
       type="button"
       onClick={goBack}
       aria-label={label}
-      className="mb-4 inline-flex items-center gap-2 rounded-full border border-graphite/20 bg-white px-3 py-2 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
+      className="fixed bottom-[4.75rem] left-4 z-[70] inline-flex items-center gap-2 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(15,92,40,0.35)] transition hover:bg-brand-dark active:scale-[0.97] md:bottom-6 md:left-6 md:px-5 md:py-3.5 md:text-base"
     >
-      <ArrowLeft size={18} strokeWidth={1.75} className="shrink-0 text-graphite/55" />
+      <ArrowLeft size={18} strokeWidth={2.25} className="shrink-0" />
       <span>{label}</span>
     </button>
   );
