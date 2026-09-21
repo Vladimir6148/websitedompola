@@ -1,5 +1,5 @@
 import { ShoppingCart } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, hasPrice, primaryImage } from '../lib/api';
 import {
@@ -11,11 +11,16 @@ import {
   packPrice,
   resolvePackArea,
 } from '../lib/packaging';
+import { rememberCurrentScroll, useReturnLinkState } from '../hooks/useReturnLinkState';
 import { useCart } from '../store/cart';
 import { SmartImage } from './SmartImage';
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const location = useLocation();
+  const returnState = useReturnLinkState();
+  const productTo = `/product/${product.slug}`;
+  const remember = () => rememberCurrentScroll(location.pathname, location.search);
   const image = primaryImage(product);
   const byPack = isPackSold(product);
   const area = resolvePackArea(product);
@@ -26,7 +31,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/8 bg-white transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(15,92,40,0.12)]">
-      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-mist">
+      <Link to={productTo} state={returnState} onClick={remember} className="relative block aspect-[4/3] overflow-hidden bg-mist">
         <SmartImage
           src={image}
           alt={product.images?.[0]?.alt || product.name}
@@ -44,7 +49,12 @@ export function ProductCard({ product }: { product: Product }) {
           {product.brand?.name}
           {product.collection ? ` · ${product.collection.name}` : ''}
         </div>
-        <Link to={`/product/${product.slug}`} className="line-clamp-2 font-semibold leading-snug hover:text-brand">
+        <Link
+          to={productTo}
+          state={returnState}
+          onClick={remember}
+          className="line-clamp-2 font-semibold leading-snug hover:text-brand"
+        >
           {product.name}
         </Link>
         {(board || product.packQty || area) ? (
@@ -79,7 +89,12 @@ export function ProductCard({ product }: { product: Product }) {
               <ShoppingCart size={16} />
             </button>
           ) : (
-            <Link to={`/product/${product.slug}`} className="btn-secondary px-3 py-2 text-xs">
+            <Link
+              to={productTo}
+              state={returnState}
+              onClick={remember}
+              className="btn-secondary px-3 py-2 text-xs"
+            >
               Подробнее
             </Link>
           )}

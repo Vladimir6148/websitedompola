@@ -1,5 +1,5 @@
 import { BadgePercent, Layers, Truck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, primaryImage } from '../lib/api';
 import {
@@ -11,11 +11,16 @@ import {
   packPrice,
   resolvePackArea,
 } from '../lib/packaging';
+import { rememberCurrentScroll, useReturnLinkState } from '../hooks/useReturnLinkState';
 import { useCart } from '../store/cart';
 import { SmartImage } from './SmartImage';
 
 export function OfferProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { add } = useCart();
+  const location = useLocation();
+  const returnState = useReturnLinkState();
+  const productTo = `/product/${product.slug}`;
+  const remember = () => rememberCurrentScroll(location.pathname, location.search);
   const image = primaryImage(product);
   const discount =
     product.discountPercent ||
@@ -31,7 +36,12 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-sm">
-      <Link to={`/product/${product.slug}`} className="relative block aspect-square overflow-hidden bg-mist">
+      <Link
+        to={productTo}
+        state={returnState}
+        onClick={remember}
+        className="relative block aspect-square overflow-hidden bg-mist"
+      >
         <SmartImage
           src={image}
           alt={product.images?.[0]?.alt || product.name}
@@ -67,7 +77,9 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
           ) : null}
         </div>
         <Link
-          to={`/product/${product.slug}`}
+          to={productTo}
+          state={returnState}
+          onClick={remember}
           className="line-clamp-2 text-sm font-medium leading-snug text-graphite hover:text-brand"
         >
           {product.name}

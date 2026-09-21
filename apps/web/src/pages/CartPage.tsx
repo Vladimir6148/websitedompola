@@ -1,13 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
 import { formatPackArea, formatUnit, isPackPriced, lineTotal, packsToArea } from '../lib/packaging';
+import { rememberCurrentScroll, useReturnLinkState } from '../hooks/useReturnLinkState';
 import { useCart } from '../store/cart';
 
 export function CartPage() {
   const { items, setQty, remove, total, clear } = useCart();
+  const location = useLocation();
+  const returnState = useReturnLinkState();
+  const remember = () => rememberCurrentScroll(location.pathname, location.search);
 
   return (
     <>
@@ -45,12 +49,19 @@ export function CartPage() {
                   >
                     <Link
                       to={`/product/${item.slug}`}
+                      state={returnState}
+                      onClick={remember}
                       className="h-28 w-full overflow-hidden rounded-xl bg-mist sm:w-36"
                     >
                       <SmartImage src={item.image} alt={item.name} className="h-full w-full object-cover" />
                     </Link>
                     <div className="flex flex-1 flex-col">
-                      <Link to={`/product/${item.slug}`} className="font-semibold hover:text-brand">
+                      <Link
+                        to={`/product/${item.slug}`}
+                        state={returnState}
+                        onClick={remember}
+                        className="font-semibold hover:text-brand"
+                      >
                         {item.name}
                       </Link>
                       <div className="text-sm text-graphite/50">
