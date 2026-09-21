@@ -111,7 +111,7 @@ export function HomePage() {
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-graphite/15 bg-mist/70 px-4 text-sm font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-[0.98]"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-brand bg-brand px-4 text-sm font-semibold text-white shadow-[0_6px_14px_rgba(31,138,61,0.22)] transition hover:bg-brand-dark active:scale-[0.98]"
               >
                 {item.label}
               </Link>
