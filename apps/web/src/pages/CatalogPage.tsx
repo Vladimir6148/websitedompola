@@ -16,7 +16,6 @@ const ACCESSORY_CHIPS = [
 ] as const;
 
 const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
-const CATEGORY_ORDER = ['mspc', 'quartzvinyl-spc', 'laminate', 'linoleum', 'porcelain', 'parquet'];
 const BRAND_PREVIEW = 4;
 const COLLECTION_PREVIEW = 3;
 const BRAND_PREVIEW_DESKTOP = 6;
@@ -246,7 +245,6 @@ export function CatalogPage() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [brandModalOpen, setBrandModalOpen] = useState(false);
   const [collectionModalOpen, setCollectionModalOpen] = useState(false);
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const productsTopRef = useRef<HTMLDivElement>(null);
   const shouldScrollToProducts = useRef(false);
 
@@ -413,20 +411,6 @@ export function CatalogPage() {
     };
   }, [filtersOpen]);
 
-  const flooringCategories = useMemo(() => {
-    const list = categories.filter(
-      (c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number]),
-    );
-    return list.sort((a, b) => {
-      const ai = CATEGORY_ORDER.indexOf(a.slug);
-      const bi = CATEGORY_ORDER.indexOf(b.slug);
-      const av = ai === -1 ? 999 : ai;
-      const bv = bi === -1 ? 999 : bi;
-      if (av !== bv) return av - bv;
-      return a.name.localeCompare(b.name, 'ru');
-    });
-  }, [categories]);
-
   const brandChips = useMemo(() => {
     const map = new Map<string, string>();
     for (const p of categoryPool) {
@@ -462,10 +446,6 @@ export function CatalogPage() {
     }
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
   }, [data, brandSlugs]);
-
-  const coatingValue = inAccessorySection
-    ? 'accessories'
-    : categorySlug || '';
 
   function update(key: string, value: string) {
     const next = new URLSearchParams(params);
@@ -515,24 +495,6 @@ export function CatalogPage() {
     setCollectionList([slug]);
   }
 
-  function setCoatingType(slug: string) {
-    const next = new URLSearchParams(params);
-    next.delete('chip');
-    next.delete('page');
-    next.delete('brand');
-    next.delete('collection');
-    const qs = next.toString();
-    if (!slug) {
-      navigate(qs ? `/catalog?${qs}` : '/catalog');
-      return;
-    }
-    if (slug === 'accessories') {
-      navigate(qs ? `/catalog/accessories?${qs}` : '/catalog/accessories');
-      return;
-    }
-    navigate(qs ? `/catalog/${slug}?${qs}` : `/catalog/${slug}`);
-  }
-
   function clearFilters() {
     const next = new URLSearchParams(params);
     ['q', 'brand', 'collection', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating', 'chip'].forEach(
@@ -573,24 +535,6 @@ export function CatalogPage() {
             placeholder="Название или артикул"
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
           />
-        </div>
-        <div>
-          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
-            Тип покрытия
-          </label>
-          <select
-            value={coatingValue}
-            onChange={(e) => setCoatingType(e.target.value)}
-            className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
-          >
-            <option value="">Все покрытия</option>
-            {flooringCategories.map((c) => (
-              <option key={c.id} value={c.slug}>
-                {c.name}
-              </option>
-            ))}
-            <option value="accessories">Комплектующие</option>
-          </select>
         </div>
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
@@ -828,28 +772,7 @@ export function CatalogPage() {
                 ) : null}
               </div>
             ) : null
-          ) : (
-            <div className="overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:p-4 lg:p-5">
-              <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
-                <div className="hidden shrink-0 text-[13px] font-semibold text-graphite/55 lg:block lg:w-24 lg:text-right">
-                  Покрытие
-                </div>
-                <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
-                  <Link to="/catalog" className={chipClass(!categorySlug)}>
-                    Все
-                  </Link>
-                  {flooringCategories.map((c) => (
-                    <Link key={c.id} to={`/catalog/${c.slug}`} className={chipClass(categorySlug === c.slug)}>
-                      {c.name}
-                    </Link>
-                  ))}
-                  <button type="button" onClick={() => setCategoryModalOpen(true)} className={chipClass(false, 'accent')}>
-                    Все категории →
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
 
         <div ref={productsTopRef} className="scroll-mt-28">
@@ -948,62 +871,6 @@ export function CatalogPage() {
         />
       ) : null}
 
-      {categoryModalOpen && typeof document !== 'undefined'
-        ? createPortal(
-            <div className="fixed inset-0 z-[10000]" role="dialog" aria-modal="true" aria-label="Категории">
-              <button
-                type="button"
-                className="absolute inset-0 bg-ink/55"
-                aria-label="Закрыть"
-                onClick={() => setCategoryModalOpen(false)}
-              />
-              <div className="absolute inset-x-3 top-[16%] mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl sm:left-1/2 sm:-translate-x-1/2">
-                <div className="flex items-center justify-between border-b border-graphite/10 px-4 py-3">
-                  <h2 className="font-display text-lg font-semibold">Категории</h2>
-                  <button
-                    type="button"
-                    onClick={() => setCategoryModalOpen(false)}
-                    className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
-                    aria-label="Закрыть"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-                <div className="max-h-[60vh] overflow-y-auto p-2">
-                  <Link
-                    to="/catalog"
-                    onClick={() => setCategoryModalOpen(false)}
-                    className={`block rounded-xl px-3 py-2.5 text-sm font-semibold ${
-                      !categorySlug ? 'bg-mist text-brand' : 'text-graphite hover:bg-mist'
-                    }`}
-                  >
-                    Все покрытия
-                  </Link>
-                  {flooringCategories.map((c) => (
-                    <Link
-                      key={c.id}
-                      to={`/catalog/${c.slug}`}
-                      onClick={() => setCategoryModalOpen(false)}
-                      className={`block rounded-xl px-3 py-2.5 text-sm font-semibold ${
-                        categorySlug === c.slug ? 'bg-mist text-brand' : 'text-graphite hover:bg-mist'
-                      }`}
-                    >
-                      {c.name}
-                    </Link>
-                  ))}
-                  <Link
-                    to="/catalog/accessories"
-                    onClick={() => setCategoryModalOpen(false)}
-                    className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-graphite hover:bg-mist"
-                  >
-                    Комплектующие
-                  </Link>
-                </div>
-              </div>
-            </div>,
-            document.body,
-          )
-        : null}
     </>
   );
 }
