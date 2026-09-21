@@ -32,7 +32,7 @@ export function useGoBack(fallback = '/catalog') {
   };
 }
 
-/** Floating back — outline icon style matching mobile bottom nav. */
+/** Inline back control for product page (header also has a global back). */
 export function BackButton({ fallback = '/catalog', label = 'Назад' }: Props) {
   const goBack = useGoBack(fallback);
 
@@ -41,12 +41,10 @@ export function BackButton({ fallback = '/catalog', label = 'Назад' }: Prop
       type="button"
       onClick={goBack}
       aria-label={label}
-      className="fixed bottom-[4.75rem] left-3 z-[70] flex flex-col items-center gap-0.5 md:bottom-6 md:left-6"
+      className="mb-4 inline-flex items-center gap-2 rounded-full border border-graphite/20 bg-white px-3 py-2 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
     >
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-graphite/50 shadow-[0_8px_24px_rgba(15,40,20,0.12)] ring-1 ring-graphite/10 transition hover:bg-brand/10 hover:text-brand active:scale-95 md:h-11 md:w-11">
-        <ArrowLeft size={22} strokeWidth={1.75} />
-      </span>
-      <span className="text-[11px] font-semibold tracking-wide text-graphite/50">{label}</span>
+      <ArrowLeft size={18} strokeWidth={1.75} className="shrink-0 text-graphite/55" />
+      <span>{label}</span>
     </button>
   );
 }

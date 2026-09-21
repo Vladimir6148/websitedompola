@@ -1,8 +1,9 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useNavigate } from 'react-router-dom';
-import { Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
 import { useCart } from '../store/cart';
+import { useGoBack } from './BackButton';
 import { BrandMark } from './BrandMark';
 import { MobileBottomNav } from './MobileBottomNav';
 import { SideNav } from './SideNav';
@@ -12,6 +13,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const goBack = useGoBack('/');
+  const showBack = location.pathname !== '/';
 
   useEffect(() => {
     if (!open) return;
@@ -32,6 +36,9 @@ export function Header() {
     setOpen(false);
   }
 
+  const iconBtn =
+    'grid h-10 w-10 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11';
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
@@ -40,10 +47,16 @@ export function Header() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Открыть меню"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11 lg:hidden"
+            className={`${iconBtn} lg:hidden`}
           >
             <Menu size={22} strokeWidth={1.75} />
           </button>
+
+          {showBack ? (
+            <button type="button" onClick={goBack} aria-label="Назад" className={iconBtn}>
+              <ArrowLeft size={20} strokeWidth={1.75} />
+            </button>
+          ) : null}
 
           <BrandMark size="md" />
 
@@ -61,18 +74,10 @@ export function Header() {
           </form>
 
           <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <a
-              href="tel:+79214994979"
-              aria-label="Позвонить"
-              className="grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11"
-            >
+            <a href="tel:+79214994979" aria-label="Позвонить" className={iconBtn}>
               <Phone size={18} strokeWidth={1.75} />
             </a>
-            <Link
-              to="/cart"
-              aria-label="Корзина"
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11"
-            >
+            <Link to="/cart" aria-label="Корзина" className={`relative ${iconBtn}`}>
               <ShoppingCart size={18} strokeWidth={1.75} />
               {count > 0 ? (
                 <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] font-bold text-white">
