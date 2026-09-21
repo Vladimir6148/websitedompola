@@ -775,7 +775,7 @@ export function CatalogPage() {
 
         <div ref={productsTopRef} className="scroll-mt-28">
           {loading ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="h-80 animate-pulse rounded-2xl bg-mist" />
               ))}
@@ -787,7 +787,7 @@ export function CatalogPage() {
                   {collectionGroups.map(([name, items]) => (
                     <section key={name}>
                       <h2 className="mb-4 font-display text-xl font-bold text-graphite sm:text-2xl">{name}</h2>
-                      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
                         {items.map((p) => (
                           <ProductCard key={p.id} product={p} />
                         ))}
@@ -796,7 +796,7 @@ export function CatalogPage() {
                   ))}
                 </div>
               ) : (
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
                   {data.items.map((p) => (
                     <ProductCard key={p.id} product={p} />
                   ))}
