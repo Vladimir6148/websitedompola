@@ -32,7 +32,7 @@ export function useGoBack(fallback = '/') {
   };
 }
 
-/** Fixed floating glass back control — restores previous page scroll position. */
+/** Floating glass «Назад» on all pages except home. */
 export function BackButton({ fallback = '/', label = 'Назад' }: Props) {
   const goBack = useGoBack(fallback);
   const location = useLocation();
