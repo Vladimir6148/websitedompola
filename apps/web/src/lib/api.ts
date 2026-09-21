@@ -94,6 +94,21 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     return item as T;
   }
   if (pathname === '/api/brands') return loadJson('brands.json');
+  if (pathname === '/api/collections') {
+    const collections = await loadJson<
+      { id: string; name: string; slug: string; brandId: string }[]
+    >('collections.json');
+    const brandParam = url.searchParams.get('brand');
+    if (!brandParam) return collections as T;
+    // brand query may be brand id or slug
+    const brands = await loadJson<Brand[]>('brands.json');
+    const brandIds = new Set(
+      brands
+        .filter((b) => b.id === brandParam || b.slug === brandParam)
+        .map((b) => b.id),
+    );
+    return collections.filter((c) => brandIds.has(c.brandId)) as T;
+  }
   if (pathname === '/api/stores') return loadJson('stores.json');
   if (pathname === '/api/promotions') return loadJson('promotions.json');
 

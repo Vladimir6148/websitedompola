@@ -21,6 +21,13 @@ const COLLECTION_PREVIEW = 5;
 /** Max product cards per catalog page (everywhere). */
 const PAGE_SIZE = 90;
 
+type CatalogCollection = {
+  id: string;
+  name: string;
+  slug: string;
+  brandId: string;
+};
+
 function pageWindow(current: number, total: number): (number | '…')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
   const pages = new Set<number>([1, total, current, current - 1, current + 1, current - 2, current + 2]);
@@ -234,6 +241,7 @@ export function CatalogPage() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
+  const [allCollections, setAllCollections] = useState<CatalogCollection[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
   const [categoryPool, setCategoryPool] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -251,8 +259,6 @@ export function CatalogPage() {
   const minPrice = params.get('minPrice') || '';
   const maxPrice = params.get('maxPrice') || '';
   const wearClass = params.get('wearClass') || '';
-  const moistureResistant = params.get('moistureResistant') || '';
-  const underfloorHeating = params.get('underfloorHeating') || '';
   const accessoryChip = params.get('chip') || '';
   const prevPageRef = useRef(page);
 
@@ -267,16 +273,7 @@ export function CatalogPage() {
     ? 'underlayment,baseboards,accessories'
     : categorySlug || '';
 
-  const activeFilters = [
-    q,
-    brand,
-    collection,
-    minPrice,
-    maxPrice,
-    wearClass,
-    moistureResistant,
-    underfloorHeating,
-  ].filter(Boolean).length;
+  const activeFilters = [q, brand, collection, minPrice, maxPrice, wearClass].filter(Boolean).length;
 
   const activeCategory = useMemo(
     () => categories.find((c) => c.slug === categorySlug),
@@ -290,12 +287,15 @@ export function CatalogPage() {
       : activeCategory?.name || 'Каталог';
 
   useEffect(() => {
-    Promise.all([api<Category[]>('/api/categories'), api<Brand[]>('/api/brands')]).then(
-      ([cats, br]) => {
-        setCategories(cats);
-        setBrands(br);
-      },
-    );
+    Promise.all([
+      api<Category[]>('/api/categories'),
+      api<Brand[]>('/api/brands'),
+      api<CatalogCollection[]>('/api/collections').catch(() => [] as CatalogCollection[]),
+    ]).then(([cats, br, cols]) => {
+      setCategories(cats);
+      setBrands(br);
+      setAllCollections(cols);
+    });
   }, []);
 
   useEffect(() => {
@@ -330,8 +330,6 @@ export function CatalogPage() {
     if (minPrice) qs.set('minPrice', minPrice);
     if (maxPrice) qs.set('maxPrice', maxPrice);
     if (wearClass) qs.set('wearClass', wearClass);
-    if (moistureResistant) qs.set('moistureResistant', moistureResistant);
-    if (underfloorHeating) qs.set('underfloorHeating', underfloorHeating);
 
     let cancelled = false;
 
@@ -391,7 +389,7 @@ export function CatalogPage() {
     return () => {
       cancelled = true;
     };
-  }, [accessoryHub, categoryQuery, q, brand, collection, sort, page, minPrice, maxPrice, wearClass, moistureResistant, underfloorHeating]);
+  }, [accessoryHub, categoryQuery, q, brand, collection, sort, page, minPrice, maxPrice, wearClass]);
 
   useEffect(() => {
     if (prevPageRef.current !== page) {
@@ -420,10 +418,16 @@ export function CatalogPage() {
     for (const p of categoryPool) {
       if (p.brand?.slug && p.brand?.name) map.set(p.brand.slug, p.brand.name);
     }
-    return [...map.entries()]
-      .map(([slug, name]) => ({ slug, name }))
+    if (map.size) {
+      return [...map.entries()]
+        .map(([slug, name]) => ({ slug, name }))
+        .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    }
+    return brands
+      .filter((b) => b.active !== false)
+      .map((b) => ({ slug: b.slug, name: b.name }))
       .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-  }, [categoryPool]);
+  }, [categoryPool, brands]);
 
   const collectionChips = useMemo(() => {
     const map = new Map<string, string>();
@@ -433,10 +437,19 @@ export function CatalogPage() {
         map.set(p.collection.slug, p.collection.name);
       }
     }
-    return [...map.entries()]
-      .map(([slug, name]) => ({ slug, name }))
+    if (map.size) {
+      return [...map.entries()]
+        .map(([slug, name]) => ({ slug, name }))
+        .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    }
+    const brandIds = brandSlugs.length
+      ? new Set(brands.filter((b) => brandSlugs.includes(b.slug)).map((b) => b.id))
+      : null;
+    return allCollections
+      .filter((c) => !brandIds || brandIds.has(c.brandId))
+      .map((c) => ({ slug: c.slug, name: c.name }))
       .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-  }, [categoryPool, brandSlugs]);
+  }, [categoryPool, brandSlugs, brands, allCollections]);
 
   const collectionGroups = useMemo(() => {
     // Group grid by collection only when a brand is narrowed (keeps "Все" view flat).
@@ -501,7 +514,7 @@ export function CatalogPage() {
 
   function clearFilters() {
     const next = new URLSearchParams(params);
-    ['q', 'brand', 'collection', 'minPrice', 'maxPrice', 'wearClass', 'moistureResistant', 'underfloorHeating', 'chip'].forEach(
+    ['q', 'brand', 'collection', 'minPrice', 'maxPrice', 'wearClass', 'chip'].forEach(
       (key) => next.delete(key),
     );
     next.delete('page');
@@ -543,7 +556,7 @@ export function CatalogPage() {
 
         {brandChips.length > 0 ? (
           <CompactChipRow
-            label="Бренд"
+            label="Производитель / бренд"
             items={brandChips}
             selected={brandSlugs}
             preview={BRAND_PREVIEW}
@@ -552,25 +565,7 @@ export function CatalogPage() {
             onSelectOne={toggleBrandChip}
             onOpenMore={() => setBrandModalOpen(true)}
           />
-        ) : (
-          <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
-              Бренд
-            </label>
-            <select
-              value={brandSlugs[0] || ''}
-              onChange={(e) => setBrandList(e.target.value ? [e.target.value] : [])}
-              className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
-            >
-              <option value="">Любой</option>
-              {brands.map((b) => (
-                <option key={b.slug} value={b.slug}>
-                  {b.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
+        ) : null}
 
         {collectionChips.length > 0 ? (
           <CompactChipRow
@@ -583,7 +578,16 @@ export function CatalogPage() {
             onSelectOne={toggleCollectionChip}
             onOpenMore={() => setCollectionModalOpen(true)}
           />
-        ) : null}
+        ) : (
+          <div>
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+              Коллекция
+            </label>
+            <p className="text-sm text-graphite/50">
+              {brandSlugs.length ? 'Нет коллекций для выбранного бренда' : 'Выберите бренд или откройте категорию'}
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-2 gap-2">
           <div>
@@ -626,22 +630,6 @@ export function CatalogPage() {
             ))}
           </select>
         </div>
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={moistureResistant === '1'}
-            onChange={(e) => update('moistureResistant', e.target.checked ? '1' : '')}
-          />
-          Влагостойкость
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={underfloorHeating === '1'}
-            onChange={(e) => update('underfloorHeating', e.target.checked ? '1' : '')}
-          />
-          Тёплый пол
-        </label>
       </div>
 
       <div className="flex gap-2 border-t border-graphite/10 px-5 py-4">
