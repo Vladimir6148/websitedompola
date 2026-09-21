@@ -126,7 +126,7 @@ export function AdminLayout() {
     <div className="min-h-screen bg-mist">
       <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
         <div className="container-dp flex items-center gap-3 py-2.5 sm:py-3">
-          <BrandMark to="/admin" size="sm" />
+          <BrandMark to="/admin" size="md" />
           <nav className="hidden min-w-0 flex-1 items-center gap-1.5 overflow-x-auto lg:flex [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {nav.map((n) => {
               const Icon = n.icon;

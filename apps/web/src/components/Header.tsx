@@ -40,15 +40,15 @@ export function Header() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Открыть меню"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand lg:hidden"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11 lg:hidden"
           >
-            <Menu size={20} strokeWidth={1.75} />
+            <Menu size={22} strokeWidth={1.75} />
           </button>
 
           <BrandMark size="md" />
 
           <form onSubmit={onSearch} className="hidden min-w-0 flex-1 md:block md:max-w-md lg:max-w-lg">
-            <label className="flex h-10 items-center gap-2 rounded-full border border-graphite/20 bg-mist/80 px-3.5 transition focus-within:border-brand focus-within:bg-white">
+            <label className="flex h-10 items-center gap-2 rounded-full border border-graphite/20 bg-mist/80 px-3.5 transition focus-within:border-brand focus-within:bg-white sm:h-11">
               <Search size={16} strokeWidth={1.75} className="shrink-0 text-graphite/40" />
               <input
                 value={q}
@@ -64,14 +64,14 @@ export function Header() {
             <a
               href="tel:+79214994979"
               aria-label="Позвонить"
-              className="grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand"
+              className="grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11"
             >
               <Phone size={18} strokeWidth={1.75} />
             </a>
             <Link
               to="/cart"
               aria-label="Корзина"
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand"
+              className="relative grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11"
             >
               <ShoppingCart size={18} strokeWidth={1.75} />
               {count > 0 ? (
@@ -90,7 +90,7 @@ export function Header() {
               <button type="button" className="absolute inset-0 bg-ink/55" aria-label="Закрыть" onClick={close} />
               <div className="absolute inset-y-0 left-0 flex h-full w-[min(92vw,20rem)] flex-col bg-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-graphite/8 px-3 py-3">
-                  <BrandMark size="sm" onClick={close} />
+                  <BrandMark size="md" onClick={close} />
                   <button
                     type="button"
                     onClick={close}
