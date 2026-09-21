@@ -18,6 +18,20 @@ const ACCESSORY_CHIPS = [
 const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
 const BRAND_PREVIEW = 6;
 const COLLECTION_PREVIEW = 5;
+/** Max product cards per catalog page (everywhere). */
+const PAGE_SIZE = 90;
+
+function pageWindow(current: number, total: number): (number | '…')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = new Set<number>([1, total, current, current - 1, current + 1, current - 2, current + 2]);
+  const sorted = [...pages].filter((p) => p >= 1 && p <= total).sort((a, b) => a - b);
+  const out: (number | '…')[] = [];
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i]! - sorted[i - 1]! > 1) out.push('…');
+    out.push(sorted[i]!);
+  }
+  return out;
+}
 
 function productWord(n: number) {
   const mod10 = n % 10;
@@ -326,7 +340,7 @@ export function CatalogPage() {
         ACCESSORY_SLUGS.map((slug) => {
           const part = new URLSearchParams(qs);
           part.set('category', slug);
-          part.set('limit', '48');
+          part.set('limit', '2000');
           part.delete('page');
           return api<ProductsResponse>(`/api/products?${part}`);
         }),
@@ -340,7 +354,7 @@ export function CatalogPage() {
             return true;
           });
           const pageNum = Math.max(1, Number(page) || 1);
-          const limit = 12;
+          const limit = PAGE_SIZE;
           const start = (pageNum - 1) * limit;
           setData({
             items: items.slice(start, start + limit),
@@ -355,10 +369,19 @@ export function CatalogPage() {
         });
     } else {
       if (categoryQuery) qs.set('category', categoryQuery);
-      qs.set('limit', '100');
+      qs.set('limit', String(PAGE_SIZE));
       api<ProductsResponse>(`/api/products?${qs}`)
         .then((res) => {
-          if (!cancelled) setData(res);
+          if (!cancelled) {
+            // Hard cap cards per page even if API returns more
+            const items = (res.items || []).slice(0, PAGE_SIZE);
+            setData({
+              ...res,
+              items,
+              limit: PAGE_SIZE,
+              pages: Math.ceil((res.total || 0) / PAGE_SIZE) || 1,
+            });
+          }
         })
         .finally(() => {
           if (!cancelled) setLoading(false);
@@ -780,20 +803,41 @@ export function CatalogPage() {
                 </div>
               )}
               {data.pages > 1 ? (
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {Array.from({ length: data.pages }).map((_, i) => {
-                    const n = String(i + 1);
-                    return (
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+                  <button
+                    type="button"
+                    disabled={Number(page) <= 1}
+                    onClick={() => update('page', String(Math.max(1, Number(page) - 1)))}
+                    className="min-w-10 rounded-md bg-mist px-3 py-2 text-sm font-semibold text-graphite transition enabled:hover:bg-brand enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    ← Назад
+                  </button>
+                  {pageWindow(Number(page) || 1, data.pages).map((item, idx) =>
+                    item === '…' ? (
+                      <span key={`e${idx}`} className="px-1 text-graphite/40">
+                        …
+                      </span>
+                    ) : (
                       <button
-                        key={n}
+                        key={item}
                         type="button"
-                        onClick={() => update('page', n)}
-                        className={`min-w-10 rounded-md px-3 py-2 text-sm ${page === n ? 'bg-brand text-white' : 'bg-mist'}`}
+                        onClick={() => update('page', String(item))}
+                        className={`min-w-10 rounded-md px-3 py-2 text-sm font-semibold ${
+                          String(item) === page ? 'bg-brand text-white' : 'bg-mist text-graphite hover:bg-brand/15'
+                        }`}
                       >
-                        {n}
+                        {item}
                       </button>
-                    );
-                  })}
+                    ),
+                  )}
+                  <button
+                    type="button"
+                    disabled={Number(page) >= data.pages}
+                    onClick={() => update('page', String(Math.min(data.pages, Number(page) + 1)))}
+                    className="min-w-10 rounded-md bg-mist px-3 py-2 text-sm font-semibold text-graphite transition enabled:hover:bg-brand enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Далее →
+                  </button>
                 </div>
               ) : null}
             </>

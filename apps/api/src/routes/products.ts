@@ -117,7 +117,7 @@ router.get(
     }
 
     const pageNum = Math.max(1, Number(page) || 1);
-    const take = Math.min(100, Math.max(1, Number(limit) || 12));
+    const take = Math.min(2000, Math.max(1, Number(limit) || 12));
     const skip = (pageNum - 1) * take;
 
     let orderBy: Prisma.ProductOrderByWithRelationInput = { createdAt: 'desc' };
