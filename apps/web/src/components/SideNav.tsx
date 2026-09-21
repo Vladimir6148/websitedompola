@@ -9,7 +9,6 @@ import {
   Leaf,
   LayoutGrid,
   MapPin,
-  Percent,
   Tag,
   Truck,
   Wrench,
@@ -205,15 +204,6 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
               </p>
             </div>
           </div>
-
-          <Link
-            to="/promotions"
-            onClick={go}
-            className="flex items-center gap-2 rounded-xl px-2 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50"
-          >
-            <Percent size={16} />
-            Актуальные акции
-          </Link>
         </div>
       </div>
     </div>
