@@ -192,17 +192,17 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                 </p>
               </div>
 
-              <div className="mt-8 flex flex-col gap-5 md:mt-10 md:gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:flex lg:min-w-0 lg:flex-1 lg:flex-nowrap lg:items-stretch lg:gap-4 xl:gap-6">
+              <div className="mt-8 flex flex-col gap-5 md:mt-10 md:gap-6 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid lg:min-w-0 lg:flex-1 lg:grid-cols-4 lg:gap-4 xl:gap-5">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div
                       key={label}
-                      className="flex min-w-0 items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm sm:gap-3.5 sm:px-3.5 sm:py-3.5 lg:max-w-[14rem] lg:flex-1"
+                      className="flex h-full min-h-[4.75rem] min-w-0 items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm sm:min-h-[5.25rem] sm:gap-3.5 sm:px-3.5 sm:py-3.5"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
-                        <Icon size={22} strokeWidth={1.85} className="text-white" />
+                        <Icon size={20} strokeWidth={1.85} className="text-[#d5ddd6]" />
                       </span>
-                      <span className="min-w-0 text-[13px] font-semibold leading-snug text-white sm:text-sm md:text-[15px]">
+                      <span className="min-w-0 flex-1 text-[13px] font-semibold leading-snug text-white sm:text-sm md:text-[15px]">
                         {label}
                       </span>
                     </div>
@@ -211,7 +211,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
 
                 <Link
                   to={current.ctaTo}
-                  className="pointer-events-auto group flex w-full max-w-xl shrink-0 items-center gap-3 rounded-2xl bg-white p-3 pr-3 text-graphite shadow-[0_16px_48px_rgba(0,0,0,0.28)] transition hover:bg-white sm:gap-4 sm:p-3.5 sm:pr-3.5 lg:max-w-md"
+                  className="pointer-events-auto group flex w-full max-w-xl shrink-0 items-center gap-3 rounded-2xl bg-white p-3 pr-3 text-graphite shadow-[0_16px_48px_rgba(0,0,0,0.28)] transition hover:bg-white sm:gap-4 sm:p-3.5 sm:pr-3.5 lg:max-w-md lg:self-stretch"
                 >
                   {current.thumb ? (
                     <span className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-mist sm:h-[4.5rem] sm:w-[4.5rem]">
