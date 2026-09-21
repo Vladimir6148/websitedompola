@@ -16,10 +16,8 @@ const ACCESSORY_CHIPS = [
 ] as const;
 
 const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
-const BRAND_PREVIEW = 4;
-const COLLECTION_PREVIEW = 3;
-const BRAND_PREVIEW_DESKTOP = 6;
-const COLLECTION_PREVIEW_DESKTOP = 5;
+const BRAND_PREVIEW = 6;
+const COLLECTION_PREVIEW = 5;
 
 function productWord(n: number) {
   const mod10 = n % 10;
@@ -41,20 +39,6 @@ function joinList(values: string[]) {
 }
 
 type OptionItem = { slug: string; name: string };
-
-function useIsDesktop(minWidth = 1024) {
-  const [desktop, setDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia(`(min-width: ${minWidth}px)`).matches : false,
-  );
-  useEffect(() => {
-    const mq = window.matchMedia(`(min-width: ${minWidth}px)`);
-    const onChange = () => setDesktop(mq.matches);
-    onChange();
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, [minWidth]);
-  return desktop;
-}
 
 function chipClass(active: boolean, tone: 'neutral' | 'accent' = 'neutral') {
   if (active) {
@@ -204,11 +188,9 @@ function CompactChipRow({
   const rest = Math.max(0, items.length - visibleSlugs.size);
 
   return (
-    <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
-      <div className="shrink-0 text-[13px] font-semibold text-graphite/55 lg:w-24 lg:text-right">
-        {label}
-      </div>
-      <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
+    <div className="space-y-2">
+      <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">{label}</div>
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <button type="button" onClick={onClear} className={chipClass(selected.length === 0)}>
           {allLabel}
         </button>
@@ -236,7 +218,6 @@ export function CatalogPage() {
   const { categorySlug } = useParams();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
-  const isDesktop = useIsDesktop(1024);
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
@@ -524,7 +505,7 @@ export function CatalogPage() {
         </button>
       </div>
 
-      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 py-5">
+      <div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-5 py-5">
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
             Поиск
@@ -536,26 +517,51 @@ export function CatalogPage() {
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
           />
         </div>
-        <div>
-          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
-            Бренд
-          </label>
-          <select
-            value={brandSlugs[0] || ''}
-            onChange={(e) => setBrandList(e.target.value ? [e.target.value] : [])}
-            className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
-          >
-            <option value="">Любой</option>
-            {(brandChips.length
-              ? brandChips
-              : brands.map((b) => ({ slug: b.slug, name: b.name }))
-            ).map((b) => (
-              <option key={b.slug} value={b.slug}>
-                {b.name}
-              </option>
-            ))}
-          </select>
-        </div>
+
+        {brandChips.length > 0 ? (
+          <CompactChipRow
+            label="Бренд"
+            items={brandChips}
+            selected={brandSlugs}
+            preview={BRAND_PREVIEW}
+            allLabel="Все бренды"
+            onClear={() => setBrandList([])}
+            onSelectOne={toggleBrandChip}
+            onOpenMore={() => setBrandModalOpen(true)}
+          />
+        ) : (
+          <div>
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+              Бренд
+            </label>
+            <select
+              value={brandSlugs[0] || ''}
+              onChange={(e) => setBrandList(e.target.value ? [e.target.value] : [])}
+              className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
+            >
+              <option value="">Любой</option>
+              {brands.map((b) => (
+                <option key={b.slug} value={b.slug}>
+                  {b.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {collectionChips.length > 0 ? (
+          <CompactChipRow
+            label="Коллекция"
+            items={collectionChips}
+            selected={collectionSlugs}
+            preview={COLLECTION_PREVIEW}
+            allLabel="Все коллекции"
+            onClear={() => setCollectionList([])}
+            onSelectOne={toggleCollectionChip}
+            onOpenMore={() => setCollectionModalOpen(true)}
+          />
+        ) : null}
+
         <div className="grid grid-cols-2 gap-2">
           <div>
             <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
@@ -708,72 +714,41 @@ export function CatalogPage() {
           </div>
         </div>
 
-        <div className={`mb-6 ${inAccessorySection ? 'grid grid-cols-4 gap-2' : ''}`}>
-          {inAccessorySection ? (
-            <>
-              <Link
-                to="/catalog/accessories"
-                className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
-                  accessoryHub
-                    ? 'border-brand bg-brand text-white'
-                    : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
-                }`}
-              >
-                <span className="opacity-80">Все</span>
-              </Link>
-              {ACCESSORY_CHIPS.map((chip) => {
-                const Icon = chip.icon;
-                const active =
-                  chip.slug === 'accessories'
-                    ? categorySlug === 'accessories' && accessoryChip === 'glue'
-                    : categorySlug === chip.slug;
-                return (
-                  <Link
-                    key={chip.slug}
-                    to={chip.to}
-                    className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
-                      active
-                        ? 'border-brand bg-brand text-white'
-                        : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
-                    }`}
-                  >
-                    <Icon size={20} strokeWidth={1.75} />
-                    <span>{chip.label}</span>
-                  </Link>
-                );
-              })}
-            </>
-          ) : categorySlug ? (
-            brandChips.length > 0 || collectionChips.length > 0 ? (
-              <div className="space-y-3 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:space-y-3.5 sm:p-4 lg:p-5">
-                {brandChips.length > 0 ? (
-                  <CompactChipRow
-                    label="Бренд"
-                    items={brandChips}
-                    selected={brandSlugs}
-                    preview={isDesktop ? BRAND_PREVIEW_DESKTOP : BRAND_PREVIEW}
-                    allLabel="Все бренды"
-                    onClear={() => setBrandList([])}
-                    onSelectOne={toggleBrandChip}
-                    onOpenMore={() => setBrandModalOpen(true)}
-                  />
-                ) : null}
-                {collectionChips.length > 0 ? (
-                  <CompactChipRow
-                    label="Коллекция"
-                    items={collectionChips}
-                    selected={collectionSlugs}
-                    preview={isDesktop ? COLLECTION_PREVIEW_DESKTOP : COLLECTION_PREVIEW}
-                    allLabel="Все коллекции"
-                    onClear={() => setCollectionList([])}
-                    onSelectOne={toggleCollectionChip}
-                    onOpenMore={() => setCollectionModalOpen(true)}
-                  />
-                ) : null}
-              </div>
-            ) : null
-          ) : null}
-        </div>
+        {inAccessorySection ? (
+          <div className="mb-6 grid grid-cols-4 gap-2">
+            <Link
+              to="/catalog/accessories"
+              className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
+                accessoryHub
+                  ? 'border-brand bg-brand text-white'
+                  : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
+              }`}
+            >
+              <span className="opacity-80">Все</span>
+            </Link>
+            {ACCESSORY_CHIPS.map((chip) => {
+              const Icon = chip.icon;
+              const active =
+                chip.slug === 'accessories'
+                  ? categorySlug === 'accessories' && accessoryChip === 'glue'
+                  : categorySlug === chip.slug;
+              return (
+                <Link
+                  key={chip.slug}
+                  to={chip.to}
+                  className={`inline-flex flex-col items-center justify-center gap-1 rounded-xl border px-1 py-2.5 text-center text-[11px] font-semibold transition sm:gap-1.5 sm:rounded-2xl sm:px-3 sm:py-3 sm:text-sm ${
+                    active
+                      ? 'border-brand bg-brand text-white'
+                      : 'border-graphite/12 bg-white text-graphite hover:border-brand hover:text-brand'
+                  }`}
+                >
+                  <Icon size={20} strokeWidth={1.75} />
+                  <span>{chip.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        ) : null}
 
         <div ref={productsTopRef} className="scroll-mt-28">
           {loading ? (
