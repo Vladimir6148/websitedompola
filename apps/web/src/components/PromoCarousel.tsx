@@ -132,8 +132,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           }}
           onWheel={onWheel}
         >
-          {/* Mobile: taller full-bleed hero; desktop: fixed height */}
-          <div className="relative min-h-[min(70vh,640px)] w-full md:min-h-[400px] lg:min-h-[460px]">
+          <div className="relative min-h-[52vh] w-full md:min-h-[400px] lg:min-h-[460px]">
             {items.map((slide, i) => (
               <div
                 key={slide.id}
@@ -155,7 +154,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
 
-            <div className="relative flex min-h-[min(70vh,640px)] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
+            <div className="relative flex min-h-[52vh] flex-col justify-between px-4 pb-12 pt-10 sm:px-6 md:min-h-[400px] md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
               <div className="max-w-xl">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
                   {current.eyebrow}
