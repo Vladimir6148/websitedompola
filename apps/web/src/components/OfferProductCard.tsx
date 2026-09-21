@@ -94,7 +94,7 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
           onClick={() => add(product, 1)}
           className="mt-auto w-full rounded-full bg-brand py-2.5 text-sm font-semibold text-white shadow-[0_8px_18px_rgba(31,138,61,0.28)] transition hover:bg-brand-dark active:scale-[0.98]"
         >
-          В корзину{byPack ? ' · 1 уп.' : ''}
+          В корзину
         </button>
       </div>
     </article>
