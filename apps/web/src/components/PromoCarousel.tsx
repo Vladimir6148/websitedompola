@@ -120,7 +120,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
       aria-roledescription="carousel"
       aria-label="Напольные покрытия"
     >
-      <div className="container-dp px-0 sm:px-5 lg:px-6">
+      <div className="w-full md:px-5 lg:px-6">
         <div
           className="relative touch-pan-y overflow-hidden bg-graphite text-white md:rounded-2xl"
           onMouseEnter={() => setPaused(true)}
