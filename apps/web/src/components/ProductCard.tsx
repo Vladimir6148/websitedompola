@@ -58,7 +58,7 @@ export function ProductCard({ product }: { product: Product }) {
           <div>
             <div className="text-lg font-bold text-graphite">
               {formatPrice(product.price)}
-              {priced ? <span className="text-sm font-semibold text-graphite/50">/{formatUnit(product.unit)}</span> : null}
+              {priced ? <span className="text-sm font-semibold text-graphite/50">/{formatUnit(product.unit, { short: true })}</span> : null}
             </div>
             {showPackAlt ? (
               <div className="text-sm font-semibold text-graphite">

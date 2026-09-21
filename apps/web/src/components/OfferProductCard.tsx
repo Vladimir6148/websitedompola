@@ -58,7 +58,7 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
         <div>
           <div className="text-lg font-bold leading-none text-[#e11d48] sm:text-xl">
             {formatPrice(product.price)}
-            <span className="ml-0.5 text-sm font-semibold">/{formatUnit(product.unit)}</span>
+            <span className="ml-0.5 text-sm font-semibold">/{formatUnit(product.unit, { short: true })}</span>
           </div>
           {showPackAlt ? (
             <div className="mt-1 text-sm font-semibold text-graphite">

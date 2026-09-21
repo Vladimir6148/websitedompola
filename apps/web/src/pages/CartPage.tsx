@@ -54,7 +54,7 @@ export function CartPage() {
                         {item.name}
                       </Link>
                       <div className="text-sm text-graphite/50">
-                        {formatPrice(item.price)} / {formatUnit(item.unit)}
+                        {formatPrice(item.price)} / {formatUnit(item.unit, { short: true })}
                         {showM2PackPrice
                           ? ` · ${formatPrice(item.price * item.packArea!)} / ${formatUnit(item.unit, { short: true })}`
                           : null}
@@ -62,7 +62,7 @@ export function CartPage() {
                       {area != null ? (
                         <div className="mt-1 text-sm text-graphite/60">
                           {formatPackArea(area)} м² · {item.quantity}{' '}
-                          {formatUnit(item.unit, { short: item.quantity !== 1 })}
+                          {formatUnit(item.unit, { short: true })}
                         </div>
                       ) : null}
                       <div className="mt-auto flex flex-wrap items-center gap-3 pt-3">
@@ -91,7 +91,7 @@ export function CartPage() {
                             +
                           </button>
                           <span className="text-sm text-graphite/50">
-                            {item.soldByPack ? 'уп.' : formatUnit(item.unit)}
+                            {item.soldByPack ? 'упак' : formatUnit(item.unit)}
                           </span>
                         </div>
                         <div className="font-semibold">{formatPrice(line)}</div>
@@ -125,7 +125,7 @@ export function CartPage() {
                         i.soldByPack && i.packArea
                           ? ` (${formatPackArea(packsToArea(i.quantity, { price: i.price, packArea: i.packArea }))} м²)`
                           : '';
-                      return `${i.name} × ${i.quantity}${i.soldByPack ? ' уп.' : ''}${area}`;
+                      return `${i.name} × ${i.quantity}${i.soldByPack ? ' упак' : ''}${area}`;
                     })
                     .join('; ')}
                   compact

@@ -195,7 +195,7 @@ export function ProductPage() {
               <div className={`mt-1 text-3xl font-bold md:text-4xl ${hasPrice(product.price) ? 'text-[#e11d48]' : 'text-graphite'}`}>
                 {formatPrice(product.price)}
                 {hasPrice(product.price) ? (
-                  <span className="text-lg font-semibold">/{formatUnit(product.unit)}</span>
+                  <span className="text-lg font-semibold">/{formatUnit(product.unit, { short: true })}</span>
                 ) : (
                   <span className="ml-2 text-base font-semibold text-graphite/50">цену уточняйте</span>
                 )}
@@ -211,7 +211,7 @@ export function ProductPage() {
               <div className="font-semibold">{stock ? stockLabel(stock.status) : 'Уточняйте наличие'}</div>
               <div className="text-graphite/60">
                 {city?.name || 'Город не выбран'}
-                {stock?.quantity ? ` · ${stock.quantity} ${byPack ? 'уп.' : formatUnit(product.unit)}` : ''}
+                {stock?.quantity ? ` · ${stock.quantity} ${byPack ? 'упак' : formatUnit(product.unit)}` : ''}
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {product.stocks.map((s) => (
@@ -239,7 +239,7 @@ export function ProductPage() {
                         onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
                         className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
                       />
-                      <span className="shrink-0 text-sm text-graphite/50">уп.</span>
+                      <span className="shrink-0 text-sm text-graphite/50">упак</span>
                     </label>
                     <span className="px-1 text-graphite/30">=</span>
                     <label className="flex flex-1 items-center gap-1 px-3 py-3">
@@ -280,7 +280,7 @@ export function ProductPage() {
                         onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
                         className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
                       />
-                      <span className="shrink-0 text-sm text-graphite/50">уп.</span>
+                      <span className="shrink-0 text-sm text-graphite/50">упак</span>
                     </label>
                     <p className="mt-2 text-xs text-graphite/45">
                       Площадь упаковки в карточке не указана — пересчёт м² недоступен.
@@ -313,7 +313,7 @@ export function ProductPage() {
                       </button>
                     </div>
                     <p className="mt-2 text-xs text-graphite/55">
-                      Нужно {roomCalc.packs} уп. · {formatPackArea(roomCalc.area)} м² ·{' '}
+                      Нужно {roomCalc.packs} упак · {formatPackArea(roomCalc.area)} м² ·{' '}
                       {formatPrice(roomCalc.cost)}
                     </p>
                   </form>
