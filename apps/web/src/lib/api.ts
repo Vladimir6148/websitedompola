@@ -19,7 +19,8 @@ function dataUrl(file: string) {
   const base = import.meta.env.BASE_URL.endsWith('/')
     ? import.meta.env.BASE_URL
     : `${import.meta.env.BASE_URL}/`;
-  return `${base}data/${file}`;
+  const bust = import.meta.env.VITE_BUILD_ID || import.meta.env.VITE_STATIC_API || '1';
+  return `${base}data/${file}?v=${encodeURIComponent(String(bust))}`;
 }
 
 async function loadJson<T>(file: string): Promise<T> {

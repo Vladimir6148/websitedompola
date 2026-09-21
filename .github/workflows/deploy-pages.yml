@@ -35,6 +35,7 @@ jobs:
           # Catalog from static JSON (full import). Auth/writes still hit Render when possible.
           VITE_API_URL: https://dompola-api.onrender.com
           VITE_STATIC_API: "true"
+          VITE_BUILD_ID: ${{ github.sha }}
         run: npm run build
 
       - name: SPA fallback for GitHub Pages
