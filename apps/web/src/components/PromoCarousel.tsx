@@ -122,7 +122,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
     >
       <div className="container-dp px-0 sm:px-5 lg:px-6">
         <div
-          className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[380px] md:rounded-2xl lg:min-h-[420px]"
+          className="relative touch-pan-y overflow-hidden bg-graphite text-white md:rounded-2xl"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onPointerDown={onPointerDown}
@@ -132,93 +132,107 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           }}
           onWheel={onWheel}
         >
-          {items.map((slide, i) => (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                i === index ? 'opacity-100' : 'pointer-events-none opacity-0'
-              }`}
-              aria-hidden={i !== index}
-            >
-              <SmartImage
-                src={slide.image}
-                fallback="images/wood.webp"
-                alt={slide.title}
-                className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
-            </div>
-          ))}
+          {/* Mobile: landscape frame so the room photo is not side-cropped; desktop: taller hero */}
+          <div className="relative aspect-[16/10] w-full md:aspect-auto md:min-h-[400px] lg:min-h-[460px]">
+            {items.map((slide, i) => (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-700 ${
+                  i === index ? 'opacity-100' : 'pointer-events-none opacity-0'
+                }`}
+                aria-hidden={i !== index}
+              >
+                <SmartImage
+                  src={slide.image}
+                  fallback="images/wood.webp"
+                  alt={slide.title}
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_40%] md:object-center"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
+            ))}
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/20" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />
 
-          <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-12 sm:px-6 md:min-h-[380px] md:justify-between md:px-8 md:pb-8 md:pt-10 lg:min-h-[420px] lg:px-10">
-            <div className="max-w-xl">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
-                {current.eyebrow}
-              </p>
-              <h1 className="mt-2 font-display text-4xl font-bold leading-none tracking-tight sm:text-5xl lg:text-6xl">
-                {current.title}
-              </h1>
-              <p className="mt-3 max-w-md text-sm text-white/85 sm:text-base md:text-lg">
-                {current.description}
-              </p>
-            </div>
-
-            <div className="mt-8 flex flex-col gap-5 lg:mt-0 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-              <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-5">
-                {FEATURES.map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex items-start gap-2.5 sm:max-w-[11rem]">
-                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
-                      <Icon size={15} strokeWidth={1.75} />
-                    </span>
-                    <span className="text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
-                      {label}
-                    </span>
-                  </div>
-                ))}
+            <div className="relative flex h-full flex-col justify-end px-4 pb-11 pt-8 sm:px-6 md:min-h-[400px] md:justify-between md:px-8 md:pb-9 md:pt-10 lg:min-h-[460px] lg:px-10">
+              <div className="max-w-xl">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
+                  {current.eyebrow}
+                </p>
+                <h1 className="mt-1.5 font-display text-3xl font-bold leading-none tracking-tight sm:text-4xl md:mt-2 md:text-5xl lg:text-6xl">
+                  {current.title}
+                </h1>
+                <p className="mt-2 max-w-md text-sm text-white/85 sm:mt-3 sm:text-base md:text-lg">
+                  {current.description}
+                </p>
               </div>
 
-              <Link
-                to={current.ctaTo}
-                className="group flex max-w-md items-center gap-3 rounded-2xl bg-white/95 p-2.5 pr-3 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white"
-              >
-                {current.thumb ? (
-                  <span className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-mist">
-                    <SmartImage
-                      src={current.thumb}
-                      alt=""
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  </span>
-                ) : null}
-                <span className="min-w-0 flex-1 text-sm font-semibold leading-snug sm:text-[15px]">
-                  {current.ctaLabel}
-                </span>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand text-white transition group-hover:bg-brand-dark">
-                  <ArrowRight size={16} />
-                </span>
-              </Link>
-            </div>
-          </div>
+              <div className="mt-5 flex flex-col gap-3.5 md:mt-8 md:gap-5 lg:mt-0 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+                <div className="hidden grid-cols-2 gap-3 sm:grid md:flex md:flex-wrap md:gap-5">
+                  {FEATURES.map(({ icon: Icon, label }) => (
+                    <div key={label} className="flex items-start gap-2.5 sm:max-w-[11rem]">
+                      <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
+                        <Icon size={15} strokeWidth={1.75} />
+                      </span>
+                      <span className="text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
+                        {label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
 
-          {items.length > 1 ? (
-            <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-4">
-              {items.map((slide, i) => (
-                <button
-                  key={slide.id}
-                  type="button"
-                  aria-label={`Слайд ${i + 1}: ${slide.title}`}
-                  onClick={() => setIndex(i)}
-                  className={`h-2 rounded-full transition-all ${
-                    i === index ? 'w-7 bg-white' : 'w-2 bg-white/45 hover:bg-white/70'
-                  }`}
-                />
-              ))}
+                <div className="grid grid-cols-2 gap-2 sm:hidden">
+                  {FEATURES.map(({ icon: Icon, label }) => (
+                    <div key={label} className="flex items-center gap-2">
+                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
+                        <Icon size={13} strokeWidth={1.75} />
+                      </span>
+                      <span className="text-[10px] font-medium leading-snug text-white/90">{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  to={current.ctaTo}
+                  className="group flex w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/95 p-2 pr-2.5 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white sm:gap-3 sm:p-2.5 sm:pr-3"
+                >
+                  {current.thumb ? (
+                    <span className="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-mist sm:h-14 sm:w-14">
+                      <SmartImage
+                        src={current.thumb}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                    </span>
+                  ) : null}
+                  <span className="min-w-0 flex-1 text-[13px] font-semibold leading-snug sm:text-[15px]">
+                    {current.ctaLabel}
+                  </span>
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand text-white transition group-hover:bg-brand-dark">
+                    <ArrowRight size={16} />
+                  </span>
+                </Link>
+              </div>
             </div>
-          ) : null}
+
+            {items.length > 1 ? (
+              <div className="absolute inset-x-0 bottom-2.5 z-10 flex justify-center gap-1.5 md:bottom-4">
+                {items.map((slide, i) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    aria-label={`Слайд ${i + 1}: ${slide.title}`}
+                    onClick={() => setIndex(i)}
+                    className={`h-2 rounded-full transition-all ${
+                      i === index ? 'w-7 bg-white' : 'w-2 bg-white/45 hover:bg-white/70'
+                    }`}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </section>
