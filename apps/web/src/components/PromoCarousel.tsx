@@ -28,9 +28,9 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
     title: 'Ламинат',
     description: 'Надёжное и стильное решение для любого интерьера',
     image: 'images/hero/hero-laminate.webp',
-    thumb: 'images/alpine/lf100-01.webp',
-    ctaLabel: 'Подобрать ламинат по параметрам',
-    ctaTo: '/catalog/laminate',
+    thumb: 'images/pergo/741.webp',
+    ctaLabel: 'Скидка 20 % на Pergo Skara 12 pro',
+    ctaTo: '/catalog/laminate?brand=skara',
   },
   {
     id: 'spc',
@@ -38,9 +38,9 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
     title: 'Кварцвинил / SPC',
     description: 'Влагостойкие покрытия для кухни, прихожей и тёплого пола',
     image: 'images/hero/hero-spc.webp',
-    thumb: 'images/alta/spc1901.webp',
-    ctaLabel: 'Подобрать SPC по параметрам',
-    ctaTo: '/catalog/quartzvinyl-spc',
+    thumb: 'images/alta/mramor-seryj.webp',
+    ctaLabel: 'Скидка 15 % на Alta Step Arriba',
+    ctaTo: '/catalog/quartzvinyl-spc?brand=alta-step',
   },
   {
     id: 'porcelain',
@@ -48,9 +48,9 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
     title: 'Керамогранит',
     description: 'Прочный и выразительный пол для дома и коммерции',
     image: 'images/hero/hero-porcelain.webp',
-    thumb: 'images/floor3.webp',
-    ctaLabel: 'Смотреть керамогранит',
-    ctaTo: '/catalog/porcelain',
+    thumb: 'images/remote/oad-iblock-1b4-uvhzgkljrq51hpqlvxev819hbfi4ibbn-melton-brown-_-bs-445x445.webp',
+    ctaLabel: 'Скидка 10 % на Primavera',
+    ctaTo: '/catalog/porcelain?brand=primavera',
   },
 ];
 
