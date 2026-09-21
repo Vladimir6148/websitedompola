@@ -32,8 +32,9 @@ jobs:
         working-directory: apps/web
         env:
           VITE_BASE: /websitedompola/
-          VITE_API_URL: ""
-          VITE_STATIC_API: "true"
+          # Live API so /admin login & saves work on GitHub Pages
+          VITE_API_URL: https://dompola-api.onrender.com
+          VITE_STATIC_API: "false"
         run: npm run build
 
       - name: SPA fallback for GitHub Pages
