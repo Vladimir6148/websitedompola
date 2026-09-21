@@ -7,7 +7,9 @@ type SeoProps = {
   image?: string;
 };
 
-const SITE = 'https://dompola.ru';
+const SITE =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) ||
+  (typeof window !== 'undefined' ? `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, '')}` : 'https://dompola.ru');
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
@@ -19,10 +21,25 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   el.content = content;
 }
 
+function absolutize(url: string) {
+  if (!url) return url;
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+  const origin = typeof window !== 'undefined' ? window.location.origin : SITE;
+  const base = import.meta.env.BASE_URL.endsWith('/')
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`;
+  return `${origin}${base}${url.replace(/^\//, '')}`;
+}
+
 export function Seo({ title, description, path = '/', image }: SeoProps) {
   useEffect(() => {
     const fullTitle = title.includes('ДОМПОЛА') ? title : `${title} — ДОМПОЛА`;
-    const url = `${SITE}${path}`;
+    const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    const url =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${basePath}${cleanPath === '/' ? '/' : cleanPath}`
+        : `${SITE}${cleanPath}`;
     const desc =
       description ||
       'Напольные покрытия в Архангельске, Северодвинске и Вологде: кварцвинил, ламинат, линолеум, керамогранит и паркет.';
@@ -33,7 +50,7 @@ export function Seo({ title, description, path = '/', image }: SeoProps) {
     upsertMeta('property', 'og:description', desc);
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:type', 'website');
-    if (image) upsertMeta('property', 'og:image', image);
+    if (image) upsertMeta('property', 'og:image', absolutize(image));
 
     let link = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {

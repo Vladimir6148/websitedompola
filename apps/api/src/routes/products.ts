@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma.js';
-import { asyncHandler, requireAuth, requireRole, slugify } from '../lib/auth.js';
+import { asyncHandler, optionalAuth, requireAuth, requireRole, slugify } from '../lib/auth.js';
 
 const router = Router();
 
@@ -15,8 +15,13 @@ const productInclude = {
   stocks: { include: { city: true } },
 };
 
+function isStaff(user?: { role?: string }) {
+  return user?.role === 'ADMIN' || user?.role === 'MANAGER';
+}
+
 router.get(
   '/',
+  optionalAuth,
   asyncHandler(async (req, res) => {
     const {
       q,
@@ -40,14 +45,15 @@ router.get(
 
     const where: Prisma.ProductWhereInput = {};
 
-    if (published === 'all') {
-      // Unpublished products only via authenticated admin clients.
-      // Public catalog always sees published items unless explicitly filtered.
-      if (!req.headers.authorization) {
+    if (published === 'all' || published === '0') {
+      if (!isStaff(req.user)) {
         where.published = true;
+      } else if (published === '0') {
+        where.published = false;
       }
+      // published=all + staff → no published filter
     } else {
-      where.published = published === '0' ? false : true;
+      where.published = true;
     }
 
     if (featured === '1') where.featured = true;
@@ -133,12 +139,14 @@ router.get(
 
 router.get(
   '/slug/:slug',
+  optionalAuth,
   asyncHandler(async (req, res) => {
     const product = await prisma.product.findUnique({
       where: { slug: req.params.slug },
       include: productInclude,
     });
-    if (!product || (!product.published && req.query.preview !== '1')) {
+    const preview = req.query.preview === '1';
+    if (!product || (!product.published && !(preview && isStaff(req.user)))) {
       return res.status(404).json({ error: 'Товар не найден' });
     }
     res.json(product);

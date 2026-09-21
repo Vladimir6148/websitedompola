@@ -55,7 +55,10 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   const pathname = url.pathname;
 
   if (method === 'POST' && pathname === '/api/leads') {
-    return { ok: true, id: `static-${Date.now()}` } as T;
+    throw new ApiError(
+      503,
+      'Онлайн-заявка временно недоступна. Позвоните нам или напишите в мессенджер.',
+    );
   }
 
   if (method === 'POST' && pathname === '/api/picker') {
@@ -163,6 +166,14 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
       items.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
     if (sort === 'name') items.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+    if (sort === 'popular') {
+      items.sort((a, b) => {
+        const af = a.featured ? 1 : 0;
+        const bf = b.featured ? 1 : 0;
+        if (bf !== af) return bf - af;
+        return a.name.localeCompare(b.name, 'ru');
+      });
+    }
 
     const total = items.length;
     const start = (page - 1) * limit;
@@ -183,7 +194,14 @@ function wantsLiveApi(path: string, method: string) {
   if (!API_BASE) return false;
   if (method !== 'GET') return true;
   const pathname = new URL(path, 'http://local.api').pathname;
-  return pathname.startsWith('/api/auth');
+  if (pathname.startsWith('/api/auth')) return true;
+  // Admin reads need the live API (not present in static JSON)
+  if (pathname === '/api/leads' || pathname.startsWith('/api/leads/')) return true;
+  if (pathname.startsWith('/api/products/id/')) return true;
+  if (pathname === '/api/products' && new URL(path, 'http://local.api').searchParams.get('published') === 'all') {
+    return true;
+  }
+  return false;
 }
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {

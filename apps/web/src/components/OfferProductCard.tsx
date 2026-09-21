@@ -5,6 +5,7 @@ import { formatPrice, primaryImage } from '../lib/api';
 import {
   formatBoardSize,
   formatPackArea,
+  isPackPriced,
   isPackSold,
   packPrice,
   resolvePackArea,
@@ -25,6 +26,7 @@ export function OfferProductCard({ product }: { product: Product }) {
   const area = resolvePackArea(product);
   const pPack = packPrice(product);
   const board = formatBoardSize(product);
+  const showPackAlt = byPack && pPack != null && !isPackPriced(product);
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-sm">
@@ -56,7 +58,7 @@ export function OfferProductCard({ product }: { product: Product }) {
             {formatPrice(product.price)}
             <span className="ml-0.5 text-sm font-semibold">/{product.unit}</span>
           </div>
-          {byPack && pPack != null ? (
+          {showPackAlt ? (
             <div className="mt-1 text-sm font-semibold text-graphite">
               {formatPrice(pPack)}/упак
             </div>
@@ -78,7 +80,7 @@ export function OfferProductCard({ product }: { product: Product }) {
         <div className="mt-1 space-y-1 text-xs text-graphite/55">
           <div className="flex items-center gap-1.5">
             <Truck size={13} />
-            Доставим завтра
+            Доставка по региону
           </div>
           <div className="flex items-center gap-1.5">
             <Layers size={13} />

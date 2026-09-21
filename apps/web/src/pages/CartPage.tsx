@@ -3,7 +3,7 @@ import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
-import { formatPackArea, packsToArea } from '../lib/packaging';
+import { formatPackArea, isPackPriced, lineTotal, packsToArea } from '../lib/packaging';
 import { useCart } from '../store/cart';
 
 export function CartPage() {
@@ -25,17 +25,18 @@ export function CartPage() {
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
             <div className="space-y-4">
               {items.map((item) => {
+                const dims = {
+                  price: item.price,
+                  unit: item.unit,
+                  packArea: item.packArea,
+                  packQty: item.packQty,
+                  length: item.length,
+                  width: item.width,
+                };
                 const area =
-                  item.soldByPack && item.packArea
-                    ? packsToArea(item.quantity, {
-                        price: item.price,
-                        packArea: item.packArea,
-                      })
-                    : null;
-                const line =
-                  item.soldByPack && item.packArea
-                    ? item.quantity * item.packArea * item.price
-                    : item.quantity * item.price;
+                  item.soldByPack && item.packArea ? packsToArea(item.quantity, dims) : null;
+                const line = lineTotal(item.quantity, dims);
+                const showM2PackPrice = item.soldByPack && item.packArea && !isPackPriced(dims);
 
                 return (
                   <div
@@ -54,8 +55,8 @@ export function CartPage() {
                       </Link>
                       <div className="text-sm text-graphite/50">
                         {formatPrice(item.price)} / {item.unit}
-                        {item.soldByPack && item.packArea
-                          ? ` · ${formatPrice(item.price * item.packArea)} / упак`
+                        {showM2PackPrice
+                          ? ` · ${formatPrice(item.price * item.packArea!)} / упак`
                           : null}
                       </div>
                       {area != null ? (

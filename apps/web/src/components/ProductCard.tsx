@@ -5,6 +5,7 @@ import { formatPrice, hasPrice, primaryImage } from '../lib/api';
 import {
   formatBoardSize,
   formatPackArea,
+  isPackPriced,
   isPackSold,
   packPrice,
   resolvePackArea,
@@ -20,6 +21,7 @@ export function ProductCard({ product }: { product: Product }) {
   const pPack = packPrice(product);
   const board = formatBoardSize(product);
   const priced = hasPrice(product.price);
+  const showPackAlt = priced && byPack && pPack != null && !isPackPriced(product);
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-graphite/8 bg-white transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(15,92,40,0.12)]">
@@ -57,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
               {formatPrice(product.price)}
               {priced ? <span className="text-sm font-semibold text-graphite/50">/{product.unit}</span> : null}
             </div>
-            {priced && byPack && pPack != null ? (
+            {showPackAlt ? (
               <div className="text-sm font-semibold text-graphite">{formatPrice(pPack)}/упак</div>
             ) : null}
             {priced && product.oldPrice ? (

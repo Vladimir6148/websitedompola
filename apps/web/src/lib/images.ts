@@ -6,28 +6,12 @@ export function assetUrl(path: string) {
   return `${base}${path.replace(/^\//, '')}`;
 }
 
-const UNSPLASH_TO_LOCAL: Record<string, string> = {
-  'photo-1615874959474-d609969a20ed': 'images/hero.webp',
-  'photo-1600210492486-724fe5c67fb0': 'images/living.webp',
-  'photo-1616486338812-3dadae4b4ace': 'images/wood.webp',
-  'photo-1581858726788-75bc0f6a952d': 'images/floor1.webp',
-  'photo-1560185007-cde436f6a4d0': 'images/floor2.webp',
-  'photo-1556909114-f6e7ad7d3136': 'images/floor3.webp',
-  'photo-1441986300917-64674bd600d8': 'images/store.webp',
-  'photo-1503387762-592deb58ef4e': 'images/work.webp',
-  'photo-1618221195710-dd6b41faaea6': 'images/promo.webp',
-};
-
 /** Prefer same-origin assets over absolute github.io / CDN URLs. */
 function toLocalPath(url: string): string | null {
   try {
-    if (url.includes('/websitedompola/images/')) {
+    if (url.includes('/websitedompola/images/') || (url.includes('vladimir6148.github.io') && url.includes('/images/'))) {
       const idx = url.indexOf('/images/');
       return url.slice(idx + 1); // images/...
-    }
-    if (url.includes('vladimir6148.github.io') && url.includes('/images/')) {
-      const idx = url.indexOf('/images/');
-      return url.slice(idx + 1);
     }
   } catch {
     return null;
@@ -45,10 +29,8 @@ export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.w
     return assetUrl(preferWebp(url.replace(/^\//, '')));
   }
 
+  // Legacy Unsplash placeholders → local fallbacks
   if (url.includes('images.unsplash.com') || url.includes('unsplash.com')) {
-    for (const [key, local] of Object.entries(UNSPLASH_TO_LOCAL)) {
-      if (url.includes(key)) return assetUrl(preferWebp(local));
-    }
     return assetUrl(fallback);
   }
 

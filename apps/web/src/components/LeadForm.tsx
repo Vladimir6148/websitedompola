@@ -20,10 +20,12 @@ export function LeadForm({
   const [phone, setPhone] = useState('');
   const [comment, setComment] = useState(productName ? `Интересует: ${productName}` : '');
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setStatus('loading');
+    setErrorMessage('');
     try {
       await api('/api/leads', {
         method: 'POST',
@@ -39,8 +41,9 @@ export function LeadForm({
       setName('');
       setPhone('');
       setComment('');
-    } catch {
+    } catch (err) {
       setStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : 'Не удалось отправить. Попробуйте ещё раз.');
     }
   }
 
@@ -87,7 +90,7 @@ export function LeadForm({
         <p className="text-sm text-brand-dark">Заявка принята. Мы свяжемся с вами.</p>
       ) : null}
       {status === 'error' ? (
-        <p className="text-sm text-red-600">Не удалось отправить. Попробуйте ещё раз.</p>
+        <p className="text-sm text-red-600">{errorMessage || 'Не удалось отправить. Попробуйте ещё раз.'}</p>
       ) : null}
     </form>
   );

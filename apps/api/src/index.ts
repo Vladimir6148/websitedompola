@@ -21,10 +21,25 @@ const port = Number(process.env.PORT || 4000);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadRoot = path.resolve(__dirname, '../', process.env.UPLOAD_DIR || 'uploads');
 
+const defaultOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://vladimir6148.github.io',
+  'https://dompola.ru',
+  'https://www.dompola.ru',
+];
+const allowedOrigins = (process.env.CORS_ORIGINS || defaultOrigins.join(','))
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    // Reflect request Origin. Note: some CDNs omit ACAO for http://127.0.0.1 — prefer localhost or static local.
-    origin: true,
+    origin(origin, cb) {
+      // Non-browser / same-origin requests may omit Origin
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(null, false);
+    },
     credentials: true,
   }),
 );

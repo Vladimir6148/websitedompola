@@ -18,9 +18,9 @@ import type { Category } from '../types';
 const primaryLinks = [
   { to: '/', label: 'Главная' },
   { to: '/catalog', label: 'Напольные покрытия' },
-  { to: '/catalog/accessories', label: 'Аксессуары' },
+  { to: '/catalog/accessories', label: 'Комплектующие' },
   { to: '/services', label: 'Услуги' },
-  { to: '/promotions', label: 'Подборки' },
+  { to: '/promotions', label: 'Акции' },
 ];
 
 export function Header() {

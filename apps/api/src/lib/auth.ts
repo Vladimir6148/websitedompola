@@ -18,7 +18,16 @@ declare global {
   }
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dompola-dev-secret';
+function resolveJwtSecret() {
+  const secret = process.env.JWT_SECRET?.trim();
+  if (secret) return secret;
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET must be set in production');
+  }
+  return 'dompola-dev-secret';
+}
+
+const JWT_SECRET = resolveJwtSecret();
 
 export function signToken(user: AuthUser) {
   return jwt.sign(
@@ -26,6 +35,18 @@ export function signToken(user: AuthUser) {
     JWT_SECRET,
     { expiresIn: '7d' },
   );
+}
+
+/** Attach user when Bearer token is valid; otherwise leave req.user unset. */
+export function optionalAuth(req: Request, _res: Response, next: NextFunction) {
+  const header = req.headers.authorization;
+  if (!header?.startsWith('Bearer ')) return next();
+  try {
+    req.user = jwt.verify(header.slice(7), JWT_SECRET) as AuthUser;
+  } catch {
+    // ignore invalid token for optional auth
+  }
+  next();
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {

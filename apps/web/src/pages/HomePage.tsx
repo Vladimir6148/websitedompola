@@ -19,8 +19,7 @@ const icons: Record<string, ReactNode> = {
 /** Flooring assortment chips after hero (short labels) */
 const ASSORTMENT = [
   { to: '/catalog/laminate', label: 'Ламинат' },
-  { to: '/catalog/quartzvinyl-spc', label: 'SPC' },
-  { to: '/catalog/quartzvinyl-spc', label: 'Кварцвинил' },
+  { to: '/catalog/quartzvinyl-spc', label: 'Кварцвинил SPC' },
   { to: '/catalog/mspc', label: 'MSPC' },
   { to: '/catalog/linoleum', label: 'Линолеум' },
   { to: '/catalog/porcelain', label: 'Керамогранит' },
@@ -59,10 +58,16 @@ export function HomePage() {
       })
       .catch(() => undefined);
 
-    api<ProductsResponse>('/api/products?limit=24&sort=price_asc&minPrice=1')
+    api<ProductsResponse>(
+      '/api/products?limit=48&sort=popular&category=laminate,quartzvinyl-spc,mspc,porcelain,parquet,linoleum',
+    )
       .then((res) => {
         const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
-        const list = (withDiscount.length ? withDiscount : res.items).slice(0, 8);
+        const featured = res.items.filter((p) => p.featured);
+        const list = (withDiscount.length ? withDiscount : featured.length ? featured : res.items).slice(
+          0,
+          8,
+        );
         if (!cancelled) setDeals(list);
       })
       .catch(() => undefined);
@@ -110,7 +115,7 @@ export function HomePage() {
 
       <section className="border-b border-graphite/8 bg-white">
         <div className="container-dp py-2.5 sm:py-3">
-          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-8 md:gap-2 md:overflow-visible">
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-7 md:gap-2 md:overflow-visible">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}

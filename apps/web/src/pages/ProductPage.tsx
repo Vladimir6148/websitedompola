@@ -7,8 +7,10 @@ import { SmartImage } from '../components/SmartImage';
 import { api, formatPrice, hasPrice, primaryImage, stockLabel } from '../lib/api';
 import {
   areaToPacks,
+  canRoomCalculate,
   formatBoardSize,
   formatPackArea,
+  isPackPriced,
   isPackSold,
   lineTotal,
   packPrice,
@@ -22,6 +24,7 @@ import { useCity } from '../store/city';
 export function ProductPage() {
   const { slug } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const [loadError, setLoadError] = useState(false);
   const [related, setRelated] = useState<Product[]>([]);
   const [activeImage, setActiveImage] = useState(0);
   const [packs, setPacks] = useState(1);
@@ -32,34 +35,53 @@ export function ProductPage() {
 
   useEffect(() => {
     if (!slug) return;
-    api<Product>(`/api/products/slug/${slug}`).then((p) => {
-      setProduct(p);
-      setActiveImage(0);
-      setPacks(1);
-      if (p.category?.slug) {
-        api<ProductsResponse>(`/api/products?category=${p.category.slug}&limit=4`).then((res) => {
-          setRelated(res.items.filter((i) => i.id !== p.id).slice(0, 4));
-        });
-      }
-    });
+    setProduct(null);
+    setLoadError(false);
+    api<Product>(`/api/products/slug/${slug}`)
+      .then((p) => {
+        setProduct(p);
+        setActiveImage(0);
+        setPacks(1);
+        if (p.category?.slug) {
+          api<ProductsResponse>(`/api/products?category=${p.category.slug}&limit=4`).then((res) => {
+            setRelated(res.items.filter((i) => i.id !== p.id).slice(0, 4));
+          });
+        }
+      })
+      .catch(() => {
+        setProduct(null);
+        setLoadError(true);
+      });
   }, [slug]);
 
   const byPack = product ? isPackSold(product) : false;
   const packArea = product ? resolvePackArea(product) : null;
   const pPack = product ? packPrice(product) : null;
   const board = product ? formatBoardSize(product) : null;
-  const selectedArea = product && byPack ? packsToArea(packs, product) : packs;
+  const roomReady = product ? canRoomCalculate(product) : false;
+  const selectedArea = product && roomReady ? packsToArea(packs, product) : packs;
   const cartSum = product ? lineTotal(packs, product) : 0;
 
   const roomCalc = useMemo(() => {
-    if (!product || !byPack || !packArea) {
-      return { packs: Math.ceil(roomArea), area: roomArea, cost: product ? product.price * roomArea : 0 };
+    if (!product || !roomReady || !packArea) {
+      return { packs: 1, area: 0, cost: 0 };
     }
     const withReserve = roomArea * 1.07;
     const needPacks = areaToPacks(withReserve, product);
     const area = packsToArea(needPacks, product);
     return { packs: needPacks, area, cost: lineTotal(needPacks, product) };
-  }, [roomArea, product, byPack, packArea]);
+  }, [roomArea, product, roomReady, packArea]);
+
+  if (loadError) {
+    return (
+      <div className="container-dp py-20 text-center">
+        <p className="text-graphite/70">Товар не найден или временно недоступен.</p>
+        <Link to="/catalog" className="btn-primary mt-6 inline-flex">
+          В каталог
+        </Link>
+      </div>
+    );
+  }
 
   if (!product) {
     return <div className="container-dp py-20 text-graphite/60">Загрузка товара…</div>;
@@ -177,7 +199,7 @@ export function ProductPage() {
                   <span className="ml-2 text-base font-semibold text-graphite/50">цену уточняйте</span>
                 )}
               </div>
-              {hasPrice(product.price) && byPack && pPack != null ? (
+              {hasPrice(product.price) && byPack && pPack != null && !isPackPriced(product) ? (
                 <div className="mt-1 text-lg font-bold text-graphite">{formatPrice(pPack)}/упак</div>
               ) : null}
             </div>
@@ -197,9 +219,11 @@ export function ProductPage() {
               </div>
             </div>
 
-            {byPack && packArea && hasPrice(product.price) ? (
+            {byPack && hasPrice(product.price) ? (
               <div className="mt-6 rounded-2xl border border-graphite/10 bg-white p-5">
                 <h2 className="font-display text-xl font-semibold">Заказать онлайн</h2>
+                {roomReady && packArea ? (
+                  <>
                 <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
                 <div className="mt-3 flex items-stretch gap-2">
                   <div className="flex flex-1 items-center overflow-hidden rounded-xl border border-graphite/15">
@@ -240,8 +264,28 @@ export function ProductPage() {
                     <Calculator size={18} strokeWidth={1.75} />
                   </button>
                 </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-1 text-sm text-graphite/55">Количество упаковок:</p>
+                    <label className="mt-3 flex items-center gap-2 rounded-xl border border-graphite/15 px-3 py-3">
+                      <input
+                        type="number"
+                        min={1}
+                        step={1}
+                        value={packs}
+                        onChange={(e) => setPacks(Math.max(1, Math.round(Number(e.target.value) || 1)))}
+                        className="w-full min-w-0 border-0 bg-transparent text-sm font-semibold outline-none"
+                      />
+                      <span className="shrink-0 text-sm text-graphite/50">уп.</span>
+                    </label>
+                    <p className="mt-2 text-xs text-graphite/45">
+                      Площадь упаковки в карточке не указана — пересчёт м² недоступен.
+                    </p>
+                  </>
+                )}
 
-                {showRoomCalc ? (
+                {roomReady && showRoomCalc ? (
                   <form
                     className="mt-4 rounded-xl bg-mist p-4"
                     onSubmit={(e: FormEvent) => {

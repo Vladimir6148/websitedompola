@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, requireAuth, requireRole } from '../lib/auth.js';
@@ -14,8 +15,31 @@ const leadSchema = z.object({
   meta: z.string().optional().nullable(),
 });
 
+/** Simple in-memory rate limit for public lead form (per IP). */
+const leadHits = new Map<string, { count: number; resetAt: number }>();
+const LEAD_LIMIT = 8;
+const LEAD_WINDOW_MS = 15 * 60 * 1000;
+
+function rateLimitLeads(req: Request, res: Response, next: NextFunction) {
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown')
+    .split(',')[0]
+    .trim();
+  const now = Date.now();
+  const entry = leadHits.get(ip);
+  if (!entry || entry.resetAt < now) {
+    leadHits.set(ip, { count: 1, resetAt: now + LEAD_WINDOW_MS });
+    return next();
+  }
+  if (entry.count >= LEAD_LIMIT) {
+    return res.status(429).json({ error: 'Слишком много заявок. Попробуйте позже или позвоните нам.' });
+  }
+  entry.count += 1;
+  next();
+}
+
 router.post(
   '/',
+  rateLimitLeads,
   asyncHandler(async (req, res) => {
     const data = leadSchema.parse(req.body);
     const lead = await prisma.lead.create({ data });

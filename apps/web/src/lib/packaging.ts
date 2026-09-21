@@ -1,4 +1,9 @@
-/** Helpers for pack-based pricing (price is always per m²; sell in whole packs). */
+/** Helpers for pack-based pricing.
+
+ * Two models:
+ * 1) Price per м² + packArea → sold in whole packs (room calculator enabled)
+ * 2) Price per пачка/упак → cart qty is packs; room calc only if packArea known
+ */
 
 export type PackDims = {
   price: number;
@@ -8,6 +13,18 @@ export type PackDims = {
   length?: number | null;
   width?: number | null;
 };
+
+function normUnit(unit?: string | null) {
+  return String(unit || '')
+    .toLowerCase()
+    .replace(/\s+/g, '');
+}
+
+/** Catalog price is already for one pack (пачка / упак / уп.). */
+export function isPackPriced(p: PackDims): boolean {
+  const u = normUnit(p.unit);
+  return /пачк|упак|^уп\.?$|^уп$|pack/.test(u);
+}
 
 /** m² per pack: prefer stored packArea, else L×W(mm)×pieces */
 export function resolvePackArea(p: PackDims): number | null {
@@ -21,14 +38,23 @@ export function resolvePackArea(p: PackDims): number | null {
   return null;
 }
 
-/** Sold in packs when we know pack area (flooring). Else by unit (glue etc.). */
+/** Sold in packs (cart qty = packs). */
 export function isPackSold(p: PackDims): boolean {
-  return resolvePackArea(p) != null && (p.unit === 'м²' || p.unit === 'м2' || !p.unit);
+  if (isPackPriced(p)) return true;
+  return resolvePackArea(p) != null && (normUnit(p.unit) === 'м²' || normUnit(p.unit) === 'м2' || !p.unit);
 }
 
+/** Room → packs calculator needs known pack area. */
+export function canRoomCalculate(p: PackDims): boolean {
+  return isPackSold(p) && resolvePackArea(p) != null;
+}
+
+/** Price of one pack in ₽. */
 export function packPrice(p: PackDims): number | null {
+  if (!p.price || p.price <= 0) return null;
+  if (isPackPriced(p)) return p.price;
   const area = resolvePackArea(p);
-  if (area == null || !p.price || p.price <= 0) return null;
+  if (area == null) return null;
   return p.price * area;
 }
 
@@ -44,6 +70,7 @@ export function areaToPacks(areaM2: number, p: PackDims): number {
 }
 
 export function lineTotal(qty: number, p: PackDims): number {
+  if (isPackPriced(p)) return qty * p.price;
   if (isPackSold(p)) {
     const area = resolvePackArea(p) || 0;
     return qty * area * p.price;
