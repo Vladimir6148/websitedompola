@@ -275,11 +275,11 @@ function main() {
       name: `Ламинат ${name}`,
       slug,
       sku,
-      description: `Ламинат ${name}. Цена указана за пачку.`,
+      description: `Ламинат ${name}. Цена указана за упаковку.`,
       price: packPrice,
       oldPrice: null,
       discountPercent: null,
-      unit: 'пачка',
+      unit: 'упаковка',
       packQty: null,
       packArea: null,
       thickness: old?.thickness ?? null,
@@ -320,7 +320,7 @@ function main() {
       },
       images,
       characteristics: [
-        { key: 'price_basis', label: 'Цена', value: 'за пачку', sortOrder: 0 },
+        { key: 'price_basis', label: 'Цена', value: 'за упаковку', sortOrder: 0 },
         ...(article
           ? [{ key: 'article', label: 'Артикул', value: article, sortOrder: 1 }]
           : []),

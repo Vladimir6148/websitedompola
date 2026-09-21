@@ -76,11 +76,21 @@ router.get(
     }
 
     if (typeof brand === 'string' && brand) {
-      where.brand = { OR: [{ slug: brand }, { id: brand }] };
+      const slugs = brand.split(',').map((s) => s.trim()).filter(Boolean);
+      if (slugs.length > 1) {
+        where.brand = { slug: { in: slugs } };
+      } else if (slugs.length === 1) {
+        where.brand = { OR: [{ slug: slugs[0] }, { id: slugs[0] }] };
+      }
     }
 
     if (typeof collection === 'string' && collection) {
-      where.collection = { OR: [{ slug: collection }, { id: collection }] };
+      const slugs = collection.split(',').map((s) => s.trim()).filter(Boolean);
+      if (slugs.length > 1) {
+        where.collection = { slug: { in: slugs } };
+      } else if (slugs.length === 1) {
+        where.collection = { OR: [{ slug: slugs[0] }, { id: slugs[0] }] };
+      }
     }
 
     if (minPrice || maxPrice) {

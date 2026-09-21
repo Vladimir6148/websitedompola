@@ -140,11 +140,16 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
       );
     }
     if (brand) {
-      items = items.filter((p) => p.brand?.slug === brand || p.brand?.id === brand);
+      const slugs = brand.split(',').map((s) => s.trim()).filter(Boolean);
+      items = items.filter(
+        (p) => slugs.includes(p.brand?.slug || '') || slugs.includes(p.brand?.id || ''),
+      );
     }
     if (collection) {
+      const slugs = collection.split(',').map((s) => s.trim()).filter(Boolean);
       items = items.filter(
-        (p) => p.collection?.slug === collection || p.collection?.id === collection,
+        (p) =>
+          slugs.includes(p.collection?.slug || '') || slugs.includes(p.collection?.id || ''),
       );
     }
     if (minPrice) items = items.filter((p) => p.price >= Number(minPrice));

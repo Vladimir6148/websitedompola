@@ -133,23 +133,33 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           onWheel={onWheel}
         >
           <div className="relative min-h-[52vh] w-full md:min-h-[400px] lg:min-h-[460px]">
-            {items.map((slide, i) => (
+            {items.map((slide, i) => {
+              const active = i === index;
+              const preloadNext = i === (index + 1) % items.length;
+              const shouldLoad = active || preloadNext;
+              return (
               <div
                 key={slide.id}
                 className={`absolute inset-0 transition-opacity duration-700 ${
-                  i === index ? 'opacity-100' : 'pointer-events-none opacity-0'
+                  active ? 'opacity-100' : 'pointer-events-none opacity-0'
                 }`}
-                aria-hidden={i !== index}
+                aria-hidden={!active}
               >
-                <SmartImage
-                  src={slide.image}
-                  fallback="images/wood.webp"
-                  alt={slide.title}
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                />
+                {shouldLoad ? (
+                  <SmartImage
+                    src={slide.image}
+                    fallback="images/wood.webp"
+                    alt={slide.title}
+                    className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+                    loading={active ? 'eager' : 'lazy'}
+                    priority={active}
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-ink/40" aria-hidden />
+                )}
               </div>
-            ))}
+              );
+            })}
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent md:via-ink/35" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-ink/25" />

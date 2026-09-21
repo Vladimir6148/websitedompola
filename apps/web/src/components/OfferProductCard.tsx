@@ -5,6 +5,7 @@ import { formatPrice, primaryImage } from '../lib/api';
 import {
   formatBoardSize,
   formatPackArea,
+  formatUnit,
   isPackPriced,
   isPackSold,
   packPrice,
@@ -13,7 +14,7 @@ import {
 import { useCart } from '../store/cart';
 import { SmartImage } from './SmartImage';
 
-export function OfferProductCard({ product }: { product: Product }) {
+export function OfferProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { add } = useCart();
   const image = primaryImage(product);
   const discount =
@@ -35,6 +36,7 @@ export function OfferProductCard({ product }: { product: Product }) {
           src={image}
           alt={product.images?.[0]?.alt || product.name}
           className="h-full w-full object-cover"
+          priority={priority}
         />
         {hasDeal ? (
           <div className="absolute left-2 right-2 top-2 z-10 flex flex-wrap items-center gap-1.5 sm:left-3 sm:right-3 sm:top-3">
@@ -56,11 +58,11 @@ export function OfferProductCard({ product }: { product: Product }) {
         <div>
           <div className="text-lg font-bold leading-none text-[#e11d48] sm:text-xl">
             {formatPrice(product.price)}
-            <span className="ml-0.5 text-sm font-semibold">/{product.unit}</span>
+            <span className="ml-0.5 text-sm font-semibold">/{formatUnit(product.unit)}</span>
           </div>
           {showPackAlt ? (
             <div className="mt-1 text-sm font-semibold text-graphite">
-              {formatPrice(pPack)}/упак
+              {formatPrice(pPack)}/{formatUnit(product.unit, { short: true })}
             </div>
           ) : null}
         </div>

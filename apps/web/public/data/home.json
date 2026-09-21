@@ -375,7 +375,7 @@
       "images": [
         {
           "id": "img_b86f51f5d24f2a38",
-          "url": "https://primavera-opt.ru/image/cache/catalog/products/2/oad-iblock-1b4-uvhzgkljrq51hpqlvxev819hbfi4ibbn-MELTON-BROWN-_-BS-445x445.jpg",
+          "url": "images/remote/oad-iblock-1b4-uvhzgkljrq51hpqlvxev819hbfi4ibbn-melton-brown-_-bs-445x445.webp",
           "alt": "Primavera (CR101) Ayton Brown",
           "isPrimary": true,
           "sortOrder": 0,
@@ -449,7 +449,7 @@
       "images": [
         {
           "id": "img_effde66a5a8faec9",
-          "url": "https://primavera-opt.ru/image/cache/catalog/products/8/oad-iblock-5b8-slkj96ylxbylxhptiqnpl9mztcdwqq7d-FIJI-GREY-_-BS-445x445.jpg",
+          "url": "images/remote/oad-iblock-5b8-slkj96ylxbylxhptiqnpl9mztcdwqq7d-fiji-grey-_-bs-445x445.webp",
           "alt": "Primavera (CR102) Fiji Grey",
           "isPrimary": true,
           "sortOrder": 0,
@@ -523,7 +523,7 @@
       "images": [
         {
           "id": "img_bdb2748ead3aa56d",
-          "url": "https://primavera-opt.ru/image/cache/catalog/products/3/oad-iblock-2b1-rro2hxrndowucf0qk5o3xjnhauejj95c-BLANCO-TRANCO-_-BS-445x445.jpg",
+          "url": "images/remote/oad-iblock-2b1-rro2hxrndowucf0qk5o3xjnhauejj95c-blanco-tranco-_-bs-445x445.webp",
           "alt": "Primavera (CR103) Blanco Tranco",
           "isPrimary": true,
           "sortOrder": 0,
@@ -597,7 +597,7 @@
       "images": [
         {
           "id": "img_01fae6926ca6e2ae",
-          "url": "https://primavera-opt.ru/image/cache/catalog/products/4/oad-iblock-094-um6snys6sm7eef6t4msldho6c97x06dc-OLIMPO-BLANCO_L-445x445.jpg",
+          "url": "images/remote/oad-iblock-094-um6snys6sm7eef6t4msldho6c97x06dc-olimpo-blanco_l-445x445.webp",
           "alt": "Primavera (CR104) Maverick White",
           "isPrimary": true,
           "sortOrder": 0,
@@ -625,11 +625,11 @@
       "name": "ПВХ Chevron Alpine ECO 18-1 MC Дуб Фантазия",
       "slug": "kv-chevron-alpine-eco-18-1-mc-dub-fantaziya",
       "sku": "PVH-ECO18-1MC",
-      "description": "Chevron Alpine ECO 18-1 MC Дуб Фантазия. Цена указана за пачку (упаковку).",
+      "description": "Chevron Alpine ECO 18-1 MC Дуб Фантазия. Цена указана за упаковку.",
       "price": 8815.76,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -682,7 +682,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -699,11 +699,11 @@
       "name": "ПВХ Chevron Alpine ECO 18-10 MC Гевуина",
       "slug": "kv-chevron-alpine-eco-18-10-mc-gevuina",
       "sku": "PVH-ECO18-10MC",
-      "description": "Chevron Alpine ECO 18-10 MC Гевуина. Цена указана за пачку (упаковку).",
+      "description": "Chevron Alpine ECO 18-10 MC Гевуина. Цена указана за упаковку.",
       "price": 8815.76,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -756,7 +756,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -773,11 +773,11 @@
       "name": "ПВХ Chevron Alpine ECO 18-11 MC Карите",
       "slug": "kv-chevron-alpine-eco-18-11-mc-karite",
       "sku": "PVH-ECO18-11MC",
-      "description": "Chevron Alpine ECO 18-11 MC Карите. Цена указана за пачку (упаковку).",
+      "description": "Chevron Alpine ECO 18-11 MC Карите. Цена указана за упаковку.",
       "price": 8815.76,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -830,7 +830,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -847,11 +847,11 @@
       "name": "ПВХ Chevron Alpine ECO 18-12 MC Дуб Мокка",
       "slug": "kv-chevron-alpine-eco-18-12-mc-dub-mokka",
       "sku": "PVH-ECO18-12MC",
-      "description": "Chevron Alpine ECO 18-12 MC Дуб Мокка. Цена указана за пачку (упаковку).",
+      "description": "Chevron Alpine ECO 18-12 MC Дуб Мокка. Цена указана за упаковку.",
       "price": 8815.76,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -904,7 +904,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -921,11 +921,11 @@
       "name": "Ламинат AGT Bering PRK004 PASIFIK",
       "slug": "laminat-agt-bering-prk004-pasifik",
       "sku": "LAM-PRK004",
-      "description": "Ламинат AGT Bering PRK004 PASIFIK. Цена указана за пачку.",
+      "description": "Ламинат AGT Bering PRK004 PASIFIK. Цена указана за упаковку.",
       "price": 3283.5,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -978,7 +978,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -995,11 +995,11 @@
       "name": "Ламинат AGT Bering PRK1106 LUGANO",
       "slug": "laminat-agt-bering-prk1106-lugano",
       "sku": "LAM-PRK1106",
-      "description": "Ламинат AGT Bering PRK1106 LUGANO. Цена указана за пачку.",
+      "description": "Ламинат AGT Bering PRK1106 LUGANO. Цена указана за упаковку.",
       "price": 3283.5,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -1052,7 +1052,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -1069,11 +1069,11 @@
       "name": "Ламинат AGT Bering PRK1109 PORTO",
       "slug": "laminat-agt-bering-prk1109-porto",
       "sku": "LAM-PRK1109",
-      "description": "Ламинат AGT Bering PRK1109 PORTO. Цена указана за пачку.",
+      "description": "Ламинат AGT Bering PRK1109 PORTO. Цена указана за упаковку.",
       "price": 3283.5,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -1126,7 +1126,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {
@@ -1143,11 +1143,11 @@
       "name": "Ламинат AGT Bering PRK509 RODOS",
       "slug": "laminat-agt-bering-prk509-rodos",
       "sku": "LAM-PRK509",
-      "description": "Ламинат AGT Bering PRK509 RODOS. Цена указана за пачку.",
+      "description": "Ламинат AGT Bering PRK509 RODOS. Цена указана за упаковку.",
       "price": 3283.5,
       "oldPrice": null,
       "discountPercent": null,
-      "unit": "пачка",
+      "unit": "упаковка",
       "packQty": null,
       "packArea": null,
       "thickness": null,
@@ -1200,7 +1200,7 @@
         {
           "key": "price_basis",
           "label": "Цена",
-          "value": "за пачку",
+          "value": "за упаковку",
           "sortOrder": 0
         },
         {

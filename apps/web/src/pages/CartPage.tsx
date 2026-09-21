@@ -3,7 +3,7 @@ import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
-import { formatPackArea, isPackPriced, lineTotal, packsToArea } from '../lib/packaging';
+import { formatPackArea, formatUnit, isPackPriced, lineTotal, packsToArea } from '../lib/packaging';
 import { useCart } from '../store/cart';
 
 export function CartPage() {
@@ -54,15 +54,15 @@ export function CartPage() {
                         {item.name}
                       </Link>
                       <div className="text-sm text-graphite/50">
-                        {formatPrice(item.price)} / {item.unit}
+                        {formatPrice(item.price)} / {formatUnit(item.unit)}
                         {showM2PackPrice
-                          ? ` · ${formatPrice(item.price * item.packArea!)} / упак`
+                          ? ` · ${formatPrice(item.price * item.packArea!)} / ${formatUnit(item.unit, { short: true })}`
                           : null}
                       </div>
                       {area != null ? (
                         <div className="mt-1 text-sm text-graphite/60">
                           {formatPackArea(area)} м² · {item.quantity}{' '}
-                          {item.quantity === 1 ? 'упаковка' : 'уп.'}
+                          {formatUnit(item.unit, { short: item.quantity !== 1 })}
                         </div>
                       ) : null}
                       <div className="mt-auto flex flex-wrap items-center gap-3 pt-3">
@@ -91,7 +91,7 @@ export function CartPage() {
                             +
                           </button>
                           <span className="text-sm text-graphite/50">
-                            {item.soldByPack ? 'уп.' : item.unit}
+                            {item.soldByPack ? 'уп.' : formatUnit(item.unit)}
                           </span>
                         </div>
                         <div className="font-semibold">{formatPrice(line)}</div>

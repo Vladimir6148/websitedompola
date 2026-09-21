@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { BrandMark } from './BrandMark';
 
 export function Footer() {
   return (
     <footer className="mt-auto bg-graphite text-white">
       <div className="container-dp grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="font-display text-2xl font-bold text-white">ДОМПОЛА</div>
+          <BrandMark size="lg" />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/70">
             Розничная сеть магазинов напольных покрытий
           </p>

@@ -10,6 +10,7 @@ import {
   canRoomCalculate,
   formatBoardSize,
   formatPackArea,
+  formatUnit,
   isPackPriced,
   isPackSold,
   lineTotal,
@@ -194,13 +195,15 @@ export function ProductPage() {
               <div className={`mt-1 text-3xl font-bold md:text-4xl ${hasPrice(product.price) ? 'text-[#e11d48]' : 'text-graphite'}`}>
                 {formatPrice(product.price)}
                 {hasPrice(product.price) ? (
-                  <span className="text-lg font-semibold">/{product.unit}</span>
+                  <span className="text-lg font-semibold">/{formatUnit(product.unit)}</span>
                 ) : (
                   <span className="ml-2 text-base font-semibold text-graphite/50">цену уточняйте</span>
                 )}
               </div>
               {hasPrice(product.price) && byPack && pPack != null && !isPackPriced(product) ? (
-                <div className="mt-1 text-lg font-bold text-graphite">{formatPrice(pPack)}/упак</div>
+                <div className="mt-1 text-lg font-bold text-graphite">
+                  {formatPrice(pPack)}/{formatUnit(product.unit, { short: true })}
+                </div>
               ) : null}
             </div>
 
@@ -208,7 +211,7 @@ export function ProductPage() {
               <div className="font-semibold">{stock ? stockLabel(stock.status) : 'Уточняйте наличие'}</div>
               <div className="text-graphite/60">
                 {city?.name || 'Город не выбран'}
-                {stock?.quantity ? ` · ${stock.quantity} ${byPack ? 'уп.' : product.unit}` : ''}
+                {stock?.quantity ? ` · ${stock.quantity} ${byPack ? 'уп.' : formatUnit(product.unit)}` : ''}
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {product.stocks.map((s) => (

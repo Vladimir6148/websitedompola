@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Layers, PanelBottom, Pipette, SlidersHorizontal, X } from 'lucide-react';
+import { Layers, PanelBottom, Pipette, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { api } from '../lib/api';
@@ -16,6 +16,11 @@ const ACCESSORY_CHIPS = [
 ] as const;
 
 const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
+const CATEGORY_ORDER = ['mspc', 'quartzvinyl-spc', 'laminate', 'linoleum', 'porcelain', 'parquet'];
+const BRAND_PREVIEW = 4;
+const COLLECTION_PREVIEW = 3;
+const BRAND_PREVIEW_DESKTOP = 6;
+const COLLECTION_PREVIEW_DESKTOP = 5;
 
 function productWord(n: number) {
   const mod10 = n % 10;
@@ -25,16 +30,223 @@ function productWord(n: number) {
   return 'товаров';
 }
 
+function parseList(value: string) {
+  return value
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function joinList(values: string[]) {
+  return values.filter(Boolean).join(',');
+}
+
+type OptionItem = { slug: string; name: string };
+
+function useIsDesktop(minWidth = 1024) {
+  const [desktop, setDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia(`(min-width: ${minWidth}px)`).matches : false,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${minWidth}px)`);
+    const onChange = () => setDesktop(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [minWidth]);
+  return desktop;
+}
+
+function chipClass(active: boolean, tone: 'neutral' | 'accent' = 'neutral') {
+  if (active) {
+    return 'whitespace-nowrap rounded-full bg-brand px-3.5 py-1.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(31,138,61,0.22)] transition';
+  }
+  if (tone === 'accent') {
+    return 'whitespace-nowrap rounded-full border border-brand/25 bg-brand/[0.06] px-3.5 py-1.5 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white';
+  }
+  return 'whitespace-nowrap rounded-full border border-graphite/10 bg-white px-3.5 py-1.5 text-sm font-medium text-graphite/80 transition hover:border-brand/35 hover:text-brand';
+}
+
+function OptionPickerModal({
+  title,
+  options,
+  selected,
+  onClose,
+  onApply,
+  applyLabel,
+  searchPlaceholder = 'Поиск',
+}: {
+  title: string;
+  options: OptionItem[];
+  selected: string[];
+  onClose: () => void;
+  onApply: (next: string[]) => void;
+  applyLabel: string;
+  searchPlaceholder?: string;
+}) {
+  const [query, setQuery] = useState('');
+  const [draft, setDraft] = useState<string[]>(selected);
+
+  useEffect(() => {
+    setDraft(selected);
+  }, [selected]);
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return options;
+    return options.filter((o) => o.name.toLowerCase().includes(q) || o.slug.toLowerCase().includes(q));
+  }, [options, query]);
+
+  function toggle(slug: string) {
+    setDraft((prev) => (prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]));
+  }
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[10000]" role="dialog" aria-modal="true" aria-label={title}>
+      <button type="button" className="absolute inset-0 bg-ink/55" aria-label="Закрыть" onClick={onClose} />
+      <div className="absolute inset-x-3 top-[12%] mx-auto flex max-h-[76vh] w-full max-w-md flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:inset-x-auto sm:left-1/2 sm:w-[28rem] sm:-translate-x-1/2">
+        <div className="flex items-center justify-between border-b border-graphite/10 px-4 py-3">
+          <h2 className="font-display text-lg font-semibold text-graphite">{title}</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Закрыть"
+            className="grid h-8 w-8 place-items-center rounded-full text-graphite hover:bg-mist"
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className="border-b border-graphite/8 px-4 py-3">
+          <label className="flex items-center gap-2 rounded-xl border border-graphite/15 px-3 py-2.5">
+            <Search size={16} className="shrink-0 text-graphite/40" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={searchPlaceholder}
+              className="w-full bg-transparent text-sm outline-none placeholder:text-graphite/40"
+            />
+          </label>
+        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-2 [scrollbar-width:thin] [scrollbar-color:rgba(15,92,40,0.28)_transparent]">
+          {filtered.length ? (
+            filtered.map((o) => {
+              const checked = draft.includes(o.slug);
+              return (
+                <label
+                  key={o.slug}
+                  className="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-graphite hover:bg-mist"
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggle(o.slug)}
+                    className="h-4 w-4 accent-[var(--color-brand)]"
+                  />
+                  <span className={checked ? 'font-semibold text-brand' : ''}>{o.name}</span>
+                </label>
+              );
+            })
+          ) : (
+            <p className="px-3 py-6 text-center text-sm text-graphite/50">Ничего не найдено</p>
+          )}
+        </div>
+        <div className="border-t border-graphite/10 p-3">
+          <button
+            type="button"
+            onClick={() => {
+              onApply(draft);
+              onClose();
+            }}
+            className="btn-primary w-full"
+          >
+            {applyLabel}
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+function CompactChipRow({
+  label,
+  items,
+  selected,
+  preview,
+  allLabel,
+  onSelectOne,
+  onClear,
+  onOpenMore,
+}: {
+  label: string;
+  items: OptionItem[];
+  selected: string[];
+  preview: number;
+  allLabel: string;
+  onSelectOne: (slug: string) => void;
+  onClear: () => void;
+  onOpenMore: () => void;
+}) {
+  const selectedSet = new Set(selected);
+  const selectedItems = items.filter((i) => selectedSet.has(i.slug));
+  const otherItems = items.filter((i) => !selectedSet.has(i.slug));
+  const visible = [...selectedItems, ...otherItems].slice(0, Math.max(preview, selectedItems.length));
+  const visibleSlugs = new Set(visible.map((i) => i.slug));
+  const rest = Math.max(0, items.length - visibleSlugs.size);
+
+  return (
+    <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
+      <div className="shrink-0 text-[13px] font-semibold text-graphite/55 lg:w-24 lg:text-right">
+        {label}
+      </div>
+      <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
+        <button type="button" onClick={onClear} className={chipClass(selected.length === 0)}>
+          {allLabel}
+        </button>
+        {visible.map((item) => (
+          <button
+            key={item.slug}
+            type="button"
+            onClick={() => onSelectOne(item.slug)}
+            className={chipClass(selected.includes(item.slug))}
+          >
+            {item.name}
+          </button>
+        ))}
+        {rest > 0 ? (
+          <button type="button" onClick={onOpenMore} className={chipClass(false, 'accent')}>
+            + ещё {rest}
+          </button>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 export function CatalogPage() {
   const { categorySlug } = useParams();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
+  const isDesktop = useIsDesktop(1024);
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [data, setData] = useState<ProductsResponse | null>(null);
   const [categoryPool, setCategoryPool] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [brandModalOpen, setBrandModalOpen] = useState(false);
+  const [collectionModalOpen, setCollectionModalOpen] = useState(false);
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const productsTopRef = useRef<HTMLDivElement>(null);
   const shouldScrollToProducts = useRef(false);
 
@@ -50,6 +262,9 @@ export function CatalogPage() {
   const underfloorHeating = params.get('underfloorHeating') || '';
   const accessoryChip = params.get('chip') || '';
   const prevPageRef = useRef(page);
+
+  const brandSlugs = useMemo(() => parseList(brand), [brand]);
+  const collectionSlugs = useMemo(() => parseList(collection), [collection]);
 
   const inAccessorySection = Boolean(
     categorySlug && ACCESSORY_SLUGS.includes(categorySlug as (typeof ACCESSORY_SLUGS)[number]),
@@ -198,33 +413,46 @@ export function CatalogPage() {
     };
   }, [filtersOpen]);
 
-  const flooringCategories = useMemo(
-    () => categories.filter((c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number])),
-    [categories],
-  );
+  const flooringCategories = useMemo(() => {
+    const list = categories.filter(
+      (c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number]),
+    );
+    return list.sort((a, b) => {
+      const ai = CATEGORY_ORDER.indexOf(a.slug);
+      const bi = CATEGORY_ORDER.indexOf(b.slug);
+      const av = ai === -1 ? 999 : ai;
+      const bv = bi === -1 ? 999 : bi;
+      if (av !== bv) return av - bv;
+      return a.name.localeCompare(b.name, 'ru');
+    });
+  }, [categories]);
 
   const brandChips = useMemo(() => {
     const map = new Map<string, string>();
     for (const p of categoryPool) {
       if (p.brand?.slug && p.brand?.name) map.set(p.brand.slug, p.brand.name);
     }
-    return [...map.entries()].sort((a, b) => a[1].localeCompare(b[1], 'ru'));
+    return [...map.entries()]
+      .map(([slug, name]) => ({ slug, name }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
   }, [categoryPool]);
 
   const collectionChips = useMemo(() => {
-    if (!brand) return [];
     const map = new Map<string, string>();
     for (const p of categoryPool) {
-      if (p.brand?.slug !== brand) continue;
+      if (brandSlugs.length && !brandSlugs.includes(p.brand?.slug || '')) continue;
       if (p.collection?.slug && p.collection?.name) {
         map.set(p.collection.slug, p.collection.name);
       }
     }
-    return [...map.entries()].sort((a, b) => a[1].localeCompare(b[1], 'ru'));
-  }, [categoryPool, brand]);
+    return [...map.entries()]
+      .map(([slug, name]) => ({ slug, name }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  }, [categoryPool, brandSlugs]);
 
   const collectionGroups = useMemo(() => {
-    if (!brand) return [];
+    // Group grid by collection only when a brand is narrowed (keeps "Все" view flat).
+    if (!brandSlugs.length) return [];
     const items = data?.items || [];
     const map = new Map<string, typeof items>();
     for (const p of items) {
@@ -233,7 +461,7 @@ export function CatalogPage() {
       map.get(key)!.push(p);
     }
     return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
-  }, [data, brand]);
+  }, [data, brandSlugs]);
 
   const coatingValue = inAccessorySection
     ? 'accessories'
@@ -247,13 +475,44 @@ export function CatalogPage() {
     setParams(next);
   }
 
-  function setBrand(slug: string) {
+  function setBrandList(slugs: string[]) {
     const next = new URLSearchParams(params);
-    if (!slug) next.delete('brand');
-    else next.set('brand', slug);
-    next.delete('collection');
+    const value = joinList(slugs);
+    if (!value) next.delete('brand');
+    else next.set('brand', value);
+    // Keep only collections that still exist for the selected brand scope
+    if (collectionSlugs.length) {
+      const allowed = new Set<string>();
+      for (const p of categoryPool) {
+        if (slugs.length && !slugs.includes(p.brand?.slug || '')) continue;
+        if (p.collection?.slug) allowed.add(p.collection.slug);
+      }
+      const kept = collectionSlugs.filter((s) => allowed.has(s));
+      if (!kept.length) next.delete('collection');
+      else next.set('collection', joinList(kept));
+    }
     next.delete('page');
     setParams(next);
+  }
+
+  function setCollectionList(slugs: string[]) {
+    update('collection', joinList(slugs));
+  }
+
+  function toggleBrandChip(slug: string) {
+    if (brandSlugs.includes(slug) && brandSlugs.length === 1) {
+      setBrandList([]);
+      return;
+    }
+    setBrandList([slug]);
+  }
+
+  function toggleCollectionChip(slug: string) {
+    if (collectionSlugs.includes(slug) && collectionSlugs.length === 1) {
+      setCollectionList([]);
+      return;
+    }
+    setCollectionList([slug]);
   }
 
   function setCoatingType(slug: string) {
@@ -338,13 +597,13 @@ export function CatalogPage() {
             Бренд
           </label>
           <select
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
+            value={brandSlugs[0] || ''}
+            onChange={(e) => setBrandList(e.target.value ? [e.target.value] : [])}
             className="w-full rounded-md border border-graphite/15 px-3 py-2 text-sm"
           >
             <option value="">Любой</option>
             {(brandChips.length
-              ? brandChips.map(([slug, name]) => ({ slug, name }))
+              ? brandChips
               : brands.map((b) => ({ slug: b.slug, name: b.name }))
             ).map((b) => (
               <option key={b.slug} value={b.slug}>
@@ -505,7 +764,7 @@ export function CatalogPage() {
           </div>
         </div>
 
-        <div className={`mb-6 ${inAccessorySection ? 'grid grid-cols-4 gap-2' : 'flex gap-2 overflow-x-auto pb-2'}`}>
+        <div className={`mb-6 ${inAccessorySection ? 'grid grid-cols-4 gap-2' : ''}`}>
           {inAccessorySection ? (
             <>
               <Link
@@ -541,85 +800,56 @@ export function CatalogPage() {
               })}
             </>
           ) : (
-            <>
-              <Link
-                to="/catalog"
-                className={`whitespace-nowrap rounded-full px-4 py-2 text-sm ${!categorySlug ? 'bg-brand text-white' : 'bg-mist text-graphite'}`}
-              >
-                Все
-              </Link>
-              {categories
-                .filter((c) => !ACCESSORY_SLUGS.includes(c.slug as (typeof ACCESSORY_SLUGS)[number]))
-                .map((c) => (
-                  <Link
-                    key={c.id}
-                    to={`/catalog/${c.slug}`}
-                    className={`whitespace-nowrap rounded-full px-4 py-2 text-sm ${categorySlug === c.slug ? 'bg-brand text-white' : 'bg-mist text-graphite'}`}
-                  >
-                    {c.name}
+            <div className="space-y-3 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-3 shadow-[0_8px_24px_rgba(15,92,40,0.04)] sm:space-y-3.5 sm:p-4 lg:p-5">
+              <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
+                <div className="hidden shrink-0 text-[13px] font-semibold text-graphite/55 lg:block lg:w-24 lg:text-right">
+                  Покрытие
+                </div>
+                <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
+                  <Link to="/catalog" className={chipClass(!categorySlug)}>
+                    Все
                   </Link>
-                ))}
-              <Link
-                to="/catalog/accessories"
-                className="whitespace-nowrap rounded-full bg-mist px-4 py-2 text-sm text-graphite"
-              >
-                Комплектующие
-              </Link>
-            </>
+                  {flooringCategories.map((c) => (
+                    <Link key={c.id} to={`/catalog/${c.slug}`} className={chipClass(categorySlug === c.slug)}>
+                      {c.name}
+                    </Link>
+                  ))}
+                  <button type="button" onClick={() => setCategoryModalOpen(true)} className={chipClass(false, 'accent')}>
+                    Все категории →
+                  </button>
+                </div>
+              </div>
+
+              {!inAccessorySection && categorySlug && brandChips.length > 0 ? (
+                <CompactChipRow
+                  label="Бренд"
+                  items={brandChips}
+                  selected={brandSlugs}
+                  preview={isDesktop ? BRAND_PREVIEW_DESKTOP : BRAND_PREVIEW}
+                  allLabel="Все бренды"
+                  onClear={() => setBrandList([])}
+                  onSelectOne={toggleBrandChip}
+                  onOpenMore={() => setBrandModalOpen(true)}
+                />
+              ) : null}
+
+              {!inAccessorySection && categorySlug && collectionChips.length > 0 ? (
+                <CompactChipRow
+                  label="Коллекция"
+                  items={collectionChips}
+                  selected={collectionSlugs}
+                  preview={isDesktop ? COLLECTION_PREVIEW_DESKTOP : COLLECTION_PREVIEW}
+                  allLabel="Все коллекции"
+                  onClear={() => setCollectionList([])}
+                  onSelectOne={toggleCollectionChip}
+                  onOpenMore={() => setCollectionModalOpen(true)}
+                />
+              ) : null}
+            </div>
           )}
         </div>
 
         <div ref={productsTopRef} className="scroll-mt-28">
-          {!inAccessorySection && categorySlug && brandChips.length > 0 ? (
-            <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
-              <button
-                type="button"
-                onClick={() => setBrand('')}
-                className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
-                  !brand ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
-                }`}
-              >
-                Все бренды
-              </button>
-              {brandChips.map(([slug, name]) => (
-                <button
-                  key={slug}
-                  type="button"
-                  onClick={() => setBrand(slug)}
-                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
-                    brand === slug ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          ) : null}
-          {brand && collectionChips.length > 0 ? (
-            <div className="mb-5 flex gap-2 overflow-x-auto pb-1">
-              <button
-                type="button"
-                onClick={() => update('collection', '')}
-                className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
-                  !collection ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
-                }`}
-              >
-                Все коллекции
-              </button>
-              {collectionChips.map(([slug, name]) => (
-                <button
-                  key={slug}
-                  type="button"
-                  onClick={() => update('collection', slug)}
-                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold transition ${
-                    collection === slug ? 'bg-brand text-white' : 'bg-mist text-graphite hover:text-brand'
-                  }`}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          ) : null}
           {loading ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -628,7 +858,7 @@ export function CatalogPage() {
             </div>
           ) : data?.items?.length ? (
             <>
-              {collectionGroups.length > 1 && !collection ? (
+              {collectionGroups.length > 1 && collectionSlugs.length === 0 ? (
                 <div className="space-y-10">
                   {collectionGroups.map(([name, items]) => (
                     <section key={name}>
@@ -685,6 +915,87 @@ export function CatalogPage() {
               />
               <div className="absolute inset-y-0 right-0 flex h-full w-[90%] max-w-sm bg-white shadow-2xl">
                 {filterPanel}
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
+
+      {brandModalOpen ? (
+        <OptionPickerModal
+          title="Бренды"
+          options={brandChips}
+          selected={brandSlugs}
+          onClose={() => setBrandModalOpen(false)}
+          onApply={setBrandList}
+          applyLabel={`Показать ${data?.total ?? 0} ${productWord(data?.total ?? 0)}`}
+          searchPlaceholder="Поиск бренда"
+        />
+      ) : null}
+
+      {collectionModalOpen ? (
+        <OptionPickerModal
+          title="Коллекции"
+          options={collectionChips}
+          selected={collectionSlugs}
+          onClose={() => setCollectionModalOpen(false)}
+          onApply={setCollectionList}
+          applyLabel={`Показать ${data?.total ?? 0} ${productWord(data?.total ?? 0)}`}
+          searchPlaceholder="Поиск коллекции"
+        />
+      ) : null}
+
+      {categoryModalOpen && typeof document !== 'undefined'
+        ? createPortal(
+            <div className="fixed inset-0 z-[10000]" role="dialog" aria-modal="true" aria-label="Категории">
+              <button
+                type="button"
+                className="absolute inset-0 bg-ink/55"
+                aria-label="Закрыть"
+                onClick={() => setCategoryModalOpen(false)}
+              />
+              <div className="absolute inset-x-3 top-[16%] mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl sm:left-1/2 sm:-translate-x-1/2">
+                <div className="flex items-center justify-between border-b border-graphite/10 px-4 py-3">
+                  <h2 className="font-display text-lg font-semibold">Категории</h2>
+                  <button
+                    type="button"
+                    onClick={() => setCategoryModalOpen(false)}
+                    className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
+                    aria-label="Закрыть"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+                <div className="max-h-[60vh] overflow-y-auto p-2">
+                  <Link
+                    to="/catalog"
+                    onClick={() => setCategoryModalOpen(false)}
+                    className={`block rounded-xl px-3 py-2.5 text-sm font-semibold ${
+                      !categorySlug ? 'bg-mist text-brand' : 'text-graphite hover:bg-mist'
+                    }`}
+                  >
+                    Все покрытия
+                  </Link>
+                  {flooringCategories.map((c) => (
+                    <Link
+                      key={c.id}
+                      to={`/catalog/${c.slug}`}
+                      onClick={() => setCategoryModalOpen(false)}
+                      className={`block rounded-xl px-3 py-2.5 text-sm font-semibold ${
+                        categorySlug === c.slug ? 'bg-mist text-brand' : 'text-graphite hover:bg-mist'
+                      }`}
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                  <Link
+                    to="/catalog/accessories"
+                    onClick={() => setCategoryModalOpen(false)}
+                    className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-graphite hover:bg-mist"
+                  >
+                    Комплектующие
+                  </Link>
+                </div>
               </div>
             </div>,
             document.body,

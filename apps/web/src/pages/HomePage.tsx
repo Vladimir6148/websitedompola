@@ -53,12 +53,17 @@ export function HomePage() {
       '/api/products?limit=48&sort=popular&category=laminate,quartzvinyl-spc,mspc,porcelain,parquet,linoleum',
     )
       .then((res) => {
-        const withDiscount = res.items.filter((p) => p.oldPrice && p.oldPrice > p.price);
-        const featured = res.items.filter((p) => p.featured);
-        const list = (withDiscount.length ? withDiscount : featured.length ? featured : res.items).slice(
-          0,
-          8,
-        );
+        const items = res.items || [];
+        const withDiscount = items.filter((p) => p.oldPrice && p.oldPrice > p.price);
+        const featured = items.filter((p) => p.featured);
+        const seen = new Set<string>();
+        const list: Product[] = [];
+        for (const p of [...withDiscount, ...featured, ...items]) {
+          if (!p?.id || seen.has(p.id)) continue;
+          seen.add(p.id);
+          list.push(p);
+          if (list.length >= 8) break;
+        }
         if (!cancelled) setDeals(list);
       })
       .catch(() => undefined);
@@ -128,8 +133,8 @@ export function HomePage() {
           action={{ to: '/catalog', label: 'Весь каталог' }}
         />
         <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
-          {offerProducts.map((p) => (
-            <OfferProductCard key={p.id} product={p} />
+          {offerProducts.map((p, i) => (
+            <OfferProductCard key={p.id} product={p} priority={i < 4} />
           ))}
         </div>
       </section>
@@ -143,8 +148,8 @@ export function HomePage() {
             action={{ to: '/catalog', label: 'В каталог' }}
           />
           <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:grid-cols-4">
-            {(data?.featured || []).slice(0, 8).map((p) => (
-              <OfferProductCard key={p.id} product={p} />
+            {(data?.featured || []).slice(0, 8).map((p, i) => (
+              <OfferProductCard key={p.id} product={p} priority={i < 4} />
             ))}
           </div>
         </div>

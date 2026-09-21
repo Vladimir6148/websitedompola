@@ -2,7 +2,7 @@
 
  * Two models:
  * 1) Price per м² + packArea → sold in whole packs (room calculator enabled)
- * 2) Price per пачка/упак → cart qty is packs; room calc only if packArea known
+ * 2) Price per упаковка/уп. → cart qty is packs; room calc only if packArea known
  */
 
 export type PackDims = {
@@ -20,10 +20,21 @@ function normUnit(unit?: string | null) {
     .replace(/\s+/g, '');
 }
 
-/** Catalog price is already for one pack (пачка / упак / уп.). */
+/** Catalog price is already for one pack (упаковка / уп. / legacy пачка). */
 export function isPackPriced(p: PackDims): boolean {
   const u = normUnit(p.unit);
   return /пачк|упак|^уп\.?$|^уп$|pack/.test(u);
+}
+
+/** User-facing unit label: never «пачка» — only «упаковка» or short «уп.». */
+export function formatUnit(unit?: string | null, opts?: { short?: boolean }): string {
+  const raw = String(unit || '').trim();
+  if (!raw) return opts?.short ? 'уп.' : 'упаковка';
+  const u = normUnit(raw);
+  if (/пачк|упаков|упак|^уп\.?$|^уп$|pack/.test(u)) {
+    return opts?.short ? 'уп.' : 'упаковка';
+  }
+  return raw;
 }
 
 /** m² per pack: prefer stored packArea, else L×W(mm)×pieces */

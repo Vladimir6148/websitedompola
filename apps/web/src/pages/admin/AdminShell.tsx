@@ -16,6 +16,7 @@ import {
 import { useAuth } from '../../store/auth';
 import { api } from '../../lib/api';
 import type { ProductsResponse } from '../../types';
+import { BrandMark } from '../../components/BrandMark';
 import { AdminPageHeader, adminInputClass, adminPanelClass } from './adminUi';
 
 export function AdminLoginPage() {
@@ -56,8 +57,8 @@ export function AdminLoginPage() {
             <Shield size={20} strokeWidth={1.75} />
           </span>
           <div>
-            <div className="font-display text-2xl font-bold tracking-tight text-graphite">ДОМПОЛА</div>
-            <p className="text-sm text-graphite/55">Панель управления</p>
+            <BrandMark to="/admin" size="md" />
+            <p className="mt-1.5 text-sm text-graphite/55">Панель управления</p>
           </div>
         </div>
         <p className="mt-5 text-sm text-graphite/60">Вход для администраторов и менеджеров</p>
@@ -125,9 +126,7 @@ export function AdminLayout() {
     <div className="min-h-screen bg-mist">
       <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
         <div className="container-dp flex items-center gap-3 py-2.5 sm:py-3">
-          <Link to="/admin" className="shrink-0 font-display text-lg font-bold tracking-tight text-graphite">
-            ДОМПОЛА
-          </Link>
+          <BrandMark to="/admin" size="sm" />
           <nav className="hidden min-w-0 flex-1 items-center gap-1.5 overflow-x-auto lg:flex [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {nav.map((n) => {
               const Icon = n.icon;

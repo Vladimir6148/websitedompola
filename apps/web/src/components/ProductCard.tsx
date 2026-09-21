@@ -5,6 +5,7 @@ import { formatPrice, hasPrice, primaryImage } from '../lib/api';
 import {
   formatBoardSize,
   formatPackArea,
+  formatUnit,
   isPackPriced,
   isPackSold,
   packPrice,
@@ -57,10 +58,12 @@ export function ProductCard({ product }: { product: Product }) {
           <div>
             <div className="text-lg font-bold text-graphite">
               {formatPrice(product.price)}
-              {priced ? <span className="text-sm font-semibold text-graphite/50">/{product.unit}</span> : null}
+              {priced ? <span className="text-sm font-semibold text-graphite/50">/{formatUnit(product.unit)}</span> : null}
             </div>
             {showPackAlt ? (
-              <div className="text-sm font-semibold text-graphite">{formatPrice(pPack)}/упак</div>
+              <div className="text-sm font-semibold text-graphite">
+                {formatPrice(pPack)}/{formatUnit(product.unit, { short: true })}
+              </div>
             ) : null}
             {priced && product.oldPrice ? (
               <div className="text-sm text-graphite/40 line-through">{formatPrice(product.oldPrice)}</div>

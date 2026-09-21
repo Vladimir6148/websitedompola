@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
 import { useCart } from '../store/cart';
+import { BrandMark } from './BrandMark';
 import { MobileBottomNav } from './MobileBottomNav';
 import { SideNav } from './SideNav';
 
@@ -44,9 +45,7 @@ export function Header() {
             <Menu size={20} strokeWidth={1.75} />
           </button>
 
-          <Link to="/" className="shrink-0 font-display text-lg font-bold tracking-tight text-graphite sm:text-xl">
-            ДОМПОЛА
-          </Link>
+          <BrandMark size="md" />
 
           <form onSubmit={onSearch} className="hidden min-w-0 flex-1 md:block md:max-w-md lg:max-w-lg">
             <label className="flex h-10 items-center gap-2 rounded-full border border-graphite/20 bg-mist/80 px-3.5 transition focus-within:border-brand focus-within:bg-white">
@@ -91,7 +90,7 @@ export function Header() {
               <button type="button" className="absolute inset-0 bg-ink/55" aria-label="Закрыть" onClick={close} />
               <div className="absolute inset-y-0 left-0 flex h-full w-[min(92vw,20rem)] flex-col bg-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-graphite/8 px-3 py-3">
-                  <span className="font-display text-lg font-bold">ДОМПОЛА</span>
+                  <BrandMark size="sm" onClick={close} />
                   <button
                     type="button"
                     onClick={close}
