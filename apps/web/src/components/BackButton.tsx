@@ -44,7 +44,7 @@ export function BackButton({ fallback = '/', label = 'Назад' }: Props) {
       type="button"
       onClick={goBack}
       aria-label={label}
-      className="fixed bottom-[6.25rem] left-4 z-[70] hidden items-center gap-2 rounded-full border border-white/80 bg-white/75 px-4 py-3 text-sm font-semibold text-graphite shadow-[0_12px_32px_rgba(15,40,20,0.2)] backdrop-blur-md transition hover:border-brand/50 hover:bg-white/90 hover:text-brand active:scale-[0.97] md:bottom-6 md:left-6 md:inline-flex md:px-5 md:py-3.5 md:text-base"
+      className="fixed bottom-[6.25rem] left-4 z-[70] hidden items-center gap-2 overflow-hidden rounded-full border border-white/70 bg-gradient-to-b from-white/85 via-white/55 to-white/35 px-4 py-3 text-sm font-semibold text-graphite shadow-[0_10px_28px_rgba(15,40,20,0.18),inset_0_1px_0_rgba(255,255,255,0.85)] ring-1 ring-white/40 backdrop-blur-xl backdrop-saturate-150 transition hover:border-brand/40 hover:text-brand active:scale-[0.97] md:bottom-6 md:left-6 md:inline-flex md:px-5 md:py-3.5 md:text-base"
     >
       <ArrowLeft size={18} strokeWidth={2.25} className="shrink-0 text-brand" />
       <span>{label}</span>

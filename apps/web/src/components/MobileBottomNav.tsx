@@ -8,10 +8,10 @@ type Props = {
 };
 
 const glassBase =
-  'relative grid aspect-square w-full max-w-[4.25rem] place-items-center rounded-2xl border shadow-[0_12px_32px_rgba(15,40,20,0.2)] backdrop-blur-md transition active:scale-95';
+  'relative grid aspect-square w-full max-w-[4.25rem] place-items-center overflow-hidden rounded-2xl border border-white/70 bg-gradient-to-b from-white/85 via-white/55 to-white/35 shadow-[0_10px_28px_rgba(15,40,20,0.18),inset_0_1px_0_rgba(255,255,255,0.85),inset_0_-1px_0_rgba(255,255,255,0.2)] ring-1 ring-white/40 backdrop-blur-xl backdrop-saturate-150 transition active:scale-95 before:pointer-events-none before:absolute before:inset-x-1 before:top-1 before:h-2 before:rounded-full before:bg-gradient-to-b before:from-white/70 before:to-transparent';
 
-const glassIdle = `${glassBase} border-white/80 bg-white/75 text-graphite hover:border-brand/50 hover:bg-white/90 hover:text-brand`;
-const glassActive = `${glassBase} border-brand/45 bg-white/90 text-brand`;
+const glassIdle = `${glassBase} text-graphite hover:border-brand/40 hover:from-white/90 hover:via-white/65 hover:to-white/45 hover:text-brand`;
+const glassActive = `${glassBase} border-brand/40 from-white/90 via-white/70 to-white/50 text-brand ring-brand/20`;
 
 export function MobileBottomNav({ onSearch }: Props) {
   const { count } = useCart();
