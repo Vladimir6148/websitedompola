@@ -1,14 +1,65 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
 import { SmartImage } from './SmartImage';
-import type { Promotion } from '../types';
 
-type Props = {
-  slides: Promotion[];
+export type HeroSlide = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+  thumb?: string;
+  ctaLabel: string;
+  ctaTo: string;
 };
 
-export function PromoCarousel({ slides }: Props) {
-  const items = slides.filter((s) => s.active !== false && s.image);
+const FEATURES = [
+  { icon: Gem, label: 'Широкий выбор дизайнов' },
+  { icon: ShieldCheck, label: 'Гарантия качества' },
+  { icon: Truck, label: 'Доставка по региону' },
+  { icon: Percent, label: 'Выгодные цены' },
+];
+
+export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
+  {
+    id: 'laminate',
+    eyebrow: 'НАПОЛЬНЫЕ ПОКРЫТИЯ',
+    title: 'Ламинат',
+    description: 'Надёжное и стильное решение для любого интерьера',
+    image: 'images/hero/hero-laminate.webp',
+    thumb: 'images/alpine/lf100-01.webp',
+    ctaLabel: 'Подобрать ламинат по параметрам',
+    ctaTo: '/catalog/laminate',
+  },
+  {
+    id: 'spc',
+    eyebrow: 'НАПОЛЬНЫЕ ПОКРЫТИЯ',
+    title: 'Кварцвинил / SPC',
+    description: 'Влагостойкие покрытия для кухни, прихожей и тёплого пола',
+    image: 'images/hero/hero-spc.webp',
+    thumb: 'images/alta/spc1901.webp',
+    ctaLabel: 'Подобрать SPC по параметрам',
+    ctaTo: '/catalog/quartzvinyl-spc',
+  },
+  {
+    id: 'porcelain',
+    eyebrow: 'НАПОЛЬНЫЕ ПОКРЫТИЯ',
+    title: 'Керамогранит',
+    description: 'Прочный и выразительный пол для дома и коммерции',
+    image: 'images/hero/hero-porcelain.webp',
+    thumb: 'images/floor3.webp',
+    ctaLabel: 'Смотреть керамогранит',
+    ctaTo: '/catalog/porcelain',
+  },
+];
+
+type Props = {
+  slides?: HeroSlide[];
+};
+
+export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
+  const items = slides.filter((s) => s.image);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
@@ -18,7 +69,7 @@ export function PromoCarousel({ slides }: Props) {
     if (items.length <= 1 || paused) return;
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % items.length);
-    }, 5500);
+    }, 6000);
     return () => window.clearInterval(id);
   }, [items.length, paused]);
 
@@ -26,12 +77,9 @@ export function PromoCarousel({ slides }: Props) {
     setIndex(0);
   }, [items.length]);
 
-  if (!items.length) {
-    return null;
-  }
+  if (!items.length) return null;
 
   const current = items[index];
-  const detailLink = (current as Promotion & { ctaLink?: string }).ctaLink || '/promotions';
 
   function go(delta: number) {
     setIndex((i) => (i + delta + items.length) % items.length);
@@ -47,21 +95,10 @@ export function PromoCarousel({ slides }: Props) {
     pointerStart.current = null;
     if (!start || items.length <= 1) return;
     if ((e.target as HTMLElement).closest('a, button')) return;
-
     const dx = e.clientX - start.x;
     const dy = e.clientY - start.y;
-
-    // Swipe left/right
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
       go(dx < 0 ? 1 : -1);
-      return;
-    }
-
-    // Tap: left half = prev, right half = next
-    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) {
-      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      const mid = rect.left + rect.width / 2;
-      go(e.clientX < mid ? -1 : 1);
     }
   }
 
@@ -79,13 +116,13 @@ export function PromoCarousel({ slides }: Props) {
 
   return (
     <section
-      className="bg-white select-none md:pb-2 md:pt-4"
+      className="select-none bg-white md:pb-3 md:pt-3"
       aria-roledescription="carousel"
-      aria-label="Акции и скидки"
+      aria-label="Напольные покрытия"
     >
-      <div className="mx-auto w-full max-w-[1440px] md:px-6 lg:px-10">
+      <div className="w-full px-0 md:px-4 lg:px-5">
         <div
-          className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[420px] md:rounded-2xl lg:min-h-[480px]"
+          className="relative min-h-[58vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[440px] md:rounded-2xl lg:min-h-[520px]"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onPointerDown={onPointerDown}
@@ -98,12 +135,14 @@ export function PromoCarousel({ slides }: Props) {
           {items.map((slide, i) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-700 ${i === index ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+              className={`absolute inset-0 transition-opacity duration-700 ${
+                i === index ? 'opacity-100' : 'pointer-events-none opacity-0'
+              }`}
               aria-hidden={i !== index}
             >
               <SmartImage
                 src={slide.image}
-                fallback="images/promo.jpg"
+                fallback="images/wood.webp"
                 alt={slide.title}
                 className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                 loading={i === 0 ? 'eager' : 'lazy'}
@@ -111,53 +150,71 @@ export function PromoCarousel({ slides }: Props) {
             </div>
           ))}
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/70 to-brand-deep/30" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/20" />
 
-          <a
-            href="https://vk.com/dompola29"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="ДОМПОЛА VK"
-            className="btn-vk-shimmer absolute right-3 top-3 z-20 inline-flex items-center justify-center rounded-md border border-white/10 px-3.5 py-1.5 text-sm font-bold uppercase text-white shadow-[0_1px_0_rgba(10,61,27,0.55),0_2px_5px_rgba(31,138,61,0.15)] transition hover:brightness-110 active:translate-y-px active:shadow-[0_1px_0_rgba(10,61,27,0.4),0_1px_3px_rgba(31,138,61,0.12)] sm:right-5 sm:top-5 sm:px-4 sm:py-2"
-          >
-            ДОМПОЛА VK
-          </a>
+          <div className="relative flex min-h-[58vh] flex-col justify-end px-4 pb-16 pt-14 sm:px-6 md:min-h-[440px] md:justify-between md:px-10 md:pb-10 md:pt-12 lg:min-h-[520px] lg:px-12">
+            <div className="max-w-xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
+                {current.eyebrow}
+              </p>
+              <h1 className="mt-2 font-display text-4xl font-bold leading-none tracking-tight sm:text-5xl lg:text-6xl">
+                {current.title}
+              </h1>
+              <p className="mt-3 max-w-md text-sm text-white/85 sm:text-base md:text-lg">
+                {current.description}
+              </p>
+            </div>
 
-          <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-16 sm:px-6 md:min-h-[420px] md:justify-center md:px-10 md:pb-16 md:pt-16 lg:min-h-[480px] lg:px-12">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Акции</p>
-            {current.discountPercent ? (
-              <span className="mb-2 inline-flex w-fit rounded-md bg-brand px-2.5 py-0.5 text-xs font-bold text-white">
-                −{current.discountPercent}%
-              </span>
-            ) : null}
-            <h1 className="max-w-2xl text-3xl font-bold leading-[1.15] sm:text-4xl lg:text-5xl">
-              {current.title}
-            </h1>
-            {current.description ? (
-              <p className="mt-3 max-w-lg text-sm text-white/80 sm:text-base">{current.description}</p>
-            ) : null}
-            <div className="mt-5 flex flex-wrap gap-2.5">
-              <Link to={detailLink} className="btn-primary px-4 py-2.5 text-sm">
-                Узнать подробнее
-              </Link>
+            <div className="mt-8 flex flex-col gap-5 lg:mt-0 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+              <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-5">
+                {FEATURES.map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-start gap-2.5 sm:max-w-[11rem]">
+                    <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10">
+                      <Icon size={15} strokeWidth={1.75} />
+                    </span>
+                    <span className="text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
               <Link
-                to="/catalog"
-                className="btn-secondary border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white hover:border-white hover:text-white"
+                to={current.ctaTo}
+                className="group flex max-w-md items-center gap-3 rounded-2xl bg-white/95 p-2.5 pr-3 text-graphite shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur transition hover:bg-white"
               >
-                Смотреть каталог
+                {current.thumb ? (
+                  <span className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-mist">
+                    <SmartImage
+                      src={current.thumb}
+                      alt=""
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  </span>
+                ) : null}
+                <span className="min-w-0 flex-1 text-sm font-semibold leading-snug sm:text-[15px]">
+                  {current.ctaLabel}
+                </span>
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand text-white transition group-hover:bg-brand-dark">
+                  <ArrowRight size={16} />
+                </span>
               </Link>
             </div>
           </div>
 
           {items.length > 1 ? (
-            <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-5">
+            <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5 md:bottom-4">
               {items.map((slide, i) => (
                 <button
                   key={slide.id}
                   type="button"
-                  aria-label={`Слайд ${i + 1}`}
+                  aria-label={`Слайд ${i + 1}: ${slide.title}`}
                   onClick={() => setIndex(i)}
-                  className={`h-2 rounded-full transition-all ${i === index ? 'w-6 bg-brand' : 'w-2 bg-white/45 hover:bg-white/70'}`}
+                  className={`h-2 rounded-full transition-all ${
+                    i === index ? 'w-7 bg-white' : 'w-2 bg-white/45 hover:bg-white/70'
+                  }`}
                 />
               ))}
             </div>

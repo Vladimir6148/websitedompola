@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { OfferProductCard } from '../components/OfferProductCard';
-import { PromoCarousel } from '../components/PromoCarousel';
+import { DEFAULT_HERO_SLIDES, PromoCarousel } from '../components/PromoCarousel';
 import { SectionHeader } from '../components/SectionHeader';
 import { api } from '../lib/api';
-import type { HomePayload, Product, ProductsResponse, Promotion } from '../types';
-import initialPromotions from '../data/promotions.json';
+import type { HomePayload, Product, ProductsResponse } from '../types';
 
 const icons: Record<string, ReactNode> = {
   store: <StoreIcon />,
@@ -16,7 +15,7 @@ const icons: Record<string, ReactNode> = {
   calculator: <Calculator />,
 };
 
-/** Flooring assortment chips after hero (short labels) */
+/** Flooring assortment chips after hero (short labels) — useful on mobile without sidebar */
 const ASSORTMENT = [
   { to: '/catalog/laminate', label: 'Ламинат' },
   { to: '/catalog/quartzvinyl-spc', label: 'Кварцвинил SPC' },
@@ -30,7 +29,6 @@ const ASSORTMENT = [
 
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
-  const [promos, setPromos] = useState<Promotion[]>(initialPromotions as Promotion[]);
   const [deals, setDeals] = useState<Product[]>([]);
   const [related, setRelated] = useState<Product[]>([]);
 
@@ -48,13 +46,6 @@ export function HomePage() {
               : a,
           ),
         });
-        if (home.promotions?.length) setPromos(home.promotions);
-      })
-      .catch(() => undefined);
-
-    api<Promotion[]>('/api/promotions')
-      .then((list) => {
-        if (!cancelled && list?.length) setPromos(list);
       })
       .catch(() => undefined);
 
@@ -99,8 +90,8 @@ export function HomePage() {
     };
   }, []);
 
-  const carouselSlides = promos.length ? promos : data?.promotions || [];
   const offerProducts = useMemo(() => deals.slice(0, 8), [deals]);
+  const carouselSlides = DEFAULT_HERO_SLIDES;
 
   return (
     <>
@@ -113,14 +104,14 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
-      <section className="border-b border-graphite/8 bg-white">
+      <section className="border-b border-graphite/8 bg-white lg:hidden">
         <div className="container-dp py-2.5 sm:py-3">
-          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-7 md:gap-2 md:overflow-visible">
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-graphite/15 bg-mist/70 px-4 text-sm font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-[0.98] md:h-10 md:w-full md:px-2 md:text-sm"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-graphite/15 bg-mist/70 px-4 text-sm font-semibold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-[0.98]"
               >
                 {item.label}
               </Link>
