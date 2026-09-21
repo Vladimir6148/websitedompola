@@ -34,7 +34,7 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
-        <div className="flex min-w-0 items-center gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 lg:px-5">
+        <div className="container-dp flex min-w-0 items-center gap-2 py-2.5 sm:gap-3 sm:py-3">
           <button
             type="button"
             onClick={() => setOpen(true)}

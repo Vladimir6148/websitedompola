@@ -120,9 +120,9 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
       aria-roledescription="carousel"
       aria-label="Напольные покрытия"
     >
-      <div className="w-full px-0 md:px-4 lg:px-5">
+      <div className="container-dp px-0 sm:px-5 lg:px-6">
         <div
-          className="relative min-h-[58vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[440px] md:rounded-2xl lg:min-h-[520px]"
+          className="relative min-h-[52vh] touch-pan-y overflow-hidden bg-graphite text-white md:min-h-[380px] md:rounded-2xl lg:min-h-[420px]"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onPointerDown={onPointerDown}
@@ -153,7 +153,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/20" />
 
-          <div className="relative flex min-h-[58vh] flex-col justify-end px-4 pb-16 pt-14 sm:px-6 md:min-h-[440px] md:justify-between md:px-10 md:pb-10 md:pt-12 lg:min-h-[520px] lg:px-12">
+          <div className="relative flex min-h-[52vh] flex-col justify-end px-4 pb-14 pt-12 sm:px-6 md:min-h-[380px] md:justify-between md:px-8 md:pb-8 md:pt-10 lg:min-h-[420px] lg:px-10">
             <div className="max-w-xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 sm:text-xs">
                 {current.eyebrow}
