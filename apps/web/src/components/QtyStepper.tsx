@@ -31,30 +31,34 @@ export function QtyStepper({
   }
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col items-stretch gap-1">
+    <div className="flex min-w-0 flex-1 flex-col items-stretch gap-0.5">
       <div className="flex items-center justify-center gap-1">
         <button
           type="button"
           aria-label={`Уменьшить ${label}`}
           onClick={() => bump(-1)}
-          className={`grid place-items-center rounded-lg border border-graphite/15 bg-mist font-bold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
-            compact ? 'h-9 w-9 text-base' : 'h-11 w-11 text-lg'
+          className={`grid place-items-center rounded-md border border-graphite/15 bg-mist text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
+            compact ? 'h-8 w-8' : 'h-9 w-9'
           }`}
         >
-          <Minus size={compact ? 16 : 18} strokeWidth={2.5} />
+          <Minus size={compact ? 14 : 15} strokeWidth={2.25} />
         </button>
         <button
           type="button"
           aria-label={`Увеличить ${label}`}
           onClick={() => bump(1)}
-          className={`grid place-items-center rounded-lg border border-graphite/15 bg-mist font-bold text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
-            compact ? 'h-9 w-9 text-base' : 'h-11 w-11 text-lg'
+          className={`grid place-items-center rounded-md border border-graphite/15 bg-mist text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
+            compact ? 'h-8 w-8' : 'h-9 w-9'
           }`}
         >
-          <Plus size={compact ? 16 : 18} strokeWidth={2.5} />
+          <Plus size={compact ? 14 : 15} strokeWidth={2.25} />
         </button>
       </div>
-      <label className="flex items-center justify-center gap-1 rounded-lg border border-graphite/15 bg-white px-1.5 py-1.5 sm:px-2 sm:py-2">
+      <label
+        className={`flex items-center justify-center gap-1 rounded-md border border-graphite/15 bg-white ${
+          compact ? 'px-1.5 py-1' : 'px-2 py-1.5'
+        }`}
+      >
         <input
           type="number"
           min={min}
@@ -66,10 +70,10 @@ export function QtyStepper({
             onChange(Math.max(min, step < 1 ? n : Math.round(n)));
           }}
           className={`w-full min-w-0 border-0 bg-transparent text-center font-semibold outline-none ${inputNoSpinner} ${
-            compact ? 'text-xs sm:text-sm' : 'text-sm sm:text-base'
+            compact ? 'text-[11px] sm:text-xs' : 'text-xs sm:text-sm'
           }`}
         />
-        <span className={`shrink-0 text-graphite/50 ${compact ? 'text-[10px] sm:text-xs' : 'text-xs sm:text-sm'}`}>
+        <span className={`shrink-0 text-graphite/50 ${compact ? 'text-[9px] sm:text-[10px]' : 'text-[10px] sm:text-xs'}`}>
           {label}
         </span>
       </label>

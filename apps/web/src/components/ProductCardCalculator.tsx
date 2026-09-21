@@ -134,20 +134,20 @@ export function ProductCardCalculator({
                   onChange={setQtyFromArea}
                 />
               </div>
-              <button
-                type="button"
-                aria-label="Калькулятор площади"
-                onClick={() => setShowRoom((v) => !v)}
-                className={`mb-0.5 grid shrink-0 place-items-center rounded-lg border transition ${
-                  compact ? 'h-9 w-9' : 'h-11 w-11'
-                } ${
-                  showRoom
-                    ? 'border-brand bg-brand/10 text-brand'
-                    : 'border-graphite/15 bg-mist text-graphite/60 hover:border-brand hover:text-brand'
-                }`}
-              >
-                <Calculator size={compact ? 15 : 17} strokeWidth={1.75} />
-              </button>
+                <button
+                  type="button"
+                  aria-label="Калькулятор площади"
+                  onClick={() => setShowRoom((v) => !v)}
+                  className={`mb-0.5 grid shrink-0 place-items-center rounded-md border transition ${
+                    compact ? 'h-8 w-8' : 'h-9 w-9'
+                  } ${
+                    showRoom
+                      ? 'border-brand bg-brand/10 text-brand'
+                      : 'border-graphite/15 bg-mist text-graphite/60 hover:border-brand hover:text-brand'
+                  }`}
+                >
+                  <Calculator size={compact ? 13 : 15} strokeWidth={1.75} />
+                </button>
             </div>
             {showRoom ? (
               <div className="mt-1.5 rounded-lg bg-mist p-2">
@@ -207,12 +207,12 @@ export function ProductCardCalculator({
       <button
         type="button"
         onClick={goOrder}
-        className={`flex w-full items-center justify-between gap-2 rounded-xl bg-ink font-semibold text-white transition hover:bg-graphite active:scale-[0.98] ${
-          compact ? 'px-2.5 py-2 text-[11px] sm:text-sm' : 'px-3 py-2.5 text-sm'
+        className={`flex w-full items-center justify-between gap-1.5 rounded-xl bg-ink font-semibold text-white transition hover:bg-graphite active:scale-[0.98] ${
+          compact ? 'px-2 py-1.5 text-[10px] sm:text-xs' : 'px-2.5 py-2 text-xs sm:text-sm'
         }`}
       >
-        <span className="inline-flex items-center gap-1.5">
-          <ShoppingCart size={compact ? 14 : 16} />
+        <span className="inline-flex items-center gap-1">
+          <ShoppingCart size={compact ? 12 : 14} strokeWidth={1.75} />
           <span>В корзину</span>
         </span>
         <span className="shrink-0 tabular-nums">{formatPrice(total)}</span>

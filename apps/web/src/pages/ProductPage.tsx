@@ -262,13 +262,13 @@ export function ProductPage() {
                         type="button"
                         aria-label="Калькулятор площади"
                         onClick={() => setShowRoomCalc((v) => !v)}
-                        className={`mb-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition ${
+                        className={`mb-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-md border transition ${
                           showRoomCalc
                             ? 'border-brand bg-brand/10 text-brand'
                             : 'border-graphite/15 bg-mist text-graphite/70 hover:border-brand hover:text-brand'
                         }`}
                       >
-                        <Calculator size={18} strokeWidth={1.75} />
+                        <Calculator size={15} strokeWidth={1.75} />
                       </button>
                     </div>
                   </>
@@ -339,11 +339,11 @@ export function ProductPage() {
 
                 <button
                   type="button"
-                  className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-ink px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-graphite active:scale-[0.98]"
+                  className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white transition hover:bg-graphite active:scale-[0.98]"
                   onClick={() => add(product, packs)}
                 >
-                  <span className="inline-flex items-center gap-2">
-                    <ShoppingCart size={16} /> В корзину
+                  <span className="inline-flex items-center gap-1.5">
+                    <ShoppingCart size={14} strokeWidth={1.75} /> В корзину
                   </span>
                   <span>{formatPrice(cartSum)}</span>
                 </button>
