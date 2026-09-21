@@ -6,80 +6,48 @@ type Props = {
   onSearch: () => void;
 };
 
+const glassBase =
+  'relative grid aspect-square h-[3.35rem] w-[3.35rem] place-items-center rounded-2xl border shadow-[0_10px_28px_rgba(15,40,20,0.16)] backdrop-blur-md transition active:scale-95 sm:h-14 sm:w-14';
+
+const glassIdle = `${glassBase} border-white/55 bg-white/45 text-graphite/70 hover:border-brand/35 hover:bg-white/70 hover:text-brand`;
+const glassActive = `${glassBase} border-brand/40 bg-white/75 text-brand`;
+
 export function MobileBottomNav({ onSearch }: Props) {
   const { count } = useCart();
 
-  const itemClass = ({ isActive }: { isActive: boolean }) =>
-    [
-      'relative flex flex-1 flex-col items-center justify-center gap-1 py-1 text-[11px] font-semibold tracking-wide transition',
-      isActive ? 'text-brand' : 'text-graphite/50',
-    ].join(' ');
-
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-graphite/10 bg-white pb-[max(0.4rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(15,40,20,0.08)] md:hidden"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] md:hidden"
       aria-label="Нижнее меню"
     >
-      <div className="mx-auto flex h-[3.75rem] max-w-lg items-stretch px-1">
-        <NavLink to="/" end className={itemClass}>
-          {({ isActive }) => (
-            <>
-              <span
-                className={`grid h-8 w-8 place-items-center rounded-xl transition ${
-                  isActive ? 'bg-brand/12 text-brand' : 'text-graphite/50'
-                }`}
-              >
-                <Home size={22} strokeWidth={isActive ? 2.25 : 1.75} />
-              </span>
-              <span>Главная</span>
-            </>
-          )}
+      <div className="pointer-events-auto mx-auto flex max-w-lg items-end justify-center gap-2.5 px-4 pb-[max(0.85rem,env(safe-area-inset-bottom))] pt-2 sm:gap-3">
+        <NavLink to="/" end aria-label="Главная" className={({ isActive }) => (isActive ? glassActive : glassIdle)}>
+          {({ isActive }) => <Home size={24} strokeWidth={isActive ? 2.25 : 1.85} />}
         </NavLink>
 
-        <NavLink to="/catalog" className={itemClass}>
-          {({ isActive }) => (
-            <>
-              <span
-                className={`grid h-8 w-8 place-items-center rounded-xl transition ${
-                  isActive ? 'bg-brand/12 text-brand' : 'text-graphite/50'
-                }`}
-              >
-                <LayoutGrid size={22} strokeWidth={isActive ? 2.25 : 1.75} />
-              </span>
-              <span>Каталог</span>
-            </>
-          )}
-        </NavLink>
-
-        <NavLink to="/cart" className={itemClass}>
-          {({ isActive }) => (
-            <>
-              <span
-                className={`relative grid h-8 w-8 place-items-center rounded-xl transition ${
-                  isActive ? 'bg-brand/12 text-brand' : 'text-graphite/50'
-                }`}
-              >
-                <ShoppingCart size={22} strokeWidth={isActive ? 2.25 : 1.75} />
-                {count > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[9px] font-bold text-white">
-                    {count}
-                  </span>
-                ) : null}
-              </span>
-              <span>Корзина</span>
-            </>
-          )}
-        </NavLink>
-
-        <button
-          type="button"
-          onClick={onSearch}
-          className="flex flex-1 flex-col items-center justify-center gap-1 py-1 text-[11px] font-semibold tracking-wide text-graphite/50 transition active:text-brand"
+        <NavLink
+          to="/catalog"
+          aria-label="Каталог"
+          className={({ isActive }) => (isActive ? glassActive : glassIdle)}
         >
-          <span className="grid h-8 w-8 place-items-center rounded-xl text-graphite/50 transition active:bg-brand/12 active:text-brand">
-            <Search size={22} strokeWidth={1.75} />
-          </span>
-          <span>Поиск</span>
+          {({ isActive }) => <LayoutGrid size={24} strokeWidth={isActive ? 2.25 : 1.85} />}
+        </NavLink>
+
+        <NavLink to="/cart" aria-label="Корзина" className={({ isActive }) => (isActive ? glassActive : glassIdle)}>
+          {({ isActive }) => (
+            <>
+              <ShoppingCart size={24} strokeWidth={isActive ? 2.25 : 1.85} />
+              {count > 0 ? (
+                <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1 text-[10px] font-bold text-white shadow-sm">
+                  {count}
+                </span>
+              ) : null}
+            </>
+          )}
+        </NavLink>
+
+        <button type="button" onClick={onSearch} aria-label="Поиск" className={glassIdle}>
+          <Search size={24} strokeWidth={1.85} />
         </button>
       </div>
     </nav>

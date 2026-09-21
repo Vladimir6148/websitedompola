@@ -72,7 +72,7 @@ export function OnlineManager() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-[5.25rem] right-4 z-[70] w-[min(100vw-2rem,20rem)] md:bottom-6 md:right-6">
+    <div className="fixed bottom-[5.75rem] right-4 z-[70] w-[min(100vw-2rem,20rem)] md:bottom-6 md:right-6">
       <div className="overflow-hidden rounded-2xl border border-graphite/10 bg-white shadow-[0_16px_40px_rgba(15,40,20,0.18)]">
         <div className="flex items-center justify-between gap-2 bg-graphite px-4 py-3 text-white">
           <div className="flex items-center gap-2">

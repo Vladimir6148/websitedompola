@@ -13,7 +13,7 @@ export function StoreLayout() {
           <SideNav className="w-full" />
         </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
+        <div className="flex min-w-0 flex-1 flex-col pb-24 md:pb-0">
           <Header />
           <main className="flex-1">
             <Outlet />
