@@ -178,8 +178,23 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   throw new ApiError(404, `Статический API: маршрут не найден (${pathname})`);
 }
 
+function wantsLiveApi(path: string, method: string) {
+  if (!API_BASE) return false;
+  if (method !== 'GET') return true;
+  const pathname = new URL(path, 'http://local.api').pathname;
+  return pathname.startsWith('/api/auth');
+}
+
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
-  if (USE_STATIC) {
+  const method = (options.method || 'GET').toUpperCase();
+
+  // Public catalog reads use static JSON when enabled (full ODS import on Pages).
+  // Auth and mutations still go to Render when VITE_API_URL is set.
+  if (USE_STATIC && !wantsLiveApi(path, method)) {
+    return staticApi<T>(path, options);
+  }
+
+  if (!API_BASE) {
     return staticApi<T>(path, options);
   }
 
@@ -219,7 +234,7 @@ export function stockLabel(status: string) {
 
 export function primaryImage(product: { images?: { url: string; isPrimary?: boolean }[] }) {
   if (!product.images?.length) {
-    return 'images/floor1.jpg';
+    return 'images/floor1.webp';
   }
   return product.images.find((i) => i.isPrimary)?.url || product.images[0].url;
 }

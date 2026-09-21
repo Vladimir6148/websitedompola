@@ -32,9 +32,9 @@ jobs:
         working-directory: apps/web
         env:
           VITE_BASE: /websitedompola/
-          # Live API so /admin login & saves work on GitHub Pages
+          # Catalog from static JSON (full import). Auth/writes still hit Render when possible.
           VITE_API_URL: https://dompola-api.onrender.com
-          VITE_STATIC_API: "false"
+          VITE_STATIC_API: "true"
         run: npm run build
 
       - name: SPA fallback for GitHub Pages
