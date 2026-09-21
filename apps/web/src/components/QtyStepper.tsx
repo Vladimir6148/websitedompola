@@ -41,7 +41,7 @@ export function QtyStepper({
             compact ? 'h-8 w-8' : 'h-9 w-9'
           }`}
         >
-          <Minus size={compact ? 14 : 15} strokeWidth={2.25} />
+          <Minus size={compact ? 14 : 15} strokeWidth={2.25} className="text-graphite/55" />
         </button>
         <button
           type="button"
@@ -51,7 +51,7 @@ export function QtyStepper({
             compact ? 'h-8 w-8' : 'h-9 w-9'
           }`}
         >
-          <Plus size={compact ? 14 : 15} strokeWidth={2.25} />
+          <Plus size={compact ? 14 : 15} strokeWidth={2.25} className="text-graphite/55" />
         </button>
       </div>
       <label

@@ -343,7 +343,7 @@ export function ProductPage() {
                   onClick={() => add(product, packs)}
                 >
                   <span className="inline-flex items-center gap-1.5">
-                    <ShoppingCart size={14} strokeWidth={1.75} /> В корзину
+                    <ShoppingCart size={14} strokeWidth={1.75} className="text-[#d5ddd6]" /> В корзину
                   </span>
                   <span>{formatPrice(cartSum)}</span>
                 </button>

@@ -212,7 +212,7 @@ export function ProductCardCalculator({
         }`}
       >
         <span className="inline-flex items-center gap-1">
-          <ShoppingCart size={compact ? 12 : 14} strokeWidth={1.75} />
+          <ShoppingCart size={compact ? 12 : 14} strokeWidth={1.75} className="text-[#d5ddd6]" />
           <span>В корзину</span>
         </span>
         <span className="shrink-0 tabular-nums">{formatPrice(total)}</span>
