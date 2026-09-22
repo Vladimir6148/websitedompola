@@ -9,7 +9,6 @@ import { api } from '../lib/api';
 import {
   clearPendingRestore,
   peekPendingRestore,
-  readScroll,
   restoreScrollWithRetries,
 } from '../lib/scrollMemory';
 import type { Brand, Category, Product, ProductsResponse } from '../types';
