@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'reac
 import { Layers, PanelBottom, Pipette, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
+import { CATEGORY_BRAND_GUIDES, resolveGuideFilters } from '../data/catalogBrandGuides';
 import { api } from '../lib/api';
 import {
   clearPendingRestore,
@@ -326,12 +327,20 @@ export function CatalogPage() {
     };
   }, [categoryQuery, accessoryHub, inAccessorySection]);
 
+  const categoryGuides = categorySlug ? CATEGORY_BRAND_GUIDES[categorySlug] : undefined;
+  const activeGuideBrand = useMemo(() => {
+    if (!categoryGuides?.length) return null;
+    return categoryGuides.find((g) => brandSlugs.includes(g.slug)) || null;
+  }, [categoryGuides, brandSlugs]);
+
   useEffect(() => {
     setLoading(true);
+    const resolved = resolveGuideFilters(categorySlug, brand, collection, q);
     const qs = new URLSearchParams();
-    if (q) qs.set('q', q);
-    if (brand) qs.set('brand', brand);
-    if (collection) qs.set('collection', collection);
+    if (resolved.q) qs.set('q', resolved.q);
+    if (resolved.qExclude) qs.set('qExclude', resolved.qExclude);
+    if (resolved.brand) qs.set('brand', resolved.brand);
+    if (resolved.collection) qs.set('collection', resolved.collection);
     if (sort) qs.set('sort', sort);
     if (page) qs.set('page', page);
     if (minPrice) qs.set('minPrice', minPrice);
@@ -396,7 +405,7 @@ export function CatalogPage() {
     return () => {
       cancelled = true;
     };
-  }, [accessoryHub, categoryQuery, q, brand, collection, sort, page, minPrice, maxPrice, wearClass]);
+  }, [accessoryHub, categoryQuery, categorySlug, q, brand, collection, sort, page, minPrice, maxPrice, wearClass]);
 
   useEffect(() => {
     if (prevPageRef.current !== page) {
@@ -539,6 +548,31 @@ export function CatalogPage() {
       return;
     }
     setCollectionList([slug]);
+  }
+
+  function selectGuideBrand(slug: string) {
+    const next = new URLSearchParams(params);
+    if (brandSlugs.includes(slug) && brandSlugs.length === 1) {
+      next.delete('brand');
+    } else {
+      next.set('brand', slug);
+    }
+    next.delete('collection');
+    next.delete('q');
+    next.delete('page');
+    setParams(next);
+  }
+
+  function selectGuideCollection(id: string) {
+    const next = new URLSearchParams(params);
+    if (collectionSlugs.includes(id) && collectionSlugs.length === 1) {
+      next.delete('collection');
+    } else {
+      next.set('collection', id);
+    }
+    next.delete('q');
+    next.delete('page');
+    setParams(next);
   }
 
   function clearFilters() {
@@ -753,6 +787,62 @@ export function CatalogPage() {
             </select>
           </div>
         </div>
+
+        {categoryGuides?.length ? (
+          <div className="mb-5 space-y-4 sm:mb-6">
+            <div className="space-y-2">
+              <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">Бренд</div>
+              <div className="flex flex-wrap gap-2">
+                {categoryGuides.map((guide) => {
+                  const active = activeGuideBrand?.slug === guide.slug;
+                  return (
+                    <button
+                      key={guide.slug}
+                      type="button"
+                      onClick={() => selectGuideBrand(guide.slug)}
+                      className={`inline-flex h-10 items-center justify-center rounded-xl border px-4 text-sm font-semibold transition active:scale-[0.98] ${
+                        active
+                          ? 'border-brand bg-brand text-white'
+                          : 'border-brand/30 bg-white text-brand hover:border-brand hover:bg-brand/5'
+                      }`}
+                    >
+                      {guide.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {activeGuideBrand ? (
+              <div className="space-y-2 border-t border-graphite/10 pt-4">
+                <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">
+                  Коллекции {activeGuideBrand.name}
+                </div>
+                <div className="-mx-4 overflow-x-auto overscroll-x-contain sm:-mx-5 lg:mx-0 lg:overflow-visible [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="flex w-max gap-2 px-4 pb-0.5 sm:px-5 lg:flex-wrap lg:w-auto lg:max-w-full lg:px-0">
+                    {activeGuideBrand.collections.map((col) => {
+                      const active = collectionSlugs.includes(col.id);
+                      return (
+                        <button
+                          key={col.id}
+                          type="button"
+                          onClick={() => selectGuideCollection(col.id)}
+                          className={`inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand px-4 text-sm font-semibold transition active:scale-[0.98] ${
+                            active
+                              ? 'bg-brand-dark text-white'
+                              : 'bg-brand text-white hover:bg-brand-dark'
+                          }`}
+                        >
+                          {col.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
 
         {inAccessorySection ? (
           <div className="mb-6 grid grid-cols-4 gap-2">

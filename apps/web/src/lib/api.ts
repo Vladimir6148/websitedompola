@@ -123,6 +123,7 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   if (pathname === '/api/products') {
     const products = await loadJson<Product[]>('products.json');
     const q = (url.searchParams.get('q') || '').trim().toLowerCase();
+    const qExclude = (url.searchParams.get('qExclude') || '').trim().toLowerCase();
     const category = url.searchParams.get('category') || '';
     const brand = url.searchParams.get('brand') || '';
     const collection = url.searchParams.get('collection') || '';
@@ -145,6 +146,9 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
           p.sku.toLowerCase().includes(q) ||
           (p.description || '').toLowerCase().includes(q),
       );
+    }
+    if (qExclude) {
+      items = items.filter((p) => !p.name.toLowerCase().includes(qExclude));
     }
     if (category) {
       const slugs = category.split(',').map((s) => s.trim()).filter(Boolean);
