@@ -109,14 +109,14 @@ export function HomePage() {
 
       <PromoCarousel slides={carouselSlides} />
 
-      <section className="border-b border-graphite/8 bg-white lg:hidden">
-        <div className="container-dp py-2.5 sm:py-3">
-          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <section className="bg-white">
+        <div className="container-dp py-2.5 sm:py-3 lg:py-4">
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-wrap lg:overflow-visible lg:pb-0">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-brand bg-brand px-4 text-sm font-semibold text-white shadow-[0_6px_14px_rgba(31,138,61,0.22)] transition hover:bg-brand-dark active:scale-[0.98]"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] lg:h-11 lg:rounded-2xl lg:px-5"
               >
                 {item.label}
               </Link>
