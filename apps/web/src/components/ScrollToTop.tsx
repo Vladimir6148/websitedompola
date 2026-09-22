@@ -4,6 +4,7 @@ import {
   clearPendingRestore,
   peekPendingRestore,
   readScroll,
+  restoreScroll,
   restoreScrollWithRetries,
   saveScroll,
 } from '../lib/scrollMemory';
