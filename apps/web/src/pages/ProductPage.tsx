@@ -5,7 +5,7 @@ import { QtyStepper } from '../components/QtyStepper';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
-import { api, formatPlainText, formatPrice, hasPrice, primaryImage, stockLabel } from '../lib/api';
+import { api, formatPlainText, formatPrice, hasPrice, primaryImage } from '../lib/api';
 import {
   areaToPacks,
   canRoomCalculate,
@@ -21,7 +21,6 @@ import {
 } from '../lib/packaging';
 import type { Product, ProductsResponse } from '../types';
 import { useCart } from '../store/cart';
-import { useCity } from '../store/city';
 
 export function ProductPage() {
   const { slug } = useParams();
@@ -35,7 +34,6 @@ export function ProductPage() {
   const [roomArea, setRoomArea] = useState(20);
   const [showRoomCalc, setShowRoomCalc] = useState(false);
   const { add } = useCart();
-  const { city } = useCity();
 
   useEffect(() => {
     if (!slug) return;
@@ -96,7 +94,6 @@ export function ProductPage() {
     return <div className="container-dp py-20 text-graphite/60">Загрузка товара…</div>;
   }
 
-  const stock = product.stocks.find((s) => s.cityId === city?.id) || product.stocks[0];
   const images = product.images.length ? product.images : [{ url: primaryImage(product), alt: product.name }];
   const discount =
     product.discountPercent ||
@@ -212,97 +209,87 @@ export function ProductPage() {
               ) : null}
             </div>
 
-            <div className="mt-4 rounded-xl bg-mist px-4 py-3 text-sm">
-              <div className="font-semibold">{stock ? stockLabel(stock.status) : 'Уточняйте наличие'}</div>
-              <div className="text-graphite/60">
-                {city?.name || 'Город не выбран'}
-                {stock?.quantity ? ` · ${stock.quantity} ${byPack ? 'упак' : formatUnit(product.unit)}` : ''}
-              </div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {product.stocks.map((s) => (
-                  <span key={s.cityId} className="rounded-full bg-white px-3 py-1 text-xs">
-                    {s.city?.name}: {stockLabel(s.status)}
-                  </span>
-                ))}
-              </div>
-            </div>
-
             {hasPrice(product.price) ? (
-              <div className="mt-6 rounded-2xl border border-graphite/10 bg-white p-5">
-                <h2 className="font-display text-xl font-semibold">Заказать онлайн</h2>
+              <div className="mt-6 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-5 shadow-[0_10px_30px_rgba(15,92,40,0.06)] sm:p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h2 className="font-display text-xl font-semibold text-graphite">Заказать онлайн</h2>
+                    {byPack && roomReady && packArea ? (
+                      <p className="mt-1 text-sm text-graphite/50">
+                        1 упак = {formatPackArea(packArea)} м²
+                      </p>
+                    ) : (
+                      <p className="mt-1 text-sm text-graphite/50">Укажите количество</p>
+                    )}
+                  </div>
+                  {byPack && roomReady && packArea ? (
+                    <button
+                      type="button"
+                      aria-label="Калькулятор площади помещения"
+                      onClick={() => setShowRoomCalc((v) => !v)}
+                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl transition ${
+                        showRoomCalc
+                          ? 'bg-brand text-white shadow-sm'
+                          : 'bg-mist text-graphite/65 ring-1 ring-graphite/10 hover:text-brand'
+                      }`}
+                    >
+                      <Calculator size={17} strokeWidth={1.75} />
+                    </button>
+                  ) : null}
+                </div>
+
                 {byPack && roomReady && packArea ? (
-                  <>
-                    <p className="mt-1 text-sm text-graphite/55">Площадь:</p>
-                    <div className="mt-3 flex items-end gap-2">
-                      <div className="flex min-w-0 flex-1 items-end gap-2">
-                        <QtyStepper
-                          label="упак"
-                          value={packs}
-                          min={1}
-                          step={1}
-                          onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
-                        />
-                        <span className="mb-3 shrink-0 text-base font-semibold text-graphite/35">=</span>
-                        <QtyStepper
-                          label="м²"
-                          value={selectedArea}
-                          min={packArea}
-                          step={packArea}
-                          displayValue={Number(selectedArea.toFixed(2))}
-                          onChange={(n) => setPacksFromArea(n)}
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        aria-label="Калькулятор площади"
-                        onClick={() => setShowRoomCalc((v) => !v)}
-                        className={`mb-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-md border transition ${
-                          showRoomCalc
-                            ? 'border-brand bg-brand/10 text-brand'
-                            : 'border-graphite/15 bg-mist text-graphite/70 hover:border-brand hover:text-brand'
-                        }`}
-                      >
-                        <Calculator size={15} strokeWidth={1.75} />
-                      </button>
-                    </div>
-                  </>
+                  <div className="mt-5 flex items-center gap-2 sm:gap-3">
+                    <QtyStepper
+                      label="упак"
+                      value={packs}
+                      min={1}
+                      step={1}
+                      onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+                    />
+                    <span className="shrink-0 text-lg font-semibold text-brand/50" aria-hidden>
+                      =
+                    </span>
+                    <QtyStepper
+                      label="м²"
+                      value={selectedArea}
+                      min={packArea}
+                      step={packArea}
+                      displayValue={Number(selectedArea.toFixed(2))}
+                      onChange={(n) => setPacksFromArea(n)}
+                    />
+                  </div>
                 ) : byPack ? (
-                  <>
-                    <p className="mt-1 text-sm text-graphite/55">Количество:</p>
-                    <div className="mt-3 max-w-xs">
-                      <QtyStepper
-                        label="упак"
-                        value={packs}
-                        min={1}
-                        step={1}
-                        onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
-                      />
-                    </div>
+                  <div className="mt-5 max-w-xs">
+                    <QtyStepper
+                      label="упак"
+                      value={packs}
+                      min={1}
+                      step={1}
+                      onChange={(n) => setPacks(Math.max(1, Math.round(n)))}
+                    />
                     {!packArea ? (
                       <p className="mt-2 text-xs text-graphite/45">
                         Площадь упаковки не указана — пересчёт м² недоступен.
                       </p>
                     ) : null}
-                  </>
+                  </div>
                 ) : (
-                  <>
-                    <p className="mt-1 text-sm text-graphite/55">Количество:</p>
-                    <div className="mt-3 max-w-xs">
-                      <QtyStepper
-                        label={formatUnit(product.unit, { short: true })}
-                        value={packs}
-                        min={0.1}
-                        step={0.1}
-                        displayValue={Number(packs.toFixed(1))}
-                        onChange={(n) => setPacks(Math.max(0.1, n))}
-                      />
-                    </div>
-                  </>
+                  <div className="mt-5 max-w-xs">
+                    <QtyStepper
+                      label={formatUnit(product.unit, { short: true })}
+                      value={packs}
+                      min={0.1}
+                      step={0.1}
+                      displayValue={Number(packs.toFixed(1))}
+                      onChange={(n) => setPacks(Math.max(0.1, n))}
+                    />
+                  </div>
                 )}
 
                 {byPack && roomReady && showRoomCalc ? (
                   <form
-                    className="mt-4 rounded-xl bg-mist p-4"
+                    className="mt-4 rounded-xl bg-white/80 p-4 ring-1 ring-graphite/8"
                     onSubmit={(e: FormEvent) => {
                       e.preventDefault();
                       setPacks(roomCalc.packs);
@@ -318,9 +305,9 @@ export function ProductPage() {
                         min={1}
                         value={roomArea}
                         onChange={(e) => setRoomArea(Number(e.target.value) || 1)}
-                        className="w-28 rounded-md border border-graphite/15 px-3 py-2 text-sm"
+                        className="w-28 rounded-xl border-0 bg-mist px-3 py-2.5 text-sm ring-1 ring-graphite/10 outline-none focus:ring-brand"
                       />
-                      <button type="submit" className="btn-secondary py-2 text-sm">
+                      <button type="submit" className="btn-secondary rounded-xl py-2.5 text-sm">
                         Применить (+7%)
                       </button>
                     </div>
@@ -333,11 +320,16 @@ export function ProductPage() {
 
                 <button
                   type="button"
-                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl border border-graphite/15 bg-[#e8ebe8] px-4 py-3 text-sm font-semibold text-[#0b0d0c] transition hover:bg-[#dfe3df] active:scale-[0.98]"
+                  className="btn-primary mt-5 flex w-full items-center justify-center gap-2 py-3.5 text-sm"
                   onClick={() => add(product, packs)}
                 >
-                  <ShoppingBag size={15} strokeWidth={2} className="text-[#0b0d0c]" />
+                  <ShoppingBag size={16} strokeWidth={2} />
                   В корзину
+                  {pPack != null ? (
+                    <span className="font-semibold opacity-90">
+                      · {formatPrice(lineTotal(packs, product))}
+                    </span>
+                  ) : null}
                 </button>
               </div>
             ) : (

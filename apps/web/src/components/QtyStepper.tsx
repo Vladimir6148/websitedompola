@@ -13,7 +13,7 @@ type Props = {
   compact?: boolean;
 };
 
-/** Large − / + above the value — easier than native number spinners. */
+/** Horizontal − value unit + control. */
 export function QtyStepper({
   label,
   value,
@@ -30,35 +30,24 @@ export function QtyStepper({
     onChange(Math.max(min, next));
   }
 
+  const btn =
+    'grid shrink-0 place-items-center rounded-lg bg-white text-graphite/70 shadow-sm ring-1 ring-graphite/10 transition hover:bg-brand hover:text-white hover:ring-brand active:scale-95';
+
   return (
-    <div className="flex min-w-0 flex-1 flex-col items-stretch gap-0.5">
-      <div className="flex items-center justify-center gap-1">
-        <button
-          type="button"
-          aria-label={`Уменьшить ${label}`}
-          onClick={() => bump(-1)}
-          className={`grid place-items-center rounded-md border border-graphite/15 bg-mist text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
-            compact ? 'h-8 w-8' : 'h-9 w-9'
-          }`}
-        >
-          <Minus size={compact ? 14 : 15} strokeWidth={2.25} className="text-graphite/55" />
-        </button>
-        <button
-          type="button"
-          aria-label={`Увеличить ${label}`}
-          onClick={() => bump(1)}
-          className={`grid place-items-center rounded-md border border-graphite/15 bg-mist text-graphite transition hover:border-brand hover:bg-brand hover:text-white active:scale-95 ${
-            compact ? 'h-8 w-8' : 'h-9 w-9'
-          }`}
-        >
-          <Plus size={compact ? 14 : 15} strokeWidth={2.25} className="text-graphite/55" />
-        </button>
-      </div>
-      <label
-        className={`flex items-center justify-center gap-1 rounded-md border border-graphite/15 bg-white ${
-          compact ? 'px-1.5 py-1' : 'px-2 py-1.5'
-        }`}
+    <div
+      className={`flex min-w-0 flex-1 items-center gap-1 rounded-xl bg-mist/80 ring-1 ring-graphite/8 ${
+        compact ? 'h-10 px-1' : 'h-12 px-1.5'
+      }`}
+    >
+      <button
+        type="button"
+        aria-label={`Уменьшить ${label}`}
+        onClick={() => bump(-1)}
+        className={`${btn} ${compact ? 'h-8 w-8' : 'h-9 w-9'}`}
       >
+        <Minus size={compact ? 14 : 16} strokeWidth={2.25} />
+      </button>
+      <label className="flex min-w-0 flex-1 items-baseline justify-center gap-1 px-0.5">
         <input
           type="number"
           min={min}
@@ -69,14 +58,24 @@ export function QtyStepper({
             if (!Number.isFinite(n)) return;
             onChange(Math.max(min, step < 1 ? n : Math.round(n)));
           }}
-          className={`w-full min-w-0 border-0 bg-transparent text-center font-semibold outline-none ${inputNoSpinner} ${
-            compact ? 'text-[11px] sm:text-xs' : 'text-xs sm:text-sm'
+          className={`w-full min-w-0 border-0 bg-transparent text-center font-semibold tabular-nums text-graphite outline-none ${inputNoSpinner} ${
+            compact ? 'text-sm' : 'text-base'
           }`}
         />
-        <span className={`shrink-0 text-graphite/50 ${compact ? 'text-[9px] sm:text-[10px]' : 'text-[10px] sm:text-xs'}`}>
+        <span
+          className={`shrink-0 font-medium text-graphite/45 ${compact ? 'text-[10px]' : 'text-xs'}`}
+        >
           {label}
         </span>
       </label>
+      <button
+        type="button"
+        aria-label={`Увеличить ${label}`}
+        onClick={() => bump(1)}
+        className={`${btn} ${compact ? 'h-8 w-8' : 'h-9 w-9'}`}
+      >
+        <Plus size={compact ? 14 : 16} strokeWidth={2.25} />
+      </button>
     </div>
   );
 }
