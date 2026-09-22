@@ -818,7 +818,10 @@ export function CatalogPage() {
                 <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">
                   Коллекции {activeGuideBrand.name}
                 </div>
-                <div className="-mx-4 overflow-x-auto overscroll-x-contain sm:-mx-5 lg:mx-0 lg:overflow-visible [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div
+                  key={activeGuideBrand.slug}
+                  className="-mx-4 overflow-x-auto overscroll-x-contain sm:-mx-5 lg:mx-0 lg:overflow-visible [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                >
                   <div className="flex w-max gap-2 px-4 pb-0.5 sm:px-5 lg:flex-wrap lg:w-auto lg:max-w-full lg:px-0">
                     {activeGuideBrand.collections.map((col) => {
                       const active = collectionSlugs.includes(col.id);
