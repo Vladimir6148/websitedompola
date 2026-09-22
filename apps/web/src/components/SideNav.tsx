@@ -59,7 +59,7 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
 
   return (
     <div className={`flex h-full flex-col bg-white ${className}`}>
-      <div className="relative flex h-[4.25rem] shrink-0 items-center border-b border-graphite/8 px-4">
+      <div className="relative flex h-[4.25rem] shrink-0 items-center px-4">
         <button
           type="button"
           onClick={() => setCityOpen((v) => !v)}
@@ -94,7 +94,7 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
         ) : null}
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-3">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <nav className="flex flex-col gap-0.5">
           <NavLink to="/" end onClick={go} className={linkClass}>
             {({ isActive }) => (
@@ -116,7 +116,7 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
               <Layers size={18} strokeWidth={1.75} className="shrink-0" />
               Напольные покрытия
             </Link>
-            <div className="mt-0.5 ml-2 space-y-0.5 border-l border-graphite/10 pl-2">
+            <div className="mt-0.5 ml-2 space-y-0.5 pl-3">
               {FLOORING.map((item) => {
                 const active = pathname === item.to || pathname.startsWith(`${item.to}/`);
                 return (
@@ -139,7 +139,7 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
           </div>
         </nav>
 
-        <div className="my-3 border-t border-graphite/10" />
+        <div className="my-3" />
 
         <nav className="flex flex-col gap-0.5">
           {SECONDARY.map(({ to, label, icon: Icon }) => (
