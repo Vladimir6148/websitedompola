@@ -111,13 +111,13 @@ export function HomePage() {
 
       <section className="bg-white">
         <div className="w-full pt-1.5 pb-2 sm:py-2.5 lg:px-6 lg:pt-2 lg:pb-2.5">
-          <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory scroll-pl-1.5 pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:scroll-pl-2 lg:overflow-visible lg:scroll-pl-0 lg:pb-0 lg:snap-none">
+          <div className="overflow-x-auto overscroll-x-contain pb-0.5 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible lg:pb-0">
             <div className="flex w-max min-w-full gap-2 lg:grid lg:w-auto lg:min-w-0 lg:grid-cols-7 lg:gap-2.5">
               {ASSORTMENT.map((item) => (
                 <Link
                   key={`${item.to}-${item.label}`}
                   to={item.to}
-                  className="inline-flex h-10 shrink-0 snap-start items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] first:ml-1.5 last:mr-1.5 sm:first:ml-2 sm:last:mr-2 lg:h-[3.25rem] lg:w-full lg:snap-align-none lg:px-2 lg:first:ml-0 lg:last:mr-0 lg:text-center lg:text-[13px] xl:h-14 xl:text-sm"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] first:ml-1.5 last:mr-1.5 sm:first:ml-2 sm:last:mr-2 lg:h-[3.25rem] lg:w-full lg:px-2 lg:first:ml-0 lg:last:mr-0 lg:text-center lg:text-[13px] xl:h-14 xl:text-sm"
                 >
                   {item.label}
                 </Link>
