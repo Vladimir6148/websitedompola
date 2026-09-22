@@ -110,13 +110,14 @@ export function HomePage() {
       <PromoCarousel slides={carouselSlides} />
 
       <section className="bg-white">
-        <div className="container-dp py-2.5 sm:py-3 lg:py-4">
-          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-wrap lg:overflow-visible lg:pb-0">
+        <div className="w-full px-4 py-2.5 sm:px-5 sm:py-3 md:px-5 lg:px-6 lg:py-3.5">
+          {/* Mobile: scroll chips. Desktop: equal-width blocks matching hero feature tiles */}
+          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-7 lg:gap-2.5 lg:overflow-visible lg:pb-0">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] lg:h-11 lg:rounded-2xl lg:px-5"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] lg:h-[3.25rem] lg:w-full lg:rounded-xl lg:px-2 lg:text-center lg:text-[13px] xl:h-14 xl:text-sm"
               >
                 {item.label}
               </Link>
