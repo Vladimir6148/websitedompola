@@ -130,7 +130,7 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
 
   return (
     <section
-      className="select-none bg-white md:pb-3 md:pt-3"
+      className="select-none bg-white md:pb-2 md:pt-3"
       aria-roledescription="carousel"
       aria-label="Напольные покрытия"
     >

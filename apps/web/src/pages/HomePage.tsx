@@ -110,7 +110,7 @@ export function HomePage() {
       <PromoCarousel slides={carouselSlides} />
 
       <section className="bg-white">
-        <div className="w-full pt-1.5 pb-2 sm:py-2.5 lg:px-6 lg:py-3">
+        <div className="w-full pt-1.5 pb-2 sm:py-2.5 lg:px-6 lg:pt-2 lg:pb-2.5">
           <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory scroll-pl-1.5 pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:scroll-pl-2 lg:overflow-visible lg:scroll-pl-0 lg:pb-0 lg:snap-none">
             <div className="flex w-max min-w-full gap-2 lg:grid lg:w-auto lg:min-w-0 lg:grid-cols-7 lg:gap-2.5">
               {ASSORTMENT.map((item) => (
