@@ -11,6 +11,7 @@ import {
   Plus,
   Shield,
   Store,
+  Table2,
   Tag,
 } from 'lucide-react';
 import { useAuth } from '../../store/auth';
@@ -105,6 +106,7 @@ export function AdminGuard() {
 const nav = [
   { to: '/admin', label: 'Обзор', end: true, icon: LayoutDashboard },
   { to: '/admin/products', label: 'Товары', icon: Package },
+  { to: '/admin/collection-prices', label: 'Цены коллекций', icon: Table2 },
   { to: '/admin/categories', label: 'Категории', icon: Folders },
   { to: '/admin/brands', label: 'Бренды', icon: Tag },
   { to: '/admin/promotions', label: 'Акции', icon: Percent },

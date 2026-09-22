@@ -86,6 +86,8 @@ export type Product = {
   images: ProductImage[];
   characteristics: ProductCharacteristic[];
   stocks: Stock[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type ProductsResponse = {

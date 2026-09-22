@@ -40,6 +40,10 @@ const AdminCategoriesPage = lazyNamed(() => import('./pages/admin/AdminCrud'), '
 const AdminBrandsPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminBrandsPage');
 const AdminLeadsPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminLeadsPage');
 const AdminStoresPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminStoresPage');
+const AdminCollectionPricesPage = lazyNamed(
+  () => import('./pages/admin/AdminCollectionPrices'),
+  'AdminCollectionPricesPage',
+);
 const AdminPromotionsPage = lazyNamed(
   () => import('./pages/admin/AdminCrud'),
   'AdminPromotionsPage',
@@ -142,6 +146,7 @@ export default function App() {
                   <Route path="products" element={<AdminProductsPage />} />
                   <Route path="products/new" element={<AdminProductFormPage />} />
                   <Route path="products/:id" element={<AdminProductFormPage />} />
+                  <Route path="collection-prices" element={<AdminCollectionPricesPage />} />
                   <Route path="categories" element={<AdminCategoriesPage />} />
                   <Route path="brands" element={<AdminBrandsPage />} />
                   <Route path="leads" element={<AdminLeadsPage />} />

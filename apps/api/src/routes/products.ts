@@ -232,6 +232,61 @@ const productSchema = z.object({
   stocks: z.array(stockSchema).optional(),
 });
 
+const bulkByCollectionSchema = z.object({
+  categorySlug: z.string().optional(),
+  collectionSlug: z.string().optional(),
+  brandSlug: z.string().optional(),
+  q: z.string().optional(),
+  price: z.number().min(0),
+  unit: z.string().optional(),
+  packArea: z.number().optional().nullable(),
+  packQty: z.number().optional().nullable(),
+  length: z.number().optional().nullable(),
+  width: z.number().optional().nullable(),
+  thickness: z.number().optional().nullable(),
+  wearClass: z.string().optional().nullable(),
+});
+
+/** Apply price / pack dims to all products in a collection (or name match). */
+router.post(
+  '/bulk-by-collection',
+  requireAuth,
+  requireRole('ADMIN', 'MANAGER'),
+  asyncHandler(async (req, res) => {
+    const data = bulkByCollectionSchema.parse(req.body);
+    if (!data.collectionSlug && !data.q) {
+      return res.status(400).json({ error: 'Укажите collectionSlug или q' });
+    }
+
+    const where: Prisma.ProductWhereInput = {};
+    if (data.categorySlug) {
+      where.category = { slug: data.categorySlug };
+    }
+    if (data.collectionSlug) {
+      where.collection = { slug: data.collectionSlug };
+    } else if (data.q) {
+      where.name = { contains: data.q };
+      if (data.brandSlug) {
+        where.brand = { slug: data.brandSlug };
+      }
+    }
+
+    const updateData: Prisma.ProductUpdateManyMutationInput = {
+      price: data.price,
+      unit: data.unit || 'м²',
+    };
+    if (data.packArea !== undefined) updateData.packArea = data.packArea;
+    if (data.packQty !== undefined) updateData.packQty = data.packQty;
+    if (data.length !== undefined) updateData.length = data.length;
+    if (data.width !== undefined) updateData.width = data.width;
+    if (data.thickness !== undefined) updateData.thickness = data.thickness;
+    if (data.wearClass !== undefined) updateData.wearClass = data.wearClass;
+
+    const result = await prisma.product.updateMany({ where, data: updateData });
+    res.json({ updated: result.count });
+  }),
+);
+
 router.post(
   '/',
   requireAuth,
