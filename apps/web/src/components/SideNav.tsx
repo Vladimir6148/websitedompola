@@ -59,7 +59,7 @@ export function SideNav({ onNavigate, className = '' }: SideNavProps) {
 
   return (
     <div className={`flex h-full flex-col bg-white ${className}`}>
-      <div className="relative shrink-0 border-b border-graphite/8 px-4 py-4">
+      <div className="relative flex h-[4.25rem] shrink-0 items-center border-b border-graphite/8 px-4">
         <button
           type="button"
           onClick={() => setCityOpen((v) => !v)}
