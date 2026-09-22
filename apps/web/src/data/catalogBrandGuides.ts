@@ -186,6 +186,23 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         },
       ],
     },
+    {
+      name: 'Alta Step',
+      slug: 'alta-step',
+      collections: [
+        { name: 'Arriba', id: 'arriba', brand: 'alta-step', q: 'Arriba' },
+        { name: 'Deck Classic', id: 'deck-classic', brand: 'deck', collection: 'deck-classic' },
+        { name: 'Deck Prime', id: 'deck-prime', brand: 'deck', collection: 'deck-prime' },
+        { name: 'Encanto', id: 'encanto', brand: 'alta-step', q: 'Encanto' },
+        { name: 'Excelente', id: 'excelente', brand: 'alta-step', q: 'Excelente' },
+        { name: 'Grandeza', id: 'grandeza', brand: 'alta-step', q: 'Grandeza' },
+        { name: 'Gusto', id: 'gusto', brand: 'alta-step', q: 'Gusto' },
+        { name: 'Mirada', id: 'mirada', brand: 'alta-step', q: 'Mirada' },
+        { name: 'Nativo', id: 'nativo', brand: 'alta-step', q: 'Nativo' },
+        { name: 'Perfecto', id: 'perfecto', brand: 'alta-step', q: 'Perfecto' },
+        { name: 'Roca', id: 'roca', brand: 'alta-step', q: 'Roca' },
+      ],
+    },
   ],
 };
 
