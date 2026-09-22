@@ -427,20 +427,15 @@ export function CatalogPage() {
     productsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [loading, data, location.pathname, location.search]);
 
-  // After catalog data loads, restore the scroll position from before opening a product
+  // After catalog data loads, restore scroll once from «Назад» (don't re-run on every data refresh)
   useEffect(() => {
     if (loading) return;
     const pending = peekPendingRestore(location.pathname, location.search);
-    const saved = readScroll(location.pathname, location.search);
-    const y = pending ?? saved;
-    if (y == null || y <= 0) return;
-    const cancel = restoreScrollWithRetries(y);
-    const done = window.setTimeout(() => clearPendingRestore(), 2200);
-    return () => {
-      cancel();
-      window.clearTimeout(done);
-    };
-  }, [loading, data, location.pathname, location.search]);
+    if (pending == null || pending <= 0) return;
+    clearPendingRestore();
+    const cancel = restoreScrollWithRetries(pending);
+    return cancel;
+  }, [loading, location.pathname, location.search, location.key]);
 
   useEffect(() => {
     if (!filtersOpen) return;

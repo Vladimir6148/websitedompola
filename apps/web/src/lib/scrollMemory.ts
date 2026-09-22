@@ -43,7 +43,7 @@ export function setPendingRestore(fullPath: string, y?: number) {
   } catch {
     /* ignore */
   }
-  suppressSaveUntil = Date.now() + 2500;
+  suppressSaveUntil = Date.now() + 1200;
 }
 
 export function peekPendingRestore(pathname: string, search = ''): number | null {
@@ -74,16 +74,53 @@ export function restoreScroll(y: number) {
   apply();
   requestAnimationFrame(() => {
     apply();
-    requestAnimationFrame(() => {
-      apply();
-      html.style.scrollBehavior = prev;
-    });
+    html.style.scrollBehavior = prev;
   });
 }
 
-/** Keep restoring until layout has height (catalog data load). */
-export function restoreScrollWithRetries(y: number, delays = [0, 50, 150, 350, 700, 1200, 2000]) {
-  suppressSaveUntil = Date.now() + Math.max(...delays) + 500;
-  const timers = delays.map((ms) => window.setTimeout(() => restoreScroll(y), ms));
-  return () => timers.forEach((t) => window.clearTimeout(t));
+/**
+ * Restore scroll a few times while layout settles.
+ * Stops immediately on user scroll so we don't fight the feed.
+ */
+export function restoreScrollWithRetries(y: number, delays = [0, 80, 200, 450]) {
+  let cancelled = false;
+  const timers: number[] = [];
+
+  const stop = () => {
+    if (cancelled) return;
+    cancelled = true;
+    timers.forEach((t) => window.clearTimeout(t));
+    window.removeEventListener('wheel', stop);
+    window.removeEventListener('touchmove', stop);
+    window.removeEventListener('pointerdown', stop);
+    window.removeEventListener('keydown', stopOnKey);
+  };
+
+  const stopOnKey = (e: KeyboardEvent) => {
+    if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(e.key)) stop();
+  };
+
+  suppressSaveUntil = Date.now() + Math.max(...delays, 0) + 400;
+
+  for (const ms of delays) {
+    timers.push(
+      window.setTimeout(() => {
+        if (!cancelled) restoreScroll(y);
+      }, ms),
+    );
+  }
+
+  // After the last attempt, allow normal scroll saving again soon
+  timers.push(
+    window.setTimeout(() => {
+      stop();
+    }, Math.max(...delays) + 50),
+  );
+
+  window.addEventListener('wheel', stop, { passive: true });
+  window.addEventListener('touchmove', stop, { passive: true });
+  window.addEventListener('pointerdown', stop, { passive: true });
+  window.addEventListener('keydown', stopOnKey);
+
+  return stop;
 }

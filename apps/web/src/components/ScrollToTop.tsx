@@ -18,15 +18,18 @@ export function ScrollToTop() {
 
     const pending = peekPendingRestore(location.pathname, location.search);
     const saved = readScroll(location.pathname, location.search);
+    const isCatalog = location.pathname === '/catalog' || location.pathname.startsWith('/catalog/');
 
+    // Catalog restores after its own data load — only a light first pass here
     if (navType === 'POP' || pending != null) {
       const y = pending ?? saved;
       if (y != null && y > 0) {
+        if (isCatalog) {
+          restoreScroll(y);
+          return;
+        }
         const cancel = restoreScrollWithRetries(y);
-        // Clear pending after first successful schedule; CatalogPage may also restore after load
-        return () => {
-          cancel();
-        };
+        return () => cancel();
       }
     }
 
