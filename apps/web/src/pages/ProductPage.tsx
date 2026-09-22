@@ -5,7 +5,7 @@ import { QtyStepper } from '../components/QtyStepper';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
 import { SmartImage } from '../components/SmartImage';
-import { api, formatPrice, hasPrice, primaryImage, stockLabel } from '../lib/api';
+import { api, formatPlainText, formatPrice, hasPrice, primaryImage, stockLabel } from '../lib/api';
 import {
   areaToPacks,
   canRoomCalculate,
@@ -357,7 +357,9 @@ export function ProductPage() {
 
         <div className="mt-12">
           <h2 className="font-display text-2xl font-semibold">Описание</h2>
-          <p className="mt-3 max-w-3xl leading-relaxed text-graphite/70">{product.description}</p>
+          <p className="mt-3 max-w-3xl whitespace-pre-line leading-relaxed text-graphite/70">
+            {formatPlainText(product.description) || 'Описание уточняйте у менеджера.'}
+          </p>
           <h3 className="mt-8 font-display text-xl font-semibold">Характеристики</h3>
           <dl className="mt-3 max-w-3xl divide-y divide-graphite/8 border-y border-graphite/8">
               {[

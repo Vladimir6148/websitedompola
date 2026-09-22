@@ -43,7 +43,6 @@ export function SmartImage({
   return (
     <img
       {...rest}
-      key={resolved}
       src={resolved}
       alt={alt}
       className={className}

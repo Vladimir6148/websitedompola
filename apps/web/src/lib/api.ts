@@ -1,5 +1,5 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
-const USE_STATIC =
+export const USE_STATIC =
   import.meta.env.VITE_STATIC_API === 'true' ||
   (!API_BASE && import.meta.env.PROD && import.meta.env.VITE_STATIC_API !== 'false');
 
@@ -23,10 +23,22 @@ function dataUrl(file: string) {
   return `${base}data/${file}?v=${encodeURIComponent(String(bust))}`;
 }
 
+const jsonCache = new Map<string, Promise<unknown>>();
+
 async function loadJson<T>(file: string): Promise<T> {
-  const res = await fetch(dataUrl(file));
-  if (!res.ok) throw new ApiError(res.status, `Не удалось загрузить ${file}`);
-  return res.json() as Promise<T>;
+  let pending = jsonCache.get(file);
+  if (!pending) {
+    pending = (async () => {
+      const res = await fetch(dataUrl(file));
+      if (!res.ok) {
+        jsonCache.delete(file);
+        throw new ApiError(res.status, `Не удалось загрузить ${file}`);
+      }
+      return res.json();
+    })();
+    jsonCache.set(file, pending);
+  }
+  return pending as Promise<T>;
 }
 
 type Product = {
@@ -37,6 +49,8 @@ type Product = {
   price: number;
   published?: boolean;
   featured?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
   category?: { slug?: string; id?: string; name?: string };
   brand?: { slug?: string; id?: string; name?: string };
   collection?: { slug?: string; id?: string; name?: string };
@@ -48,6 +62,8 @@ type Product = {
   description?: string | null;
   [key: string]: unknown;
 };
+
+type BrandRow = { id: string; slug: string };
 
 async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T> {
   const method = (options.method || 'GET').toUpperCase();
@@ -101,7 +117,7 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     const brandParam = url.searchParams.get('brand');
     if (!brandParam) return collections as T;
     // brand query may be brand id or slug
-    const brands = await loadJson<Brand[]>('brands.json');
+    const brands = await loadJson<BrandRow[]>('brands.json');
     const brandIds = new Set(
       brands
         .filter((b) => b.id === brandParam || b.slug === brandParam)
@@ -174,7 +190,15 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     if (minPrice) items = items.filter((p) => p.price >= Number(minPrice));
     if (maxPrice) items = items.filter((p) => hasPrice(p.price) && p.price <= Number(maxPrice));
     if (wearClass) {
-      items = items.filter((p) => (p.wearClass || '').includes(wearClass));
+      const wanted = wearClass
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      items = items.filter((p) => {
+        const raw = (p.wearClass || '').trim();
+        if (!raw) return false;
+        return wanted.some((w) => raw === w || raw.split(/[,;/|\s]+/).includes(w));
+      });
     }
     if (moistureResistant) items = items.filter((p) => p.moistureResistant);
     if (underfloorHeating) items = items.filter((p) => p.underfloorHeating);
@@ -195,6 +219,14 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
         const af = a.featured ? 1 : 0;
         const bf = b.featured ? 1 : 0;
         if (bf !== af) return bf - af;
+        return a.name.localeCompare(b.name, 'ru');
+      });
+    }
+    if (sort === 'newest') {
+      items.sort((a, b) => {
+        const at = Date.parse(String(a.createdAt || a.updatedAt || 0)) || 0;
+        const bt = Date.parse(String(b.createdAt || b.updatedAt || 0)) || 0;
+        if (bt !== at) return bt - at;
         return a.name.localeCompare(b.name, 'ru');
       });
     }
@@ -296,4 +328,23 @@ export function fallbackImage(product: { images?: { url: string; isPrimary?: boo
       !i.url.includes('images.unsplash.com'),
   );
   return remote?.url || 'images/floor1.webp';
+}
+
+/** Decode common HTML entities and collapse markup leftovers for plain-text UI. */
+export function formatPlainText(value: string | null | undefined) {
+  if (!value) return '';
+  return value
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\r\n/g, '\n')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }

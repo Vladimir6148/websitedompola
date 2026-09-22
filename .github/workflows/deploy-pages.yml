@@ -28,10 +28,15 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Typecheck web
+        working-directory: apps/web
+        run: npm run typecheck
+
       - name: Build web
         working-directory: apps/web
         env:
           VITE_BASE: /websitedompola/
+          VITE_SITE_URL: https://vladimir6148.github.io/websitedompola
           # Catalog from static JSON (full import). Auth/writes still hit Render when possible.
           VITE_API_URL: https://dompola-api.onrender.com
           VITE_STATIC_API: "true"

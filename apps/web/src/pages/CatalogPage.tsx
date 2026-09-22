@@ -33,7 +33,7 @@ const WEAR_CLASS_OPTIONS = ['31', '32', '33', '34', '41', '42', '43'];
 const BRAND_PREVIEW = 6;
 const COLLECTION_PREVIEW = 5;
 /** Max product cards per catalog page (everywhere). */
-const PAGE_SIZE = 90;
+const PAGE_SIZE = 48;
 
 type CatalogCollection = {
   id: string;

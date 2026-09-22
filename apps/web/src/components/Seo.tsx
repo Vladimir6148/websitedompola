@@ -51,6 +51,10 @@ export function Seo({ title, description, path = '/', image }: SeoProps) {
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:type', 'website');
     if (image) upsertMeta('property', 'og:image', absolutize(image));
+    upsertMeta('name', 'twitter:card', 'summary_large_image');
+    upsertMeta('name', 'twitter:title', fullTitle);
+    upsertMeta('name', 'twitter:description', desc);
+    if (image) upsertMeta('name', 'twitter:image', absolutize(image));
 
     let link = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {

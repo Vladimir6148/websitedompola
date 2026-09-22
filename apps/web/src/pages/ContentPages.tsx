@@ -45,7 +45,11 @@ export function WorksPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((w) => (
             <article key={w.id}>
-              <SmartImage src={w.image} alt={w.title} className="aspect-[4/3] w-full rounded-2xl object-cover" />
+              <SmartImage
+                src={w.image || undefined}
+                alt={w.title || 'Работа'}
+                className="aspect-[4/3] w-full rounded-2xl object-cover"
+              />
               <h2 className="mt-3 font-semibold">{w.title}</h2>
               <p className="text-sm text-graphite/55">{[w.city, w.category].filter(Boolean).join(' · ')}</p>
             </article>
