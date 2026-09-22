@@ -121,6 +121,72 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
       ],
     },
   ],
+  'quartzvinyl-spc': [
+    {
+      name: 'Alpine Floor',
+      slug: 'alpine-floor',
+      collections: [
+        {
+          name: 'Chevron Alpine',
+          id: 'chevron-alpine',
+          brand: 'alpine-floor',
+          collection: 'chevron-alpine-eco',
+        },
+        { name: 'Chevron LVT', id: 'chevron-lvt', brand: 'alpine-floor', q: 'Chevron LVT' },
+        { name: 'Classic', id: 'classic', brand: 'alpine-floor', q: 'Classic' },
+        { name: 'Grand Sequoia', id: 'grand-sequoia', brand: 'alpine-floor', q: 'Grand Sequoia ЕСО' },
+        {
+          name: 'Grand Sequoia Light',
+          id: 'grand-sequoia-light',
+          brand: 'alpine-floor',
+          q: 'Grand Sequoia Light',
+        },
+        {
+          name: 'Grand Sequoia LVT',
+          id: 'grand-sequoia-lvt',
+          brand: 'alpine-floor',
+          q: 'Grand Sequoia LVT',
+        },
+        {
+          name: 'Grand Sequoia Superior ABA',
+          id: 'grand-sequoia-superior-aba',
+          brand: 'alpine-floor',
+          q: 'Superior ABA',
+        },
+        {
+          name: 'Grand Sequoia Village',
+          id: 'grand-sequoia-village',
+          brand: 'alpine-floor',
+          q: 'Grand Sequoia Village',
+        },
+        { name: 'Intense', id: 'intense', brand: 'alpine-floor', q: 'Intense' },
+        { name: 'Light Parquet', id: 'light-parquet', brand: 'alpine-floor', q: 'Light Parquet' },
+        { name: 'Light Stone', id: 'light-stone', brand: 'alpine-floor', q: 'Light Stone' },
+        { name: 'Parquet LVT', id: 'parquet-lvt', brand: 'alpine-floor', q: 'Parquet LVT' },
+        {
+          name: 'Parquet Premium ABA',
+          id: 'parquet-premium-aba',
+          brand: 'alpine-floor',
+          q: 'Parquet Premium',
+        },
+        { name: 'Premium XL', id: 'premium-xl', brand: 'alpine-floor', q: 'Premium XL' },
+        {
+          name: 'Sequoia',
+          id: 'sequoia',
+          brand: 'alpine-floor',
+          q: 'Sequoia',
+          qExclude: 'Grand',
+        },
+        { name: 'Solo Plus', id: 'solo-plus', brand: 'alpine-floor', q: 'Solo Plus' },
+        {
+          name: 'Stone Mineral Core',
+          id: 'stone-mineral-core',
+          brand: 'alpine-floor',
+          q: 'Stone Mineral Core',
+        },
+      ],
+    },
+  ],
 };
 
 function asList(value: string | string[] | undefined): string[] {
