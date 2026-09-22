@@ -17,11 +17,12 @@ export function useGoBack(fallback = '/') {
   const from = (location.state as ReturnNavState | null)?.from;
 
   return () => {
+    // Return to the exact catalog URL (filters/page) and restore scroll there
     if (from) {
       const { pathname, search } = parsePath(from);
       const y = readScroll(pathname, search) ?? 0;
       setPendingRestore(from, y);
-      navigate(-1);
+      navigate(from, { replace: true });
       return;
     }
     if (typeof window !== 'undefined' && window.history.length > 1) {

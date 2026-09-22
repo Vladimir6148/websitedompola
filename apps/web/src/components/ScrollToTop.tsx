@@ -4,10 +4,13 @@ import {
   clearPendingRestore,
   peekPendingRestore,
   readScroll,
-  restoreScroll,
   restoreScrollWithRetries,
   saveScroll,
 } from '../lib/scrollMemory';
+
+function isCatalogPath(pathname: string) {
+  return pathname === '/catalog' || pathname.startsWith('/catalog/');
+}
 
 /** Scroll to top on push/replace; restore saved position on back navigation. */
 export function ScrollToTop() {
@@ -19,16 +22,16 @@ export function ScrollToTop() {
 
     const pending = peekPendingRestore(location.pathname, location.search);
     const saved = readScroll(location.pathname, location.search);
-    const isCatalog = location.pathname === '/catalog' || location.pathname.startsWith('/catalog/');
+    const shouldRestore = navType === 'POP' || pending != null;
 
-    // Catalog restores after its own data load — only a light first pass here
-    if (navType === 'POP' || pending != null) {
+    // Catalog restores after product grid loads (CatalogPage) — don't jump early on a short shell
+    if (shouldRestore && isCatalogPath(location.pathname)) {
+      return;
+    }
+
+    if (shouldRestore) {
       const y = pending ?? saved;
       if (y != null && y > 0) {
-        if (isCatalog) {
-          restoreScroll(y);
-          return;
-        }
         const cancel = restoreScrollWithRetries(y);
         return () => cancel();
       }

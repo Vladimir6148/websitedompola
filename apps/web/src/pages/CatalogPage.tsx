@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useNavigationType,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import { Layers, PanelBottom, Pipette, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
@@ -9,7 +16,8 @@ import { api } from '../lib/api';
 import {
   clearPendingRestore,
   peekPendingRestore,
-  restoreScrollWithRetries,
+  readScroll,
+  restoreCatalogScroll,
 } from '../lib/scrollMemory';
 import type { Brand, Category, Product, ProductsResponse } from '../types';
 
@@ -246,6 +254,7 @@ export function CatalogPage() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const navType = useNavigationType();
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
   const [allCollections, setAllCollections] = useState<CatalogCollection[]>([]);
@@ -257,6 +266,7 @@ export function CatalogPage() {
   const [collectionModalOpen, setCollectionModalOpen] = useState(false);
   const productsTopRef = useRef<HTMLDivElement>(null);
   const shouldScrollToProducts = useRef(false);
+  const restoredForKey = useRef<string | null>(null);
 
   const q = params.get('q') || '';
   const brand = params.get('brand') || '';
@@ -426,15 +436,22 @@ export function CatalogPage() {
     productsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [loading, data, location.pathname, location.search]);
 
-  // After catalog data loads, restore scroll once from «Назад» (don't re-run on every data refresh)
+  // After catalog data loads, return to the exact scroll spot the user left from
   useEffect(() => {
-    if (loading) return;
+    if (loading || !data) return;
+    const routeKey = `${location.key}:${location.pathname}${location.search}`;
+    if (restoredForKey.current === routeKey) return;
+
     const pending = peekPendingRestore(location.pathname, location.search);
-    if (pending == null || pending <= 0) return;
+    const saved = readScroll(location.pathname, location.search);
+    const y = pending ?? (navType === 'POP' ? saved : null);
+    if (y == null || y <= 0) return;
+
+    restoredForKey.current = routeKey;
     clearPendingRestore();
-    const cancel = restoreScrollWithRetries(pending);
+    const cancel = restoreCatalogScroll(y);
     return cancel;
-  }, [loading, location.pathname, location.search, location.key]);
+  }, [loading, data, location.pathname, location.search, location.key, navType]);
 
   useEffect(() => {
     if (!filtersOpen) return;
