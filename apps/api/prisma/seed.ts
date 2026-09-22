@@ -143,7 +143,6 @@ async function main() {
       { name: 'Quick-Step', slug: 'quick-step', website: 'https://www.quick-step.ru', description: 'Ламинат и винил' },
       { name: 'Tarkett', slug: 'tarkett', website: 'https://www.tarkett.ru', description: 'Линолеум и ламинат' },
       { name: 'Kerama Marazzi', slug: 'kerama-marazzi', description: 'Керамогранит' },
-      { name: 'Barlinek', slug: 'barlinek', description: 'Паркетная доска' },
     ].map((b, i) => prisma.brand.create({ data: { ...b, sortOrder: i + 1 } })),
   );
 
@@ -151,7 +150,6 @@ async function main() {
   const quick = brands[1];
   const tarkett = brands[2];
   const kerama = brands[3];
-  const barlinek = brands[4];
 
   const colNordic = await prisma.collection.create({
     data: { name: 'Nordic', slug: 'nordic', brandId: alpine.id },
@@ -247,23 +245,6 @@ async function main() {
       featured: true,
       description: 'Керамогранит под дерево — для зон с высокой влажностью и коммерческих пространств.',
       image: IMG.floor3,
-    },
-    {
-      name: 'Barlinek Дуб Масло',
-      slug: 'barlinek-dub-maslo',
-      sku: 'BL-DM-01',
-      price: 4200,
-      oldPrice: 4800,
-      categoryId: categories[4].id,
-      brandId: barlinek.id,
-      thickness: 14,
-      color: 'натуральный дуб',
-      underfloorHeating: true,
-      packArea: 2.77,
-      unit: 'м²',
-      featured: true,
-      description: 'Паркетная доска с масляным покрытием и живой фактурой натурального дуба.',
-      image: IMG.living,
     },
     {
       name: 'Плинтус МДФ Белый 80',

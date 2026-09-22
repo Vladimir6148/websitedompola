@@ -1,17 +1,17 @@
 ﻿brand;brand_slug;collection;collection_slug;match_q;length_mm;width_mm;pack_qty;pack_area;price_per_m2;products_count;unit
-Арфа;arfa;Арфа;arfa;;;;;;3137.5;10;упаковка
-Валторна;valtorna;Валторна;valtorna;;;;;;1882.5;5;упаковка
-Варган;vargan;Варган;vargan;;;;;;4608;10;упаковка
-Геликон;gelikon;Геликон;gelikon;;;;;;2790;1;упаковка
-Домра;domra;Домра;domra;;;;;;3666;10;упаковка
-Кастаньеты;kastanety;Кастаньеты;kastanety;;;;;;2970.8;20;упаковка
-Лира;lira;Лира;lira;;;;;;4100.4;5;упаковка
+Арфа;arfa;Арфа;arfa;;1292;194;5;1.253;2510;10;м²
+Валторна;valtorna;Валторна;valtorna;;1292;116;5;0.749;2510;5;м²
+Варган;vargan;Варган;vargan;;600;100;32;1.92;2400;10;м²
+Геликон;gelikon;Геликон;gelikon;;1292;194;6;1.504;1860;1;м²
+Домра;domra;Домра;domra;;600;100;26;1.56;2350;10;м²
+Кастаньеты;kastanety;Кастаньеты;kastanety;;1380;195;8;2.153;1670;20;м²
+Лира;lira;Лира;lira;;1292;194;8;2.005;2040;5;м²
 Литавры;litavry;Литавры;litavry;;;;;;3480.9;10;упаковка
-Лютень;lyuten;Лютень;lyuten;;;;;;4083.2;8;упаковка
-Мелодика;melodika;Мелодика;melodika;;;;;;3517.5;7;упаковка
-Свирель;svirel;Свирель;svirel;;;;;;2592.2;9;упаковка
-Фанфара;fanfara;Фанфара;fanfara;;;;;;2874.3;2;упаковка
-Цитра;tsitra;Цитра;tsitra;;;;;;2988.9;2;упаковка
+Лютень;lyuten;Лютень;lyuten;;1292;194;7;1.755;2320;8;м²
+Мелодика;melodika;Мелодика;melodika;;1292;194;8;2.005;1750;7;м²
+Свирель;svirel;Свирель;svirel;;1292;193;8;1.995;1300;9;м²
+Фанфара;fanfara;Фанфара;fanfara;;1292;194;8;2.005;1430;2;м²
+Цитра;tsitra;Цитра;tsitra;;1292;159;6;1.233;2430;2;м²
 AGT;agt;AGT Bering;agt-bering;;;;;;3283.5;10;упаковка
 AGT;agt;AGT Marco Polo;agt-marco-polo;;;;;;3167;8;упаковка
 AGT;agt;AGT Marco Polo Premium;agt-marco-polo-premium;;;;;;3167;8;упаковка
@@ -43,8 +43,8 @@ Effect;effect;Effect PRK911;effect-prk911;;;;;;3134.43;1;упаковка
 Effect;effect;Effect PRK912;effect-prk912;;;;;;3134.43;1;упаковка
 Effect;effect;Effect PRK913;effect-prk913;;;;;;3134.43;1;упаковка
 Effect;effect;Effect PRK914;effect-prk914;;;;;;3134.43;1;упаковка
-Elegant;elegant;Elegant Norland;elegant-norland;;;;;;4662.11;23;упаковка
-Elegant;elegant;Elegant Strong;elegant-strong;;;;;;4444.7;22;упаковка
+Elegant;elegant;Elegant Norland;elegant-norland;;1220;198;8;1.932;1930;23;м²
+Elegant;elegant;Elegant Strong;elegant-strong;;1220;198;7;1.691;2630;22;м²
 Elements;elements;Elements;elements;;1200;396;3;1.4256;3360;3;м²
 Fiorentino;fiorentino;Fiorentino;fiorentino;;;;;;2442;6;упаковка
 Floordreams;floordreams;Floordreams Vario;floordreams-vario;;;;;;2501.2;1;упаковка
@@ -54,7 +54,7 @@ Form;form;Form;form;;;;;2.153;1720;8;м²
 Harmony;harmony;Harmony Forte;harmony-forte;;;;;;5395;6;упаковка
 Hercules;hercules;Hercules;hercules;;;;;;2110.25;3;упаковка
 Hercules;hercules;Hercules HWR;hercules-hwr;;;;;;1908.4;2;упаковка
-Herringbone;herringbone;Herringbone Elegant;herringbone-elegant;;;;;;4780.8;47;упаковка
+Herringbone;herringbone;Herringbone Elegant;herringbone-elegant;;600;100;32;1.92;2490;47;м²
 Kalmar;kalmar;Kalmar L1367-06988;kalmar-l1367-06988;;1380;190;7;1.8354;1830;1;м²
 Kalmar;kalmar;Kalmar L1367-06989;kalmar-l1367-06989;;1380;190;7;1.8354;1830;1;м²
 Kalmar;kalmar;Kalmar L1367-06990;kalmar-l1367-06990;;1380;190;7;1.8354;1830;1;м²

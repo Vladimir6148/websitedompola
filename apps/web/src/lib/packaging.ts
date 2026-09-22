@@ -37,14 +37,14 @@ export function formatUnit(unit?: string | null, opts?: { short?: boolean }): st
   return raw;
 }
 
-/** m² per pack: prefer stored packArea, else L×W(mm)×pieces */
+/** m² per pack: prefer stored packArea, else L×W(mm)×pieces (3 decimal places). */
 export function resolvePackArea(p: PackDims): number | null {
-  if (p.packArea != null && p.packArea > 0) return p.packArea;
+  if (p.packArea != null && p.packArea > 0) return Math.round(Number(p.packArea) * 1000) / 1000;
   const len = p.length != null ? Number(p.length) : 0;
   const wid = p.width != null ? Number(p.width) : 0;
   const qty = p.packQty != null ? Number(p.packQty) : 0;
   if (len > 0 && wid > 0 && qty > 0) {
-    return (len / 1000) * (wid / 1000) * qty;
+    return Math.round((len / 1000) * (wid / 1000) * qty * 1000) / 1000;
   }
   return null;
 }
@@ -114,10 +114,10 @@ function formatMm(n: number) {
 }
 
 export function formatPackArea(area: number): string {
-  return area.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+  return area.toLocaleString('ru-RU', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
 }
 
-/** Suggested packArea from board dims (for admin hint). */
+/** Suggested packArea from board dims (for admin hint). Always 3 decimal places. */
 export function suggestedPackArea(lengthMm: number, widthMm: number, pieces: number): number | null {
   if (lengthMm <= 0 || widthMm <= 0 || pieces <= 0) return null;
   const v = (lengthMm / 1000) * (widthMm / 1000) * pieces;

@@ -18,3 +18,7 @@ mspc-products-raw.json
 pergo-source.json
 tmp-pergo/
 alta-source.json
+scripts/_tmp/
+*-prices-source.csv
+scripts/agt-*.json
+scripts/_alpine_*.json
