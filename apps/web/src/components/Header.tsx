@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, Phone, Search, ShoppingCart, X } from 'lucide-react';
+import { Menu, Phone, Search, ShoppingBag, X } from 'lucide-react';
 import { useCart } from '../store/cart';
 import { BrandMark } from './BrandMark';
 import { MobileBottomNav } from './MobileBottomNav';
@@ -73,7 +73,7 @@ export function Header() {
               aria-label="Корзина"
               className="relative grid h-10 w-10 place-items-center rounded-full border border-graphite/20 bg-white text-graphite transition hover:border-brand hover:text-brand sm:h-11 sm:w-11"
             >
-              <ShoppingCart size={18} strokeWidth={1.75} />
+              <ShoppingBag size={18} strokeWidth={1.75} />
               {count > 0 ? (
                 <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[10px] font-bold text-white">
                   {count}

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { Calculator, ShoppingCart } from 'lucide-react';
+import { Calculator, ShoppingBag } from 'lucide-react';
 import { QtyStepper } from '../components/QtyStepper';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
@@ -340,7 +340,7 @@ export function ProductPage() {
                   onClick={() => add(product, packs)}
                 >
                   <span className="inline-flex items-center gap-1.5">
-                    <ShoppingCart size={14} strokeWidth={1.75} className="text-[#d5ddd6]" /> В корзину
+                    <ShoppingBag size={14} strokeWidth={1.75} className="text-[#d5ddd6]" /> В корзину
                   </span>
                   <span>{formatPrice(cartSum)}</span>
                 </button>

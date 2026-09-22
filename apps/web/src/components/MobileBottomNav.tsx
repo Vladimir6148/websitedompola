@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Home, LayoutGrid, Search, ShoppingCart } from 'lucide-react';
+import { Home, LayoutGrid, Search, ShoppingBag } from 'lucide-react';
 import { useCart } from '../store/cart';
 
 type Props = {
@@ -59,7 +59,7 @@ export function MobileBottomNav({ onSearch }: Props) {
                   isActive ? 'bg-brand/12 text-brand' : 'text-graphite/50'
                 }`}
               >
-                <ShoppingCart size={22} strokeWidth={isActive ? 2.25 : 1.75} />
+                <ShoppingBag size={22} strokeWidth={isActive ? 2.25 : 1.75} />
                 {count > 0 ? (
                   <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-brand px-1 text-[9px] font-bold text-white">
                     {count}
