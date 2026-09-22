@@ -111,13 +111,12 @@ export function HomePage() {
 
       <section className="bg-white">
         <div className="w-full px-4 py-2.5 sm:px-5 sm:py-3 md:px-5 lg:px-6 lg:py-3.5">
-          {/* Mobile: scroll chips. Desktop: equal-width blocks matching hero feature tiles */}
-          <div className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-7 lg:gap-2.5 lg:overflow-visible lg:pb-0">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 lg:gap-2.5">
             {ASSORTMENT.map((item) => (
               <Link
                 key={`${item.to}-${item.label}`}
                 to={item.to}
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand bg-brand px-4 text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] lg:h-[3.25rem] lg:w-full lg:rounded-xl lg:px-2 lg:text-center lg:text-[13px] xl:h-14 xl:text-sm"
+                className="inline-flex h-10 w-full items-center justify-center rounded-xl border border-brand bg-brand px-2 text-center text-sm font-semibold text-white transition hover:bg-brand-dark active:scale-[0.98] lg:h-[3.25rem] lg:px-2 lg:text-[13px] xl:h-14 xl:text-sm"
               >
                 {item.label}
               </Link>
