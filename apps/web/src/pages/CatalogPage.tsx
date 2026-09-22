@@ -830,10 +830,10 @@ export function CatalogPage() {
                           key={col.id}
                           type="button"
                           onClick={() => selectGuideCollection(col.id)}
-                          className={`inline-flex h-10 shrink-0 items-center justify-center rounded-xl border border-brand px-4 text-sm font-semibold transition active:scale-[0.98] ${
+                          className={`inline-flex h-10 shrink-0 items-center justify-center rounded-xl border px-4 text-sm font-semibold transition active:scale-[0.98] ${
                             active
-                              ? 'bg-brand-dark text-white'
-                              : 'bg-brand text-white hover:bg-brand-dark'
+                              ? 'border-brand bg-brand text-white'
+                              : 'border-brand/30 bg-white text-brand hover:border-brand hover:bg-brand/5'
                           }`}
                         >
                           {col.name}
