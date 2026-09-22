@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import type { Product } from '../types';
-import { primaryImage } from '../lib/api';
+import { primaryImage, fallbackImage } from '../lib/api';
 import { rememberCurrentScroll, useReturnLinkState } from '../hooks/useReturnLinkState';
 import { ProductCardCalculator } from './ProductCardCalculator';
 import { SmartImage } from './SmartImage';
@@ -11,6 +11,7 @@ export function ProductCard({ product }: { product: Product }) {
   const productTo = `/product/${product.slug}`;
   const remember = () => rememberCurrentScroll(location.pathname, location.search);
   const image = primaryImage(product);
+  const imageFallback = fallbackImage(product);
   const discount =
     product.discountPercent ||
     (product.oldPrice && product.oldPrice > product.price
@@ -27,6 +28,7 @@ export function ProductCard({ product }: { product: Product }) {
       >
         <SmartImage
           src={image}
+          fallback={imageFallback}
           alt={product.images?.[0]?.alt || product.name}
           className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"

@@ -1,5 +1,7 @@
 import { useEffect, useState, type ImgHTMLAttributes } from 'react';
-import { assetUrl, resolveImageUrl } from '../lib/images';
+import { resolveImageUrl } from '../lib/images';
+
+const LOAD_TIMEOUT_MS = 8000;
 
 type Props = ImgHTMLAttributes<HTMLImageElement> & {
   src?: string | null;
@@ -18,15 +20,25 @@ export function SmartImage({
   ...rest
 }: Props) {
   const [failed, setFailed] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const resolved = failed ? assetUrl(fallback) : resolveImageUrl(src, fallback);
+  const resolved = failed
+    ? resolveImageUrl(fallback, 'images/floor1.webp')
+    : resolveImageUrl(src, fallback);
   const loading = rest.loading ?? (priority ? 'eager' : 'lazy');
   const isRemote = /^https?:\/\//i.test(resolved);
+  const fallbackResolved = resolveImageUrl(fallback, 'images/floor1.webp');
+  const canFallback = !failed && resolved !== fallbackResolved;
 
+  // Only reset when the intended source changes — not when we switch to fallback.
   useEffect(() => {
     setFailed(false);
-    setLoaded(false);
-  }, [src, resolved]);
+  }, [src, fallback]);
+
+  // Hung requests never fire onError; force fallback so cards don't stay blank.
+  useEffect(() => {
+    if (!canFallback) return;
+    const id = window.setTimeout(() => setFailed(true), LOAD_TIMEOUT_MS);
+    return () => window.clearTimeout(id);
+  }, [resolved, canFallback]);
 
   return (
     <img
@@ -34,29 +46,17 @@ export function SmartImage({
       key={resolved}
       src={resolved}
       alt={alt}
-      className={`${className || ''} ${loaded ? 'opacity-100' : 'opacity-0'}`.trim()}
+      className={className}
       sizes={sizes}
       loading={loading}
       decoding={priority ? 'sync' : 'async'}
       fetchPriority={priority || loading === 'eager' ? 'high' : rest.fetchPriority}
       referrerPolicy={isRemote ? undefined : 'no-referrer'}
-      ref={(el) => {
-        // Cached images often skip onLoad if it fired before React attached the handler.
-        if (el && el.complete && el.naturalWidth > 0) {
-          setLoaded(true);
-        }
-      }}
       onLoad={(e) => {
-        setLoaded(true);
         rest.onLoad?.(e);
       }}
       onError={(e) => {
-        if (!failed) {
-          setFailed(true);
-          setLoaded(false);
-        } else {
-          setLoaded(true);
-        }
+        if (canFallback) setFailed(true);
         rest.onError?.(e);
       }}
     />

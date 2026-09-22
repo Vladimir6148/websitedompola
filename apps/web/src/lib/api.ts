@@ -279,5 +279,21 @@ export function primaryImage(product: { images?: { url: string; isPrimary?: bool
   if (!product.images?.length) {
     return 'images/floor1.webp';
   }
-  return product.images.find((i) => i.isPrimary)?.url || product.images[0].url;
+  const preferred = product.images.find((i) => i.isPrimary) || product.images[0];
+  const local = product.images.find(
+    (i) => i.url.startsWith('images/') || i.url.startsWith('/images/'),
+  );
+  // Prefer same-origin asset when present; caller can pass remote as SmartImage fallback.
+  return (local || preferred).url;
+}
+
+/** Extra URL to try when the primary (often local) asset is missing or hangs. */
+export function fallbackImage(product: { images?: { url: string; isPrimary?: boolean }[] }) {
+  const remote = product.images?.find(
+    (i) =>
+      /^https?:\/\//i.test(i.url) &&
+      !i.url.includes('unsplash.com') &&
+      !i.url.includes('images.unsplash.com'),
+  );
+  return remote?.url || 'images/floor1.webp';
 }
