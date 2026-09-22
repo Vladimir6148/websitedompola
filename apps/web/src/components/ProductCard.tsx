@@ -23,16 +23,16 @@ export function ProductCard({ product }: { product: Product }) {
         to={productTo}
         state={returnState}
         onClick={remember}
-        className="relative block aspect-square overflow-hidden bg-mist sm:aspect-[4/3]"
+        className="relative block w-full shrink-0 overflow-hidden bg-mist aspect-[4/3]"
       >
         <SmartImage
           src={image}
           alt={product.images?.[0]?.alt || product.name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"
         />
         {discount ? (
-          <span className="absolute left-2 top-2 rounded-full bg-[#e11d48] px-1.5 py-0.5 text-[10px] font-bold text-white sm:left-3 sm:top-3 sm:px-2 sm:py-1 sm:text-xs">
+          <span className="absolute left-2 top-2 z-10 rounded-full bg-[#e11d48] px-1.5 py-0.5 text-[10px] font-bold text-white sm:left-3 sm:top-3 sm:px-2 sm:py-1 sm:text-xs">
             −{discount}%
           </span>
         ) : null}

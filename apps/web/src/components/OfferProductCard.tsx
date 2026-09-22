@@ -23,12 +23,12 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
         to={productTo}
         state={returnState}
         onClick={remember}
-        className="relative block aspect-square overflow-hidden bg-mist"
+        className="relative block w-full shrink-0 overflow-hidden bg-mist aspect-[4/3]"
       >
         <SmartImage
           src={image}
           alt={product.images?.[0]?.alt || product.name}
-          className="h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           priority={priority}
         />
         {discount ? (
