@@ -214,6 +214,26 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         { name: 'Redstone', id: 'redstone', brand: 'amadei', collection: 'amadei-redstone' },
       ],
     },
+    {
+      name: 'AquaFloor',
+      slug: 'aquafloor',
+      collections: [
+        { name: 'Classic', id: 'classic', brand: 'aquafloor', collection: 'aquafloor-classic' },
+        { name: 'Nano', id: 'nano', brand: 'aquafloor', collection: 'aquafloor-nano' },
+        { name: 'Parquet', id: 'parquet', brand: 'aquafloor', collection: 'aquafloor-parquet' },
+        { name: 'Quartz', id: 'quartz', brand: 'aquafloor', collection: 'aquafloor-quartz' },
+        { name: 'Real', id: 'real', brand: 'aquafloor', collection: 'aquafloor-real' },
+        { name: 'RealWood', id: 'realwood', brand: 'aquafloor', collection: 'aquafloor-realwood' },
+        { name: 'Space', id: 'space', brand: 'aquafloor', collection: 'aquafloor-space' },
+        { name: 'Stone', id: 'stone', brand: 'aquafloor', collection: 'aquafloor-stone' },
+        {
+          name: 'Versailles',
+          id: 'versailles',
+          brand: 'aquafloor',
+          collection: 'aquafloor-versailles',
+        },
+      ],
+    },
   ],
 };
 
