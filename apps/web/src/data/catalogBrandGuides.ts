@@ -110,6 +110,16 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         },
       ],
     },
+    {
+      name: 'Ideal',
+      slug: 'ideal',
+      collections: [
+        { name: 'Choice', id: 'choice', brand: 'choice', collection: 'choice' },
+        { name: 'Form', id: 'form', brand: 'form', collection: 'form' },
+        { name: 'Look', id: 'look', brand: 'look', collection: 'look' },
+        { name: 'Touch', id: 'touch', brand: 'touch', collection: 'touch' },
+      ],
+    },
   ],
 };
 
