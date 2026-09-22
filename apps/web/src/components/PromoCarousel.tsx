@@ -191,17 +191,17 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
                 </p>
               </div>
 
-              <div className="mt-8 flex flex-col gap-4 md:mt-10 lg:mt-auto lg:flex-row lg:items-stretch lg:gap-4 xl:gap-5">
-                <div className="grid min-w-0 flex-1 grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3.5 lg:gap-4 xl:gap-5">
+              <div className="mt-8 flex flex-col gap-3 md:mt-10 md:gap-4 lg:mt-auto lg:flex-row lg:items-stretch lg:gap-4 xl:gap-5">
+                <div className="grid min-w-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3.5 lg:gap-4 xl:gap-5">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div
                       key={label}
-                      className="flex h-full min-h-[5rem] items-center gap-3.5 rounded-2xl border border-white/15 bg-white/10 px-4 py-3.5 backdrop-blur-sm sm:min-h-[5.25rem] lg:min-h-[5.5rem] lg:gap-4 lg:px-5"
+                      className="flex h-full min-h-0 items-center gap-2.5 rounded-xl border border-white/15 bg-white/10 px-3 py-2 backdrop-blur-sm sm:min-h-[5.25rem] sm:gap-3.5 sm:rounded-2xl sm:px-4 sm:py-3.5 lg:min-h-[5.5rem] lg:gap-4 lg:px-5 [&_svg]:h-3.5 [&_svg]:w-3.5 sm:[&_svg]:h-5 sm:[&_svg]:w-5"
                     >
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
-                        <Icon size={20} strokeWidth={1.85} className="text-[#d5ddd6]" />
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
+                        <Icon strokeWidth={1.85} className="text-[#d5ddd6]" />
                       </span>
-                      <span className="min-w-0 flex-1 text-[14px] font-semibold leading-tight text-white sm:text-[15px] xl:text-base">
+                      <span className="min-w-0 flex-1 text-[11px] font-semibold leading-tight text-white sm:text-[15px] xl:text-base">
                         {label}
                       </span>
                     </div>
