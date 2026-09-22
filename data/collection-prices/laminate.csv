@@ -14,12 +14,12 @@
 Цитра;tsitra;Цитра;tsitra;;;;;;2988.9;2;упаковка
 AGT;agt;AGT Bering;agt-bering;;;;;;3283.5;10;упаковка
 AGT;agt;AGT Marco Polo;agt-marco-polo;;;;;;3167;8;упаковка
-AGT;agt;AGT Marco Polo Premium;agt-marco-polo-premium;;;;;;3170;8;упаковка
+AGT;agt;AGT Marco Polo Premium;agt-marco-polo-premium;;;;;;3167;8;упаковка
 Alpine Floor;alpine-floor;Alpine Floor LF100;alpine-floor-lf100;;;;;;4701.45;22;упаковка
 Alpine Floor;alpine-floor;Alpine Floor LF101;alpine-floor-lf101;;;;;;4371.92;22;упаковка
 Alpine Floor;alpine-floor;Alpine Floor LF107;alpine-floor-lf107;;;;;;4196.4;1;упаковка
 Alpinext;alpinext;Alpinext Quick;alpinext-quick;;;;;;3207.48;8;упаковка
-Armonia;armonia;Armonia LARGE;armonia-large;;;;;;4067;4;упаковка
+Armonia;armonia;Armonia LARGE;armonia-large;;;;;;3854.5;4;упаковка
 Armonia;armonia;Armonia SLIM;armonia-slim;;;;;;3854.5;4;упаковка
 Castello;castello;Castello Classic;castello-classic;;;;;;1887.4;8;упаковка
 Chevron;chevron;Chevron;chevron;;1200;396;3;1.4256;3360;4;м²
@@ -32,8 +32,8 @@ Deck;deck;Deck Elegant;deck-elegant;;;;;;3019.52;5;упаковка
 Deck;deck;Deck Supreme;deck-supreme;;;;;;3231.83;5;упаковка
 Dream;dream;Dream Wood;dream-wood;;;;;;3073;9;упаковка
 Ebeltoft;ebeltoft;Ebeltoft;ebeltoft;;1200;396;3;1.4256;3360;4;м²
-Effect;effect;Effect ELEGANCE;effect-elegance;;;;;;2557.17;6;упаковка
-Effect;effect;Effect PRK903;effect-prk903;;;;;;3143.43;2;упаковка
+Effect;effect;Effect ELEGANCE;effect-elegance;;;;;;3134.43;6;упаковка
+Effect;effect;Effect PRK903;effect-prk903;;;;;;3134.43;2;упаковка
 Effect;effect;Effect PRK904;effect-prk904;;;;;;3134.43;1;упаковка
 Effect;effect;Effect PRK906;effect-prk906;;;;;;3134.43;1;упаковка
 Effect;effect;Effect PRK908;effect-prk908;;;;;;3134.43;1;упаковка
@@ -48,8 +48,8 @@ Elegant;elegant;Elegant Strong;elegant-strong;;;;;;4444.7;22;упаковка
 Elements;elements;Elements;elements;;1200;396;3;1.4256;3360;3;м²
 Fiorentino;fiorentino;Fiorentino;fiorentino;;;;;;2442;6;упаковка
 Floordreams;floordreams;Floordreams Vario;floordreams-vario;;;;;;2501.2;1;упаковка
-FloorFort;floorfort;Oak Heritage;floorfort-dub;;1220;130;16;2.537;10186;14;упаковка
-FloorFort;floorfort;Walnut Tree;floorfort-oreh;;1220;130;16;2.537;10186;10;упаковка
+FloorFort;floorfort;Oak Heritage;floorfort-dub;;1220;130;16;2.537;4015.96;14;м²
+FloorFort;floorfort;Walnut Tree;floorfort-oreh;;1220;130;16;2.537;2118.17;10;м²
 Form;form;Form;form;;;;;2.153;1720;8;м²
 Harmony;harmony;Harmony Forte;harmony-forte;;;;;;5395;6;упаковка
 Hercules;hercules;Hercules;hercules;;;;;;2110.25;3;упаковка
@@ -88,8 +88,8 @@ Timber;timber;Timber Harvest;timber-harvest;;;;;;3869.65;6;упаковка
 Timber;timber;Timber Lumber;timber-lumber;;;;;;2842.39;5;упаковка
 Touch;touch;Touch;touch;;;;;1.755;2390;4;м²
 Uppsala;uppsala;Uppsala pro;uppsala-pro;;1200;190;7;1.596;2630;16;м²
-Woodstyle;woodstyle;Woodstyle BRAVO;woodstyle-bravo;;;;;;2094.75;6;упаковка
+Woodstyle;woodstyle;Woodstyle BRAVO;woodstyle-bravo;;;;;;2226.15;6;упаковка
 Woodstyle;woodstyle;Woodstyle PRONTO;woodstyle-pronto;;;;;;1669.82;8;упаковка
-Woodstyle;woodstyle;Woodstyle Vega;woodstyle-vega;;;;;;2442;10;упаковка
+Woodstyle;woodstyle;Woodstyle Vega;woodstyle-vega;;;;;;2730.6;10;упаковка
 Woodstyle;woodstyle;Woodstyle VIVA;woodstyle-viva;;;;;;2226.15;5;упаковка
 Woodstyle;woodstyle;Woodstyle Zoom;woodstyle-zoom;;;;;;2730.6;10;упаковка
