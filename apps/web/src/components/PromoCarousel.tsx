@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Gem, Percent, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowRight, Percent, ShieldCheck, Truck } from 'lucide-react';
 import { SmartImage } from './SmartImage';
 
 export type HeroSlide = {
@@ -15,7 +15,6 @@ export type HeroSlide = {
 };
 
 const FEATURES = [
-  { icon: Gem, label: 'Широкий выбор дизайнов' },
   { icon: ShieldCheck, label: 'Гарантия качества' },
   { icon: Truck, label: 'Доставка по региону' },
   { icon: Percent, label: 'Выгодные цены' },
@@ -193,16 +192,16 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
               </div>
 
               <div className="mt-8 flex flex-col gap-4 md:mt-10 lg:mt-auto lg:flex-row lg:items-stretch lg:gap-4 xl:gap-5">
-                <div className="grid min-w-0 flex-1 grid-cols-2 gap-3 sm:gap-3.5 lg:grid-cols-4 lg:gap-3.5">
+                <div className="grid min-w-0 flex-1 grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3.5 lg:gap-4 xl:gap-5">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div
                       key={label}
-                      className="flex h-full min-h-[5rem] items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm sm:min-h-[5.25rem] sm:px-3.5 lg:min-h-[5.5rem]"
+                      className="flex h-full min-h-[5rem] items-center gap-3.5 rounded-2xl border border-white/15 bg-white/10 px-4 py-3.5 backdrop-blur-sm sm:min-h-[5.25rem] lg:min-h-[5.5rem] lg:gap-4 lg:px-5"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
                         <Icon size={20} strokeWidth={1.85} className="text-[#d5ddd6]" />
                       </span>
-                      <span className="min-w-0 flex-1 text-[13px] font-semibold leading-tight text-white sm:text-sm lg:text-[14px] xl:text-[15px]">
+                      <span className="min-w-0 flex-1 text-[14px] font-semibold leading-tight text-white sm:text-[15px] xl:text-base">
                         {label}
                       </span>
                     </div>
