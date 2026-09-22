@@ -69,7 +69,6 @@ export function ProductPage() {
   const board = product ? formatBoardSize(product) : null;
   const roomReady = product ? canRoomCalculate(product) : false;
   const selectedArea = product && roomReady ? packsToArea(packs, product) : packs;
-  const cartSum = product ? lineTotal(packs, product) : 0;
 
   const roomCalc = useMemo(() => {
     if (!product || !roomReady || !packArea) {
@@ -336,13 +335,11 @@ export function ProductPage() {
 
                 <button
                   type="button"
-                  className="mt-4 flex w-full items-center justify-between gap-2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white transition hover:bg-graphite active:scale-[0.98]"
+                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white/90 transition hover:bg-graphite active:scale-[0.98]"
                   onClick={() => add(product, packs)}
                 >
-                  <span className="inline-flex items-center gap-1.5">
-                    <ShoppingBag size={14} strokeWidth={1.75} className="text-[#d5ddd6]" /> В корзину
-                  </span>
-                  <span>{formatPrice(cartSum)}</span>
+                  <ShoppingBag size={15} strokeWidth={2} className="text-amber-400" />
+                  В корзину
                 </button>
               </div>
             ) : (

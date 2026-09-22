@@ -28,7 +28,6 @@ export function ProductCardCalculator({
       : null);
   const showPackAlt = priced && byPack && pPack != null && !isPackPriced(product);
   const unitShort = formatUnit(product.unit, { short: true });
-  const buttonPrice = showPackAlt && pPack != null ? pPack : product.price;
 
   function goProduct() {
     onBeforeNavigate?.();
@@ -39,15 +38,12 @@ export function ProductCardCalculator({
     <button
       type="button"
       onClick={goProduct}
-      className={`flex w-full items-center justify-center gap-1.5 rounded-xl bg-ink font-semibold text-white transition hover:bg-graphite active:scale-[0.98] ${
+      className={`flex w-full items-center justify-center gap-1.5 rounded-xl bg-ink font-semibold text-white/90 transition hover:bg-graphite active:scale-[0.98] ${
         compact ? 'px-2 py-1.5 text-[10px] sm:text-xs' : 'px-2.5 py-2 text-xs sm:text-sm'
-      } ${priced ? 'justify-between' : ''}`}
+      }`}
     >
-      <span className="inline-flex items-center gap-1">
-        <ShoppingBag size={compact ? 12 : 14} strokeWidth={1.75} className="text-[#d5ddd6]" />
-        <span>В корзину</span>
-      </span>
-      {priced ? <span className="shrink-0 tabular-nums">{formatPrice(buttonPrice)}</span> : null}
+      <ShoppingBag size={compact ? 13 : 15} strokeWidth={2} className="text-amber-400" />
+      <span>В корзину</span>
     </button>
   );
 
