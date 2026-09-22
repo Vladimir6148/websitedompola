@@ -42,7 +42,7 @@ export function ProductCardCalculator({
         compact ? 'px-2 py-1.5 text-[10px] sm:text-xs' : 'px-2.5 py-2 text-xs sm:text-sm'
       }`}
     >
-      <ShoppingBag size={compact ? 13 : 15} strokeWidth={2} className="text-amber-400" />
+      <ShoppingBag size={compact ? 13 : 15} strokeWidth={2} className="text-[#9ca3af]" />
       <span>В корзину</span>
     </button>
   );

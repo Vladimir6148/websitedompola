@@ -338,7 +338,7 @@ export function ProductPage() {
                   className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white/90 transition hover:bg-graphite active:scale-[0.98]"
                   onClick={() => add(product, packs)}
                 >
-                  <ShoppingBag size={15} strokeWidth={2} className="text-amber-400" />
+                  <ShoppingBag size={15} strokeWidth={2} className="text-[#9ca3af]" />
                   В корзину
                 </button>
               </div>
