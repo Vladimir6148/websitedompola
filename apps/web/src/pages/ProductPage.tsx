@@ -335,10 +335,10 @@ export function ProductPage() {
 
                 <button
                   type="button"
-                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white/90 transition hover:bg-graphite active:scale-[0.98]"
+                  className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl border border-graphite/15 bg-[#e8ebe8] px-4 py-3 text-sm font-semibold text-[#0b0d0c] transition hover:bg-[#dfe3df] active:scale-[0.98]"
                   onClick={() => add(product, packs)}
                 >
-                  <ShoppingBag size={15} strokeWidth={2} className="text-[#9ca3af]" />
+                  <ShoppingBag size={15} strokeWidth={2} className="text-[#0b0d0c]" />
                   В корзину
                 </button>
               </div>
