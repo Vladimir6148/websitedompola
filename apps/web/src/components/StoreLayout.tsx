@@ -8,20 +8,23 @@ import { SideNav } from './SideNav';
 export function StoreLayout() {
   return (
     <div className="min-h-screen bg-[#eef2ee]">
-      <div className="mx-auto flex min-h-screen w-full max-w-[1472px] bg-white shadow-[0_0_0_1px_rgba(28,31,29,0.06)] lg:min-h-screen">
-        <aside className="sticky top-0 z-40 hidden h-screen w-[16rem] shrink-0 xl:w-[17rem] lg:flex">
-          <SideNav className="w-full" />
-        </aside>
+      <div className="mx-auto flex min-h-screen w-full max-w-[1472px] flex-col bg-white shadow-[0_0_0_1px_rgba(28,31,29,0.06)]">
+        <div className="flex min-h-0 flex-1">
+          <aside className="sticky top-0 z-40 hidden h-[100dvh] w-[16rem] shrink-0 self-start xl:w-[17rem] lg:flex">
+            <SideNav className="w-full" />
+          </aside>
 
-        <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
-          <Header />
-          <main className="flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-          <OnlineManager />
-          <BackButton />
+          <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
+            <Header />
+            <main className="flex-1">
+              <Outlet />
+            </main>
+            <OnlineManager />
+            <BackButton />
+          </div>
         </div>
+
+        <Footer />
       </div>
     </div>
   );

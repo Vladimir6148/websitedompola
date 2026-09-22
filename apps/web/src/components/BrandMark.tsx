@@ -18,7 +18,7 @@ const sizeClass = {
 export function BrandMark({ to = '/', size = 'md', className = '', onClick }: BrandMarkProps) {
   const mark = (
     <span
-      className={`inline-flex items-center justify-center rounded-full bg-brand font-display font-bold uppercase leading-none text-white shadow-[0_8px_20px_rgba(31,138,61,0.32)] ring-1 ring-brand-dark/20 transition hover:bg-brand-dark ${sizeClass[size]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full bg-brand font-display font-bold uppercase leading-none text-white transition hover:bg-brand-dark ${sizeClass[size]} ${className}`}
     >
       ДОМПОЛА
     </span>

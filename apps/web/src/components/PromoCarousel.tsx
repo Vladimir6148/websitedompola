@@ -192,16 +192,16 @@ export function PromoCarousel({ slides = DEFAULT_HERO_SLIDES }: Props) {
               </div>
 
               <div className="mt-8 flex flex-col gap-3 md:mt-10 md:gap-4 lg:mt-auto lg:flex-row lg:items-stretch lg:gap-4 xl:gap-5">
-                <div className="grid min-w-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3.5 lg:gap-4 xl:gap-5">
+                <div className="grid min-w-0 flex-1 grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
                   {FEATURES.map(({ icon: Icon, label }) => (
                     <div
                       key={label}
-                      className="flex h-full min-h-0 items-center gap-2.5 rounded-xl border border-white/15 bg-white/10 px-3 py-2 backdrop-blur-sm sm:min-h-[5.25rem] sm:gap-3.5 sm:rounded-2xl sm:px-4 sm:py-3.5 lg:min-h-[5.5rem] lg:gap-4 lg:px-5 [&_svg]:h-3.5 [&_svg]:w-3.5 sm:[&_svg]:h-5 sm:[&_svg]:w-5"
+                      className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-1.5 py-2.5 text-center backdrop-blur-sm sm:flex-row sm:items-center sm:gap-3 sm:rounded-2xl sm:px-3.5 sm:py-3.5 sm:text-left lg:min-h-[5.5rem] lg:gap-3.5 lg:px-4 [&_svg]:h-3.5 [&_svg]:w-3.5 sm:[&_svg]:h-5 sm:[&_svg]:w-5"
                     >
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-12 sm:w-12">
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/30 bg-white/15 sm:h-11 sm:w-11 lg:h-12 lg:w-12">
                         <Icon strokeWidth={1.85} className="text-[#d5ddd6]" />
                       </span>
-                      <span className="min-w-0 flex-1 text-[11px] font-semibold leading-tight text-white sm:text-[15px] xl:text-base">
+                      <span className="min-w-0 text-[10px] font-semibold leading-tight text-white sm:flex-1 sm:text-[13px] md:text-[14px] xl:text-[15px]">
                         {label}
                       </span>
                     </div>
