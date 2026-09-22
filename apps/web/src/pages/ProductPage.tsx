@@ -12,11 +12,11 @@ import {
   formatBoardSize,
   formatPackArea,
   formatUnit,
-  isPackPriced,
   isPackSold,
   lineTotal,
   packPrice,
   packsToArea,
+  pricePerM2,
   resolvePackArea,
 } from '../lib/packaging';
 import type { Product, ProductsResponse } from '../types';
@@ -66,6 +66,7 @@ export function ProductPage() {
   const byPack = product ? isPackSold(product) : false;
   const packArea = product ? resolvePackArea(product) : null;
   const pPack = product ? packPrice(product) : null;
+  const pM2 = product && hasPrice(product.price) ? pricePerM2(product) : null;
   const board = product ? formatBoardSize(product) : null;
   const roomReady = product ? canRoomCalculate(product) : false;
   const selectedArea = product && roomReady ? packsToArea(packs, product) : packs;
@@ -199,18 +200,15 @@ export function ProductPage() {
                   <span className="text-base text-graphite/40 line-through">{formatPrice(product.oldPrice)}</span>
                 ) : null}
               </div>
-              <div className={`mt-1 text-3xl font-bold md:text-4xl ${hasPrice(product.price) ? 'text-[#e11d48]' : 'text-graphite'}`}>
-                {formatPrice(product.price)}
-                {hasPrice(product.price) ? (
-                  <span className="text-lg font-semibold">/{formatUnit(product.unit, { short: true })}</span>
-                ) : (
+              <div className="mt-1 text-3xl font-bold text-[#e11d48] md:text-4xl">
+                {pM2 != null ? formatPrice(pM2) : '—'}
+                <span className="text-lg font-semibold">/м²</span>
+                {!hasPrice(product.price) ? (
                   <span className="ml-2 text-base font-semibold text-graphite/50">цену уточняйте</span>
-                )}
+                ) : null}
               </div>
-              {hasPrice(product.price) && byPack && pPack != null && !isPackPriced(product) ? (
-                <div className="mt-1 text-lg font-bold text-graphite">
-                  {formatPrice(pPack)}/{formatUnit(product.unit, { short: true })}
-                </div>
+              {pPack != null ? (
+                <div className="mt-1 text-lg font-semibold text-graphite">{formatPrice(pPack)}/упак</div>
               ) : null}
             </div>
 

@@ -3,7 +3,7 @@ import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
 import { formatPrice } from '../lib/api';
-import { formatPackArea, formatUnit, isPackPriced, lineTotal, packsToArea } from '../lib/packaging';
+import { formatPackArea, formatUnit, lineTotal, packPrice, packsToArea, pricePerM2 } from '../lib/packaging';
 import { rememberCurrentScroll, useReturnLinkState } from '../hooks/useReturnLinkState';
 import { useCart } from '../store/cart';
 
@@ -40,7 +40,8 @@ export function CartPage() {
                 const area =
                   item.soldByPack && item.packArea ? packsToArea(item.quantity, dims) : null;
                 const line = lineTotal(item.quantity, dims);
-                const showM2PackPrice = item.soldByPack && item.packArea && !isPackPriced(dims);
+                const m2 = pricePerM2(dims);
+                const pack = packPrice(dims);
 
                 return (
                   <div
@@ -64,11 +65,13 @@ export function CartPage() {
                       >
                         {item.name}
                       </Link>
-                      <div className="text-sm text-graphite/50">
-                        {formatPrice(item.price)} / {formatUnit(item.unit, { short: true })}
-                        {showM2PackPrice
-                          ? ` · ${formatPrice(item.price * item.packArea!)} / ${formatUnit(item.unit, { short: true })}`
-                          : null}
+                      <div className="text-sm font-semibold text-[#e11d48]">
+                        {m2 != null ? formatPrice(m2) : '—'}/м²
+                        {pack != null ? (
+                          <span className="ml-2 font-medium text-graphite">
+                            {formatPrice(pack)}/упак
+                          </span>
+                        ) : null}
                       </div>
                       {area != null ? (
                         <div className="mt-1 text-sm text-graphite/60">

@@ -69,6 +69,18 @@ export function packPrice(p: PackDims): number | null {
   return p.price * area;
 }
 
+/** Price per м² when known; null → show a dash in UI. */
+export function pricePerM2(p: PackDims): number | null {
+  if (!p.price || p.price <= 0) return null;
+  const u = normUnit(p.unit);
+  if (u === 'м²' || u === 'м2') return p.price;
+  if (isPackPriced(p)) {
+    const area = resolvePackArea(p);
+    if (area != null && area > 0) return p.price / area;
+  }
+  return null;
+}
+
 export function packsToArea(packs: number, p: PackDims): number {
   const area = resolvePackArea(p) || 1;
   return packs * area;

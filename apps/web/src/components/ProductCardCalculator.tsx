@@ -2,7 +2,7 @@ import { ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from '../types';
 import { formatPrice, hasPrice } from '../lib/api';
-import { formatUnit, isPackPriced, isPackSold, packPrice } from '../lib/packaging';
+import { packPrice, pricePerM2 } from '../lib/packaging';
 
 type Props = {
   product: Product;
@@ -19,15 +19,13 @@ export function ProductCardCalculator({
 }: Props) {
   const navigate = useNavigate();
   const priced = hasPrice(product.price);
-  const byPack = isPackSold(product);
-  const pPack = packPrice(product);
+  const m2 = priced ? pricePerM2(product) : null;
+  const pPack = priced ? packPrice(product) : null;
   const discount =
     product.discountPercent ||
     (product.oldPrice && product.oldPrice > product.price
       ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
       : null);
-  const showPackAlt = priced && byPack && pPack != null && !isPackPriced(product);
-  const unitShort = formatUnit(product.unit, { short: true });
 
   function goProduct() {
     onBeforeNavigate?.();
@@ -47,10 +45,6 @@ export function ProductCardCalculator({
     </button>
   );
 
-  if (!priced) {
-    return <div className="mt-auto">{cartButton}</div>;
-  }
-
   return (
     <div className={`mt-auto ${compact ? 'space-y-1.5' : 'space-y-2.5'}`}>
       <div>
@@ -69,11 +63,13 @@ export function ProductCardCalculator({
         <div
           className={`font-bold leading-tight text-[#e11d48] ${compact ? 'text-sm sm:text-lg' : 'text-lg sm:text-xl'}`}
         >
-          {formatPrice(product.price)}
-          <span className="text-[11px] font-semibold sm:text-sm">/{unitShort}</span>
+          {m2 != null ? formatPrice(m2) : '—'}
+          <span className={`font-semibold ${compact ? 'text-[11px] sm:text-sm' : 'text-sm'}`}>/м²</span>
         </div>
-        {showPackAlt ? (
-          <div className={`font-semibold text-graphite ${compact ? 'text-xs sm:text-sm' : 'text-sm'}`}>
+        {pPack != null ? (
+          <div
+            className={`font-semibold leading-tight text-graphite ${compact ? 'text-xs sm:text-sm' : 'text-sm'}`}
+          >
             {formatPrice(pPack)}/упак
           </div>
         ) : null}
