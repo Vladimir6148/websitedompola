@@ -803,24 +803,26 @@ export function CatalogPage() {
           <div className="mb-5 space-y-4 sm:mb-6">
             <div className="space-y-2">
               <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">Бренд</div>
-              <div className="flex flex-wrap gap-2">
-                {categoryGuides.map((guide) => {
-                  const active = activeGuideBrand?.slug === guide.slug;
-                  return (
-                    <button
-                      key={guide.slug}
-                      type="button"
-                      onClick={() => selectGuideBrand(guide.slug)}
-                      className={`inline-flex h-10 items-center justify-center rounded-xl border px-4 text-sm font-semibold transition active:scale-[0.98] ${
-                        active
-                          ? 'border-brand bg-brand text-white'
-                          : 'border-brand/30 bg-white text-brand hover:border-brand hover:bg-brand/5'
-                      }`}
-                    >
-                      {guide.name}
-                    </button>
-                  );
-                })}
+              <div className="-mx-4 overflow-x-auto overscroll-x-contain sm:-mx-5 lg:mx-0 lg:overflow-visible [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex w-max gap-2 px-4 pb-0.5 sm:px-5 lg:flex-wrap lg:w-auto lg:max-w-full lg:px-0">
+                  {categoryGuides.map((guide) => {
+                    const active = activeGuideBrand?.slug === guide.slug;
+                    return (
+                      <button
+                        key={guide.slug}
+                        type="button"
+                        onClick={() => selectGuideBrand(guide.slug)}
+                        className={`inline-flex h-10 shrink-0 items-center justify-center rounded-xl border px-4 text-sm font-semibold transition active:scale-[0.98] ${
+                          active
+                            ? 'border-brand bg-brand text-white'
+                            : 'border-brand/30 bg-white text-brand hover:border-brand hover:bg-brand/5'
+                        }`}
+                      >
+                        {guide.name}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
