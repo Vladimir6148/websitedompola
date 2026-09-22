@@ -25,6 +25,8 @@ const defaultOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'https://vladimir6148.github.io',
+  'https://dompola.com',
+  'https://www.dompola.com',
   'https://dompola.ru',
   'https://www.dompola.ru',
 ];

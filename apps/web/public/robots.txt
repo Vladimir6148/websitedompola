@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vladimir6148.github.io/websitedompola/sitemap.xml
+Sitemap: https://dompola.com/sitemap.xml

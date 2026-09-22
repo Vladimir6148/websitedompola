@@ -9,7 +9,7 @@ type SeoProps = {
 
 const SITE =
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) ||
-  (typeof window !== 'undefined' ? `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, '')}` : 'https://dompola.ru');
+  (typeof window !== 'undefined' ? `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, '')}` : 'https://dompola.com');
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;

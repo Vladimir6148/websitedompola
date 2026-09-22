@@ -11,7 +11,7 @@ const root = path.resolve(__dirname, '..');
 const publicDir = path.join(root, 'apps/web/public');
 const dataDir = path.join(publicDir, 'data');
 
-const SITE = process.env.VITE_SITE_URL || 'https://vladimir6148.github.io/websitedompola';
+const SITE = process.env.VITE_SITE_URL || 'https://dompola.com';
 const BASE = SITE.replace(/\/$/, '');
 
 function urlEntry(loc, changefreq = 'weekly', priority = '0.6') {

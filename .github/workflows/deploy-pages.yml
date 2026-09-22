@@ -35,8 +35,8 @@ jobs:
       - name: Build web
         working-directory: apps/web
         env:
-          VITE_BASE: /websitedompola/
-          VITE_SITE_URL: https://vladimir6148.github.io/websitedompola
+          VITE_BASE: /
+          VITE_SITE_URL: https://dompola.com
           # Catalog from static JSON (full import). Auth/writes still hit Render when possible.
           VITE_API_URL: https://dompola-api.onrender.com
           VITE_STATIC_API: "true"
