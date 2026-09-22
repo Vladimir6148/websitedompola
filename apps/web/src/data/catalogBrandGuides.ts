@@ -203,6 +203,17 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         { name: 'Roca', id: 'roca', brand: 'alta-step', q: 'Roca' },
       ],
     },
+    {
+      name: 'Amadei',
+      slug: 'amadei',
+      collections: [
+        { name: 'Bliss', id: 'bliss', brand: 'amadei', collection: 'amadei-bliss' },
+        { name: 'Delight', id: 'delight', brand: 'amadei', collection: 'amadei-delight' },
+        { name: 'Goodwill', id: 'goodwill', brand: 'amadei', collection: 'amadei-goodwill' },
+        { name: 'Joy', id: 'joy', brand: 'amadei', collection: 'amadei-joy' },
+        { name: 'Redstone', id: 'redstone', brand: 'amadei', collection: 'amadei-redstone' },
+      ],
+    },
   ],
 };
 
