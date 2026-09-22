@@ -34981,22 +34981,22 @@
     "name": "Ламинат FloorFort Дуб Альберта 19027-8",
     "slug": "laminat-floorfort-dub-alberta-19027-8",
     "sku": "LAM-19027",
-    "description": "Ламинат FloorFort Дуб Альберта 19027-8. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Альберта 19027-8. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35007,7 +35007,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35020,32 +35020,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_5b15f3907a9dbf74",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Альберта 19027-8",
+        "id": "img_cc812d673592de87",
+        "productId": "prod_5b15f3907a9dbf74",
+        "url": "images/floorfort/19027-8.jpg",
+        "alt": "Ламинат FloorFort Дуб Альберта 19027-8",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_68049c39a30ac39c",
+        "productId": "prod_5b15f3907a9dbf74",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19027-8/19027-8_5.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Альберта 19027-8",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19027",
-        "sortOrder": 1
+        "value": "19027-8",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35055,22 +35109,22 @@
     "name": "Ламинат FloorFort Дуб Брендон 19031-5",
     "slug": "laminat-floorfort-dub-brendon-19031-5",
     "sku": "LAM-19031",
-    "description": "Ламинат FloorFort Дуб Брендон 19031-5. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Брендон 19031-5. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35081,7 +35135,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35094,32 +35148,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_cd45cb6e0733f461",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Брендон 19031-5",
+        "id": "img_5b955190c6f93013",
+        "productId": "prod_cd45cb6e0733f461",
+        "url": "images/floorfort/19031-5.jpg",
+        "alt": "Ламинат FloorFort Дуб Брендон 19031-5",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_0369562207593fe9",
+        "productId": "prod_cd45cb6e0733f461",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19031-5/19035-1_1-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Брендон 19031-5",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19031",
-        "sortOrder": 1
+        "value": "19031-5",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35129,22 +35237,22 @@
     "name": "Ламинат FloorFort Дуб Ванкувер 19011-1",
     "slug": "laminat-floorfort-dub-vankuver-19011-1",
     "sku": "LAM-19011",
-    "description": "Ламинат FloorFort Дуб Ванкувер 19011-1. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Ванкувер 19011-1. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35155,7 +35263,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35168,32 +35276,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_d52f50a5eab19370",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Ванкувер 19011-1",
+        "id": "img_127d039caef1c101",
+        "productId": "prod_d52f50a5eab19370",
+        "url": "images/floorfort/19011-1.jpg",
+        "alt": "Ламинат FloorFort Дуб Ванкувер 19011-1",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_7295809c6d374d97",
+        "productId": "prod_d52f50a5eab19370",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19011-1/19011-1_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Ванкувер 19011-1",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19011",
-        "sortOrder": 1
+        "value": "19011-1",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35203,22 +35365,22 @@
     "name": "Ламинат FloorFort Дуб Корнер Брук 19009-20",
     "slug": "laminat-floorfort-dub-korner-bruk-19009-20",
     "sku": "LAM-19009",
-    "description": "Ламинат FloorFort Дуб Корнер Брук 19009-20. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Корнер Брук 19009-20. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35229,7 +35391,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35242,32 +35404,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_ed7ff50caee32d46",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Корнер Брук 19009-20",
+        "id": "img_8fb10366aa25c077",
+        "productId": "prod_ed7ff50caee32d46",
+        "url": "images/floorfort/19009-20.jpg",
+        "alt": "Ламинат FloorFort Дуб Корнер Брук 19009-20",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_620bd0b0ece3e98d",
+        "productId": "prod_ed7ff50caee32d46",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19009-20/19009-20-4-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Корнер Брук 19009-20",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19009",
-        "sortOrder": 1
+        "value": "19009-20",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35277,22 +35493,22 @@
     "name": "Ламинат FloorFort Дуб Маунт Роял 19027-7",
     "slug": "laminat-floorfort-dub-maunt-royal-19027-7",
     "sku": "LAM-19027-246",
-    "description": "Ламинат FloorFort Дуб Маунт Роял 19027-7. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Маунт Роял 19027-7. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35303,7 +35519,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35316,32 +35532,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_77a1606393e39839",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Маунт Роял 19027-7",
+        "id": "img_7b10b4036850ffa6",
+        "productId": "prod_77a1606393e39839",
+        "url": "images/floorfort/19027-7.jpg",
+        "alt": "Ламинат FloorFort Дуб Маунт Роял 19027-7",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_faa1ff4f009b38bd",
+        "productId": "prod_77a1606393e39839",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19027-7/19027-7_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Маунт Роял 19027-7",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19027",
-        "sortOrder": 1
+        "value": "19027-7",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35351,22 +35621,22 @@
     "name": "Ламинат FloorFort Дуб Онтарио 19009-18",
     "slug": "laminat-floorfort-dub-ontario-19009-18",
     "sku": "LAM-19009-247",
-    "description": "Ламинат FloorFort Дуб Онтарио 19009-18. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Онтарио 19009-18. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35377,7 +35647,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35390,32 +35660,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_c1078252deddc3e2",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Онтарио 19009-18",
+        "id": "img_7e07c5838f299224",
+        "productId": "prod_c1078252deddc3e2",
+        "url": "images/floorfort/19009-18.jpg",
+        "alt": "Ламинат FloorFort Дуб Онтарио 19009-18",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_89fba81885fb8b19",
+        "productId": "prod_c1078252deddc3e2",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19009-18/19009-18_31.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Онтарио 19009-18",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19009",
-        "sortOrder": 1
+        "value": "19009-18",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35425,22 +35749,22 @@
     "name": "Ламинат FloorFort Дуб Орилья 19027-1",
     "slug": "laminat-floorfort-dub-orilya-19027-1",
     "sku": "LAM-19027-248",
-    "description": "Ламинат FloorFort Дуб Орилья 19027-1. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Орилья 19027-1. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35451,7 +35775,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35464,32 +35788,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_1496da650d355f1d",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Орилья 19027-1",
+        "id": "img_abbb484c802dcede",
+        "productId": "prod_1496da650d355f1d",
+        "url": "images/floorfort/19027-1.jpg",
+        "alt": "Ламинат FloorFort Дуб Орилья 19027-1",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_5945c2953d2ed04b",
+        "productId": "prod_1496da650d355f1d",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19027-1/19027-1_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Орилья 19027-1",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19027",
-        "sortOrder": 1
+        "value": "19027-1",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35499,22 +35877,22 @@
     "name": "Ламинат FloorFort Дуб Парксвилл 19027-9",
     "slug": "laminat-floorfort-dub-parksvill-19027-9",
     "sku": "LAM-19027-249",
-    "description": "Ламинат FloorFort Дуб Парксвилл 19027-9. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Парксвилл 19027-9. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35525,7 +35903,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35538,32 +35916,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_70c732329ac48336",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Парксвилл 19027-9",
+        "id": "img_1ec5d707abed6b13",
+        "productId": "prod_70c732329ac48336",
+        "url": "images/floorfort/19027-9.jpg",
+        "alt": "Ламинат FloorFort Дуб Парксвилл 19027-9",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_1ba03a268ec5b337",
+        "productId": "prod_70c732329ac48336",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19027-9/19027-9_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Парксвилл 19027-9",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19027",
-        "sortOrder": 1
+        "value": "19027-9",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35573,22 +36005,22 @@
     "name": "Ламинат FloorFort Дуб Ричмонд 19011-4",
     "slug": "laminat-floorfort-dub-richmond-19011-4",
     "sku": "LAM-19011-250",
-    "description": "Ламинат FloorFort Дуб Ричмонд 19011-4. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Ричмонд 19011-4. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35599,7 +36031,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35612,32 +36044,76 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_c6d6da244643ef18",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Ричмонд 19011-4",
+        "id": "img_e68ad16d8233d328",
+        "productId": "prod_c6d6da244643ef18",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19011-4/19011-4_1.jpg-228x228.jpg",
+        "alt": "Ламинат FloorFort Дуб Ричмонд 19011-4",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19011",
-        "sortOrder": 1
+        "value": "19011-4",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35647,22 +36123,22 @@
     "name": "Ламинат FloorFort Дуб Стратфорд 19009-6",
     "slug": "laminat-floorfort-dub-stratford-19009-6",
     "sku": "LAM-19009-251",
-    "description": "Ламинат FloorFort Дуб Стратфорд 19009-6. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Стратфорд 19009-6. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35673,7 +36149,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35686,32 +36162,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_6ae03da163fe9bc8",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Стратфорд 19009-6",
+        "id": "img_64fd9a1eb3f761c7",
+        "productId": "prod_6ae03da163fe9bc8",
+        "url": "images/floorfort/19009-6.jpg",
+        "alt": "Ламинат FloorFort Дуб Стратфорд 19009-6",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_ad1c0b4f96978551",
+        "productId": "prod_6ae03da163fe9bc8",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19009-6/19009-6_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Стратфорд 19009-6",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19009",
-        "sortOrder": 1
+        "value": "19009-6",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35721,22 +36251,22 @@
     "name": "Ламинат FloorFort Дуб Сюррей 19011-5",
     "slug": "laminat-floorfort-dub-syurrey-19011-5",
     "sku": "LAM-19011-252",
-    "description": "Ламинат FloorFort Дуб Сюррей 19011-5. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Сюррей 19011-5. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35747,7 +36277,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35760,32 +36290,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_ef2c5c9342ae81c7",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Сюррей 19011-5",
+        "id": "img_0cb3bda49d33c602",
+        "productId": "prod_ef2c5c9342ae81c7",
+        "url": "images/floorfort/19011-5.jpg",
+        "alt": "Ламинат FloorFort Дуб Сюррей 19011-5",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_b3de05f1680d60d2",
+        "productId": "prod_ef2c5c9342ae81c7",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19011-5/19011-5_31.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Сюррей 19011-5",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19011",
-        "sortOrder": 1
+        "value": "19011-5",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35795,22 +36379,22 @@
     "name": "Ламинат FloorFort Дуб Торонто 19009-4",
     "slug": "laminat-floorfort-dub-toronto-19009-4",
     "sku": "LAM-19009-253",
-    "description": "Ламинат FloorFort Дуб Торонто 19009-4. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Торонто 19009-4. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35821,7 +36405,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35834,32 +36418,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_bf884fee90e78ec3",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Торонто 19009-4",
+        "id": "img_c8cc2870ebc43c9f",
+        "productId": "prod_bf884fee90e78ec3",
+        "url": "images/floorfort/19009-4.jpg",
+        "alt": "Ламинат FloorFort Дуб Торонто 19009-4",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_5a664d13855e0d6f",
+        "productId": "prod_bf884fee90e78ec3",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19009-4/19009-4_1.jpg-800x800.jpg",
+        "alt": "Ламинат FloorFort Дуб Торонто 19009-4",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19009",
-        "sortOrder": 1
+        "value": "19009-4",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35869,22 +36507,22 @@
     "name": "Ламинат FloorFort Дуб Фредериктон 19009-21",
     "slug": "laminat-floorfort-dub-frederikton-19009-21",
     "sku": "LAM-19009-254",
-    "description": "Ламинат FloorFort Дуб Фредериктон 19009-21. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Фредериктон 19009-21. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35895,7 +36533,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35908,32 +36546,76 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_9b29179e8d889b1a",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Фредериктон 19009-21",
+        "id": "img_fd0e80b41f3272a2",
+        "productId": "prod_9b29179e8d889b1a",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19009-21/19009-21-0-228x228.jpeg",
+        "alt": "Ламинат FloorFort Дуб Фредериктон 19009-21",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19009",
-        "sortOrder": 1
+        "value": "19009-21",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -35943,22 +36625,22 @@
     "name": "Ламинат FloorFort Дуб Шербрук 19031-6",
     "slug": "laminat-floorfort-dub-sherbruk-19031-6",
     "sku": "LAM-19031-255",
-    "description": "Ламинат FloorFort Дуб Шербрук 19031-6. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Дуб Шербрук 19031-6. Коллекция Oak Heritage: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -35969,7 +36651,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_3b55beac5da9049d",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -35982,32 +36664,86 @@
     },
     "collection": {
       "id": "coll_3b55beac5da9049d",
-      "name": "FloorFort Дуб",
+      "name": "Oak Heritage",
       "slug": "floorfort-dub",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_d5a08587185b7d51",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Дуб Шербрук 19031-6",
+        "id": "img_df319b446f22f965",
+        "productId": "prod_d5a08587185b7d51",
+        "url": "images/floorfort/19031-6.jpeg",
+        "alt": "Ламинат FloorFort Дуб Шербрук 19031-6",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_4afd1e967010fef4",
+        "productId": "prod_d5a08587185b7d51",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/Oak%20Heritage/19031-6/19031-6-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Дуб Шербрук 19031-6",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19031",
-        "sortOrder": 1
+        "value": "19031-6",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36017,22 +36753,22 @@
     "name": "Ламинат FloorFort Орех Вирджиния 19004-29",
     "slug": "laminat-floorfort-oreh-virdzhiniya-19004-29",
     "sku": "LAM-19004",
-    "description": "Ламинат FloorFort Орех Вирджиния 19004-29. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Вирджиния 19004-29. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36043,7 +36779,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36056,32 +36792,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_78a6e7c51ecb7a57",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Вирджиния 19004-29",
+        "id": "img_86c0e653b617b7b2",
+        "productId": "prod_78a6e7c51ecb7a57",
+        "url": "images/floorfort/19004-29.jpeg",
+        "alt": "Ламинат FloorFort Орех Вирджиния 19004-29",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_8d7d5ae4b5e9bba4",
+        "productId": "prod_78a6e7c51ecb7a57",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19004-29-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Вирджиния 19004-29",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19004",
-        "sortOrder": 1
+        "value": "19004-29",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36091,22 +36881,22 @@
     "name": "Ламинат FloorFort Орех Говард 19023-18",
     "slug": "laminat-floorfort-oreh-govard-19023-18",
     "sku": "LAM-19023",
-    "description": "Ламинат FloorFort Орех Говард 19023-18. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Говард 19023-18. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36117,7 +36907,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36130,32 +36920,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_47e50721bd142d74",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Говард 19023-18",
+        "id": "img_b0e30619edea8d1b",
+        "productId": "prod_47e50721bd142d74",
+        "url": "images/floorfort/laminat-floorfort-oreh-govard-19023-18.jpeg",
+        "alt": "Ламинат FloorFort Орех Говард 19023-18",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_0c465863bd92d300",
+        "productId": "prod_47e50721bd142d74",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023-18-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Говард 19023-18",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19023",
-        "sortOrder": 1
+        "value": "19023-18",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36165,22 +37009,22 @@
     "name": "Ламинат FloorFort Орех Джорджтаун 19023-20",
     "slug": "laminat-floorfort-oreh-dzhordzhtaun-19023-20",
     "sku": "LAM-19023-258",
-    "description": "Ламинат FloorFort Орех Джорджтаун 19023-20. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Джорджтаун 19023-20. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36191,7 +37035,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36204,32 +37048,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_d5d77aca6be804e2",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Джорджтаун 19023-20",
+        "id": "img_a516e1dcdc05f810",
+        "productId": "prod_d5d77aca6be804e2",
+        "url": "images/floorfort/laminat-floorfort-oreh-dzhordzhtaun-19023-20.jpeg",
+        "alt": "Ламинат FloorFort Орех Джорджтаун 19023-20",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_f16eeedeca1203b5",
+        "productId": "prod_d5d77aca6be804e2",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023-20-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Джорджтаун 19023-20",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19023",
-        "sortOrder": 1
+        "value": "19023-20",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36239,22 +37137,22 @@
     "name": "Ламинат FloorFort Орех Кембридж 19023",
     "slug": "laminat-floorfort-oreh-kembridzh-19023",
     "sku": "LAM-19023-259",
-    "description": "Ламинат FloorFort Орех Кембридж 19023. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Кембридж 19023. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36265,7 +37163,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36278,32 +37176,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_015f0661505cf7c7",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Кембридж 19023",
+        "id": "img_446b23f56fcf5b99",
+        "productId": "prod_015f0661505cf7c7",
+        "url": "images/floorfort/laminat-floorfort-oreh-kembridzh-19023.jpeg",
+        "alt": "Ламинат FloorFort Орех Кембридж 19023",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_d0ab8b7336a619dc",
+        "productId": "prod_015f0661505cf7c7",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Кембридж 19023",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
         "value": "19023",
-        "sortOrder": 1
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36313,22 +37265,22 @@
     "name": "Ламинат FloorFort Орех Кембридж 19023 НС",
     "slug": "laminat-floorfort-oreh-kembridzh-19023-ns",
     "sku": "LAM-19023-260",
-    "description": "Ламинат FloorFort Орех Кембридж 19023 НС. Цена указана за упаковку.",
+    "description": "Ламинат FloorFort Орех Кембридж 19023 НС. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
     "price": 5373.8,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36339,7 +37291,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36352,32 +37304,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_b5e95bdb340ab961",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Кембридж 19023 НС",
+        "id": "img_b6eb9e5db2772930",
+        "productId": "prod_b5e95bdb340ab961",
+        "url": "images/floorfort/laminat-floorfort-oreh-kembridzh-19023-ns.jpeg",
+        "alt": "Ламинат FloorFort Орех Кембридж 19023 НС",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_2fb4e21baf0f4662",
+        "productId": "prod_b5e95bdb340ab961",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023HC-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Кембридж 19023 НС",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "уценка / НС",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19023",
-        "sortOrder": 1
+        "value": "19023HC",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36387,22 +37393,22 @@
     "name": "Ламинат FloorFort Орех Мэриленд 19023-17",
     "slug": "laminat-floorfort-oreh-merilend-19023-17",
     "sku": "LAM-19023-261",
-    "description": "Ламинат FloorFort Орех Мэриленд 19023-17. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Мэриленд 19023-17. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36413,7 +37419,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36426,32 +37432,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_d8812c8fafdf60fd",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Мэриленд 19023-17",
+        "id": "img_a3a7bd3532338272",
+        "productId": "prod_d8812c8fafdf60fd",
+        "url": "images/floorfort/laminat-floorfort-oreh-merilend-19023-17.jpeg",
+        "alt": "Ламинат FloorFort Орех Мэриленд 19023-17",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_4676d72a99fb4fa7",
+        "productId": "prod_d8812c8fafdf60fd",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023-17-1-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Мэриленд 19023-17",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19023",
-        "sortOrder": 1
+        "value": "19023-17",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36461,22 +37521,22 @@
     "name": "Ламинат FloorFort Орех Питсбург 19004-30 НС",
     "slug": "laminat-floorfort-oreh-pitsburg-19004-30-ns",
     "sku": "LAM-19004-262",
-    "description": "Ламинат FloorFort Орех Питсбург 19004-30 НС. Цена указана за упаковку.",
+    "description": "Ламинат FloorFort Орех Питсбург 19004-30 НС. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
     "price": 5373.8,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36487,7 +37547,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36500,32 +37560,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_94cc2437bba9e247",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Питсбург 19004-30 НС",
+        "id": "img_fa5a50596df15b78",
+        "productId": "prod_94cc2437bba9e247",
+        "url": "images/floorfort/laminat-floorfort-oreh-pitsburg-19004-30-ns.jpeg",
+        "alt": "Ламинат FloorFort Орех Питсбург 19004-30 НС",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_9d07881545d9e528",
+        "productId": "prod_94cc2437bba9e247",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19004-30HC-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Питсбург 19004-30 НС",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "уценка / НС",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19004",
-        "sortOrder": 1
+        "value": "19004-30HC",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36535,22 +37649,22 @@
     "name": "Ламинат FloorFort Орех Принстон 19023-19 НС",
     "slug": "laminat-floorfort-oreh-prinston-19023-19-ns",
     "sku": "LAM-19023-263",
-    "description": "Ламинат FloorFort Орех Принстон 19023-19 НС. Цена указана за упаковку.",
+    "description": "Ламинат FloorFort Орех Принстон 19023-19 НС. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
     "price": 5373.8,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36561,7 +37675,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36574,32 +37688,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_48104de44756a1c4",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Принстон 19023-19 НС",
+        "id": "img_33a28dba1a2172bb",
+        "productId": "prod_48104de44756a1c4",
+        "url": "images/floorfort/laminat-floorfort-oreh-prinston-19023-19-ns.jpeg",
+        "alt": "Ламинат FloorFort Орех Принстон 19023-19 НС",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_7e5634174b20e623",
+        "productId": "prod_48104de44756a1c4",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19023-19HC-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Принстон 19023-19 НС",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "уценка / НС",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19023",
-        "sortOrder": 1
+        "value": "19023-19HC",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36609,22 +37777,22 @@
     "name": "Ламинат FloorFort Орех Стенфорд 19004-1",
     "slug": "laminat-floorfort-oreh-stenford-19004-1",
     "sku": "LAM-19004-264",
-    "description": "Ламинат FloorFort Орех Стенфорд 19004-1. Цена указана за упаковку.",
-    "price": 10188.5,
+    "description": "Ламинат FloorFort Орех Стенфорд 19004-1. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
+    "price": 10186,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36635,7 +37803,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36648,32 +37816,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_8a60a20420b1b3ca",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Стенфорд 19004-1",
+        "id": "img_2e4a0bbfe40c5a86",
+        "productId": "prod_8a60a20420b1b3ca",
+        "url": "images/floorfort/laminat-floorfort-oreh-stenford-19004-1.jpeg",
+        "alt": "Ламинат FloorFort Орех Стенфорд 19004-1",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_d73afa124e33312a",
+        "productId": "prod_8a60a20420b1b3ca",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19004-1-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Стенфорд 19004-1",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "4 015 ₽",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19004",
-        "sortOrder": 1
+        "value": "19004-1",
+        "sortOrder": 8
       }
     ],
     "stocks": []
@@ -36683,22 +37905,22 @@
     "name": "Ламинат FloorFort Орех Стенфорд 19004-1 НС",
     "slug": "laminat-floorfort-oreh-stenford-19004-1-ns",
     "sku": "LAM-19004-265",
-    "description": "Ламинат FloorFort Орех Стенфорд 19004-1 НС. Цена указана за упаковку.",
+    "description": "Ламинат FloorFort Орех Стенфорд 19004-1 НС. Коллекция Walnut Tree: 33 класс, 10 мм, доска 1220×130 мм, упаковка 16 досок / 2,537 м². Цена за упаковку.",
     "price": 5373.8,
     "oldPrice": null,
     "discountPercent": null,
     "unit": "упаковка",
-    "packQty": null,
-    "packArea": null,
-    "thickness": null,
-    "wearClass": null,
-    "length": null,
-    "width": null,
+    "packQty": 16,
+    "packArea": 2.537,
+    "thickness": 10,
+    "wearClass": "33",
+    "length": 1220,
+    "width": 130,
     "color": null,
-    "bevel": null,
-    "lockType": null,
-    "moistureResistant": false,
-    "underfloorHeating": false,
+    "bevel": "4V",
+    "lockType": "Uniclic",
+    "moistureResistant": true,
+    "underfloorHeating": true,
     "wearLayer": null,
     "seoTitle": null,
     "seoDescription": null,
@@ -36709,7 +37931,7 @@
     "brandId": "brand_2c9477ae0669f150",
     "collectionId": "coll_ea7a745c44333cc0",
     "createdAt": "2026-09-21T14:37:01.267Z",
-    "updatedAt": "2026-09-21T14:37:01.267Z",
+    "updatedAt": "2026-09-22T16:26:26.515Z",
     "category": {
       "id": "cmu9okcot0006b75f41xm1mp1",
       "name": "Ламинат",
@@ -36722,32 +37944,86 @@
     },
     "collection": {
       "id": "coll_ea7a745c44333cc0",
-      "name": "FloorFort Орех",
+      "name": "Walnut Tree",
       "slug": "floorfort-oreh",
       "brandId": "brand_2c9477ae0669f150"
     },
     "images": [
       {
-        "id": "img_26b45e4cabbd5b48",
-        "url": "images/floor1.webp",
-        "alt": "FloorFort Орех Стенфорд 19004-1 НС",
+        "id": "img_e3d548d86672e12d",
+        "productId": "prod_26b45e4cabbd5b48",
+        "url": "images/floorfort/laminat-floorfort-oreh-stenford-19004-1-ns.jpeg",
+        "alt": "Ламинат FloorFort Орех Стенфорд 19004-1 НС",
         "isPrimary": true,
         "sortOrder": 0,
-        "storageKey": null
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
+      },
+      {
+        "id": "img_da7c6673a11ecf51",
+        "productId": "prod_26b45e4cabbd5b48",
+        "url": "https://mirlaminata.com/image/cache/catalog/FloorFort/WalnutTree/19004-1HC-0-800x800.jpeg",
+        "alt": "Ламинат FloorFort Орех Стенфорд 19004-1 НС",
+        "isPrimary": false,
+        "sortOrder": 1,
+        "storageKey": null,
+        "createdAt": "2026-09-21T14:37:01.267Z"
       }
     ],
     "characteristics": [
       {
-        "key": "price_basis",
-        "label": "Цена",
-        "value": "за упаковку",
+        "key": "wear_class",
+        "label": "Класс",
+        "value": "33 (AC5)",
         "sortOrder": 0
+      },
+      {
+        "key": "thickness",
+        "label": "Толщина",
+        "value": "10 мм",
+        "sortOrder": 1
+      },
+      {
+        "key": "size",
+        "label": "Размер доски",
+        "value": "1220×130 мм",
+        "sortOrder": 2
+      },
+      {
+        "key": "pack",
+        "label": "Упаковка",
+        "value": "16 досок = 2,537 м²",
+        "sortOrder": 3
+      },
+      {
+        "key": "pack_weight",
+        "label": "Вес упаковки",
+        "value": "20 кг",
+        "sortOrder": 4
+      },
+      {
+        "key": "bevel",
+        "label": "Фаска",
+        "value": "4-сторонняя",
+        "sortOrder": 5
+      },
+      {
+        "key": "lock",
+        "label": "Замок",
+        "value": "Uniclic с воском",
+        "sortOrder": 6
+      },
+      {
+        "key": "price_m2",
+        "label": "Цена за м²",
+        "value": "уценка / НС",
+        "sortOrder": 7
       },
       {
         "key": "article",
         "label": "Артикул",
-        "value": "19004",
-        "sortOrder": 1
+        "value": "19004-1HC",
+        "sortOrder": 8
       }
     ],
     "stocks": []

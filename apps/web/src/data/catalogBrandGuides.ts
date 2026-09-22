@@ -84,6 +84,14 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         { name: 'Plus', id: 'plus', brand: 'clix-floor', q: 'Floor Plus' },
       ],
     },
+    {
+      name: 'FloorFort',
+      slug: 'floorfort',
+      collections: [
+        { name: 'Oak Heritage', id: 'oak-heritage', brand: 'floorfort', collection: 'floorfort-dub' },
+        { name: 'Walnut Tree', id: 'walnut-tree', brand: 'floorfort', collection: 'floorfort-oreh' },
+      ],
+    },
   ],
 };
 
