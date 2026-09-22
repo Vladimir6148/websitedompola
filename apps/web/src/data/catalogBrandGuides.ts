@@ -92,6 +92,24 @@ export const CATEGORY_BRAND_GUIDES: Record<string, GuideBrand[]> = {
         { name: 'Walnut Tree', id: 'walnut-tree', brand: 'floorfort', collection: 'floorfort-oreh' },
       ],
     },
+    {
+      name: 'AGT',
+      slug: 'agt',
+      collections: [
+        {
+          name: 'Effect Premium: 12 мм | 33 кл',
+          id: 'effect-premium',
+          brand: 'effect',
+          qExclude: 'ELEGANCE',
+        },
+        {
+          name: 'Effect: 8 мм | 32 кл',
+          id: 'effect',
+          brand: 'effect',
+          q: 'ELEGANCE',
+        },
+      ],
+    },
   ],
 };
 
