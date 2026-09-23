@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type ImgHTMLAttributes } from 'react';
 import { resolveImageUrl } from '../lib/images';
 
-const LOAD_TIMEOUT_MS = 8000;
+/** Only for images that are actually fetching; lazy off-screen must not trip this. */
+const LOAD_TIMEOUT_MS = 20000;
 
 type Props = ImgHTMLAttributes<HTMLImageElement> & {
   src?: string | null;
@@ -21,6 +22,9 @@ export function SmartImage({
 }: Props) {
   const [failed, setFailed] = useState(false);
   const loadedRef = useRef(false);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const [watchLoad, setWatchLoad] = useState(false);
+
   const resolved = failed
     ? resolveImageUrl(fallback, 'images/floor1.webp')
     : resolveImageUrl(src, fallback);
@@ -33,23 +37,56 @@ export function SmartImage({
   useEffect(() => {
     loadedRef.current = false;
     setFailed(false);
-  }, [src, fallback]);
+    // Eager images start fetching immediately; lazy wait until near viewport.
+    setWatchLoad(loading !== 'lazy');
+  }, [src, fallback, loading]);
 
-  // Hung requests never fire onError; force fallback so cards don't stay blank.
-  // Do not swap away an image that already loaded successfully.
+  // Start the hung-request timer only once the browser is allowed to fetch
+  // (eager mount, or lazy image intersecting / already complete).
   useEffect(() => {
-    if (!canFallback) return;
+    if (loading !== 'lazy') return;
+    const node = imgRef.current;
+    if (!node) return;
+
+    if (node.complete && node.naturalWidth > 0) {
+      loadedRef.current = true;
+      return;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setWatchLoad(true);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setWatchLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [resolved, loading, failed]);
+
+  useEffect(() => {
+    if (!canFallback || !watchLoad) return;
     const id = window.setTimeout(() => {
       if (!loadedRef.current) setFailed(true);
     }, LOAD_TIMEOUT_MS);
     return () => window.clearTimeout(id);
-  }, [resolved, canFallback]);
+  }, [resolved, canFallback, watchLoad]);
 
   return (
     <img
       {...rest}
       ref={(node) => {
-        if (node?.complete && node.naturalWidth > 0) loadedRef.current = true;
+        imgRef.current = node;
+        if (node?.complete && node.naturalWidth > 0) {
+          loadedRef.current = true;
+        }
       }}
       src={resolved}
       alt={alt}
