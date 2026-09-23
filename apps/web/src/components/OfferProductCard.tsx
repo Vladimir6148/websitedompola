@@ -24,7 +24,7 @@ export function OfferProductCard({ product, priority = false }: { product: Produ
         to={productTo}
         state={returnState}
         onClick={remember}
-        className="relative block w-full shrink-0 overflow-hidden bg-mist aspect-[4/3]"
+        className="relative block w-full shrink-0 overflow-hidden bg-mist aspect-[10/9]"
       >
         <SmartImage
           src={image}
