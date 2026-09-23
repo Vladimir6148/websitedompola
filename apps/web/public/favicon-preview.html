@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Превью favicon — ДОМПОЛА</title>
+    <style>
+      :root {
+        --bg: #eef2ee;
+        --ink: #1c1f1d;
+        --muted: #5c635e;
+        --brand: #1f8a3d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        padding: 28px 20px 48px;
+      }
+      h1 { font-size: 1.35rem; margin: 0 0 6px; }
+      .lead { color: var(--muted); margin: 0 0 28px; font-size: 0.95rem; }
+      h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 28px 0 12px; }
+      .grid { display: grid; gap: 16px; }
+      @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+      .chrome {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #c9d0ca;
+        background: #dee1e6;
+      }
+      .chrome.dark { background: #202124; border-color: #3c4043; color: #e8eaed; }
+      .tabs { display: flex; align-items: flex-end; gap: 2px; padding: 10px 10px 0; }
+      .tab {
+        display: flex; align-items: center; gap: 8px;
+        background: #fff; border-radius: 10px 10px 0 0;
+        padding: 8px 14px; min-width: 180px; max-width: 240px;
+        font-size: 13px; box-shadow: 0 -1px 0 #d0d5d2 inset;
+      }
+      .chrome.dark .tab { background: #35363a; color: #e8eaed; }
+      .tab.inactive { background: transparent; opacity: 0.75; box-shadow: none; }
+      .tab img { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+      .tab .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .bar {
+        background: #fff; padding: 8px 12px; display: flex; align-items: center; gap: 10px;
+        border-top: 1px solid #d0d5d2;
+      }
+      .chrome.dark .bar { background: #292a2d; border-top-color: #3c4043; }
+      .omnibox {
+        flex: 1; display: flex; align-items: center; gap: 8px;
+        background: #f1f3f4; border-radius: 999px; padding: 7px 12px; font-size: 13px; color: #3c4043;
+      }
+      .chrome.dark .omnibox { background: #202124; color: #e8eaed; }
+      .omnibox img { width: 16px; height: 16px; border-radius: 50%; }
+      .page { height: 56px; background: #fff; }
+      .chrome.dark .page { background: #111; }
+
+      .pinned {
+        display: flex; gap: 8px; align-items: center;
+        background: #fff; border-radius: 10px; padding: 12px 14px; border: 1px solid #c9d0ca;
+      }
+      .pinned.dark { background: #292a2d; border-color: #3c4043; color: #e8eaed; }
+      .pin {
+        width: 28px; height: 28px; border-radius: 8px; background: #f1f3f4;
+        display: grid; place-items: center;
+      }
+      .pinned.dark .pin { background: #3c4043; }
+      .pin img { width: 16px; height: 16px; border-radius: 50%; }
+
+      .ios {
+        width: 220px; background: #111; border-radius: 28px; padding: 22px 18px 18px;
+        color: #fff; border: 1px solid #333;
+      }
+      .ios .icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; justify-items: center; }
+      .app { text-align: center; font-size: 10px; }
+      .app img {
+        width: 54px; height: 54px; border-radius: 12px; display: block; margin: 0 auto 6px;
+        background: #1f8a3d;
+      }
+
+      .sizes { display: flex; flex-wrap: wrap; gap: 18px; align-items: end; }
+      .size {
+        text-align: center; font-size: 12px; color: var(--muted);
+        background: #fff; border: 1px solid #c9d0ca; border-radius: 12px; padding: 12px 14px;
+      }
+      .size img { display: block; margin: 0 auto 8px; image-rendering: auto; }
+      .note {
+        margin-top: 24px; padding: 14px 16px; border-radius: 12px;
+        background: #fff; border: 1px solid #c9d0ca; color: var(--muted); font-size: 0.92rem; line-height: 1.45;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Как выглядит favicon ДОМПОЛА</h1>
+    <p class="lead">Реальные файлы из <code>public/</code> — вкладки, адресная строка, pinned и иконка на «домашнем экране».</p>
+
+    <h2>Вкладки браузера</h2>
+    <div class="grid">
+      <div>
+        <div class="chrome">
+          <div class="tabs">
+            <div class="tab">
+              <img src="/favicon-16.png" alt="" />
+              <span class="title">ДОМПОЛА — напольные покрытия</span>
+            </div>
+            <div class="tab inactive">
+              <img src="/favicon-16.png" alt="" style="opacity:.5;filter:grayscale(.3)" />
+              <span class="title">Каталог</span>
+            </div>
+          </div>
+          <div class="bar">
+            <div class="omnibox">
+              <img src="/favicon-16.png" alt="" />
+              <span>dompola.com</span>
+            </div>
+          </div>
+          <div class="page"></div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Светлая тема · 16×16</p>
+      </div>
+
+      <div>
+        <div class="chrome dark">
+          <div class="tabs">
+            <div class="tab">
+              <img src="/favicon-16.png" alt="" />
+              <span class="title">ДОМПОЛА — напольные покрытия</span>
+            </div>
+            <div class="tab inactive">
+              <img src="/favicon-16.png" alt="" />
+              <span class="title">Ламинат</span>
+            </div>
+          </div>
+          <div class="bar">
+            <div class="omnibox">
+              <img src="/favicon-16.png" alt="" />
+              <span>https://dompola.com</span>
+            </div>
+          </div>
+          <div class="page"></div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0">Тёмная тема · 16×16</p>
+      </div>
+    </div>
+
+    <h2>Закреплённые вкладки</h2>
+    <div class="grid">
+      <div class="pinned">
+        <div class="pin"><img src="/favicon-16.png" alt="" /></div>
+        <div class="pin"><img src="/favicon-16.png" alt="" /></div>
+        <div class="pin"><img src="/favicon-32.png" alt="" style="width:18px;height:18px" /></div>
+        <span style="font-size:13px;color:var(--muted)">Только кружок, без названия</span>
+      </div>
+      <div class="pinned dark">
+        <div class="pin"><img src="/favicon-16.png" alt="" /></div>
+        <div class="pin"><img src="/favicon-16.png" alt="" /></div>
+        <span style="font-size:13px;opacity:.7">Тёмный Chrome / Edge</span>
+      </div>
+    </div>
+
+    <h2>iPhone / Android (ярлык)</h2>
+    <div class="ios">
+      <div class="icons">
+        <div class="app">
+          <img src="/apple-touch-icon.png" alt="ДОМПОЛА" />
+          ДОМПОЛА
+        </div>
+        <div class="app" style="opacity:.35">
+          <div style="width:54px;height:54px;border-radius:12px;background:#333;margin:0 auto 6px"></div>
+          …
+        </div>
+        <div class="app" style="opacity:.35">
+          <div style="width:54px;height:54px;border-radius:12px;background:#333;margin:0 auto 6px"></div>
+          …
+        </div>
+      </div>
+    </div>
+
+    <h2>Размеры файлов</h2>
+    <div class="sizes">
+      <div class="size">
+        <img src="/favicon-16.png" width="16" height="16" alt="16" />
+        16×16 · вкладка
+      </div>
+      <div class="size">
+        <img src="/favicon-32.png" width="32" height="32" alt="32" />
+        32×32 · Retina / адресная строка
+      </div>
+      <div class="size">
+        <img src="/apple-touch-icon.png" width="64" height="64" alt="180" style="border-radius:14px" />
+        Apple Touch · ~180px
+      </div>
+      <div class="size">
+        <img src="/favicon-512.png" width="96" height="96" alt="512" style="border-radius:20px" />
+        512×512 · PWA / крупные ярлыки
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Монограмма «ДП»</strong> — на вкладке 16×16 читается гораздо лучше, чем полное «ДОМПОЛА».
+      На ярлыке телефона и в PWA тоже короткий знак в фирменном зелёном круге.
+    </div>
+  </body>
+</html>
