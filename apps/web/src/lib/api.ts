@@ -133,7 +133,42 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     const products = await loadJson<Product[]>('products.json');
     const item = products.find((p) => p.slug === slug);
     if (!item) throw new ApiError(404, 'Товар не найден');
-    return item as T;
+    type Detail = {
+      description?: string | null;
+      characteristics?: { key: string; label: string; value: string }[];
+      images?: { url: string; alt?: string; isPrimary?: boolean }[];
+      seoTitle?: string | null;
+      seoDescription?: string | null;
+    };
+    let details: Record<string, Detail> = {};
+    try {
+      details = await loadJson<Record<string, Detail>>('product-details.json');
+    } catch {
+      details = {};
+    }
+    const extra = details[slug];
+    if (!extra) {
+      return {
+        ...item,
+        characteristics: (item.characteristics as Detail['characteristics']) || [],
+        images: (item.images as Detail['images']) || [],
+        stocks: (item.stocks as unknown[]) || [],
+      } as T;
+    }
+    const baseImages = (item.images as Detail['images']) || [];
+    const moreImages = extra.images || [];
+    return {
+      ...item,
+      description: extra.description ?? item.description,
+      characteristics:
+        extra.characteristics ??
+        (item.characteristics as Detail['characteristics']) ??
+        [],
+      seoTitle: extra.seoTitle ?? item.seoTitle,
+      seoDescription: extra.seoDescription ?? item.seoDescription,
+      images: [...baseImages, ...moreImages],
+      stocks: (item.stocks as unknown[]) || [],
+    } as T;
   }
 
   if (pathname === '/api/products') {
@@ -227,6 +262,10 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
         const at = Date.parse(String(a.createdAt || a.updatedAt || 0)) || 0;
         const bt = Date.parse(String(b.createdAt || b.updatedAt || 0)) || 0;
         if (bt !== at) return bt - at;
+        // Stable fallback when static catalog omits timestamps
+        const as = Number(a.sortOrder) || 0;
+        const bs = Number(b.sortOrder) || 0;
+        if (bs !== as) return bs - as;
         return a.name.localeCompare(b.name, 'ru');
       });
     }

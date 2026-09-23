@@ -365,7 +365,7 @@ export function ProductPage() {
                 product.wearLayer ? ['Защитный слой', product.wearLayer] : null,
                 ['Влагостойкость', product.moistureResistant ? 'Да' : 'Нет'],
                 ['Тёплый пол', product.underfloorHeating ? 'Да' : 'Нет'],
-                ...product.characteristics.map((c) => [c.label, c.value] as [string, string]),
+                ...(product.characteristics || []).map((c) => [c.label, c.value] as [string, string]),
               ]
                 .filter(Boolean)
                 .map((row) => {
