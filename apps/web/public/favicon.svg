@@ -8,13 +8,12 @@
   </defs>
   <rect width="32" height="32" fill="url(#g)"/>
   <text
-    x="16" y="17"
-    dominant-baseline="middle"
+    x="16" y="21.5"
     text-anchor="middle"
     fill="#ffffff"
-    font-family="Arial Black, Arial, Helvetica, sans-serif"
-    font-size="15"
-    font-weight="800"
-    letter-spacing="-1"
+    font-family="Source Sans 3, 'Segoe UI', Arial, sans-serif"
+    font-size="15.5"
+    font-weight="600"
+    letter-spacing="1"
   >ДП</text>
 </svg>

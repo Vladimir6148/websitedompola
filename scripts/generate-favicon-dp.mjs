@@ -1,21 +1,33 @@
 /**
- * Generate ДП monogram favicons (opaque green square — no white/transparent edges).
+ * Generate ДП monogram favicons — Source Sans 3 Semibold (site font, ~20% lighter than ExtraBold).
  * Usage: node scripts/generate-favicon-dp.mjs
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Resvg } from '@resvg/resvg-js';
 import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'apps/web/public');
+const fontFile = path.join(root, 'scripts/fonts/SourceSans3-SemiBold.ttf');
 
 const BRAND = '#1f8a3d';
 const BRAND_DARK = '#0f5c28';
+const FLATTEN = { r: 0x1f, g: 0x8a, b: 0x3d };
 
-/** Full-bleed green square + ДП. No rounded corners — transparent gaps become white edges in tabs. */
+if (!fs.existsSync(fontFile)) {
+  console.error('Missing font:', fontFile);
+  process.exit(1);
+}
+
+/** Full-bleed green square + ДП in Source Sans 3 Semibold (600). */
 function svgFor(size) {
-  const fontSize = size <= 32 ? size * 0.48 : size * 0.42;
+  // Slightly larger on tiny sizes for legibility; weight stays 600 (~20% lighter than ExtraBold)
+  const fontSize = size <= 32 ? size * 0.5 : size * 0.44;
+  const tracking = size <= 32 ? Math.max(0.5, size * 0.02) : size * 0.04;
+  // resvg ignores dominant-baseline — offset baseline ~0.35em below center
+  const y = size * 0.5 + fontSize * 0.35;
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
   <defs>
@@ -26,14 +38,13 @@ function svgFor(size) {
   </defs>
   <rect width="${size}" height="${size}" fill="url(#g)"/>
   <text
-    x="50%" y="52%"
-    dominant-baseline="middle"
+    x="${size / 2}" y="${y}"
     text-anchor="middle"
     fill="#ffffff"
-    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-family="Source Sans 3"
     font-size="${fontSize}"
-    font-weight="800"
-    letter-spacing="${size <= 32 ? -size * 0.04 : -size * 0.02}"
+    font-weight="600"
+    letter-spacing="${tracking}"
   >ДП</text>
 </svg>`;
 }
@@ -49,42 +60,43 @@ function svgMaster() {
   </defs>
   <rect width="32" height="32" fill="url(#g)"/>
   <text
-    x="16" y="17"
-    dominant-baseline="middle"
+    x="16" y="21.5"
     text-anchor="middle"
     fill="#ffffff"
-    font-family="Arial Black, Arial, Helvetica, sans-serif"
-    font-size="15"
-    font-weight="800"
-    letter-spacing="-1"
+    font-family="Source Sans 3, 'Segoe UI', Arial, sans-serif"
+    font-size="15.5"
+    font-weight="600"
+    letter-spacing="1"
   >ДП</text>
 </svg>
 `;
 }
 
+function renderPng(size) {
+  const resvg = new Resvg(svgFor(size), {
+    fitTo: { mode: 'width', value: size },
+    font: {
+      fontFiles: [fontFile],
+      loadSystemFonts: false,
+      defaultFontFamily: 'Source Sans 3',
+    },
+    background: BRAND,
+  });
+  return Buffer.from(resvg.render().asPng());
+}
+
 async function writePng(name, size) {
-  const flatten = { r: 0x1f, g: 0x8a, b: 0x3d };
-  const buf = await sharp(Buffer.from(svgFor(size)))
+  const buf = await sharp(renderPng(size))
     .resize(size, size, { fit: 'fill' })
-    .flatten({ background: flatten })
+    .flatten({ background: FLATTEN })
     .png({ compressionLevel: 9 })
     .toBuffer();
   fs.writeFileSync(path.join(outDir, name), buf);
   console.log(`${name} ${size}×${size} ${(buf.length / 1024).toFixed(1)}KB`);
+  return buf;
 }
 
-async function writeIco() {
-  const flatten = { r: 0x1f, g: 0x8a, b: 0x3d };
-  const png16 = await sharp(Buffer.from(svgFor(16)))
-    .resize(16, 16, { fit: 'fill' })
-    .flatten({ background: flatten })
-    .png()
-    .toBuffer();
-  const png32 = await sharp(Buffer.from(svgFor(32)))
-    .resize(32, 32, { fit: 'fill' })
-    .flatten({ background: flatten })
-    .png()
-    .toBuffer();
+async function writeIco(png16, png32) {
   const entries = [
     { size: 16, data: png16 },
     { size: 32, data: png32 },
@@ -118,8 +130,10 @@ fs.writeFileSync(path.join(outDir, 'favicon.svg'), svgMaster());
 console.log('favicon.svg');
 
 await writePng('favicon-16.png', 16);
+const png16 = await sharp(path.join(outDir, 'favicon-16.png')).png().toBuffer();
 await writePng('favicon-32.png', 32);
+const png32 = await sharp(path.join(outDir, 'favicon-32.png')).png().toBuffer();
 await writePng('apple-touch-icon.png', 180);
 await writePng('favicon-512.png', 512);
-await writeIco();
+await writeIco(png16, png32);
 console.log('Done.');
