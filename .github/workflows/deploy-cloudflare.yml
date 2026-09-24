@@ -1,22 +1,20 @@
-name: Deploy GitHub Pages
+name: Deploy Cloudflare Pages
 
 on:
   push:
     branches: [master]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: pages
+  group: cloudflare-pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
 
@@ -37,25 +35,20 @@ jobs:
         env:
           VITE_BASE: /
           VITE_SITE_URL: https://dompola.com
-          # Catalog from static JSON (full import). Auth/writes still hit Render when possible.
           VITE_API_URL: https://dompola-api.onrender.com
           VITE_STATIC_API: "true"
           VITE_BUILD_ID: ${{ github.sha }}
         run: npm run build
 
-      - name: SPA fallback for GitHub Pages
-        run: cp apps/web/dist/index.html apps/web/dist/404.html
+      - name: Ensure SPA _redirects
+        run: |
+          cp apps/web/public/_redirects apps/web/dist/_redirects
+          # Keep 404.html as extra fallback for some edge caches
+          cp apps/web/dist/index.html apps/web/dist/404.html
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: apps/web/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/web/dist --project-name=dompola --commit-dirty=true

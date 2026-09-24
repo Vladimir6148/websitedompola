@@ -1,0 +1,4 @@
+# Cloudflare Pages — static site "dompola"
+# Deploy: npx wrangler pages deploy apps/web/dist --project-name=dompola
+name = "dompola"
+compatibility_date = "2025-09-01"
