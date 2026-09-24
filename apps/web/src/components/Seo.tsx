@@ -23,7 +23,9 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
 
 function absolutize(url: string) {
   if (!url) return url;
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+  if (url.startsWith('data:')) return url;
+  if (url.startsWith('http://')) return `https://${url.slice('http://'.length)}`;
+  if (url.startsWith('https://')) return url;
   const origin = typeof window !== 'undefined' ? window.location.origin : SITE;
   const base = import.meta.env.BASE_URL.endsWith('/')
     ? import.meta.env.BASE_URL

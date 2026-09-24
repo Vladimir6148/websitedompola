@@ -90,6 +90,7 @@ export function StoresPage() {
               className="h-[280px] w-full border-0 sm:h-[380px] md:h-[440px]"
               allowFullScreen
               loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         ) : null}

@@ -28,6 +28,12 @@ function withBuildBust(url: string) {
   return `${url}${sep}v=${encodeURIComponent(String(bust))}`;
 }
 
+/** Never leave http:// image URLs on an HTTPS page (mixed content → «не защищено»). */
+function upgradeToHttps(url: string) {
+  if (url.startsWith('http://')) return `https://${url.slice('http://'.length)}`;
+  return url;
+}
+
 export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.webp') {
   if (!url) return withBuildBust(assetUrl(fallback));
 
@@ -44,7 +50,7 @@ export function resolveImageUrl(url?: string | null, fallback = 'images/floor1.w
   }
 
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-    return url;
+    return url.startsWith('data:') ? url : upgradeToHttps(url);
   }
 
   if (url.startsWith(import.meta.env.BASE_URL) || url.startsWith('/websitedompola/')) {
