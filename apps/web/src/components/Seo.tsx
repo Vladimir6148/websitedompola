@@ -7,9 +7,22 @@ type SeoProps = {
   image?: string;
 };
 
-const SITE =
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL) ||
-  (typeof window !== 'undefined' ? `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, '')}` : 'https://dompola.com');
+const SITE_FALLBACK = 'https://dompola.com';
+
+function siteOrigin() {
+  const fromEnv =
+    typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL
+      ? String(import.meta.env.VITE_SITE_URL).replace(/\/$/, '')
+      : '';
+  if (fromEnv) return fromEnv.startsWith('http://') ? `https://${fromEnv.slice(7)}` : fromEnv;
+  if (typeof window !== 'undefined') {
+    const { protocol, host, hostname } = window.location;
+    const local = hostname === 'localhost' || hostname.startsWith('127.');
+    if (protocol === 'http:' && !local) return `https://${host}`;
+    return window.location.origin;
+  }
+  return SITE_FALLBACK;
+}
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
@@ -26,7 +39,7 @@ function absolutize(url: string) {
   if (url.startsWith('data:')) return url;
   if (url.startsWith('http://')) return `https://${url.slice('http://'.length)}`;
   if (url.startsWith('https://')) return url;
-  const origin = typeof window !== 'undefined' ? window.location.origin : SITE;
+  const origin = siteOrigin();
   const base = import.meta.env.BASE_URL.endsWith('/')
     ? import.meta.env.BASE_URL
     : `${import.meta.env.BASE_URL}/`;
@@ -38,10 +51,7 @@ export function Seo({ title, description, path = '/', image }: SeoProps) {
     const fullTitle = title.includes('ДОМПОЛА') ? title : `${title} — ДОМПОЛА`;
     const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    const url =
-      typeof window !== 'undefined'
-        ? `${window.location.origin}${basePath}${cleanPath === '/' ? '/' : cleanPath}`
-        : `${SITE}${cleanPath}`;
+    const url = `${siteOrigin()}${basePath}${cleanPath === '/' ? '/' : cleanPath}`;
     const desc =
       description ||
       'Напольные покрытия в Архангельске, Северодвинске и Вологде: кварцвинил, ламинат, линолеум, керамогранит и паркет.';
