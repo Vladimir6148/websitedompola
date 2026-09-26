@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#ffffff"/>
-  <path fill="#008D36" d="
-    M32 4.5
-    C33.35 4.5 34.5 5.15 35.25 6.2
-    L57.1 33.0
-    C58.05 34.2 57.2 36.1 55.6 36.1
-    H50.2
-    V55.2
-    C50.2 57.3 48.5 59 46.4 59
-    H17.6
-    C15.5 59 13.8 57.3 13.8 55.2
-    V36.1
-    H8.4
-    C6.8 36.1 5.95 34.2 6.9 33.0
-    L28.75 6.2
-    C29.5 5.15 30.65 4.5 32 4.5
-    Z"/>
-  <path fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"
-    d="M15.6 34.4 L32 13.2 L48.4 34.4"/>
-  <rect x="27.8" y="41.5" width="8.4" height="17.5" rx="1.4" fill="#ffffff"/>
+  <circle cx="32" cy="32" r="32" fill="#ffffff"/>
+  <g transform="translate(7.5 7.5) scale(0.765)">
+    <path fill="#008D36" d="
+      M32 4.5
+      C33.35 4.5 34.5 5.15 35.25 6.2
+      L57.1 33.0
+      C58.05 34.2 57.2 36.1 55.6 36.1
+      H50.2
+      V55.2
+      C50.2 57.3 48.5 59 46.4 59
+      H17.6
+      C15.5 59 13.8 57.3 13.8 55.2
+      V36.1
+      H8.4
+      C6.8 36.1 5.95 34.2 6.9 33.0
+      L28.75 6.2
+      C29.5 5.15 30.65 4.5 32 4.5
+      Z"/>
+    <path fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"
+      d="M15.6 34.4 L32 13.2 L48.4 34.4"/>
+    <rect x="27.8" y="41.5" width="8.4" height="17.5" rx="1.4" fill="#ffffff"/>
+  </g>
 </svg>
