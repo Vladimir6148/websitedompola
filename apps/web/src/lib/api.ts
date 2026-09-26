@@ -41,6 +41,40 @@ async function loadJson<T>(file: string): Promise<T> {
   return pending as Promise<T>;
 }
 
+type ProductsManifest = Record<string, { file: string; count: number }>;
+
+/** Prefer category shards (~0.1–1MB) over full products.json (~2MB). */
+async function loadProductsForQuery(categoryParam: string): Promise<Product[]> {
+  const slugs = categoryParam
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  if (slugs.length === 0) {
+    return loadJson<Product[]>('products.json');
+  }
+
+  try {
+    const manifest = await loadJson<ProductsManifest>('products-manifest.json');
+    const parts = await Promise.all(
+      slugs.map(async (slug) => {
+        const entry = manifest[slug];
+        if (!entry?.file) return [] as Product[];
+        try {
+          return await loadJson<Product[]>(entry.file);
+        } catch {
+          return [] as Product[];
+        }
+      }),
+    );
+    const merged = parts.flat();
+    if (merged.length) return merged;
+  } catch {
+    // fall through to full catalog
+  }
+  return loadJson<Product[]>('products.json');
+}
+
 type Product = {
   id: string;
   name: string;
@@ -172,10 +206,10 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   }
 
   if (pathname === '/api/products') {
-    const products = await loadJson<Product[]>('products.json');
+    const category = url.searchParams.get('category') || '';
+    const products = await loadProductsForQuery(category);
     const q = (url.searchParams.get('q') || '').trim().toLowerCase();
     const qExclude = (url.searchParams.get('qExclude') || '').trim().toLowerCase();
-    const category = url.searchParams.get('category') || '';
     const brand = url.searchParams.get('brand') || '';
     const collection = url.searchParams.get('collection') || '';
     const sort = url.searchParams.get('sort') || 'newest';

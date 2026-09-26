@@ -6,7 +6,7 @@ import { OfferProductCard } from '../components/OfferProductCard';
 import { DEFAULT_HERO_SLIDES, PromoCarousel } from '../components/PromoCarousel';
 import { SectionHeader } from '../components/SectionHeader';
 import { api } from '../lib/api';
-import type { HomePayload, Product, ProductsResponse } from '../types';
+import type { HomePayload } from '../types';
 
 const icons: Record<string, ReactNode> = {
   store: <StoreIcon />,
@@ -29,8 +29,6 @@ const ASSORTMENT = [
 
 export function HomePage() {
   const [data, setData] = useState<HomePayload | null>(null);
-  const [deals, setDeals] = useState<Product[]>([]);
-  const [related, setRelated] = useState<Product[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -49,53 +47,17 @@ export function HomePage() {
       })
       .catch(() => undefined);
 
-    api<ProductsResponse>(
-      '/api/products?limit=48&sort=popular&category=laminate,quartzvinyl-spc,mspc,porcelain,parquet,linoleum',
-    )
-      .then((res) => {
-        const items = res.items || [];
-        const withDiscount = items.filter((p) => p.oldPrice && p.oldPrice > p.price);
-        const featured = items.filter((p) => p.featured);
-        const seen = new Set<string>();
-        const list: Product[] = [];
-        for (const p of [...withDiscount, ...featured, ...items]) {
-          if (!p?.id || seen.has(p.id)) continue;
-          seen.add(p.id);
-          list.push(p);
-          if (list.length >= 8) break;
-        }
-        if (!cancelled) setDeals(list);
-      })
-      .catch(() => undefined);
-
-    Promise.all([
-      api<ProductsResponse>('/api/products?category=underlayment&limit=4'),
-      api<ProductsResponse>('/api/products?category=baseboards&limit=4'),
-      api<ProductsResponse>('/api/products?category=accessories&limit=4'),
-    ])
-      .then(([under, base, acc]) => {
-        if (cancelled) return;
-        const preferred = [
-          'podlozhka-xps-3mm',
-          'plintus-pvh-dub-natural',
-          'klej-dlya-spc',
-          'podlozhka-khvoynaya-7mm',
-          'plintus-mdf-belyj-80',
-        ];
-        const pool = [...(under.items || []), ...(base.items || []), ...(acc.items || [])];
-        const bySlug = new Map(pool.map((p) => [p.slug, p]));
-        const ordered = preferred.map((s) => bySlug.get(s)).filter(Boolean) as Product[];
-        const rest = pool.filter((p) => !preferred.includes(p.slug));
-        setRelated([...ordered, ...rest].slice(0, 4));
-      })
-      .catch(() => undefined);
-
     return () => {
       cancelled = true;
     };
   }, []);
 
-  const offerProducts = useMemo(() => deals.slice(0, 8), [deals]);
+  const offerProducts = useMemo(() => {
+    const fromDeals = data?.deals || [];
+    if (fromDeals.length) return fromDeals.slice(0, 8);
+    return (data?.featured || []).slice(0, 8);
+  }, [data]);
+  const related = useMemo(() => (data?.related || []).slice(0, 4), [data]);
   const carouselSlides = DEFAULT_HERO_SLIDES;
 
   return (

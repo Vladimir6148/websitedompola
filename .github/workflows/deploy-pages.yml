@@ -28,6 +28,9 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Optimize catalog JSON
+        run: node scripts/optimize-catalog-json.mjs
+
       - name: Typecheck web
         working-directory: apps/web
         run: npm run typecheck

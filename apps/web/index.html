@@ -4,40 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <title>ДОМПОЛА — напольные покрытия</title>
-    <link rel="icon" href="/favicon.svg?v=dp3" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico?v=dp3" sizes="any" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=dp3" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=dp3" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=dp3" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      html.dp-booting #root { visibility: hidden; }
-      html.dp-booting body {
-        margin: 0;
-        min-height: 100vh;
-        background: #eef2ee;
-      }
-    </style>
+    <link rel="icon" href="/favicon.svg?v=house1" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico?v=house1" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=house1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=house1" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=house1" />
+    <link rel="preload" href="/data/home.json" as="fetch" crossorigin />
     <script>
       (function () {
         var BUILD = '__DOMPOLA_BUILD_ID__';
         var base = '__DOMPOLA_BASE_URL__';
-        document.documentElement.classList.add('dp-booting');
-        function ready() {
-          document.documentElement.classList.remove('dp-booting');
-        }
-        // Dev / unreplaced template → show app immediately
-        if (!BUILD || BUILD.indexOf('__DOMPOLA_') === 0) {
-          ready();
-          return;
-        }
+        if (!BUILD || BUILD.indexOf('__DOMPOLA_') === 0) return;
         var url = base.replace(/\/?$/, '/') + 'build-id.txt?v=' + encodeURIComponent(BUILD);
+        // Soft check in background — never block first paint
         fetch(url, { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.text() : ''; })
           .then(function (remote) {
@@ -47,13 +27,10 @@
               if (!sessionStorage.getItem(key)) {
                 sessionStorage.setItem(key, '1');
                 location.reload();
-                return;
               }
             }
-            ready();
           })
-          .catch(ready);
-        setTimeout(ready, 1200);
+          .catch(function () {});
       })();
     </script>
   </head>

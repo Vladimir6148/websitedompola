@@ -169,6 +169,10 @@ export type HomePayload = {
   contacts: ContactInfo[];
   categories: Category[];
   featured: Product[];
+  /** Homepage offers — baked so we never load products.json on `/` */
+  deals?: Product[];
+  /** Underlayment / baseboards / glue teaser */
+  related?: Product[];
   promotions: Promotion[];
   stores: Store[];
 };

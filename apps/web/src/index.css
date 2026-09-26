@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "@fontsource/source-sans-3/cyrillic-400.css";
+@import "@fontsource/source-sans-3/cyrillic-600.css";
+@import "@fontsource/source-sans-3/cyrillic-700.css";
+@import "@fontsource/source-sans-3/latin-400.css";
+@import "@fontsource/source-sans-3/latin-600.css";
+@import "@fontsource/source-sans-3/latin-700.css";
 
 @theme {
   --color-brand: #1f8a3d;
