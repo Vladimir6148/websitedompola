@@ -55,7 +55,7 @@ const CATALOG = [
   { to: '/catalog/porcelain', label: 'Керамогранит' },
 ] as const;
 
-const COMPANY = [
+const NAV = [
   { to: '/services', label: 'Услуги' },
   { to: '/stores', label: 'Магазины' },
   { to: '/contacts', label: 'Контакты' },
@@ -101,7 +101,7 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-graphite text-white">
       <div className="container-dp py-6 md:py-7">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,0.85fr)_minmax(0,1.1fr)] lg:items-start lg:gap-6">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.4fr)] lg:items-start lg:gap-8">
           <div className="min-w-0">
             <BrandMark size="sm" />
             <p className="mt-2 max-w-[16rem] text-[13px] leading-snug text-white/55">
@@ -124,28 +124,32 @@ export function Footer() {
 
           <div>
             <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Компания
+              Компания и связь
             </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[13px] text-white/75">
-              {COMPANY.map((item) => (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-white/75">
+              {NAV.map((item) => (
                 <Link key={item.to} to={item.to} className="transition hover:text-brand">
                   {item.label}
                 </Link>
               ))}
+              <span className="hidden text-white/20 sm:inline" aria-hidden>
+                ·
+              </span>
+              <a
+                href="https://vk.com/dompola29"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand transition hover:text-white"
+              >
+                ВК ДомПола
+              </a>
             </div>
-          </div>
-
-          <div className="text-[13px] text-white/75">
-            <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">
-              Контакты
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[13px]">
+              <a href="mailto:dompola29@mail.ru" className="text-white/75 transition hover:text-brand">
+                dompola29@mail.ru
+              </a>
+              <span className="text-white/40">Пн–Сб 10:00–20:00</span>
             </div>
-            <a href="tel:+79214994979" className="block font-semibold text-white transition hover:text-brand">
-              +7 (921) 499-49-79
-            </a>
-            <a href="mailto:dompola29@mail.ru" className="mt-0.5 block transition hover:text-brand">
-              dompola29@mail.ru
-            </a>
-            <p className="mt-0.5 text-white/45">Пн–Сб 10:00–20:00</p>
           </div>
         </div>
 
@@ -160,9 +164,7 @@ export function Footer() {
                 <Icon className="h-4 w-4" strokeWidth={2} />
               </span>
               <span className="min-w-0">
-                <span className="block text-sm font-semibold leading-tight text-white group-hover:text-white">
-                  {title}
-                </span>
+                <span className="block text-sm font-semibold leading-tight text-white">{title}</span>
                 <span className="mt-0.5 block truncate text-[11px] leading-tight text-white/45">
                   {subtitle}
                 </span>
