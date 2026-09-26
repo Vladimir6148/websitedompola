@@ -131,6 +131,8 @@ export type Service = {
   slug: string;
   description?: string | null;
   icon?: string | null;
+  /** Short label e.g. «Бесплатно» */
+  badge?: string | null;
 };
 
 export type Work = {

@@ -144,9 +144,25 @@ export function HomePage() {
           />
           <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
             {(data?.services || []).map((s) => (
-              <div key={s.id} className="rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-graphite/5 sm:p-5">
-                <h3 className="font-display text-sm font-semibold leading-snug sm:text-base">{s.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">{s.description}</p>
+              <div
+                key={s.id}
+                className="relative rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-graphite/5 sm:p-5"
+              >
+                {s.badge ? (
+                  <span className="absolute right-2.5 top-2.5 inline-flex items-center rounded-md bg-brand/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand sm:right-3 sm:top-3 sm:px-2 sm:text-[11px]">
+                    {s.badge}
+                  </span>
+                ) : null}
+                <h3
+                  className={`font-display text-sm font-semibold leading-snug sm:text-base ${
+                    s.badge ? 'pr-16 sm:pr-20' : ''
+                  }`}
+                >
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">
+                  {s.description}
+                </p>
               </div>
             ))}
           </div>
