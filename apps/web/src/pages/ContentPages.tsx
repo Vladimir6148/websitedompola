@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { LeadForm } from '../components/LeadForm';
 import { SmartImage } from '../components/SmartImage';
@@ -126,11 +127,40 @@ export function StoresPage() {
 }
 
 export function ContactsPage() {
+  const [searchParams] = useSearchParams();
+  const audience = searchParams.get('for');
+  const partner =
+    audience === 'legal'
+      ? {
+          title: 'Работа с юридическими лицами',
+          text: 'Договоры, счета, закрывающие документы и условия для организаций. Оставьте заявку — менеджер свяжется в рабочее время.',
+          source: 'b2b-legal',
+          submitLabel: 'Заявка для юрлица',
+        }
+      : audience === 'designers'
+        ? {
+            title: 'Сотрудничество с дизайнерами',
+            text: 'Образцы, подбор коллекций под проект и специальные условия. Расскажите о задаче — поможем быстро.',
+            source: 'b2b-designers',
+            submitLabel: 'Заявка дизайнера',
+          }
+        : audience === 'masters'
+          ? {
+              title: 'Для мастеров и бригад',
+              text: 'Оптовые условия, быстрый подбор материалов и комплектующих под объект. Напишите объём и сроки.',
+              source: 'b2b-masters',
+              submitLabel: 'Заявка мастера',
+            }
+          : null;
+
   return (
     <>
-      <Seo title="Контакты" path="/contacts" />
+      <Seo title={partner?.title || 'Контакты'} path="/contacts" />
       <div className="container-dp py-10 md:py-14">
-        <h1 className="section-title">Контакты</h1>
+        <h1 className="section-title">{partner?.title || 'Контакты'}</h1>
+        {partner ? (
+          <p className="mt-3 max-w-2xl text-base text-graphite/65 sm:text-lg">{partner.text}</p>
+        ) : null}
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           <div className="space-y-5 text-base sm:text-lg">
             <div>
@@ -161,9 +191,14 @@ export function ContactsPage() {
             <p className="text-graphite/65">Пн–Сб 10:00–20:00, Вс 10:00–18:00</p>
           </div>
           <div className="rounded-3xl bg-mist p-6">
-            <h2 className="font-display text-xl font-semibold">Написать нам</h2>
+            <h2 className="font-display text-xl font-semibold">
+              {partner ? 'Оставить заявку' : 'Написать нам'}
+            </h2>
             <div className="mt-4">
-              <LeadForm source="contacts" submitLabel="Отправить сообщение" />
+              <LeadForm
+                source={partner?.source || 'contacts'}
+                submitLabel={partner?.submitLabel || 'Отправить сообщение'}
+              />
             </div>
           </div>
         </div>
