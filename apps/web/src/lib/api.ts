@@ -1,7 +1,26 @@
-const API_BASE = import.meta.env.VITE_API_URL || '';
+// Empty = same-origin /api (Reg.ru php proxy). Avoid absolute host (www vs apex breaks).
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 export const USE_STATIC =
   import.meta.env.VITE_STATIC_API === 'true' ||
   (!API_BASE && import.meta.env.PROD && import.meta.env.VITE_STATIC_API !== 'false');
+
+/** Wake Render via same-origin proxy (call on admin login screen). */
+export async function wakeApi(timeoutMs = 60_000): Promise<boolean> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${API_BASE}/api/health`, {
+      signal: ctrl.signal,
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+    });
+    return res.ok;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export class ApiError extends Error {
   status: number;
@@ -31,34 +50,61 @@ export function clearStaticDataCache(opts?: { keepPrices?: boolean }) {
   if (!opts?.keepPrices) priceMapCache = null;
 }
 
+/** Drop only the live price map (e.g. after switching city). */
+export function clearPriceMapCache() {
+  priceMapCache = null;
+}
+
 /** Merge prices into the in-memory live map so the site shows edits immediately. */
-export function patchPriceMapCache(updates: Record<string, number>) {
+export function patchPriceMapCache(updates: Record<string, number>, cityKey?: string) {
+  const key = cityKey || priceMapCache?.city || '';
   priceMapCache = {
     at: Date.now(),
-    map: { ...(priceMapCache?.map || {}), ...updates },
+    city: key,
+    map: { ...(priceMapCache?.city === key ? priceMapCache.map : {}), ...updates },
   };
 }
 
-let priceMapCache: { at: number; map: Record<string, number> } | null = null;
+let priceMapCache: { at: number; city: string; map: Record<string, number> } | null = null;
 
-async function loadLivePriceMap(): Promise<Record<string, number>> {
-  if (!API_BASE) return {};
-  if (priceMapCache && Date.now() - priceMapCache.at < 45_000) return priceMapCache.map;
+function selectedCityId() {
+  try {
+    return localStorage.getItem('dompola_city') || '';
+  } catch {
+    return '';
+  }
+}
+
+/** Fetch live id→price map (optionally for a city). */
+export async function fetchPriceMap(cityId?: string): Promise<Record<string, number>> {
+  const cid = cityId || selectedCityId();
+  const qs = cid ? `?cityId=${encodeURIComponent(cid)}` : '';
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 2500);
-    const res = await fetch(`${API_BASE}/api/products/prices`, {
+    const timer = setTimeout(() => ctrl.abort(), 12_000);
+    const res = await fetch(`${API_BASE}/api/products/prices${qs}`, {
       signal: ctrl.signal,
       headers: { Accept: 'application/json' },
+      cache: 'no-store',
     });
     clearTimeout(timer);
-    if (!res.ok) return priceMapCache?.map || {};
-    const map = (await res.json()) as Record<string, number>;
-    priceMapCache = { at: Date.now(), map };
-    return map;
+    if (!res.ok) return {};
+    return (await res.json()) as Record<string, number>;
   } catch {
-    return priceMapCache?.map || {};
+    return {};
   }
+}
+
+async function loadLivePriceMap(): Promise<Record<string, number>> {
+  const city = selectedCityId();
+  if (priceMapCache && priceMapCache.city === city && Date.now() - priceMapCache.at < 45_000) {
+    return priceMapCache.map;
+  }
+  const map = await fetchPriceMap(city);
+  if (Object.keys(map).length) {
+    priceMapCache = { at: Date.now(), city, map };
+  }
+  return map;
 }
 
 function applyPriceMap<T extends { id?: string; price?: number }>(
@@ -387,7 +433,8 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
 }
 
 function wantsLiveApi(path: string, method: string) {
-  if (!API_BASE) return false;
+  // Live routes go to /api (same-origin proxy or VITE_API_URL).
+  if (!API_BASE && !(import.meta.env.PROD && USE_STATIC)) return false;
   if (method !== 'GET') return true;
   const pathname = new URL(path, 'http://local.api').pathname;
   if (pathname.startsWith('/api/auth')) return true;
@@ -399,57 +446,92 @@ function wantsLiveApi(path: string, method: string) {
   return false;
 }
 
-export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const method = (options.method || 'GET').toUpperCase();
+function sleep(ms: number) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
-  // Public catalog reads use static JSON when enabled (full ODS import on Pages).
-  // Auth and mutations still go to Render when VITE_API_URL is set.
-  if (USE_STATIC && !wantsLiveApi(path, method)) {
-    return staticApi<T>(path, options);
-  }
-
-  if (!API_BASE) {
-    return staticApi<T>(path, options);
-  }
-
+async function liveFetchOnce(path: string, options: RequestInit, timeoutMs: number): Promise<Response> {
   const headers = new Headers(options.headers || {});
   if (!headers.has('Content-Type') && options.body && !(options.body instanceof FormData)) {
     headers.set('Content-Type', 'application/json');
   }
   const token = getToken();
-  if (token) headers.set('Authorization', `Bearer ${token}`);
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+    headers.set('X-Dompola-Authorization', `Bearer ${token}`);
+  }
 
-  // Bound cold-start waits on Render so admin UI stays responsive on Reg.ru.
-  // Auth login needs a longer window (free tier wake-up).
-  const pathname = new URL(path, 'http://local.api').pathname;
-  const isAuth = pathname.startsWith('/api/auth');
   const hasExternalSignal = Boolean(options.signal);
   const ctrl = hasExternalSignal ? null : new AbortController();
-  const timeoutMs = isAuth ? 90_000 : method === 'GET' ? 8_000 : 20_000;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), timeoutMs) : null;
   try {
-    const res = await fetch(`${API_BASE}${path}`, {
+    return await fetch(`${API_BASE}${path}`, {
       ...options,
       headers,
       signal: options.signal || ctrl!.signal,
+      cache: 'no-store',
     });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      throw new ApiError(res.status, (data as { error?: string }).error || 'Ошибка запроса');
-    }
-    return data as T;
-  } catch (err) {
-    if (err instanceof ApiError) throw err;
-    if (err instanceof DOMException && err.name === 'AbortError') {
-      throw new ApiError(504, 'Сервер API не ответил вовремя — подождите и попробуйте ещё раз');
-    }
-    if (err instanceof TypeError) {
-      throw new ApiError(503, 'Нет связи с API. Подождите 30–60 сек (холодный старт) и попробуйте снова');
-    }
-    throw err;
   } finally {
     if (timer) clearTimeout(timer);
   }
+}
+
+export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const method = (options.method || 'GET').toUpperCase();
+
+  // Public catalog reads use static JSON when enabled.
+  // Auth/mutations use same-origin /api → Reg.ru proxy → Render.
+  if (USE_STATIC && !wantsLiveApi(path, method)) {
+    return staticApi<T>(path, options);
+  }
+
+  if (!API_BASE && !(import.meta.env.PROD && USE_STATIC) && !wantsLiveApi(path, method)) {
+    return staticApi<T>(path, options);
+  }
+
+  const pathname = new URL(path, 'http://local.api').pathname;
+  const isAuth = pathname.startsWith('/api/auth');
+  const timeoutMs = isAuth ? 90_000 : method === 'GET' ? 12_000 : 25_000;
+  const retries = isAuth || method !== 'GET' ? 3 : 1;
+
+  let lastErr: unknown;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await liveFetchOnce(path, options, timeoutMs);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        // Retry upstream wake-ups / proxy blips
+        if (attempt < retries && (res.status === 502 || res.status === 503 || res.status === 504)) {
+          await sleep(1500 * attempt);
+          continue;
+        }
+        throw new ApiError(res.status, (data as { error?: string }).error || 'Ошибка запроса');
+      }
+      return data as T;
+    } catch (err) {
+      lastErr = err;
+      if (err instanceof ApiError && err.status !== 502 && err.status !== 503 && err.status !== 504) {
+        throw err;
+      }
+      const transient =
+        (err instanceof DOMException && err.name === 'AbortError') ||
+        err instanceof TypeError ||
+        (err instanceof ApiError && (err.status === 502 || err.status === 503 || err.status === 504));
+      if (attempt < retries && transient) {
+        await sleep(1500 * attempt);
+        continue;
+      }
+      if (err instanceof ApiError) throw err;
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        throw new ApiError(504, 'Сервер ещё запускается — нажмите «Войти» ещё раз');
+      }
+      if (err instanceof TypeError) {
+        throw new ApiError(503, 'Нет связи — нажмите «Войти» ещё раз через пару секунд');
+      }
+      throw err;
+    }
+  }
+  throw lastErr instanceof Error ? lastErr : new ApiError(503, 'Нет связи с API');
 }
 
 export function formatPrice(value: number | null | undefined) {

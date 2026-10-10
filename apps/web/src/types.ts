@@ -48,6 +48,8 @@ export type Stock = {
   cityId: string;
   status: StockStatus;
   quantity: number;
+  /** City-specific price; omit/null → Product.price */
+  price?: number | null;
   city?: City;
 };
 

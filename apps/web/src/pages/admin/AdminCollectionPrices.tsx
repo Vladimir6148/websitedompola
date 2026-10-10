@@ -1,391 +1,850 @@
-import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
-import { Download, RefreshCw, Save, Upload } from 'lucide-react';
-import { api, formatPrice } from '../../lib/api';
-import type { Product, ProductsResponse } from '../../types';
+import { useEffect, useMemo, useState } from 'react';
+import { Check, Loader2, RefreshCw, Save } from 'lucide-react';
 import {
-  aggregateCollectionRows,
-  packPriceFromRow,
-  parseCsv,
-  rowsToCsv,
-  type CollectionPriceRow,
-} from '../../lib/collectionPrices';
-import { AdminPageHeader, adminInputClass, adminLabelClass, adminPanelClass, adminSelectClass } from './adminUi';
+  api,
+  clearStaticDataCache,
+  fetchPriceMap,
+  formatPrice,
+  patchPriceMapCache,
+} from '../../lib/api';
+import {
+  CATEGORY_BRAND_GUIDES,
+  findGuideCollection,
+  type GuideBrand,
+  type GuideCollection,
+} from '../../data/catalogBrandGuides';
+import { formatPackArea, isPackPriced, pricePerM2, resolvePackArea } from '../../lib/packaging';
+import type { City, Product, ProductsResponse } from '../../types';
+import { AdminPageHeader, adminInputClass, adminLabelClass, adminPanelClass } from './adminUi';
+
+async function mapPool<T, R>(items: T[], concurrency: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const out: R[] = new Array(items.length);
+  let i = 0;
+  async function worker() {
+    while (i < items.length) {
+      const idx = i++;
+      out[idx] = await fn(items[idx]!);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+  return out;
+}
 
 const CATEGORIES = [
   { slug: 'laminate', label: 'Ламинат' },
   { slug: 'quartzvinyl-spc', label: 'Кварцвинил / SPC' },
   { slug: 'mspc', label: 'MSPC' },
+  { slug: 'porcelain', label: 'Керамогранит' },
+  { slug: 'linoleum', label: 'Линолеум' },
+  { slug: 'parquet', label: 'Паркет' },
 ];
 
-function downloadText(filename: string, content: string, mime = 'text/csv;charset=utf-8') {
-  const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
+const CITY_ORDER = ['arkhangelsk', 'severodvinsk', 'vologda'];
+
+type DraftMap = Record<string, string>;
+
+function parseNum(raw: string): number | null {
+  const n = Number(String(raw).replace(/\s/g, '').replace(',', '.'));
+  if (!Number.isFinite(n) || n < 0) return null;
+  return n;
 }
 
+function asList(value: string | string[] | undefined): string[] {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
+function productMatchesGuide(p: Product, col: GuideCollection): boolean {
+  const brands = asList(col.brand);
+  if (brands.length && !brands.includes(p.brand?.slug || '')) return false;
+  const cols = asList(col.collection);
+  if (cols.length) {
+    const slug = p.collection?.slug || '';
+    if (!cols.includes(slug)) return false;
+  }
+  const name = (p.name || '').toLowerCase();
+  const collName = (p.collection?.name || '').toLowerCase();
+  if (col.q) {
+    const q = col.q.toLowerCase();
+    if (!name.includes(q) && !collName.includes(q)) return false;
+  }
+  if (col.qExclude) {
+    const ex = col.qExclude.toLowerCase();
+    if (name.includes(ex) || collName.includes(ex)) return false;
+  }
+  return true;
+}
+
+function fallbackFamilyKey(p: Product): { key: string; name: string } | null {
+  const raw = (p.collection?.name || '').trim();
+  if (!raw) return null;
+  let name = raw
+    .replace(/\s+SPC\d+\b.*$/i, '')
+    .replace(/\s+\d{1,2}-\d{2,4}\b.*$/i, '')
+    .replace(/\s*\(RUS\).*$/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  const brandName = (p.brand?.name || '').trim();
+  if (brandName && name.toLowerCase().startsWith(brandName.toLowerCase())) {
+    name = name.slice(brandName.length).trim();
+  }
+  if (!name || name.length < 2) name = raw;
+  return { key: `${p.brand?.slug || 'x'}::${name.toLowerCase()}`, name };
+}
+
+const chipBase =
+  'rounded-full border px-3 py-1.5 text-sm font-medium transition disabled:opacity-40';
+const chipOn = 'border-brand bg-brand text-white';
+const chipOff = 'border-brand/35 bg-white text-brand-dark hover:border-brand hover:bg-brand/5';
+
 export function AdminCollectionPricesPage() {
-  const [category, setCategory] = useState('laminate');
-  const [rows, setRows] = useState<CollectionPriceRow[]>([]);
+  const [category, setCategory] = useState('quartzvinyl-spc');
+  const [guideBrandSlug, setGuideBrandSlug] = useState('');
+  const [guideCollectionId, setGuideCollectionId] = useState('');
+  const [cityId, setCityId] = useState('');
+  const [cities, setCities] = useState<City[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [busyKey, setBusyKey] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [perSku, setPerSku] = useState(false);
+  const [bulkPackArea, setBulkPackArea] = useState('');
+  const [bulkPriceM2, setBulkPriceM2] = useState('');
+  const [bulkPricePack, setBulkPricePack] = useState('');
+  const [drafts, setDrafts] = useState<DraftMap>({});
+  const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [filter, setFilter] = useState('');
 
   async function load(cat = category) {
     setLoading(true);
     setError('');
     setMessage('');
     try {
-      const res = await api<ProductsResponse>(
-        `/api/products?published=all&limit=2000&category=${encodeURIComponent(cat)}`,
-      );
+      const [res, cityList] = await Promise.all([
+        api<ProductsResponse>(
+          `/api/products?limit=5000&category=${encodeURIComponent(cat)}&sort=name&livePrices=0`,
+        ),
+        api<City[]>('/api/content/cities').catch(() => [] as City[]),
+      ]);
       setProducts(res.items);
-      setRows(aggregateCollectionRows(res.items, cat));
+      const ordered = [...cityList].sort((a, b) => {
+        const ai = CITY_ORDER.indexOf(a.slug);
+        const bi = CITY_ORDER.indexOf(b.slug);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+      });
+      setCities(ordered);
+      if (!cityId && ordered[0]) setCityId(ordered[0].id);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Не удалось загрузить товары');
-      // Fallback: try static aggregation if admin API unavailable
-      try {
-        const res = await api<ProductsResponse>(
-          `/api/products?limit=2000&category=${encodeURIComponent(cat)}`,
-        );
-        setProducts(res.items);
-        setRows(aggregateCollectionRows(res.items, cat));
-        setError('');
-      } catch {
-        /* keep error */
-      }
     } finally {
       setLoading(false);
     }
   }
 
   useEffect(() => {
+    setGuideBrandSlug('');
+    setGuideCollectionId('');
+    setPerSku(false);
     void load(category);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- reload only when category changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
 
-  const visible = useMemo(() => {
-    const q = filter.trim().toLowerCase();
-    if (!q) return rows;
-    return rows.filter(
-      (r) =>
-        r.brand.toLowerCase().includes(q) ||
-        r.collection.toLowerCase().includes(q) ||
-        r.collection_slug.toLowerCase().includes(q) ||
-        r.match_q.toLowerCase().includes(q),
-    );
-  }, [rows, filter]);
+  const guideBrands: GuideBrand[] = CATEGORY_BRAND_GUIDES[category] || [];
+  const activeGuideBrand = useMemo(
+    () => guideBrands.find((b) => b.slug === guideBrandSlug) || null,
+    [guideBrands, guideBrandSlug],
+  );
+  const activeGuideCol: GuideCollection | null = useMemo(() => {
+    if (!guideCollectionId) return null;
+    return findGuideCollection(category, guideCollectionId, guideBrandSlug || undefined)?.col || null;
+  }, [category, guideCollectionId, guideBrandSlug]);
 
-  function rowKey(r: CollectionPriceRow) {
-    return r.collection_slug || `${r.brand_slug}:${r.match_q}`;
-  }
+  const selectedCity = cities.find((c) => c.id === cityId) || null;
 
-  function setPrice(key: string, value: string) {
-    const n = Number(String(value).replace(',', '.'));
-    setRows((prev) =>
-      prev.map((r) => (rowKey(r) === key ? { ...r, price_per_m2: Number.isFinite(n) ? n : 0 } : r)),
-    );
-  }
+  const dataBrands = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const p of products) {
+      if (p.brand?.slug && p.brand?.name) map.set(p.brand.slug, p.brand.name);
+    }
+    return [...map.entries()]
+      .map(([slug, name]) => ({ slug, name }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  }, [products]);
 
-  async function applyRow(row: CollectionPriceRow) {
-    const key = rowKey(row);
-    setBusyKey(key);
-    setError('');
-    setMessage('');
-    try {
-      const body: Record<string, unknown> = {
-        categorySlug: category,
-        price: row.price_per_m2,
-        unit: row.unit || 'м²',
-        packArea: row.pack_area,
-        packQty: row.pack_qty,
-        length: row.length_mm,
-        width: row.width_mm,
-      };
-      if (row.collection_slug) body.collectionSlug = row.collection_slug;
-      else {
-        body.q = row.match_q || row.collection;
-        if (row.brand_slug) body.brandSlug = row.brand_slug;
-      }
+  const brandChips = guideBrands.length
+    ? guideBrands.map((b) => ({ slug: b.slug, name: b.name }))
+    : dataBrands;
 
-      const res = await api<{ updated: number }>('/api/products/bulk-by-collection', {
-        method: 'POST',
-        body: JSON.stringify(body),
-      });
-      setMessage(
-        `«${row.collection || row.match_q}»: обновлено ${res.updated} товар(ов) в API. Для сайта — выгрузите products.json и задеплойте.`,
+  const collectionChips = useMemo(() => {
+    if (activeGuideBrand) {
+      return activeGuideBrand.collections.map((c) => ({
+        id: c.id,
+        name: c.name,
+        count: products.filter((p) => productMatchesGuide(p, c)).length,
+      }));
+    }
+    if (!guideBrandSlug) return [] as { id: string; name: string; count: number }[];
+    const map = new Map<string, { id: string; name: string; count: number }>();
+    for (const p of products) {
+      if (p.brand?.slug !== guideBrandSlug) continue;
+      const fam = fallbackFamilyKey(p);
+      if (!fam) continue;
+      const cur = map.get(fam.key) || { id: fam.key, name: fam.name, count: 0 };
+      cur.count += 1;
+      map.set(fam.key, cur);
+    }
+    return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  }, [activeGuideBrand, guideBrandSlug, products]);
+
+  const collectionProducts = useMemo(() => {
+    if (!guideCollectionId) return [] as Product[];
+    if (activeGuideCol) {
+      return products
+        .filter((p) => productMatchesGuide(p, activeGuideCol))
+        .sort((a, b) => (a.sku || a.name).localeCompare(b.sku || b.name, 'ru'));
+    }
+    return products
+      .filter((p) => {
+        if (guideBrandSlug && p.brand?.slug !== guideBrandSlug) return false;
+        return fallbackFamilyKey(p)?.key === guideCollectionId;
+      })
+      .sort((a, b) => (a.sku || a.name).localeCompare(b.sku || b.name, 'ru'));
+  }, [products, guideCollectionId, activeGuideCol, guideBrandSlug]);
+
+  // Overlay live city prices when city / collection changes
+  useEffect(() => {
+    if (!cityId || !collectionProducts.length) return;
+    let cancelled = false;
+    fetchPriceMap(cityId).then((map) => {
+      if (cancelled || !Object.keys(map).length) return;
+      setProducts((prev) =>
+        prev.map((p) => (map[p.id] != null ? { ...p, price: map[p.id]! } : p)),
       );
-      await load(category);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка применения');
-    } finally {
-      setBusyKey(null);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh prices for city
+  }, [cityId, guideCollectionId]);
+
+  const selectedCollectionName =
+    collectionChips.find((c) => c.id === guideCollectionId)?.name ||
+    activeGuideCol?.name ||
+    'Коллекция';
+
+  const sample = collectionProducts[0];
+  const sampleArea = sample ? resolvePackArea(sample) : null;
+  const packSold = sample ? isPackPriced(sample) || sampleArea != null : false;
+
+  useEffect(() => {
+    if (!collectionProducts.length) {
+      setBulkPackArea('');
+      setBulkPriceM2('');
+      setBulkPricePack('');
+      setDrafts({});
+      setSelected({});
+      return;
+    }
+    const areas = collectionProducts
+      .map((p) => resolvePackArea(p))
+      .filter((n): n is number => n != null && n > 0);
+    const sameArea = areas.length && areas.every((n) => n === areas[0]);
+    setBulkPackArea(sameArea ? String(areas[0]) : sampleArea != null ? String(sampleArea) : '');
+
+    const prices = collectionProducts.map((p) => p.price).filter((n) => n > 0);
+    const samePrice = prices.length && prices.every((n) => n === prices[0]);
+    const pack = samePrice ? prices[0]! : prices[0] || 0;
+    const area = sameArea ? areas[0]! : sampleArea;
+    if (sample && isPackPriced(sample)) {
+      setBulkPricePack(pack > 0 ? String(Math.round(pack * 100) / 100) : '');
+      setBulkPriceM2(
+        pack > 0 && area
+          ? String(Math.round((pack / area) * 100) / 100)
+          : '',
+      );
+    } else {
+      const m2 = samePrice ? pack : 0;
+      setBulkPriceM2(m2 > 0 ? String(Math.round(m2 * 100) / 100) : '');
+      setBulkPricePack(
+        m2 > 0 && area ? String(Math.round(m2 * area * 100) / 100) : '',
+      );
+    }
+
+    const nextDrafts: DraftMap = {};
+    const nextSel: Record<string, boolean> = {};
+    for (const p of collectionProducts) {
+      nextDrafts[p.id] = p.price > 0 ? String(p.price) : '';
+      nextSel[p.id] = true;
+    }
+    setDrafts(nextDrafts);
+    setSelected(nextSel);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guideCollectionId, cityId, collectionProducts.length, collectionProducts[0]?.price]);
+
+  function syncFromM2(m2Raw: string, areaRaw = bulkPackArea) {
+    setBulkPriceM2(m2Raw);
+    const m2 = parseNum(m2Raw);
+    const area = parseNum(areaRaw);
+    if (m2 != null && area != null && area > 0) {
+      setBulkPricePack(String(Math.round(m2 * area * 100) / 100));
     }
   }
 
-  async function applyAll() {
-    setBusyKey('__all__');
+  function syncFromPack(packRaw: string, areaRaw = bulkPackArea) {
+    setBulkPricePack(packRaw);
+    const pack = parseNum(packRaw);
+    const area = parseNum(areaRaw);
+    if (pack != null && area != null && area > 0) {
+      setBulkPriceM2(String(Math.round((pack / area) * 100) / 100));
+    }
+  }
+
+  function syncFromArea(areaRaw: string) {
+    setBulkPackArea(areaRaw);
+    const area = parseNum(areaRaw);
+    const m2 = parseNum(bulkPriceM2);
+    const pack = parseNum(bulkPricePack);
+    if (area == null || area <= 0) return;
+    if (m2 != null) {
+      setBulkPricePack(String(Math.round(m2 * area * 100) / 100));
+    } else if (pack != null) {
+      setBulkPriceM2(String(Math.round((pack / area) * 100) / 100));
+    }
+  }
+
+  /** Catalog unit price we store (pack if unit is pack, else м²). */
+  function catalogPriceToSave(): number | null {
+    if (!sample) return parseNum(bulkPriceM2);
+    if (isPackPriced(sample) || packSold) return parseNum(bulkPricePack);
+    return parseNum(bulkPriceM2);
+  }
+
+  const selectedCount = useMemo(
+    () => collectionProducts.filter((p) => selected[p.id]).length,
+    [collectionProducts, selected],
+  );
+  const allSelected =
+    collectionProducts.length > 0 && collectionProducts.every((p) => selected[p.id]);
+
+  function toggleAll(on: boolean) {
+    const next: Record<string, boolean> = {};
+    for (const p of collectionProducts) next[p.id] = on;
+    setSelected(next);
+  }
+
+  async function applyCollectionPrice() {
+    if (!cityId) {
+      setError('Выберите город');
+      return;
+    }
+    const price = catalogPriceToSave();
+    if (price == null) {
+      setError('Укажите цену за м² или за упаковку');
+      return;
+    }
+    if (!collectionProducts.length) {
+      setError('В коллекции нет товаров');
+      return;
+    }
+    const packArea = parseNum(bulkPackArea);
+    setSaving(true);
     setError('');
     setMessage('');
-    let total = 0;
     try {
-      for (const row of rows) {
-        if (!row.price_per_m2 && row.price_per_m2 !== 0) continue;
-        const body: Record<string, unknown> = {
-          categorySlug: category,
-          price: row.price_per_m2,
-          unit: row.unit || 'м²',
-          packArea: row.pack_area,
-          packQty: row.pack_qty,
-          length: row.length_mm,
-          width: row.width_mm,
-        };
-        if (row.collection_slug) body.collectionSlug = row.collection_slug;
-        else {
-          body.q = row.match_q || row.collection;
-          if (row.brand_slug) body.brandSlug = row.brand_slug;
-        }
-        const res = await api<{ updated: number }>('/api/products/bulk-by-collection', {
-          method: 'POST',
-          body: JSON.stringify(body),
-        });
-        total += res.updated;
-      }
-      setMessage(`Залито в API: ${total} товар(ов) по ${rows.length} коллекциям.`);
-      await load(category);
+      const res = await api<{ updated: number }>('/api/products/bulk-prices', {
+        method: 'POST',
+        body: JSON.stringify({
+          productIds: collectionProducts.map((p) => p.id),
+          price,
+          cityId,
+          packArea: packArea != null && packArea > 0 ? packArea : undefined,
+          unit: sample?.unit,
+        }),
+      });
+      const ids = collectionProducts.map((p) => p.id);
+      const pricePatch = Object.fromEntries(ids.map((id) => [id, price]));
+      setProducts((prev) =>
+        prev.map((p) =>
+          pricePatch[p.id] != null
+            ? {
+                ...p,
+                price,
+                ...(packArea != null && packArea > 0 ? { packArea } : {}),
+              }
+            : p,
+        ),
+      );
+      patchPriceMapCache(pricePatch, cityId);
+      clearStaticDataCache({ keepPrices: true });
+      setMessage(
+        `Цена ${formatPrice(price)} для «${selectedCity?.name || 'города'}» применена к ${res.updated} позициям.`,
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка массовой заливки');
+      setError(err instanceof Error ? err.message : 'Не удалось сохранить');
     } finally {
-      setBusyKey(null);
+      setSaving(false);
     }
   }
 
-  function exportCsv() {
-    downloadText(`${category}-collection-prices.csv`, `\uFEFF${rowsToCsv(rows)}`);
-  }
-
-  function exportProductsJson() {
-    // Apply current table prices onto loaded products snapshot, then download.
-    const clone = structuredClone(products) as Product[];
-    const now = new Date().toISOString();
-    for (const row of rows) {
-      for (const p of clone) {
-        const match = row.collection_slug
-          ? p.collection?.slug === row.collection_slug
-          : row.match_q
-            ? (!row.brand_slug || p.brand?.slug === row.brand_slug) &&
-              p.name.toLowerCase().includes(row.match_q.toLowerCase())
-            : false;
-        if (!match) continue;
-        p.price = row.price_per_m2;
-        p.unit = row.unit || 'м²';
-        if (row.pack_area != null) p.packArea = row.pack_area;
-        if (row.pack_qty != null) p.packQty = row.pack_qty;
-        if (row.length_mm != null) p.length = row.length_mm;
-        if (row.width_mm != null) p.width = row.width_mm;
-        p.updatedAt = now;
+  async function applySelectedSkuPrices() {
+    if (!cityId) {
+      setError('Выберите город');
+      return;
+    }
+    const targets = collectionProducts.filter((p) => selected[p.id]);
+    if (!targets.length) {
+      setError('Отметьте хотя бы одну позицию');
+      return;
+    }
+    const packArea = parseNum(bulkPackArea);
+    const parsed: { id: string; price: number }[] = [];
+    for (const p of targets) {
+      const price = parseNum(drafts[p.id] ?? '');
+      if (price == null) {
+        setError(`Некорректная цена у ${p.sku || p.name}`);
+        return;
       }
+      parsed.push({ id: p.id, price });
     }
-    downloadText(
-      'products.json',
-      `${JSON.stringify(clone, null, 2)}\n`,
-      'application/json;charset=utf-8',
-    );
-    setMessage(
-      'Скачан products.json с ценами из таблицы. Положите файл в apps/web/public/data/ и задеплойте — или выполните: node scripts/collection-prices.mjs apply --file …',
-    );
-  }
-
-  function onImportCsv(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    e.target.value = '';
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const imported = parseCsv(String(reader.result || ''));
-        if (!imported.length) {
-          setError('CSV пустой или не распознан');
-          return;
-        }
-        // Merge by collection_slug / match_q
-        setRows((prev) => {
-          const map = new Map(prev.map((r) => [rowKey(r), r]));
-          for (const inc of imported) {
-            const key = rowKey(inc);
-            const existing = map.get(key);
-            if (existing) {
-              map.set(key, {
-                ...existing,
-                ...inc,
-                products_count: existing.products_count || inc.products_count,
-              });
-            } else {
-              map.set(key, inc);
-            }
-          }
-          return [...map.values()].sort((a, b) => {
-            const br = a.brand.localeCompare(b.brand, 'ru');
-            if (br) return br;
-            return a.collection.localeCompare(b.collection, 'ru');
-          });
+    setSaving(true);
+    setError('');
+    setMessage('');
+    try {
+      await mapPool(parsed, 8, async (row) => {
+        await api(`/api/products/${row.id}/price`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            price: row.price,
+            cityId,
+            ...(packArea != null && packArea > 0 ? { packArea } : {}),
+          }),
         });
-        setMessage(`Импортировано ${imported.length} строк из CSV. Нажмите «Залить все» или «Применить» по строкам.`);
-        setError('');
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Ошибка разбора CSV');
-      }
-    };
-    reader.readAsText(file, 'UTF-8');
+      });
+      const map = Object.fromEntries(parsed.map((r) => [r.id, r.price]));
+      setProducts((prev) =>
+        prev.map((p) =>
+          map[p.id] != null
+            ? {
+                ...p,
+                price: map[p.id]!,
+                ...(packArea != null && packArea > 0 ? { packArea } : {}),
+              }
+            : p,
+        ),
+      );
+      patchPriceMapCache(map, cityId);
+      clearStaticDataCache({ keepPrices: true });
+      setMessage(`Обновлено ${parsed.length} артикулов для «${selectedCity?.name}».`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка сохранения');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  function fillDraftsFromBulk() {
+    const price = catalogPriceToSave();
+    if (price == null) {
+      setError('Сначала укажите цену сверху');
+      return;
+    }
+    setError('');
+    const next = { ...drafts };
+    for (const p of collectionProducts) {
+      if (selected[p.id]) next[p.id] = String(price);
+    }
+    setDrafts(next);
   }
 
   return (
     <div>
       <AdminPageHeader
         eyebrow="Каталог"
-        title="Цены коллекций"
-        description="Меняйте цену ₽/м² сразу для всех товаров коллекции. CSV — для Excel; «Выгрузить products.json» — для GitHub Pages."
+        title="Редактор цен"
+        description="Город → покрытие → бренд → коллекция. Цены в каждом городе свои."
       />
 
-      <div className={`${adminPanelClass} mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end`}>
-        <div className="min-w-[160px] flex-1">
-          <label className={adminLabelClass}>Категория</label>
-          <select
-            className={adminSelectClass}
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c.slug} value={c.slug}>
-                {c.label}
-              </option>
+      <div className={`${adminPanelClass} mb-4 space-y-4`}>
+        <div>
+          <div className={adminLabelClass}>Город (цены)</div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {cities.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={`${chipBase} ${cityId === c.id ? chipOn : chipOff}`}
+                onClick={() => setCityId(c.id)}
+              >
+                {c.name}
+              </button>
             ))}
-          </select>
+            {!cities.length && !loading ? (
+              <span className="text-sm text-graphite/45">Города не загрузились</span>
+            ) : null}
+          </div>
         </div>
-        <div className="min-w-[180px] flex-[2]">
-          <label className={adminLabelClass}>Поиск</label>
-          <input
-            className={adminInputClass}
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            placeholder="Бренд или коллекция"
-          />
+
+        <div>
+          <div className={adminLabelClass}>Тип покрытия</div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.slug}
+                type="button"
+                className={`${chipBase} ${category === c.slug ? chipOn : chipOff}`}
+                onClick={() => setCategory(c.slug)}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <button type="button" className="btn-secondary inline-flex items-center gap-1.5" onClick={() => void load()}>
-            <RefreshCw size={15} />
-            Обновить
-          </button>
-          <button type="button" className="btn-secondary inline-flex items-center gap-1.5" onClick={exportCsv}>
-            <Download size={15} />
-            CSV
-          </button>
-          <label className="btn-secondary inline-flex cursor-pointer items-center gap-1.5">
-            <Upload size={15} />
-            Импорт CSV
-            <input type="file" accept=".csv,text/csv" className="hidden" onChange={onImportCsv} />
-          </label>
-          <button type="button" className="btn-secondary inline-flex items-center gap-1.5" onClick={exportProductsJson}>
-            <Download size={15} />
-            products.json
-          </button>
+
+        <div>
+          <div className={adminLabelClass}>Бренд</div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {brandChips.map((b) => (
+              <button
+                key={b.slug}
+                type="button"
+                disabled={loading || !cityId}
+                className={`${chipBase} ${guideBrandSlug === b.slug ? chipOn : chipOff}`}
+                onClick={() => {
+                  setGuideBrandSlug(b.slug);
+                  setGuideCollectionId('');
+                  setPerSku(false);
+                }}
+              >
+                {b.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {guideBrandSlug ? (
+          <div>
+            <div className={adminLabelClass}>
+              Коллекции{' '}
+              {activeGuideBrand?.name || brandChips.find((b) => b.slug === guideBrandSlug)?.name || ''}
+            </div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {collectionChips.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  disabled={loading || c.count === 0}
+                  className={`${chipBase} ${guideCollectionId === c.id ? chipOn : chipOff}`}
+                  onClick={() => {
+                    setGuideCollectionId(c.id);
+                    setPerSku(false);
+                  }}
+                >
+                  {c.name}
+                  {c.count ? (
+                    <span
+                      className={`ml-1.5 text-xs ${
+                        guideCollectionId === c.id ? 'text-white/80' : 'text-graphite/45'
+                      }`}
+                    >
+                      {c.count}
+                    </span>
+                  ) : null}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-sm text-graphite/55">
+            {cityId ? 'Выберите бренд — появятся коллекции.' : 'Сначала выберите город.'}
+          </p>
+        )}
+
+        <div className="flex flex-wrap items-center gap-2 border-t border-graphite/8 pt-3">
           <button
             type="button"
-            className="btn-primary inline-flex items-center gap-1.5"
-            disabled={busyKey === '__all__' || loading}
-            onClick={() => void applyAll()}
+            className="btn-secondary inline-flex items-center gap-1.5"
+            onClick={() => void load()}
+            disabled={loading || saving}
           >
-            <Save size={15} />
-            Залить все в API
+            <RefreshCw size={15} className={loading ? 'animate-spin' : undefined} />
+            Обновить
           </button>
+          {!loading ? (
+            <span className="text-sm text-graphite/50">
+              {selectedCity ? `${selectedCity.name} · ` : ''}
+              {products.length} товаров
+              {guideCollectionId ? ` · в коллекции: ${collectionProducts.length}` : ''}
+            </span>
+          ) : null}
         </div>
       </div>
 
-      {message ? <p className="mb-3 text-sm text-brand-dark">{message}</p> : null}
+      {message ? (
+        <p className="mb-3 flex items-start gap-2 rounded-xl border border-brand/20 bg-brand/5 px-3 py-2.5 text-sm text-brand-dark">
+          <Check size={16} className="mt-0.5 shrink-0" />
+          {message}
+        </p>
+      ) : null}
       {error ? <p className="mb-3 text-sm text-red-600">{error}</p> : null}
 
-      <div className={`${adminPanelClass} overflow-x-auto p-0`}>
-        {loading ? (
-          <p className="p-5 text-sm text-graphite/55">Загрузка…</p>
-        ) : (
-          <table className="min-w-full text-left text-sm">
-            <thead className="border-b border-graphite/10 bg-mist/60 text-xs uppercase tracking-wide text-graphite/50">
-              <tr>
-                <th className="px-3 py-2.5 font-semibold">Бренд</th>
-                <th className="px-3 py-2.5 font-semibold">Коллекция</th>
-                <th className="px-3 py-2.5 font-semibold">Упаковка</th>
-                <th className="px-3 py-2.5 font-semibold">₽/м²</th>
-                <th className="px-3 py-2.5 font-semibold">₽/упак</th>
-                <th className="px-3 py-2.5 font-semibold">Товаров</th>
-                <th className="px-3 py-2.5 font-semibold" />
-              </tr>
-            </thead>
-            <tbody>
-              {visible.map((r) => {
-                const key = rowKey(r);
-                const pack = packPriceFromRow(r);
-                const packLabel =
-                  r.length_mm && r.width_mm && r.pack_qty
-                    ? `${r.length_mm}×${r.width_mm} × ${r.pack_qty} шт${
-                        r.pack_area ? ` · ${r.pack_area} м²` : ''
-                      }`
-                    : r.pack_area
-                      ? `${r.pack_area} м²`
-                      : '—';
-                return (
-                  <tr key={key} className="border-b border-graphite/8 last:border-0">
-                    <td className="px-3 py-2 align-middle font-medium">{r.brand || '—'}</td>
-                    <td className="px-3 py-2 align-middle">
-                      <div>{r.collection || r.match_q || '—'}</div>
-                      <div className="text-[11px] text-graphite/45">
-                        {r.collection_slug || (r.match_q ? `q:${r.match_q}` : '')}
-                      </div>
-                    </td>
-                    <td className="px-3 py-2 align-middle text-graphite/70">{packLabel}</td>
-                    <td className="px-3 py-2 align-middle">
-                      <input
-                        type="number"
-                        min={0}
-                        step={1}
-                        className={`${adminInputClass} max-w-[120px]`}
-                        value={r.price_per_m2 || ''}
-                        onChange={(e) => setPrice(key, e.target.value)}
-                      />
-                    </td>
-                    <td className="px-3 py-2 align-middle text-graphite/70">
-                      {pack != null ? formatPrice(pack) : '—'}
-                    </td>
-                    <td className="px-3 py-2 align-middle">{r.products_count}</td>
-                    <td className="px-3 py-2 align-middle text-right">
-                      <button
-                        type="button"
-                        className="btn-secondary px-3 py-1.5 text-xs"
-                        disabled={busyKey === key || busyKey === '__all__'}
-                        onClick={() => void applyRow(r)}
-                      >
-                        {busyKey === key ? '…' : 'Применить'}
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-              {!visible.length ? (
-                <tr>
-                  <td colSpan={7} className="px-3 py-8 text-center text-graphite/50">
-                    Нет коллекций
-                  </td>
-                </tr>
-              ) : null}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {loading ? (
+        <div className={`${adminPanelClass} flex items-center gap-2 text-sm text-graphite/55`}>
+          <Loader2 size={16} className="animate-spin" />
+          Загрузка каталога…
+        </div>
+      ) : !cityId || !guideBrandSlug ? null : !guideCollectionId ? (
+        <div className={adminPanelClass}>
+          <p className="text-sm text-graphite/60">Выберите коллекцию — откроется редактор цен.</p>
+        </div>
+      ) : (
+        <div className={`${adminPanelClass} space-y-5`}>
+          <div className="flex flex-col gap-1 border-b border-graphite/8 pb-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="font-display text-xl font-bold text-graphite">{selectedCollectionName}</h2>
+              <p className="mt-1 text-sm text-graphite/55">
+                {selectedCity?.name || '—'} · {sample?.brand?.name || activeGuideBrand?.name || '—'} ·{' '}
+                {collectionProducts.length} позиций · {sample?.unit || 'м²'}
+              </p>
+            </div>
+            <button
+              type="button"
+              className="text-sm font-medium text-brand-dark hover:underline"
+              onClick={() => setGuideCollectionId('')}
+            >
+              ← К коллекциям
+            </button>
+          </div>
+
+          {!collectionProducts.length ? (
+            <p className="text-sm text-graphite/55">В этой коллекции товаров не найдено.</p>
+          ) : (
+            <>
+              <div className="rounded-xl border border-graphite/10 bg-mist/30 p-4">
+                <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">
+                  Цена коллекции · {selectedCity?.name}
+                </div>
+                <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                  <div>
+                    <label className={adminLabelClass}>Цена за м², ₽</label>
+                    <input
+                      type="number"
+                      min={0}
+                      step={0.01}
+                      inputMode="decimal"
+                      className={adminInputClass}
+                      value={bulkPriceM2}
+                      onChange={(e) => syncFromM2(e.target.value)}
+                      placeholder="Например 1920"
+                      disabled={perSku || saving}
+                    />
+                  </div>
+                  <div>
+                    <label className={adminLabelClass}>Квадратура упаковки, м²</label>
+                    <input
+                      type="number"
+                      min={0}
+                      step={0.001}
+                      inputMode="decimal"
+                      className={adminInputClass}
+                      value={bulkPackArea}
+                      onChange={(e) => syncFromArea(e.target.value)}
+                      placeholder="Например 3.069"
+                      disabled={perSku || saving}
+                    />
+                    {sampleArea != null ? (
+                      <p className="mt-1 text-xs text-graphite/45">
+                        Сейчас: {formatPackArea(sampleArea)} м²
+                      </p>
+                    ) : null}
+                  </div>
+                  <div>
+                    <label className={adminLabelClass}>Цена за упаковку, ₽</label>
+                    <input
+                      type="number"
+                      min={0}
+                      step={0.01}
+                      inputMode="decimal"
+                      className={adminInputClass}
+                      value={bulkPricePack}
+                      onChange={(e) => syncFromPack(e.target.value)}
+                      placeholder="Например 5891"
+                      disabled={perSku || saving}
+                    />
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <button
+                    type="button"
+                    className="btn-primary inline-flex items-center justify-center gap-1.5"
+                    disabled={saving || perSku || (!bulkPriceM2 && !bulkPricePack) || !cityId}
+                    onClick={() => void applyCollectionPrice()}
+                  >
+                    {saving && !perSku ? (
+                      <Loader2 size={16} className="animate-spin" />
+                    ) : (
+                      <Save size={16} />
+                    )}
+                    Применить ко всей коллекции
+                  </button>
+                </div>
+                <p className="mt-2 text-xs text-graphite/50">
+                  м² и упаковка пересчитываются друг из друга. Сохраняется цена в единице товара
+                  ({sample?.unit || 'м²'}) для выбранного города.
+                </p>
+              </div>
+
+              <label className="flex cursor-pointer items-center justify-between gap-4 rounded-xl border border-graphite/10 px-4 py-3">
+                <div>
+                  <div className="font-medium text-graphite">Редактировать каждый артикул</div>
+                  <div className="text-sm text-graphite/55">
+                    Цены только для «{selectedCity?.name}»
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={perSku}
+                  onClick={() => setPerSku((v) => !v)}
+                  className={`relative h-7 w-12 shrink-0 rounded-full transition ${
+                    perSku ? 'bg-brand' : 'bg-graphite/20'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow transition ${
+                      perSku ? 'translate-x-5' : ''
+                    }`}
+                  />
+                </button>
+              </label>
+
+              {perSku ? (
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      className="btn-secondary px-3 py-1.5 text-xs"
+                      onClick={() => toggleAll(!allSelected)}
+                    >
+                      {allSelected ? 'Снять все' : 'Выбрать все'}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-secondary px-3 py-1.5 text-xs"
+                      onClick={fillDraftsFromBulk}
+                      disabled={!bulkPriceM2 && !bulkPricePack}
+                    >
+                      Подставить цену из блока выше
+                    </button>
+                    <span className="text-sm text-graphite/50">Выбрано: {selectedCount}</span>
+                    <button
+                      type="button"
+                      className="btn-primary ml-auto inline-flex items-center gap-1.5"
+                      disabled={saving || !selectedCount}
+                      onClick={() => void applySelectedSkuPrices()}
+                    >
+                      {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                      Сохранить выбранные
+                    </button>
+                  </div>
+
+                  <div className="overflow-x-auto rounded-xl border border-graphite/8">
+                    <table className="min-w-full text-left text-sm">
+                      <thead className="border-b border-graphite/10 bg-mist/60 text-xs uppercase tracking-wide text-graphite/50">
+                        <tr>
+                          <th className="w-10 px-3 py-2.5" />
+                          <th className="px-3 py-2.5 font-semibold">Артикул</th>
+                          <th className="px-3 py-2.5 font-semibold">Название</th>
+                          <th className="px-3 py-2.5 font-semibold">м²/уп</th>
+                          <th className="px-3 py-2.5 font-semibold">₽/м²</th>
+                          <th className="px-3 py-2.5 font-semibold">Цена ({sample?.unit || 'ед.'})</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {collectionProducts.map((p) => {
+                          const area = resolvePackArea(p);
+                          const m2 = pricePerM2({ ...p, price: parseNum(drafts[p.id] ?? '') || p.price });
+                          return (
+                            <tr key={p.id} className="border-b border-graphite/8 last:border-0">
+                              <td className="px-3 py-2 align-middle">
+                                <input
+                                  type="checkbox"
+                                  checked={!!selected[p.id]}
+                                  onChange={(e) =>
+                                    setSelected((prev) => ({ ...prev, [p.id]: e.target.checked }))
+                                  }
+                                  className="h-4 w-4 accent-[var(--color-brand,#008d36)]"
+                                />
+                              </td>
+                              <td className="px-3 py-2 align-middle font-mono text-xs text-graphite/70">
+                                {p.sku || '—'}
+                              </td>
+                              <td className="px-3 py-2 align-middle">
+                                <div className="max-w-[280px] truncate font-medium">{p.name}</div>
+                              </td>
+                              <td className="px-3 py-2 align-middle text-graphite/60">
+                                {area != null ? formatPackArea(area) : '—'}
+                              </td>
+                              <td className="px-3 py-2 align-middle text-graphite/60">
+                                {m2 != null ? formatPrice(m2) : '—'}
+                              </td>
+                              <td className="px-3 py-2 align-middle">
+                                <input
+                                  type="number"
+                                  min={0}
+                                  step={0.01}
+                                  className={`${adminInputClass} max-w-[130px]`}
+                                  value={drafts[p.id] ?? ''}
+                                  onChange={(e) =>
+                                    setDrafts((prev) => ({ ...prev, [p.id]: e.target.value }))
+                                  }
+                                  disabled={!selected[p.id] || saving}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : (
+                <div className="rounded-xl border border-graphite/8 bg-mist/20 px-3 py-2">
+                  <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-graphite/45">
+                    Позиции · {selectedCity?.name} ({collectionProducts.length})
+                  </div>
+                  <ul className="max-h-56 space-y-1 overflow-y-auto text-sm text-graphite/70">
+                    {collectionProducts.map((p) => {
+                      const area = resolvePackArea(p);
+                      const m2 = pricePerM2(p);
+                      return (
+                        <li
+                          key={p.id}
+                          className="flex justify-between gap-3 border-b border-graphite/5 py-1 last:border-0"
+                        >
+                          <span className="truncate">
+                            <span className="font-mono text-xs text-graphite/50">{p.sku || '—'}</span>
+                            <span className="mx-1.5 text-graphite/30">·</span>
+                            {p.name}
+                          </span>
+                          <span className="shrink-0 text-right">
+                            {formatPrice(p.price)}
+                            {m2 != null ? (
+                              <span className="ml-2 text-xs text-graphite/45">
+                                ({formatPrice(m2)}/м²
+                                {area != null ? ` · ${formatPackArea(area)} м²` : ''})
+                              </span>
+                            ) : null}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

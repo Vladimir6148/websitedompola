@@ -196,6 +196,7 @@ const stockSchema = z.object({
   cityId: z.string(),
   status: z.enum(['IN_STOCK', 'ON_ORDER', 'OUT_OF_STOCK']),
   quantity: z.number().optional(),
+  price: z.number().min(0).optional().nullable(),
 });
 
 const productSchema = z.object({
@@ -238,6 +239,7 @@ const bulkByCollectionSchema = z.object({
   brandSlug: z.string().optional(),
   q: z.string().optional(),
   price: z.number().min(0),
+  cityId: z.string().optional(),
   unit: z.string().optional(),
   packArea: z.number().optional().nullable(),
   packQty: z.number().optional().nullable(),
@@ -246,6 +248,134 @@ const bulkByCollectionSchema = z.object({
   thickness: z.number().optional().nullable(),
   wearClass: z.string().optional().nullable(),
 });
+
+const bulkPricesSchema = z.object({
+  productIds: z.array(z.string().min(1)).min(1),
+  price: z.number().min(0),
+  cityId: z.string().min(1),
+  packArea: z.number().positive().optional().nullable(),
+  unit: z.string().optional(),
+});
+
+const patchPriceSchema = z.object({
+  price: z.number().min(0),
+  cityId: z.string().optional(),
+  packArea: z.number().positive().optional().nullable(),
+  unit: z.string().optional(),
+});
+
+async function resolveCityId(cityId?: string, citySlug?: string) {
+  if (cityId) {
+    const city = await prisma.city.findUnique({ where: { id: cityId } });
+    return city;
+  }
+  if (citySlug) {
+    return prisma.city.findUnique({ where: { slug: citySlug } });
+  }
+  return null;
+}
+
+async function upsertCityPrice(productId: string, cityId: string, price: number) {
+  await prisma.stock.upsert({
+    where: { productId_cityId: { productId, cityId } },
+    create: {
+      productId,
+      cityId,
+      price,
+      status: 'IN_STOCK',
+      quantity: 0,
+    },
+    update: { price },
+  });
+}
+
+/** Compact id→price map for static catalog merge (public, cacheable). */
+router.get(
+  '/prices',
+  asyncHandler(async (req, res) => {
+    const cityId = typeof req.query.cityId === 'string' ? req.query.cityId : undefined;
+    const citySlug = typeof req.query.city === 'string' ? req.query.city : undefined;
+    const city = await resolveCityId(cityId, citySlug);
+
+    const rows = await prisma.product.findMany({
+      select: {
+        id: true,
+        price: true,
+        stocks: city
+          ? { where: { cityId: city.id }, select: { price: true } }
+          : false,
+      },
+    });
+    const map: Record<string, number> = {};
+    for (const row of rows) {
+      const cityPrice = city ? row.stocks?.[0]?.price : null;
+      map[row.id] = cityPrice != null && cityPrice > 0 ? cityPrice : row.price;
+    }
+    res.setHeader('Cache-Control', 'public, max-age=30');
+    res.json(map);
+  }),
+);
+
+/** Lightweight price update (admin) — optional city + packArea. */
+router.patch(
+  '/:id/price',
+  requireAuth,
+  requireRole('ADMIN', 'MANAGER'),
+  asyncHandler(async (req, res) => {
+    const data = patchPriceSchema.parse(req.body);
+    const productData: Prisma.ProductUpdateInput = {};
+    if (data.packArea !== undefined) productData.packArea = data.packArea;
+    if (data.unit) productData.unit = data.unit;
+
+    let city = data.cityId ? await resolveCityId(data.cityId) : null;
+    // Without city — update base product price (legacy).
+    if (!city) {
+      productData.price = data.price;
+    } else {
+      await upsertCityPrice(req.params.id, city.id, data.price);
+      // Keep base price in sync for default city (Архангельск) / static fallback.
+      if (city.slug === 'arkhangelsk') productData.price = data.price;
+    }
+
+    const product = await prisma.product.update({
+      where: { id: req.params.id },
+      data: productData,
+      select: { id: true, price: true, packArea: true, sku: true, name: true, unit: true },
+    });
+    res.json({ ...product, cityId: city?.id || null, cityPrice: data.price });
+  }),
+);
+
+/** Apply price to an explicit product id list for one city (guide collections). */
+router.post(
+  '/bulk-prices',
+  requireAuth,
+  requireRole('ADMIN', 'MANAGER'),
+  asyncHandler(async (req, res) => {
+    const data = bulkPricesSchema.parse(req.body);
+    const city = await resolveCityId(data.cityId);
+    if (!city) return res.status(400).json({ error: 'Город не найден' });
+
+    const ids = [...new Set(data.productIds)];
+    const productData: Prisma.ProductUpdateManyMutationInput = {};
+    if (data.packArea !== undefined) productData.packArea = data.packArea;
+    if (data.unit) productData.unit = data.unit;
+    if (city.slug === 'arkhangelsk') productData.price = data.price;
+
+    if (Object.keys(productData).length) {
+      await prisma.product.updateMany({
+        where: { id: { in: ids } },
+        data: productData,
+      });
+    }
+
+    for (const productId of ids) {
+      await upsertCityPrice(productId, city.id, data.price);
+    }
+
+    res.json({ updated: ids.length, cityId: city.id, citySlug: city.slug });
+  }),
+);
 
 /** Apply price / pack dims to all products in a collection (or name match). */
 router.post(
@@ -271,10 +401,11 @@ router.post(
       }
     }
 
+    const city = data.cityId ? await resolveCityId(data.cityId) : null;
     const updateData: Prisma.ProductUpdateManyMutationInput = {
-      price: data.price,
       unit: data.unit || 'м²',
     };
+    if (!city || city.slug === 'arkhangelsk') updateData.price = data.price;
     if (data.packArea !== undefined) updateData.packArea = data.packArea;
     if (data.packQty !== undefined) updateData.packQty = data.packQty;
     if (data.length !== undefined) updateData.length = data.length;
@@ -282,8 +413,16 @@ router.post(
     if (data.thickness !== undefined) updateData.thickness = data.thickness;
     if (data.wearClass !== undefined) updateData.wearClass = data.wearClass;
 
-    const result = await prisma.product.updateMany({ where, data: updateData });
-    res.json({ updated: result.count });
+    const matched = await prisma.product.findMany({ where, select: { id: true } });
+    if (Object.keys(updateData).length) {
+      await prisma.product.updateMany({ where, data: updateData });
+    }
+    if (city) {
+      for (const row of matched) {
+        await upsertCityPrice(row.id, city.id, data.price);
+      }
+    }
+    res.json({ updated: matched.length });
   }),
 );
 
@@ -325,6 +464,7 @@ router.post(
                 cityId: s.cityId,
                 status: s.status,
                 quantity: s.quantity ?? 0,
+                price: s.price ?? null,
               })),
             }
           : undefined,
@@ -397,10 +537,12 @@ router.put(
               cityId: s.cityId,
               status: s.status,
               quantity: s.quantity ?? 0,
+              price: s.price ?? null,
             },
             update: {
               status: s.status,
               quantity: s.quantity ?? 0,
+              ...(s.price !== undefined ? { price: s.price } : {}),
             },
           });
         }
