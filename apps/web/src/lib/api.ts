@@ -459,8 +459,9 @@ function wantsLiveApi(path: string, method: string) {
   if (method !== 'GET') return true;
   const pathname = new URL(path, 'http://local.api').pathname;
   if (pathname.startsWith('/api/auth')) return true;
-  // Leads live only on the API; catalog reads stay on Reg.ru static JSON (fast).
+  // Leads / ops live only on the API; catalog reads stay on Reg.ru static JSON (fast).
   if (pathname === '/api/leads' || pathname.startsWith('/api/leads/')) return true;
+  if (pathname === '/api/ops' || pathname.startsWith('/api/ops/')) return true;
   if (pathname.startsWith('/api/products/id/')) return true;
   // Live price map is fetched separately inside staticApi with a short timeout.
   if (pathname === '/api/products/prices') return true;

@@ -178,7 +178,7 @@ model City {
 }
 
 model Store {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   name        String
   address     String
   phone       String?
@@ -187,11 +187,61 @@ model Store {
   photos      String?
   lat         Float?
   lng         Float?
-  active      Boolean  @default(true)
+  active      Boolean         @default(true)
   cityId      String
-  city        City     @relation(fields: [cityId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  city        City            @relation(fields: [cityId], references: [id])
+  turnovers   StoreTurnover[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+/** Admin ops: calendar events (meetings, deliveries, etc.). */
+model OpsEvent {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime @db.Date
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+}
+
+/** Daily store cash-in / turnover for analytics. */
+model StoreTurnover {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  date      DateTime @db.Date
+  amount    Float
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([storeId, date])
+  @@index([date])
+}
+
+model Employee {
+  id        String      @id @default(cuid())
+  name      String
+  active    Boolean     @default(true)
+  sortOrder Int         @default(0)
+  shifts    WorkShift[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+/** Work day mark for staff schedule grid. */
+model WorkShift {
+  id         String   @id @default(cuid())
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date       DateTime @db.Date
+  createdAt  DateTime @default(now())
+
+  @@unique([employeeId, date])
+  @@index([date])
 }
 
 model Stock {

@@ -15,9 +15,10 @@ import {
   Tag,
 } from 'lucide-react';
 import { useAuth } from '../../store/auth';
-import { api } from '../../lib/api';
+import { api, wakeApi } from '../../lib/api';
 import type { ProductsResponse } from '../../types';
 import { BrandMark } from '../../components/BrandMark';
+import { AdminOpsDashboard } from './AdminOpsDashboard';
 import { AdminPageHeader, adminInputClass, adminPanelClass } from './adminUi';
 
 export function AdminLoginPage() {
@@ -25,18 +26,39 @@ export function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState('Подключаем сервер…');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setStatus('Подключаем сервер…');
+      const ok = await wakeApi(75_000);
+      if (cancelled) return;
+      setStatus(ok ? 'Сервер готов' : 'Сервер просыпается — можно нажать «Войти»');
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   if (!loading && user) return <Navigate to="/admin" replace />;
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError('');
+    setBusy(true);
+    setStatus('Входим…');
     try {
+      await wakeApi(45_000);
       await login(email, password);
       navigate('/admin');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
+      setStatus('Можно нажать «Войти» ещё раз');
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -54,15 +76,18 @@ export function AdminLoginPage() {
         className="relative w-full max-w-md rounded-2xl border border-graphite/8 bg-white/95 p-8 backdrop-blur"
       >
         <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-brand text-white">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand text-white">
             <Shield size={20} strokeWidth={1.75} />
           </span>
-          <div>
+          <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
             <BrandMark to="/admin" size="md" />
-            <p className="mt-1.5 text-sm text-graphite/55">Панель управления</p>
+            <span className="whitespace-nowrap text-sm leading-none text-graphite/50">
+              Панель управления
+            </span>
           </div>
         </div>
         <p className="mt-5 text-sm text-graphite/60">Вход для администраторов и менеджеров</p>
+        <p className="mt-2 text-xs text-graphite/45">{status}</p>
         <div className="mt-5 space-y-3">
           <input
             type="text"
@@ -72,6 +97,7 @@ export function AdminLoginPage() {
             placeholder="Логин или email"
             className={adminInputClass}
             autoComplete="username"
+            disabled={busy}
           />
           <input
             type="password"
@@ -81,11 +107,12 @@ export function AdminLoginPage() {
             placeholder="Пароль"
             className={adminInputClass}
             autoComplete="current-password"
+            disabled={busy}
           />
         </div>
         {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
-        <button type="submit" className="btn-primary mt-5 w-full">
-          Войти
+        <button type="submit" className="btn-primary mt-5 w-full" disabled={busy}>
+          {busy ? 'Входим…' : 'Войти'}
         </button>
       </form>
     </div>
@@ -222,11 +249,11 @@ export function AdminDashboard() {
   ];
 
   return (
-    <div>
+    <div className="space-y-6">
       <AdminPageHeader
         eyebrow="Админ"
         title="Панель управления"
-        description="Каталог, акции, магазины и заявки клиентов"
+        description="Обзор, события, оборот магазинов и график сотрудников"
         action={{
           to: '/admin/products/new',
           label: 'Добавить номенклатуру',
@@ -253,6 +280,8 @@ export function AdminDashboard() {
           );
         })}
       </div>
+
+      <AdminOpsDashboard />
     </div>
   );
 }

@@ -15,6 +15,7 @@ import leadRoutes from './routes/leads.js';
 import contentRoutes from './routes/content.js';
 import uploadRoutes from './routes/upload.js';
 import pickerRoutes from './routes/picker.js';
+import opsRoutes from './routes/ops.js';
 
 const app = express();
 const port = Number(process.env.PORT || 4000);
@@ -102,6 +103,7 @@ app.use('/api/leads', leadRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/picker', pickerRoutes);
+app.use('/api/ops', opsRoutes);
 
 app.use(errorHandler);
 
