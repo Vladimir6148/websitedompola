@@ -1,18 +1,42 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ComponentType } from 'react';
 import { Link } from 'react-router-dom';
-import { Compass, Calculator, Hammer, Store as StoreIcon } from 'lucide-react';
-import { Seo } from '../components/Seo';
+import {
+  Compass,
+  ClipboardList,
+  ExternalLink,
+  Grid3x3,
+  Hammer,
+  Layers,
+  MapPin,
+  Ruler,
+  Store as StoreIcon,
+  Sun,
+  ThumbsUp,
+  Trash2,
+} from 'lucide-react';
 import { OfferProductCard } from '../components/OfferProductCard';
 import { DEFAULT_HERO_SLIDES, PromoCarousel } from '../components/PromoCarousel';
 import { SectionHeader } from '../components/SectionHeader';
+import { SITE_NAME, SITE_TAGLINE, Seo } from '../components/Seo';
 import { api } from '../lib/api';
+import { useCity } from '../store/city';
 import type { HomePayload } from '../types';
 
-const icons: Record<string, ReactNode> = {
-  store: <StoreIcon />,
-  compass: <Compass />,
-  hammer: <Hammer />,
-  calculator: <Calculator />,
+type IconCmp = ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+
+const advantageIcons: Record<string, IconCmp> = {
+  store: StoreIcon,
+  compass: Compass,
+  hammer: Hammer,
+  calculator: ClipboardList,
+  clipboard: ClipboardList,
+};
+
+const serviceIcons: Record<string, IconCmp> = {
+  ruler: Ruler,
+  layers: Layers,
+  trash: Trash2,
+  grid: Grid3x3,
 };
 
 /** Flooring assortment chips after hero (short labels) — useful on mobile without sidebar */
@@ -26,8 +50,17 @@ const ASSORTMENT = [
   { to: '/catalog/accessories', label: 'Комплектующие' },
 ];
 
+function mapsUrl(opts: { lat?: number | null; lng?: number | null; address?: string | null }) {
+  if (opts.lat != null && opts.lng != null) {
+    return `https://yandex.ru/maps/?pt=${opts.lng},${opts.lat}&z=16&l=map`;
+  }
+  const q = (opts.address || '').trim();
+  if (!q) return '/stores';
+  return `https://yandex.ru/maps/?text=${encodeURIComponent(q)}`;
+}
 
 export function HomePage() {
+  const { cityRev } = useCity();
   const [data, setData] = useState<HomePayload | null>(null);
 
   useEffect(() => {
@@ -50,7 +83,7 @@ export function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [cityRev]);
 
   const offerProducts = useMemo(() => {
     const fromDeals = data?.deals || [];
@@ -63,11 +96,14 @@ export function HomePage() {
   return (
     <>
       <Seo
-        title="ДОМПОЛА — напольные покрытия"
-        description="Кварцвинил, ламинат, линолеум, керамогранит и паркет в Архангельске, Северодвинске и Вологде."
+        title={SITE_NAME}
+        description={SITE_TAGLINE}
         path="/"
         image={carouselSlides[0]?.image || undefined}
       />
+
+      <h1 className="sr-only">{SITE_NAME}</h1>
+      <p className="sr-only">{SITE_TAGLINE}</p>
 
       <PromoCarousel slides={carouselSlides} />
 
@@ -89,7 +125,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="container-dp py-6 md:py-10">
+      <section className="container-dp py-4 md:py-6">
         <SectionHeader
           eyebrow="Скидки недели"
           title="Выгодные предложения"
@@ -103,7 +139,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-mist py-6 md:py-10">
+      <section className="bg-mist py-4 md:py-6">
         <div className="container-dp">
           <SectionHeader
             eyebrow="Выбор покупателей"
@@ -120,7 +156,7 @@ export function HomePage() {
       </section>
 
       {related.length ? (
-        <section className="container-dp py-6 md:py-10">
+        <section className="container-dp py-4 md:py-6">
           <SectionHeader
             eyebrow="К монтажу покрытия"
             title="Подложка, плинтус и клей"
@@ -135,83 +171,127 @@ export function HomePage() {
         </section>
       ) : null}
 
-      <section className="bg-mist py-6 md:py-10">
-        <div className="container-dp">
+      {/* Services / Why us / Stores — same panel rhythm */}
+      <section className="container-dp space-y-3 py-4 md:space-y-4 md:py-6">
+        <div className="rounded-2xl bg-mist p-3 sm:p-4 md:rounded-[1.25rem] md:p-5">
           <SectionHeader
-            eyebrow="Сервис"
-            title="Услуги"
-            description="Замер, укладка и расчёт материалов — без лишней суеты."
+            eyebrow="Всё для вашего пола"
+            title="Всё для вашего пола"
+            description="От замера до укладки — поможем на каждом этапе."
+            action={{ to: '/services', label: 'Все услуги' }}
+            actionVariant="outline"
+            icon={Sun}
           />
-          <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
-            {(data?.services || []).map((s) => (
-              <div
-                key={s.id}
-                className="relative rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-graphite/5 sm:p-5"
-              >
-                {s.badge ? (
-                  <span className="absolute right-2.5 top-2.5 inline-flex items-center rounded-md bg-brand/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand sm:right-3 sm:top-3 sm:px-2 sm:text-[11px]">
-                    {s.badge}
-                  </span>
-                ) : null}
-                <h3
-                  className={`font-display text-sm font-semibold leading-snug sm:text-base ${
-                    s.badge ? 'pr-16 sm:pr-20' : ''
-                  }`}
+          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 lg:grid-cols-4">
+            {(data?.services || []).map((s) => {
+              const Icon = serviceIcons[s.icon || ''] || Ruler;
+              return (
+                <Link
+                  key={s.id}
+                  to={`/services/${s.slug}`}
+                  className="relative flex flex-col rounded-xl border border-graphite/8 bg-white p-2.5 sm:p-3"
                 >
-                  {s.title}
-                </h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">
-                  {s.description}
-                </p>
-              </div>
-            ))}
+                  {s.badge ? (
+                    <span className="absolute right-1.5 top-1.5 inline-flex items-center rounded-full bg-brand/10 px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-brand">
+                      {s.badge}
+                    </span>
+                  ) : null}
+                  <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand/10 text-brand sm:h-9 sm:w-9">
+                    <Icon size={15} strokeWidth={1.75} />
+                  </span>
+                  <h3 className="font-display text-[12px] font-semibold leading-snug text-graphite sm:text-sm">
+                    {s.title}
+                  </h3>
+                  <p className="mt-0.5 line-clamp-2 flex-1 text-[10px] leading-snug text-graphite/55 sm:text-xs">
+                    {s.description}
+                  </p>
+                </Link>
+              );
+            })}
           </div>
         </div>
-      </section>
 
-      <section className="container-dp py-6 md:py-10">
-        <SectionHeader
-          eyebrow="Почему мы"
-          title="Доверяют ДОМПОЛА"
-          description="Шоурумы, подбор под задачу и монтаж — от образца до готового пола."
-        />
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
-          {(data?.advantages || []).map((a) => (
-            <div key={a.id} className="rounded-xl border border-graphite/8 bg-mist/60 p-3.5 sm:p-5">
-              <div className="mb-2 text-brand sm:mb-3">{icons[a.icon || ''] || <Compass />}</div>
-              <h3 className="font-display text-sm font-semibold leading-snug sm:text-base">{a.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-graphite/65 sm:mt-2 sm:text-sm">{a.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-t border-graphite/8 bg-mist py-5 md:py-8">
-        <div className="container-dp">
+        <div className="rounded-2xl bg-mist p-3 sm:p-4 md:rounded-[1.25rem] md:p-5">
           <SectionHeader
-            eyebrow="Где купить"
-            title="Магазины"
-            description="Приходите за образцами в наши магазины."
-            action={{ to: '/stores', label: 'Все магазины' }}
+            eyebrow="Почему мы"
+            title="Доверяют ДомПола"
+            description="Шоурумы, подбор и монтаж — от образца до готового пола."
+            icon={ThumbsUp}
           />
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            {(data?.stores || []).map((s) => (
-              <div
-                key={s.id}
-                className="flex flex-col gap-0.5 rounded-xl border border-graphite/8 bg-white px-3.5 py-3 sm:px-4"
-              >
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-display text-sm font-semibold text-graphite sm:text-base">{s.city?.name || s.name}</h3>
+          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 lg:grid-cols-4">
+            {(data?.advantages || []).map((a) => {
+              const Icon = advantageIcons[a.icon || ''] || Compass;
+              return (
+                <div
+                  key={a.id}
+                  className="flex flex-col rounded-xl border border-graphite/8 bg-white p-2.5 sm:p-3"
+                >
+                  <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand/10 text-brand sm:h-9 sm:w-9">
+                    <Icon size={15} strokeWidth={1.75} />
+                  </span>
+                  <h3 className="font-display text-[12px] font-semibold leading-snug sm:text-sm">
+                    {a.title}
+                  </h3>
+                  <p className="mt-0.5 line-clamp-2 text-[10px] leading-snug text-graphite/55 sm:text-xs">
+                    {a.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="rounded-2xl bg-mist p-3 sm:p-4 md:rounded-[1.25rem] md:p-5">
+          <SectionHeader
+            eyebrow="Наши магазины"
+            title="Магазины рядом"
+            description="Приходите за образцами и консультацией."
+            action={{ to: '/stores', label: 'Все магазины' }}
+            actionVariant="solid"
+            icon={MapPin}
+          />
+          <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 sm:gap-2">
+            {(data?.stores || []).map((s) => {
+              const city = s.city?.name || s.name;
+              const directions = mapsUrl({ lat: s.lat, lng: s.lng, address: s.address });
+              return (
+                <article
+                  key={s.id}
+                  className="flex flex-col rounded-xl border border-graphite/8 bg-white p-2.5 sm:p-3"
+                >
+                  <h3 className="font-display text-[12px] font-semibold text-graphite sm:text-sm">
+                    {city}
+                  </h3>
                   {s.phone ? (
-                    <a href={`tel:${s.phone}`} className="shrink-0 text-xs font-medium text-brand hover:underline">
+                    <a href={`tel:${s.phone}`} className="mt-0.5 text-[10px] font-medium text-brand sm:text-xs">
                       {s.phone}
                     </a>
                   ) : null}
-                </div>
-                <p className="text-sm text-graphite/65">{s.address}</p>
-                {s.schedule ? <p className="text-xs text-graphite/45">{s.schedule}</p> : null}
-              </div>
-            ))}
+                  {s.address ? (
+                    <a
+                      href={directions}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1.5 flex flex-1 items-start gap-1 text-[10px] leading-snug text-graphite/65 sm:text-xs"
+                    >
+                      <MapPin size={12} className="mt-0.5 shrink-0 text-brand" strokeWidth={2} />
+                      <span className="line-clamp-2">{s.address}</span>
+                    </a>
+                  ) : (
+                    <div className="flex-1" />
+                  )}
+                  <a
+                    href={directions}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-0.5 text-[10px] font-semibold text-brand sm:text-xs"
+                  >
+                    На карте
+                    <ExternalLink size={11} strokeWidth={2.25} />
+                  </a>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

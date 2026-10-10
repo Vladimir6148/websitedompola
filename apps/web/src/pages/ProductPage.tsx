@@ -12,6 +12,7 @@ import {
   formatBoardSize,
   formatPackArea,
   formatUnit,
+  hasPackCalculator,
   isPackSold,
   lineTotal,
   packPrice,
@@ -21,9 +22,11 @@ import {
 } from '../lib/packaging';
 import type { Product, ProductsResponse } from '../types';
 import { useCart } from '../store/cart';
+import { useCity } from '../store/city';
 
 export function ProductPage() {
   const { slug } = useParams();
+  const { cityRev } = useCity();
   const [searchParams] = useSearchParams();
   const packsFromUrl = Math.max(0, Number(searchParams.get('packs') || searchParams.get('qty') || 0));
   const [product, setProduct] = useState<Product | null>(null);
@@ -55,7 +58,7 @@ export function ProductPage() {
         setProduct(null);
         setLoadError(true);
       });
-  }, [slug]);
+  }, [slug, cityRev]);
 
   useEffect(() => {
     if (packsFromUrl > 0) setPacks(packsFromUrl);
@@ -63,11 +66,12 @@ export function ProductPage() {
 
   const byPack = product ? isPackSold(product) : false;
   const packArea = product ? resolvePackArea(product) : null;
+  const canCalc = product ? hasPackCalculator(product) : false;
   const pPack = product ? packPrice(product) : null;
   const pM2 = product && hasPrice(product.price) ? pricePerM2(product) : null;
   const board = product ? formatBoardSize(product) : null;
   const roomReady = product ? canRoomCalculate(product) : false;
-  const selectedArea = product && roomReady ? packsToArea(packs, product) : packs;
+  const selectedArea = product && canCalc && packArea ? packsToArea(packs, product) : packs;
 
   const roomCalc = useMemo(() => {
     if (!product || !roomReady || !packArea) {
@@ -165,7 +169,7 @@ export function ProductPage() {
           </div>
 
           <div>
-            <div className="text-sm uppercase tracking-wide text-graphite/50">
+            <div className="text-sm tracking-wide text-graphite/50">
               {product.brand?.name}
               {product.collection ? ` · ${product.collection.name}` : ''}
             </div>
@@ -209,12 +213,12 @@ export function ProductPage() {
               ) : null}
             </div>
 
-            {hasPrice(product.price) ? (
+            {canCalc || hasPrice(product.price) ? (
               <div className="mt-6 overflow-hidden rounded-2xl border border-graphite/8 bg-gradient-to-b from-white to-mist/40 p-5 shadow-[0_10px_30px_rgba(15,92,40,0.06)] sm:p-6">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h2 className="font-display text-xl font-semibold text-graphite">Заказать онлайн</h2>
-                    {byPack && roomReady && packArea ? (
+                    {canCalc && packArea ? (
                       <p className="mt-1 text-sm text-graphite/50">
                         1 упак = {formatPackArea(packArea)} м²
                       </p>
@@ -222,7 +226,7 @@ export function ProductPage() {
                       <p className="mt-1 text-sm text-graphite/50">Укажите количество</p>
                     )}
                   </div>
-                  {byPack && roomReady && packArea ? (
+                  {canCalc && packArea ? (
                     <button
                       type="button"
                       aria-label="Калькулятор площади помещения"
@@ -238,7 +242,7 @@ export function ProductPage() {
                   ) : null}
                 </div>
 
-                {byPack && roomReady && packArea ? (
+                {canCalc && packArea ? (
                   <div className="mt-5 flex items-center gap-2 sm:gap-3">
                     <QtyStepper
                       label="упак"
@@ -270,7 +274,7 @@ export function ProductPage() {
                     />
                     {!packArea ? (
                       <p className="mt-2 text-xs text-graphite/45">
-                        Площадь упаковки не указана — пересчёт м² недоступен.
+                        Площадь упаковки не указана — укажите длину, ширину и шт. в упаковке.
                       </p>
                     ) : null}
                   </div>
@@ -287,7 +291,7 @@ export function ProductPage() {
                   </div>
                 )}
 
-                {byPack && roomReady && showRoomCalc ? (
+                {canCalc && roomReady && showRoomCalc ? (
                   <form
                     className="mt-4 rounded-xl bg-white/80 p-4 ring-1 ring-graphite/8"
                     onSubmit={(e: FormEvent) => {
@@ -296,7 +300,7 @@ export function ProductPage() {
                       setShowRoomCalc(false);
                     }}
                   >
-                    <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+                    <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
                       Площадь помещения, м²
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -312,25 +316,36 @@ export function ProductPage() {
                       </button>
                     </div>
                     <p className="mt-2 text-xs text-graphite/55">
-                      Нужно {roomCalc.packs} упак · {formatPackArea(roomCalc.area)} м² ·{' '}
-                      {formatPrice(roomCalc.cost)}
+                      Нужно {roomCalc.packs} упак · {formatPackArea(roomCalc.area)} м²
+                      {hasPrice(product.price) ? ` · ${formatPrice(roomCalc.cost)}` : ''}
                     </p>
                   </form>
                 ) : null}
 
-                <button
-                  type="button"
-                  className="btn-primary mt-5 flex w-full items-center justify-center gap-2 py-3.5 text-sm"
-                  onClick={() => add(product, packs)}
-                >
-                  <ShoppingBag size={16} strokeWidth={2} />
-                  В корзину
-                  {pPack != null ? (
-                    <span className="font-semibold opacity-90">
-                      · {formatPrice(lineTotal(packs, product))}
-                    </span>
-                  ) : null}
-                </button>
+                {hasPrice(product.price) ? (
+                  <button
+                    type="button"
+                    className="btn-primary mt-5 flex w-full items-center justify-center gap-2 py-3.5 text-sm"
+                    onClick={() => add(product, packs)}
+                  >
+                    <ShoppingBag size={16} strokeWidth={2} />
+                    В корзину
+                    {pPack != null ? (
+                      <span className="font-semibold opacity-90">
+                        · {formatPrice(lineTotal(packs, product))}
+                      </span>
+                    ) : null}
+                  </button>
+                ) : (
+                  <div className="mt-5">
+                    <p className="text-sm text-graphite/70">
+                      Цену уточняйте у менеджера — наличие и актуальная стоимость зависят от склада.
+                    </p>
+                    <a href="tel:+79214994979" className="btn-primary mt-4 inline-flex">
+                      Позвонить
+                    </a>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="mt-6 rounded-2xl border border-graphite/10 bg-mist p-5">
@@ -365,7 +380,17 @@ export function ProductPage() {
                 product.wearLayer ? ['Защитный слой', product.wearLayer] : null,
                 ['Влагостойкость', product.moistureResistant ? 'Да' : 'Нет'],
                 ['Тёплый пол', product.underfloorHeating ? 'Да' : 'Нет'],
-                ...(product.characteristics || []).map((c) => [c.label, c.value] as [string, string]),
+                ...(product.characteristics || [])
+                  .filter((c) => {
+                    const lab = String(c.label || '').toLowerCase();
+                    // не дублируем поля карточки и не показываем сырой дамп
+                    if (/длин|ширин|толщин|штук|площад|упаков|цвет|фаск|замок|класс|влаго|тёпл|тепл|защит/.test(lab)) {
+                      return false;
+                    }
+                    if (/^1\s*шт/i.test(String(c.value || ''))) return false;
+                    return Boolean(c.label && c.value);
+                  })
+                  .map((c) => [c.label, c.value] as [string, string]),
               ]
                 .filter(Boolean)
                 .map((row) => {

@@ -75,16 +75,20 @@ function selectedCityId() {
   }
 }
 
-/** Fetch live id→price map (optionally for a city). */
+/** Fetch live id→price map (optionally for a city). Fresh after admin edits. */
 export async function fetchPriceMap(cityId?: string): Promise<Record<string, number>> {
   const cid = cityId || selectedCityId();
-  const qs = cid ? `?cityId=${encodeURIComponent(cid)}` : '';
+  const params = new URLSearchParams();
+  if (cid) params.set('cityId', cid);
+  // Bust CDN/browser caches so site picks up admin price changes quickly.
+  params.set('t', String(Math.floor(Date.now() / 8_000)));
+  const qs = params.toString() ? `?${params}` : '';
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 12_000);
     const res = await fetch(`${API_BASE}/api/products/prices${qs}`, {
       signal: ctrl.signal,
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
       cache: 'no-store',
     });
     clearTimeout(timer);
@@ -97,7 +101,8 @@ export async function fetchPriceMap(cityId?: string): Promise<Record<string, num
 
 async function loadLivePriceMap(): Promise<Record<string, number>> {
   const city = selectedCityId();
-  if (priceMapCache && priceMapCache.city === city && Date.now() - priceMapCache.at < 45_000) {
+  // Short TTL — admin price edits appear on the storefront within seconds.
+  if (priceMapCache && priceMapCache.city === city && Date.now() - priceMapCache.at < 8_000) {
     return priceMapCache.map;
   }
   const map = await fetchPriceMap(city);
@@ -225,7 +230,21 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   }
 
   if (pathname === '/api/health') return { ok: true, service: 'dompola-static' } as T;
-  if (pathname === '/api/content/home') return loadJson('home.json');
+  if (pathname === '/api/content/home') {
+    const home = await loadJson<{
+      featured?: Product[];
+      deals?: Product[];
+      related?: Product[];
+      [key: string]: unknown;
+    }>('home.json');
+    const priceMap = await loadLivePriceMap();
+    return {
+      ...home,
+      featured: applyPriceMap(home.featured || [], priceMap),
+      deals: applyPriceMap(home.deals || [], priceMap),
+      related: applyPriceMap(home.related || [], priceMap),
+    } as T;
+  }
   if (pathname === '/api/content/cities') return loadJson('cities.json');
   if (pathname === '/api/content/services') return loadJson('services.json');
   if (pathname === '/api/content/works') return loadJson('works.json');
@@ -281,15 +300,17 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
       details = {};
     }
     const extra = details[slug];
+    const priceMap = await loadLivePriceMap();
+    const withPrice = applyPriceMap([item], priceMap)[0]!;
     if (!extra) {
       return {
-        ...item,
-        characteristics: (item.characteristics as Detail['characteristics']) || [],
-        images: (item.images as Detail['images']) || [],
-        stocks: (item.stocks as unknown[]) || [],
+        ...withPrice,
+        characteristics: (withPrice.characteristics as Detail['characteristics']) || [],
+        images: (withPrice.images as Detail['images']) || [],
+        stocks: (withPrice.stocks as unknown[]) || [],
       } as T;
     }
-    const baseImages = (item.images as Detail['images']) || [];
+    const baseImages = (withPrice.images as Detail['images']) || [];
     const moreImages = extra.images || [];
     // If catalog already has a curated local photo (Parser1224 / imports),
     // do not append old multi-decor galleries from product-details.
@@ -302,16 +323,16 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
           (img, idx, arr) => img?.url && arr.findIndex((x) => x.url === img.url) === idx,
         );
     return {
-      ...item,
-      description: extra.description ?? item.description,
+      ...withPrice,
+      description: extra.description ?? withPrice.description,
       characteristics:
         extra.characteristics ??
-        (item.characteristics as Detail['characteristics']) ??
+        (withPrice.characteristics as Detail['characteristics']) ??
         [],
-      seoTitle: extra.seoTitle ?? item.seoTitle,
-      seoDescription: extra.seoDescription ?? item.seoDescription,
+      seoTitle: extra.seoTitle ?? withPrice.seoTitle,
+      seoDescription: extra.seoDescription ?? withPrice.seoDescription,
       images,
-      stocks: (item.stocks as unknown[]) || [],
+      stocks: (withPrice.stocks as unknown[]) || [],
     } as T;
   }
 

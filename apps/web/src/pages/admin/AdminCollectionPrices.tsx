@@ -376,8 +376,14 @@ export function AdminCollectionPricesPage() {
       );
       patchPriceMapCache(pricePatch, cityId);
       clearStaticDataCache({ keepPrices: true });
+      try {
+        localStorage.setItem('dompola_prices_rev', String(Date.now()));
+        new BroadcastChannel('dompola-prices').postMessage({ t: Date.now() });
+      } catch {
+        /* ignore */
+      }
       setMessage(
-        `Цена ${formatPrice(price)} для «${selectedCity?.name || 'города'}» применена к ${res.updated} позициям.`,
+        `Цена ${formatPrice(price)} для «${selectedCity?.name || 'города'}» сохранена — на сайте обновится сразу (выберите этот город).`,
       );
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Не удалось сохранить');
@@ -434,7 +440,15 @@ export function AdminCollectionPricesPage() {
       );
       patchPriceMapCache(map, cityId);
       clearStaticDataCache({ keepPrices: true });
-      setMessage(`Обновлено ${parsed.length} артикулов для «${selectedCity?.name}».`);
+      try {
+        localStorage.setItem('dompola_prices_rev', String(Date.now()));
+        new BroadcastChannel('dompola-prices').postMessage({ t: Date.now() });
+      } catch {
+        /* ignore */
+      }
+      setMessage(
+        `Обновлено ${parsed.length} артикулов для «${selectedCity?.name}» — на сайте цены уже новые.`,
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка сохранения');
     } finally {
@@ -461,29 +475,50 @@ export function AdminCollectionPricesPage() {
       <AdminPageHeader
         eyebrow="Каталог"
         title="Редактор цен"
-        description="Город → покрытие → бренд → коллекция. Цены в каждом городе свои."
+        description="Сначала город, затем покрытие → бренд → коллекция. Цены на сайте обновляются сразу после сохранения."
       />
 
-      <div className={`${adminPanelClass} mb-4 space-y-4`}>
-        <div>
-          <div className={adminLabelClass}>Город (цены)</div>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {cities.map((c) => (
+      {/* Cities — separate bar, underlined active tab */}
+      <div className="mb-4 rounded-2xl border border-graphite/10 bg-white px-4 py-4 sm:px-5">
+        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-graphite/45">
+          Город
+        </div>
+        <p className="mt-1 text-sm text-graphite/55">
+          Цены задаются отдельно для каждого города и сразу видны на сайте при выборе этого города.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 border-b border-graphite/10">
+          {cities.map((c) => {
+            const on = cityId === c.id;
+            return (
               <button
                 key={c.id}
                 type="button"
-                className={`${chipBase} ${cityId === c.id ? chipOn : chipOff}`}
                 onClick={() => setCityId(c.id)}
+                className={`-mb-px border-b-2 px-0.5 pb-2.5 text-base font-semibold transition ${
+                  on
+                    ? 'border-brand text-brand-dark'
+                    : 'border-transparent text-graphite/55 hover:text-graphite'
+                }`}
               >
                 {c.name}
               </button>
-            ))}
-            {!cities.length && !loading ? (
-              <span className="text-sm text-graphite/45">Города не загрузились</span>
-            ) : null}
-          </div>
+            );
+          })}
+          {!cities.length && !loading ? (
+            <span className="pb-2.5 text-sm text-graphite/45">Города не загрузились</span>
+          ) : null}
         </div>
+        {selectedCity ? (
+          <p className="mt-3 text-sm text-graphite/60">
+            Редактируете цены для:{' '}
+            <span className="font-semibold text-graphite underline decoration-brand/50 decoration-2 underline-offset-4">
+              {selectedCity.name}
+            </span>
+          </p>
+        ) : null}
+      </div>
 
+      <div className={`${adminPanelClass} mb-4 space-y-4`}>
         <div>
           <div className={adminLabelClass}>Тип покрытия</div>
           <div className="mt-2 flex flex-wrap gap-2">

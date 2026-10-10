@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Product } from '../types';
+import { fetchPriceMap } from '../lib/api';
 import { resolveImageUrl } from '../lib/images';
 import { isPackSold, lineTotal, resolvePackArea } from '../lib/packaging';
+import { useCity } from './city';
 
 export type CartItem = {
   productId: string;
@@ -51,6 +53,7 @@ function toCartItem(product: Product, quantity: number): CartItem {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { city, cityRev } = useCity();
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
       return JSON.parse(localStorage.getItem(KEY) || '[]');
@@ -62,6 +65,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem(KEY, JSON.stringify(items));
   }, [items]);
+
+  // Recalculate line prices when the shopper switches city.
+  useEffect(() => {
+    if (!city?.id || !items.length) return;
+    let cancelled = false;
+    fetchPriceMap(city.id).then((map) => {
+      if (cancelled || !Object.keys(map).length) return;
+      setItems((prev) => {
+        let changed = false;
+        const next = prev.map((i) => {
+          const price = map[i.productId];
+          if (price == null || price === i.price) return i;
+          changed = true;
+          return { ...i, price };
+        });
+        return changed ? next : prev;
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- price refresh on city only
+  }, [city?.id, cityRev]);
 
   const value = useMemo<CartContextValue>(() => {
     const add = (product: Product, qty = 1) => {

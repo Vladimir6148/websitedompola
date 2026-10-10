@@ -11,7 +11,11 @@ import {
 import { Layers, PanelBottom, Pipette, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Seo } from '../components/Seo';
 import { ProductCard } from '../components/ProductCard';
-import { CATEGORY_BRAND_GUIDES, resolveGuideFilters } from '../data/catalogBrandGuides';
+import {
+  CATEGORY_BRAND_GUIDES,
+  findGuideCollection,
+  resolveGuideFilters,
+} from '../data/catalogBrandGuides';
 import { api } from '../lib/api';
 import {
   clearPendingRestore,
@@ -19,9 +23,36 @@ import {
   readScroll,
   restoreCatalogScroll,
 } from '../lib/scrollMemory';
+import { useCity } from '../store/city';
 import type { Brand, Category, Product, ProductsResponse } from '../types';
 
 const ACCESSORY_SLUGS = ['underlayment', 'baseboards', 'accessories'] as const;
+
+/** Clean catalog paths: /catalog/:cat/:brand/:collection */
+function catalogGuidePath(
+  categorySlug: string | undefined,
+  brandSlug?: string,
+  collectionSlug?: string,
+) {
+  if (!categorySlug) return '/catalog';
+  let path = `/catalog/${categorySlug}`;
+  if (brandSlug) path += `/${brandSlug}`;
+  if (brandSlug && collectionSlug) path += `/${collectionSlug}`;
+  return path;
+}
+
+function withSearch(path: string, search: URLSearchParams) {
+  const qs = search.toString();
+  return qs ? `${path}?${qs}` : path;
+}
+
+function stripGuideSearch(params: URLSearchParams) {
+  const next = new URLSearchParams(params);
+  next.delete('brand');
+  next.delete('collection');
+  next.delete('page');
+  return next;
+}
 
 const ACCESSORY_CHIPS = [
   { slug: 'underlayment', label: 'Подложка', icon: Layers, to: '/catalog/underlayment' },
@@ -77,7 +108,7 @@ type OptionItem = { slug: string; name: string };
 
 function chipClass(active: boolean, tone: 'neutral' | 'accent' = 'neutral') {
   if (active) {
-    return 'whitespace-nowrap rounded-full bg-brand px-3.5 py-1.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(31,138,61,0.22)] transition';
+    return 'whitespace-nowrap rounded-full bg-brand px-3.5 py-1.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(0,141,54,0.22)] transition';
   }
   if (tone === 'accent') {
     return 'whitespace-nowrap rounded-full border border-brand/25 bg-brand/[0.06] px-3.5 py-1.5 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white';
@@ -224,7 +255,7 @@ function CompactChipRow({
 
   return (
     <div className="space-y-2">
-      <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">{label}</div>
+      <div className="text-xs font-semibold tracking-wide text-graphite/50">{label}</div>
       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <button type="button" onClick={onClear} className={chipClass(selected.length === 0)}>
           {allLabel}
@@ -250,7 +281,8 @@ function CompactChipRow({
 }
 
 export function CatalogPage() {
-  const { categorySlug } = useParams();
+  const { categorySlug, brandSlug: pathBrand, collectionSlug: pathCollection } = useParams();
+  const { cityRev } = useCity();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -267,10 +299,14 @@ export function CatalogPage() {
   const productsTopRef = useRef<HTMLDivElement>(null);
   const shouldScrollToProducts = useRef(false);
   const restoredForKey = useRef<string | null>(null);
+  const filterScrollY = useRef<number | null>(null);
 
   const q = params.get('q') || '';
-  const brand = params.get('brand') || '';
-  const collection = params.get('collection') || '';
+  const queryBrand = params.get('brand') || '';
+  const queryCollection = params.get('collection') || '';
+  // Path wins over ?brand=&collection= (clean shareable URLs)
+  const brand = pathBrand || queryBrand;
+  const collection = pathCollection || queryCollection;
   const sort = params.get('sort') || 'newest';
   const page = params.get('page') || '1';
   const minPrice = params.get('minPrice') || '';
@@ -334,16 +370,83 @@ export function CatalogPage() {
     return () => {
       cancelled = true;
     };
-  }, [categoryQuery, accessoryHub, inAccessorySection]);
+  }, [categoryQuery, accessoryHub, inAccessorySection, cityRev]);
 
   const categoryGuides = categorySlug ? CATEGORY_BRAND_GUIDES[categorySlug] : undefined;
   const activeGuideBrand = useMemo(() => {
     if (!categoryGuides?.length) return null;
+    if (collectionSlugs.length === 1) {
+      const prefer = brandSlugs.find((s) => categoryGuides.some((g) => g.slug === s));
+      const hit = findGuideCollection(categorySlug, collectionSlugs[0]!, prefer);
+      if (hit) return hit.guide;
+    }
     return categoryGuides.find((g) => brandSlugs.includes(g.slug)) || null;
-  }, [categoryGuides, brandSlugs]);
+  }, [categoryGuides, brandSlugs, collectionSlugs, categorySlug]);
+
+  // Migrate ?brand=&collection= → /catalog/:cat/:brand/:collection and fix wrong brand in path
+  useEffect(() => {
+    if (!categorySlug || accessoryHub || inAccessorySection) return;
+    if (!categoryGuides?.length) return;
+
+    const qBrandList = parseList(queryBrand);
+    const qColList = parseList(queryCollection);
+    // Keep multi-select filter modal on query strings
+    if (qBrandList.length > 1 || qColList.length > 1) return;
+
+    let nextBrand = pathBrand || qBrandList[0] || '';
+    let nextCol = pathCollection || qColList[0] || '';
+
+    if (nextCol) {
+      const prefer =
+        nextBrand && categoryGuides.some((g) => g.slug === nextBrand) ? nextBrand : undefined;
+      const hit = findGuideCollection(categorySlug, nextCol, prefer);
+      if (hit) nextBrand = hit.guide.slug;
+    }
+
+    const isGuideBrand = nextBrand ? categoryGuides.some((g) => g.slug === nextBrand) : false;
+    const isGuideCol = Boolean(
+      nextCol &&
+        findGuideCollection(
+          categorySlug,
+          nextCol,
+          nextBrand && categoryGuides.some((g) => g.slug === nextBrand) ? nextBrand : undefined,
+        ),
+    );
+    if (!isGuideBrand && !isGuideCol) return;
+
+    const targetPath = catalogGuidePath(
+      categorySlug,
+      nextBrand || undefined,
+      nextCol || undefined,
+    );
+    const hasQueryGuide = Boolean(queryBrand || queryCollection);
+    const pathMismatch =
+      (pathBrand || '') !== (nextBrand || '') || (pathCollection || '') !== (nextCol || '');
+
+    if (!hasQueryGuide && !pathMismatch) return;
+
+    const next = stripGuideSearch(params);
+    navigate(withSearch(targetPath, next), { replace: true, preventScrollReset: true });
+  }, [
+    categorySlug,
+    categoryGuides,
+    pathBrand,
+    pathCollection,
+    queryBrand,
+    queryCollection,
+    accessoryHub,
+    inAccessorySection,
+    params,
+    navigate,
+  ]);
 
   useEffect(() => {
     setLoading(true);
+    if (!shouldScrollToProducts.current) {
+      filterScrollY.current = window.scrollY;
+    } else {
+      filterScrollY.current = null;
+    }
     const resolved = resolveGuideFilters(categorySlug, brand, collection, q);
     const qs = new URLSearchParams();
     if (resolved.q) qs.set('q', resolved.q);
@@ -414,17 +517,26 @@ export function CatalogPage() {
     return () => {
       cancelled = true;
     };
-  }, [accessoryHub, categoryQuery, categorySlug, q, brand, collection, sort, page, minPrice, maxPrice, wearClass]);
+  }, [
+    accessoryHub,
+    categoryQuery,
+    categorySlug,
+    q,
+    brand,
+    collection,
+    sort,
+    page,
+    minPrice,
+    maxPrice,
+    wearClass,
+    cityRev,
+  ]);
 
   useEffect(() => {
-    if (prevPageRef.current !== page) {
-      // Don't jump to products top when returning via «Назад» with saved scroll
-      if (peekPendingRestore(location.pathname, location.search) == null) {
-        shouldScrollToProducts.current = true;
-      }
-      prevPageRef.current = page;
-    }
-  }, [page, location.pathname, location.search]);
+    // Pagination only — brand/collection chips must not move the viewport
+    if (prevPageRef.current === page) return;
+    prevPageRef.current = page;
+  }, [page]);
 
   useEffect(() => {
     if (loading || !shouldScrollToProducts.current) return;
@@ -433,8 +545,20 @@ export function CatalogPage() {
       return;
     }
     shouldScrollToProducts.current = false;
+    filterScrollY.current = null;
     productsTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [loading, data, location.pathname, location.search]);
+
+  // Keep viewport still while brand/collection filters reload the grid
+  useEffect(() => {
+    if (filterScrollY.current == null) return;
+    const y = filterScrollY.current;
+    const pin = () => window.scrollTo({ top: y, left: 0, behavior: 'auto' });
+    pin();
+    const id = window.requestAnimationFrame(pin);
+    if (!loading) filterScrollY.current = null;
+    return () => window.cancelAnimationFrame(id);
+  }, [loading, data, brand, collection]);
 
   // After catalog data loads, return to the exact scroll spot the user left from
   useEffect(() => {
@@ -501,48 +625,67 @@ export function CatalogPage() {
   }, [categoryPool, brandSlugs, brands, allCollections]);
 
   const collectionGroups = useMemo(() => {
-    // Group grid by collection only when a brand is narrowed (keeps "Все" view flat).
-    if (!brandSlugs.length) return [];
-    const items = data?.items || [];
-    const map = new Map<string, typeof items>();
-    for (const p of items) {
-      const key = p.collection?.name || 'Прочее';
-      if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(p);
-    }
-    return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
-  }, [data, brandSlugs]);
+    // Disabled: many brands store a unique collection.name per SKU, which
+    // produced one heading + one card per product instead of a grid.
+    return [] as [string, NonNullable<typeof data>['items']][];
+  }, [data]);
 
   function update(key: string, value: string) {
     const next = new URLSearchParams(params);
     if (!value) next.delete(key);
     else next.set(key, value);
     if (key !== 'page') next.delete('page');
-    setParams(next);
+    if (key === 'page') shouldScrollToProducts.current = true;
+    setParams(next, { preventScrollReset: key !== 'page' });
   }
 
   function setBrandList(slugs: string[]) {
-    const next = new URLSearchParams(params);
-    const value = joinList(slugs);
-    if (!value) next.delete('brand');
-    else next.set('brand', value);
-    // Keep only collections that still exist for the selected brand scope
+    const next = stripGuideSearch(params);
+    let kept: string[] = [];
     if (collectionSlugs.length) {
       const allowed = new Set<string>();
       for (const p of categoryPool) {
         if (slugs.length && !slugs.includes(p.brand?.slug || '')) continue;
         if (p.collection?.slug) allowed.add(p.collection.slug);
       }
-      const kept = collectionSlugs.filter((s) => allowed.has(s));
-      if (!kept.length) next.delete('collection');
-      else next.set('collection', joinList(kept));
+      kept = collectionSlugs.filter((s) => allowed.has(s));
     }
-    next.delete('page');
-    setParams(next);
+
+    if (slugs.length <= 1) {
+      const b = slugs[0];
+      const c = kept.length === 1 ? kept[0] : undefined;
+      if (kept.length > 1) next.set('collection', joinList(kept));
+      navigate(withSearch(catalogGuidePath(categorySlug, b, c), next), {
+        preventScrollReset: true,
+      });
+      return;
+    }
+
+    next.set('brand', joinList(slugs));
+    if (kept.length) next.set('collection', joinList(kept));
+    navigate(withSearch(catalogGuidePath(categorySlug), next), { preventScrollReset: true });
   }
 
   function setCollectionList(slugs: string[]) {
-    update('collection', joinList(slugs));
+    const next = stripGuideSearch(params);
+    if (slugs.length <= 1) {
+      const c = slugs[0];
+      let b = brandSlugs.length === 1 ? brandSlugs[0] : undefined;
+      if (c && categorySlug) {
+        const prefer = brandSlugs.find((s) =>
+          (CATEGORY_BRAND_GUIDES[categorySlug] || []).some((g) => g.slug === s),
+        );
+        const hit = findGuideCollection(categorySlug, c, prefer);
+        if (hit) b = hit.guide.slug;
+      }
+      navigate(withSearch(catalogGuidePath(categorySlug, b, c), next), {
+        preventScrollReset: true,
+      });
+      return;
+    }
+    if (brandSlugs.length === 1) next.set('brand', brandSlugs[0]!);
+    next.set('collection', joinList(slugs));
+    navigate(withSearch(catalogGuidePath(categorySlug), next), { preventScrollReset: true });
   }
 
   function toggleBrandChip(slug: string) {
@@ -562,28 +705,25 @@ export function CatalogPage() {
   }
 
   function selectGuideBrand(slug: string) {
-    const next = new URLSearchParams(params);
-    if (brandSlugs.includes(slug) && brandSlugs.length === 1) {
-      next.delete('brand');
-    } else {
-      next.set('brand', slug);
-    }
-    next.delete('collection');
+    const next = stripGuideSearch(params);
     next.delete('q');
-    next.delete('page');
-    setParams(next);
+    const clear = brandSlugs.includes(slug) && brandSlugs.length === 1;
+    const path = clear
+      ? catalogGuidePath(categorySlug)
+      : catalogGuidePath(categorySlug, slug);
+    navigate(withSearch(path, next), { preventScrollReset: true });
   }
 
   function selectGuideCollection(id: string) {
-    const next = new URLSearchParams(params);
-    if (collectionSlugs.includes(id) && collectionSlugs.length === 1) {
-      next.delete('collection');
-    } else {
-      next.set('collection', id);
-    }
+    const guideSlug = activeGuideBrand?.slug;
+    if (!categorySlug || !guideSlug) return;
+    const next = stripGuideSearch(params);
     next.delete('q');
-    next.delete('page');
-    setParams(next);
+    const clear = collectionSlugs.includes(id) && collectionSlugs.length === 1;
+    const path = clear
+      ? catalogGuidePath(categorySlug, guideSlug)
+      : catalogGuidePath(categorySlug, guideSlug, id);
+    navigate(withSearch(path, next), { preventScrollReset: true });
   }
 
   function clearFilters() {
@@ -592,8 +732,7 @@ export function CatalogPage() {
       (key) => next.delete(key),
     );
     next.delete('page');
-    const qs = next.toString();
-    navigate(qs ? `/catalog?${qs}` : '/catalog');
+    navigate(withSearch(catalogGuidePath(categorySlug), next));
   }
 
   const filterPanel = (
@@ -617,7 +756,7 @@ export function CatalogPage() {
 
       <div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-5 py-5">
         <div>
-          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+          <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
             Поиск
           </label>
           <input
@@ -654,7 +793,7 @@ export function CatalogPage() {
           />
         ) : (
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+            <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
               Коллекция
             </label>
             <p className="text-sm text-graphite/50">
@@ -665,7 +804,7 @@ export function CatalogPage() {
 
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+            <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
               Цена от
             </label>
             <input
@@ -676,7 +815,7 @@ export function CatalogPage() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+            <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
               до
             </label>
             <input
@@ -688,7 +827,7 @@ export function CatalogPage() {
           </div>
         </div>
         <div>
-          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-graphite/50">
+          <label className="mb-1 block text-xs font-semibold tracking-wide text-graphite/50">
             Класс
           </label>
           <select
@@ -729,44 +868,46 @@ export function CatalogPage() {
     <>
       <Seo
         title={pageTitle}
-        description={activeCategory?.description || 'Каталог напольных покрытий ДОМПОЛА'}
-        path={categorySlug ? `/catalog/${categorySlug}` : '/catalog'}
+        description={activeCategory?.description || 'Каталог напольных покрытий ДомПола'}
+        path={catalogGuidePath(categorySlug, pathBrand, pathCollection)}
       />
 
-      <div className="container-dp py-8 md:py-12">
-        <nav className="mb-4 text-sm text-graphite/50">
+      <div className="container-dp py-3 sm:py-4 md:py-5">
+        <nav className="mb-2 text-xs text-graphite/50 sm:text-sm">
           <Link to="/" className="hover:text-brand">
             Главная
           </Link>
-          <span className="mx-2">/</span>
+          <span className="mx-1.5">/</span>
           <Link to="/catalog" className="hover:text-brand">
             Каталог
           </Link>
           {inAccessorySection ? (
             <>
-              <span className="mx-2">/</span>
+              <span className="mx-1.5">/</span>
               <Link to="/catalog/accessories" className="hover:text-brand">
                 Комплектующие
               </Link>
               {!accessoryHub ? (
                 <>
-                  <span className="mx-2">/</span>
+                  <span className="mx-1.5">/</span>
                   <span>{pageTitle}</span>
                 </>
               ) : null}
             </>
           ) : activeCategory ? (
             <>
-              <span className="mx-2">/</span>
+              <span className="mx-1.5">/</span>
               <span>{activeCategory.name}</span>
             </>
           ) : null}
         </nav>
 
-        <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-4 flex flex-col gap-2 sm:mb-5 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
-            <h1 className="section-title">{pageTitle}</h1>
-            <p className="mt-2 text-sm text-graphite/60 sm:text-base">
+            <h1 className="font-display text-2xl font-bold tracking-normal text-graphite sm:text-3xl md:text-4xl">
+              {pageTitle}
+            </h1>
+            <p className="mt-1 text-sm text-graphite/60">
               {loading ? 'Загрузка…' : `${data?.total ?? 0} ${productWord(data?.total ?? 0)}`}
             </p>
           </div>
@@ -800,9 +941,9 @@ export function CatalogPage() {
         </div>
 
         {categoryGuides?.length ? (
-          <div className="mb-5 space-y-4 sm:mb-6">
-            <div className="space-y-2">
-              <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">Бренд</div>
+          <div className="mb-4 space-y-3">
+            <div className="space-y-1.5">
+              <div className="text-xs font-semibold tracking-wide text-graphite/50">Бренд</div>
               <div className="-mx-4 overflow-x-auto overscroll-x-contain sm:-mx-5 lg:mx-0 lg:overflow-visible [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex w-max gap-2 px-4 pb-0.5 sm:px-5 lg:flex-wrap lg:w-auto lg:max-w-full lg:px-0">
                   {categoryGuides.map((guide) => {
@@ -827,8 +968,8 @@ export function CatalogPage() {
             </div>
 
             {activeGuideBrand ? (
-              <div className="space-y-2 border-t border-graphite/10 pt-4">
-                <div className="text-xs font-semibold uppercase tracking-wide text-graphite/50">
+              <div className="space-y-1.5 border-t border-graphite/10 pt-3">
+                <div className="text-xs font-semibold tracking-wide text-graphite/50">
                   Коллекции {activeGuideBrand.name}
                 </div>
                 <div

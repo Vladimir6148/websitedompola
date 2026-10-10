@@ -311,7 +311,9 @@ router.get(
       const cityPrice = city ? row.stocks?.[0]?.price : null;
       map[row.id] = cityPrice != null && cityPrice > 0 ? cityPrice : row.price;
     }
-    res.setHeader('Cache-Control', 'public, max-age=30');
+    // Admin edits must reach the storefront quickly (no long CDN/browser cache).
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
     res.json(map);
   }),
 );
