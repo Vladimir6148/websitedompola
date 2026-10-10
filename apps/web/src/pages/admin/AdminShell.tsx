@@ -65,11 +65,11 @@ export function AdminLoginPage() {
         <p className="mt-5 text-sm text-graphite/60">Вход для администраторов и менеджеров</p>
         <div className="mt-5 space-y-3">
           <input
-            type="email"
+            type="text"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
+            placeholder="Логин или email"
             className={adminInputClass}
             autoComplete="username"
           />
@@ -106,7 +106,7 @@ export function AdminGuard() {
 const nav = [
   { to: '/admin', label: 'Обзор', end: true, icon: LayoutDashboard },
   { to: '/admin/products', label: 'Товары', icon: Package },
-  { to: '/admin/collection-prices', label: 'Цены коллекций', icon: Table2 },
+  { to: '/admin/collection-prices', label: 'Цены', icon: Table2 },
   { to: '/admin/categories', label: 'Категории', icon: Folders },
   { to: '/admin/brands', label: 'Бренды', icon: Tag },
   { to: '/admin/promotions', label: 'Акции', icon: Percent },
@@ -184,21 +184,34 @@ export function AdminDashboard() {
   const [stats, setStats] = useState({ products: 0, leads: 0, categories: 0, brands: 0 });
 
   useEffect(() => {
+    // Catalog from Reg.ru static JSON — show immediately; leads from Render separately.
     Promise.all([
-      api<ProductsResponse>('/api/products?published=all&limit=1'),
-      api<unknown[]>('/api/leads'),
-      api<unknown[]>('/api/categories?all=1'),
-      api<unknown[]>('/api/brands?all=1'),
+      api<ProductsResponse>('/api/products?limit=1'),
+      api<unknown[]>('/api/categories'),
+      api<unknown[]>('/api/brands'),
     ])
-      .then(([products, leads, categories, brands]) => {
-        setStats({
+      .then(([products, categories, brands]) => {
+        setStats((s) => ({
+          ...s,
           products: products.total || 0,
-          leads: Array.isArray(leads) ? leads.length : 0,
           categories: Array.isArray(categories) ? categories.length : 0,
           brands: Array.isArray(brands) ? brands.length : 0,
-        });
+        }));
       })
       .catch(() => undefined);
+
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 4000);
+    api<unknown[]>('/api/leads', { signal: ctrl.signal })
+      .then((leads) => {
+        setStats((s) => ({ ...s, leads: Array.isArray(leads) ? leads.length : 0 }));
+      })
+      .catch(() => undefined)
+      .finally(() => clearTimeout(t));
+    return () => {
+      clearTimeout(t);
+      ctrl.abort();
+    };
   }, []);
 
   const cards = [

@@ -30,21 +30,57 @@ const defaultOrigins = [
   'https://dompola.ru',
   'https://www.dompola.ru',
 ];
-const allowedOrigins = (process.env.CORS_ORIGINS || defaultOrigins.join(','))
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean);
+// Always keep site origins even if CORS_ORIGINS env is set narrowly on Render.
+const allowedOrigins = [
+  ...new Set([
+    ...defaultOrigins,
+    ...(process.env.CORS_ORIGINS || '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
+  ]),
+];
+
+function isAllowedOrigin(origin: string | undefined) {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+  try {
+    const host = new URL(origin).hostname;
+    return host === 'dompola.com' || host.endsWith('.dompola.com') || host === 'dompola.ru' || host.endsWith('.dompola.ru');
+  } catch {
+    return false;
+  }
+}
 
 app.use(
   cors({
     origin(origin, cb) {
-      // Non-browser / same-origin requests may omit Origin
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      if (isAllowedOrigin(origin)) {
+        // Pass the concrete origin so ACAO is always set for browsers.
+        return cb(null, origin || true);
+      }
       return cb(null, false);
     },
     credentials: true,
   }),
 );
+
+// Belt-and-suspenders: some proxies strip cors() ACAO; re-assert for our sites.
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (typeof origin === 'string' && isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Vary', 'Origin');
+  }
+  if (req.method === 'OPTIONS' && typeof origin === 'string' && isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+    const reqHeaders = req.headers['access-control-request-headers'];
+    if (reqHeaders) res.setHeader('Access-Control-Allow-Headers', reqHeaders);
+    return res.status(204).end();
+  }
+  next();
+});
 app.use(express.json({ limit: '2mb' }));
 app.use('/uploads', express.static(uploadRoot));
 

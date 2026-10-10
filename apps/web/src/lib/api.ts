@@ -25,6 +25,54 @@ function dataUrl(file: string) {
 
 const jsonCache = new Map<string, Promise<unknown>>();
 
+/** Drop cached static JSON (call after admin price edits). */
+export function clearStaticDataCache(opts?: { keepPrices?: boolean }) {
+  jsonCache.clear();
+  if (!opts?.keepPrices) priceMapCache = null;
+}
+
+/** Merge prices into the in-memory live map so the site shows edits immediately. */
+export function patchPriceMapCache(updates: Record<string, number>) {
+  priceMapCache = {
+    at: Date.now(),
+    map: { ...(priceMapCache?.map || {}), ...updates },
+  };
+}
+
+let priceMapCache: { at: number; map: Record<string, number> } | null = null;
+
+async function loadLivePriceMap(): Promise<Record<string, number>> {
+  if (!API_BASE) return {};
+  if (priceMapCache && Date.now() - priceMapCache.at < 45_000) return priceMapCache.map;
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 2500);
+    const res = await fetch(`${API_BASE}/api/products/prices`, {
+      signal: ctrl.signal,
+      headers: { Accept: 'application/json' },
+    });
+    clearTimeout(timer);
+    if (!res.ok) return priceMapCache?.map || {};
+    const map = (await res.json()) as Record<string, number>;
+    priceMapCache = { at: Date.now(), map };
+    return map;
+  } catch {
+    return priceMapCache?.map || {};
+  }
+}
+
+function applyPriceMap<T extends { id?: string; price?: number }>(
+  items: T[],
+  map: Record<string, number>,
+): T[] {
+  if (!map || !Object.keys(map).length) return items;
+  return items.map((p) => {
+    const id = p.id;
+    if (!id || map[id] == null) return p;
+    return { ...p, price: map[id]! };
+  });
+}
+
 async function loadJson<T>(file: string): Promise<T> {
   let pending = jsonCache.get(file);
   if (!pending) {
@@ -163,9 +211,15 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   if (pathname === '/api/promotions') return loadJson('promotions.json');
 
   if (pathname.startsWith('/api/products/slug/')) {
-    const slug = pathname.replace('/api/products/slug/', '');
+    const raw = pathname.replace('/api/products/slug/', '');
+    let slug = raw;
+    try {
+      slug = decodeURIComponent(raw);
+    } catch {
+      slug = raw;
+    }
     const products = await loadJson<Product[]>('products.json');
-    const item = products.find((p) => p.slug === slug);
+    const item = products.find((p) => p.slug === slug || p.slug === raw);
     if (!item) throw new ApiError(404, 'Товар не найден');
     type Detail = {
       description?: string | null;
@@ -191,6 +245,16 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     }
     const baseImages = (item.images as Detail['images']) || [];
     const moreImages = extra.images || [];
+    // If catalog already has a curated local photo (Parser1224 / imports),
+    // do not append old multi-decor galleries from product-details.
+    const hasCuratedLocal = baseImages.some((i) =>
+      /^images\/(alta|alpine|mspc|pergo|floorfort|agt)\//i.test(String(i.url || '')),
+    );
+    const images = hasCuratedLocal
+      ? baseImages
+      : [...baseImages, ...moreImages].filter(
+          (img, idx, arr) => img?.url && arr.findIndex((x) => x.url === img.url) === idx,
+        );
     return {
       ...item,
       description: extra.description ?? item.description,
@@ -200,7 +264,7 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
         [],
       seoTitle: extra.seoTitle ?? item.seoTitle,
       seoDescription: extra.seoDescription ?? item.seoDescription,
-      images: [...baseImages, ...moreImages],
+      images,
       stocks: (item.stocks as unknown[]) || [],
     } as T;
   }
@@ -208,13 +272,16 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
   if (pathname === '/api/products') {
     const category = url.searchParams.get('category') || '';
     const products = await loadProductsForQuery(category);
+    // Admin can pass livePrices=0 for instant load from Reg.ru shards only.
+    const priceMap =
+      url.searchParams.get('livePrices') === '0' ? {} : await loadLivePriceMap();
     const q = (url.searchParams.get('q') || '').trim().toLowerCase();
     const qExclude = (url.searchParams.get('qExclude') || '').trim().toLowerCase();
     const brand = url.searchParams.get('brand') || '';
     const collection = url.searchParams.get('collection') || '';
     const sort = url.searchParams.get('sort') || 'newest';
     const page = Math.max(1, Number(url.searchParams.get('page') || 1));
-    const limit = Math.min(2000, Math.max(1, Number(url.searchParams.get('limit') || 12)));
+    const limit = Math.min(5000, Math.max(1, Number(url.searchParams.get('limit') || 12)));
     const minPrice = url.searchParams.get('minPrice');
     const maxPrice = url.searchParams.get('maxPrice');
     const wearClass = url.searchParams.get('wearClass') || '';
@@ -222,7 +289,7 @@ async function staticApi<T>(path: string, options: RequestInit = {}): Promise<T>
     const underfloorHeating = url.searchParams.get('underfloorHeating') === '1';
     const featured = url.searchParams.get('featured') === '1';
 
-    let items = [...products];
+    let items = applyPriceMap([...products], priceMap);
     if (featured) items = items.filter((p) => p.featured);
     if (q) {
       items = items.filter(
@@ -324,12 +391,11 @@ function wantsLiveApi(path: string, method: string) {
   if (method !== 'GET') return true;
   const pathname = new URL(path, 'http://local.api').pathname;
   if (pathname.startsWith('/api/auth')) return true;
-  // Admin reads need the live API (not present in static JSON)
+  // Leads live only on the API; catalog reads stay on Reg.ru static JSON (fast).
   if (pathname === '/api/leads' || pathname.startsWith('/api/leads/')) return true;
   if (pathname.startsWith('/api/products/id/')) return true;
-  if (pathname === '/api/products' && new URL(path, 'http://local.api').searchParams.get('published') === 'all') {
-    return true;
-  }
+  // Live price map is fetched separately inside staticApi with a short timeout.
+  if (pathname === '/api/products/prices') return true;
   return false;
 }
 
@@ -353,12 +419,37 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   const token = getToken();
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    throw new ApiError(res.status, (data as { error?: string }).error || 'Ошибка запроса');
+  // Bound cold-start waits on Render so admin UI stays responsive on Reg.ru.
+  // Auth login needs a longer window (free tier wake-up).
+  const pathname = new URL(path, 'http://local.api').pathname;
+  const isAuth = pathname.startsWith('/api/auth');
+  const hasExternalSignal = Boolean(options.signal);
+  const ctrl = hasExternalSignal ? null : new AbortController();
+  const timeoutMs = isAuth ? 90_000 : method === 'GET' ? 8_000 : 20_000;
+  const timer = ctrl ? setTimeout(() => ctrl.abort(), timeoutMs) : null;
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers,
+      signal: options.signal || ctrl!.signal,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new ApiError(res.status, (data as { error?: string }).error || 'Ошибка запроса');
+    }
+    return data as T;
+  } catch (err) {
+    if (err instanceof ApiError) throw err;
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      throw new ApiError(504, 'Сервер API не ответил вовремя — подождите и попробуйте ещё раз');
+    }
+    if (err instanceof TypeError) {
+      throw new ApiError(503, 'Нет связи с API. Подождите 30–60 сек (холодный старт) и попробуйте снова');
+    }
+    throw err;
+  } finally {
+    if (timer) clearTimeout(timer);
   }
-  return data as T;
 }
 
 export function formatPrice(value: number | null | undefined) {
@@ -382,14 +473,17 @@ export function stockLabel(status: string) {
 
 export function primaryImage(product: { images?: { url: string; isPrimary?: boolean }[] }) {
   if (!product.images?.length) {
-    return 'images/floor1.webp';
+    return 'images/soon.webp';
   }
   const preferred = product.images.find((i) => i.isPrimary) || product.images[0];
   const local = product.images.find(
     (i) => i.url.startsWith('images/') || i.url.startsWith('/images/'),
   );
   // Prefer same-origin asset when present; caller can pass remote as SmartImage fallback.
-  return (local || preferred).url;
+  const url = (local || preferred).url;
+  // Old lifestyle stubs — treat as missing
+  if (/images\/floor[12]\.webp$/i.test(url)) return 'images/soon.webp';
+  return url;
 }
 
 /** Extra URL to try when the primary (often local) asset is missing or hangs. */
@@ -400,7 +494,7 @@ export function fallbackImage(product: { images?: { url: string; isPrimary?: boo
       !i.url.includes('unsplash.com') &&
       !i.url.includes('images.unsplash.com'),
   );
-  return remote?.url || 'images/floor1.webp';
+  return remote?.url || 'images/soon.webp';
 }
 
 /** Decode common HTML entities and collapse markup leftovers for plain-text UI. */

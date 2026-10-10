@@ -7,21 +7,30 @@ import { asyncHandler, requireAuth, signToken } from '../lib/auth.js';
 const router = Router();
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  // Accept email or plain username (e.g. VladimirAdmin → vladimiradmin@dompola.ru)
+  email: z.string().min(1),
   password: z.string().min(4),
 });
+
+function normalizeLogin(login: string) {
+  const s = login.trim();
+  if (!s) return s;
+  if (s.includes('@')) return s.toLowerCase();
+  return `${s.toLowerCase()}@dompola.ru`;
+}
 
 router.post(
   '/login',
   asyncHandler(async (req, res) => {
     const data = loginSchema.parse(req.body);
-    const user = await prisma.user.findUnique({ where: { email: data.email.toLowerCase() } });
+    const email = normalizeLogin(data.email);
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !user.active) {
-      return res.status(401).json({ error: 'Неверный email или пароль' });
+      return res.status(401).json({ error: 'Неверный логин или пароль' });
     }
     const ok = await bcrypt.compare(data.password, user.passwordHash);
     if (!ok) {
-      return res.status(401).json({ error: 'Неверный email или пароль' });
+      return res.status(401).json({ error: 'Неверный логин или пароль' });
     }
     const authUser = { id: user.id, email: user.email, role: user.role, name: user.name };
     const token = signToken(authUser);
