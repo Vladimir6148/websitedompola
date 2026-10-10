@@ -27,11 +27,16 @@ function monthRange(year: number, month: number) {
 }
 
 async function ensureEmployees() {
-  const count = await prisma.employee.count();
-  if (count > 0) return;
-  await prisma.employee.createMany({
-    data: DEFAULT_EMPLOYEES.map((name, i) => ({ name, sortOrder: i })),
-  });
+  try {
+    const count = await prisma.employee.count();
+    if (count > 0) return;
+    await prisma.employee.createMany({
+      data: DEFAULT_EMPLOYEES.map((name, i) => ({ name, sortOrder: i })),
+    });
+  } catch (err) {
+    // Table may not exist until prisma db push finishes on first boot.
+    console.error('ensureEmployees:', err);
+  }
 }
 
 router.use(requireAuth, requireRole('ADMIN', 'MANAGER'));
@@ -46,74 +51,83 @@ router.get(
     const month = Number(req.query.month) || now.getMonth() + 1;
     const { from, to } = monthRange(year, month);
 
-    const [events, turnovers, employees, shifts, stores] = await Promise.all([
-      prisma.opsEvent.findMany({
-        where: { date: { gte: from, lt: to } },
-        orderBy: { date: 'asc' },
-      }),
-      prisma.storeTurnover.findMany({
-        where: { date: { gte: from, lt: to } },
-        include: { store: { include: { city: true } } },
-        orderBy: { date: 'asc' },
-      }),
-      prisma.employee.findMany({
-        where: { active: true },
-        orderBy: { sortOrder: 'asc' },
-      }),
-      prisma.workShift.findMany({
-        where: { date: { gte: from, lt: to } },
-        select: { employeeId: true, date: true, id: true },
-      }),
-      prisma.store.findMany({
-        where: { active: true },
-        include: { city: true },
-        orderBy: { name: 'asc' },
-      }),
-    ]);
+    try {
+      const [events, turnovers, employees, shifts, stores] = await Promise.all([
+        prisma.opsEvent.findMany({
+          where: { date: { gte: from, lt: to } },
+          orderBy: { date: 'asc' },
+        }),
+        prisma.storeTurnover.findMany({
+          where: { date: { gte: from, lt: to } },
+          include: { store: { include: { city: true } } },
+          orderBy: { date: 'asc' },
+        }),
+        prisma.employee.findMany({
+          where: { active: true },
+          orderBy: { sortOrder: 'asc' },
+        }),
+        prisma.workShift.findMany({
+          where: { date: { gte: from, lt: to } },
+          select: { employeeId: true, date: true, id: true },
+        }),
+        prisma.store.findMany({
+          where: { active: true },
+          include: { city: true },
+          orderBy: { name: 'asc' },
+        }),
+      ]);
 
-    const byStore: Record<string, { storeId: string; name: string; city: string; total: number }> = {};
-    for (const s of stores) {
-      byStore[s.id] = {
-        storeId: s.id,
-        name: s.name,
-        city: s.city?.name || '',
-        total: 0,
-      };
-    }
-    for (const t of turnovers) {
-      if (!byStore[t.storeId]) {
-        byStore[t.storeId] = {
-          storeId: t.storeId,
-          name: t.store.name,
-          city: t.store.city?.name || '',
+      const byStore: Record<string, { storeId: string; name: string; city: string; total: number }> =
+        {};
+      for (const s of stores) {
+        byStore[s.id] = {
+          storeId: s.id,
+          name: s.name,
+          city: s.city?.name || '',
           total: 0,
         };
       }
-      byStore[t.storeId]!.total += t.amount;
+      for (const t of turnovers) {
+        if (!byStore[t.storeId]) {
+          byStore[t.storeId] = {
+            storeId: t.storeId,
+            name: t.store.name,
+            city: t.store.city?.name || '',
+            total: 0,
+          };
+        }
+        byStore[t.storeId]!.total += t.amount;
+      }
+
+      const storeTotals = Object.values(byStore).sort((a, b) => b.total - a.total);
+      const monthTotal = storeTotals.reduce((s, x) => s + x.total, 0);
+
+      res.json({
+        year,
+        month,
+        events,
+        turnovers,
+        storeTotals,
+        monthTotal,
+        employees,
+        shifts: shifts.map((s) => ({
+          id: s.id,
+          employeeId: s.employeeId,
+          date: (s.date instanceof Date ? s.date : new Date(s.date)).toISOString().slice(0, 10),
+        })),
+        stores: stores.map((s) => ({
+          id: s.id,
+          name: s.name,
+          city: s.city?.name || '',
+        })),
+      });
+    } catch (err) {
+      console.error('ops/dashboard', err);
+      res.status(503).json({
+        error:
+          'Операционные таблицы ещё не готовы. Подождите минуту после деплоя API и обновите страницу.',
+      });
     }
-
-    const storeTotals = Object.values(byStore).sort((a, b) => b.total - a.total);
-    const monthTotal = storeTotals.reduce((s, x) => s + x.total, 0);
-
-    res.json({
-      year,
-      month,
-      events,
-      turnovers,
-      storeTotals,
-      monthTotal,
-      employees,
-      shifts: shifts.map((s) => ({
-        id: s.id,
-        employeeId: s.employeeId,
-        date: s.date.toISOString().slice(0, 10),
-      })),
-      stores: stores.map((s) => ({
-        id: s.id,
-        name: s.name,
-        city: s.city?.name || '',
-      })),
-    });
   }),
 );
 

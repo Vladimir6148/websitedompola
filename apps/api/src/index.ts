@@ -90,7 +90,9 @@ if (!process.env.PUBLIC_URL && process.env.RENDER_EXTERNAL_URL) {
   process.env.PUBLIC_URL = process.env.RENDER_EXTERNAL_URL;
 }
 
-app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'dompola-api' }));
+app.get('/api/health', (_req, res) =>
+  res.json({ ok: true, service: 'dompola-api', version: 'ops-1' }),
+);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);

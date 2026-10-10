@@ -96,7 +96,12 @@ export function AdminOpsDashboard() {
       setData(res);
       setTurnStoreId((prev) => prev || res.stores[0]?.id || '');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Не удалось загрузить операционные данные');
+      const msg = err instanceof Error ? err.message : 'Не удалось загрузить операционные данные';
+      setError(
+        /не найден|404|Cannot GET|503|не готов/i.test(msg)
+          ? 'Сервер API обновляется (календарь и график). Подождите 1–2 минуты и нажмите «Обновить».'
+          : msg,
+      );
       setData(null);
     } finally {
       setLoading(false);
@@ -249,6 +254,18 @@ export function AdminOpsDashboard() {
     );
   }
 
+  if (!data) {
+    return (
+      <div className={`${adminPanelClass} space-y-3`}>
+        <h2 className="font-display text-lg font-bold text-graphite">Операции</h2>
+        <p className="text-sm text-red-600">{error || 'Нет данных'}</p>
+        <button type="button" className="btn-secondary" onClick={() => void load()}>
+          Обновить
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -256,26 +273,31 @@ export function AdminOpsDashboard() {
           <h2 className="font-display text-lg font-bold text-graphite">Операции</h2>
           <p className="text-sm text-graphite/55">События, оборот магазинов и график смен</p>
         </div>
-        <div className="flex items-center gap-1 rounded-full border border-graphite/15 bg-white p-1">
-          <button
-            type="button"
-            className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
-            onClick={() => shiftMonth(-1)}
-            aria-label="Предыдущий месяц"
-          >
-            <ChevronLeft size={18} />
+        <div className="flex items-center gap-2">
+          <button type="button" className="btn-secondary px-3 py-1.5 text-xs" onClick={() => void load()}>
+            Обновить
           </button>
-          <span className="min-w-[140px] text-center text-sm font-semibold text-graphite">
-            {MONTHS[month - 1]} {year}
-          </span>
-          <button
-            type="button"
-            className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
-            onClick={() => shiftMonth(1)}
-            aria-label="Следующий месяц"
-          >
-            <ChevronRight size={18} />
-          </button>
+          <div className="flex items-center gap-1 rounded-full border border-graphite/15 bg-white p-1">
+            <button
+              type="button"
+              className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
+              onClick={() => shiftMonth(-1)}
+              aria-label="Предыдущий месяц"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <span className="min-w-[140px] text-center text-sm font-semibold text-graphite">
+              {MONTHS[month - 1]} {year}
+            </span>
+            <button
+              type="button"
+              className="grid h-8 w-8 place-items-center rounded-full hover:bg-mist"
+              onClick={() => shiftMonth(1)}
+              aria-label="Следующий месяц"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </div>
 

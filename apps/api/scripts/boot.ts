@@ -17,6 +17,9 @@ async function ensureAdmin(prisma: PrismaClient) {
 }
 
 async function main() {
+  console.log('→ prisma generate');
+  execSync('npx prisma generate', { stdio: 'inherit' });
+
   console.log('→ prisma db push');
   execSync('npx prisma db push', { stdio: 'inherit' });
 
