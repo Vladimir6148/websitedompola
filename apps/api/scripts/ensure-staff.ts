@@ -14,15 +14,15 @@ const STAFF: Array<{ email: string; password: string; name: string; role: Role }
     role: 'ADMIN',
   },
   {
-    email: 'dmitryadmin@dompola.ru',
+    email: 'dmitry@dompola.ru',
     password: '180823',
-    name: 'DmitryAdmin',
+    name: 'Dmitry',
     role: 'ADMIN',
   },
   {
-    email: 'denisadmin@dompola.ru',
+    email: 'denis@dompola.ru',
     password: 'Rota4029307',
-    name: 'DenisAdmin',
+    name: 'Denis',
     role: 'ADMIN',
   },
   {
@@ -36,6 +36,11 @@ const STAFF: Array<{ email: string; password: string; name: string; role: Role }
 async function main() {
   const prisma = new PrismaClient();
   try {
+    await prisma.user.updateMany({
+      where: { email: { in: ['dmitryadmin@dompola.ru', 'denisadmin@dompola.ru'] } },
+      data: { active: false },
+    });
+
     for (const u of STAFF) {
       const passwordHash = await bcrypt.hash(u.password, 10);
       await prisma.user.upsert({

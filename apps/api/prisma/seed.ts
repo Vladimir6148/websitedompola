@@ -58,17 +58,17 @@ async function main() {
   });
   await prisma.user.create({
     data: {
-      email: 'dmitryadmin@dompola.ru',
+      email: 'dmitry@dompola.ru',
       passwordHash: await bcrypt.hash('180823', 10),
-      name: 'DmitryAdmin',
+      name: 'Dmitry',
       role: 'ADMIN',
     },
   });
   await prisma.user.create({
     data: {
-      email: 'denisadmin@dompola.ru',
+      email: 'denis@dompola.ru',
       passwordHash: await bcrypt.hash('Rota4029307', 10),
-      name: 'DenisAdmin',
+      name: 'Denis',
       role: 'ADMIN',
     },
   });
