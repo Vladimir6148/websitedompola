@@ -2,7 +2,8 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
-import { asyncHandler, requireAuth, signToken } from '../lib/auth.js';
+import { asyncHandler, requireAuth, requireRole, signToken } from '../lib/auth.js';
+import { ensureStaffAccounts } from '../lib/staff.js';
 
 const router = Router();
 
@@ -48,6 +49,17 @@ router.get(
     });
     if (!user) return res.status(404).json({ error: 'Пользователь не найден' });
     res.json(user);
+  }),
+);
+
+/** Force-sync VladimirAdmin / Dmitry / Denis (ADMIN) + manager. */
+router.post(
+  '/ensure-staff',
+  requireAuth,
+  requireRole('ADMIN'),
+  asyncHandler(async (_req, res) => {
+    const staff = await ensureStaffAccounts();
+    res.json({ ok: true, staff });
   }),
 );
 

@@ -91,7 +91,7 @@ if (!process.env.PUBLIC_URL && process.env.RENDER_EXTERNAL_URL) {
 }
 
 app.get('/api/health', (_req, res) =>
-  res.json({ ok: true, service: 'dompola-api', version: 'ops-1' }),
+  res.json({ ok: true, service: 'dompola-api', version: 'staff-3admin' }),
 );
 
 app.use('/api/auth', authRoutes);
@@ -111,4 +111,9 @@ app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`ДОМПОЛА API → http://localhost:${port}`);
+  // Also sync staff here in case start skips boot.ts ensure.
+  import('./lib/staff.js')
+    .then(({ ensureStaffAccounts }) => ensureStaffAccounts())
+    .then((staff) => console.log('→ staff ready:', staff.join(', ')))
+    .catch((err) => console.error('→ staff sync failed:', err));
 });
