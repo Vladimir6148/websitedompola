@@ -83,7 +83,7 @@ router.get(
 router.post(
   '/characteristic-definitions',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const schema = z.object({
       key: z.string().min(1),
@@ -104,7 +104,7 @@ router.post(
 router.put(
   '/banners/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const schema = z.object({
       title: z.string().optional(),
@@ -123,7 +123,7 @@ router.put(
 router.post(
   '/services',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const schema = z.object({
       title: z.string(),
@@ -146,7 +146,7 @@ router.post(
 router.put(
   '/services/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     res.json(await prisma.service.update({ where: { id: req.params.id }, data: req.body }));
   }),
@@ -155,7 +155,7 @@ router.put(
 router.post(
   '/works',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const schema = z.object({
       title: z.string(),
@@ -179,7 +179,7 @@ router.post(
 router.put(
   '/works/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     res.json(await prisma.work.update({ where: { id: req.params.id }, data: req.body }));
   }),

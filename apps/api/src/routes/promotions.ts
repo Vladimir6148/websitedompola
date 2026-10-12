@@ -43,7 +43,7 @@ const promoSchema = z.object({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = promoSchema.parse(req.body);
     const promotion = await prisma.promotion.create({
@@ -62,7 +62,7 @@ router.post(
 router.put(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = promoSchema.partial().parse(req.body);
     const promotion = await prisma.promotion.update({

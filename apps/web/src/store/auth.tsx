@@ -22,14 +22,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
+    let cancelled = false;
+    // Don't block admin UI for long if /me is slow.
+    const unlock = window.setTimeout(() => {
+      if (!cancelled) setLoading(false);
+    }, 4_000);
     api<AuthUser>('/api/auth/me')
-      .then(setUser)
-      .catch(() => {
-        localStorage.removeItem('dompola_token');
-        setToken(null);
-        setUser(null);
+      .then((me) => {
+        if (!cancelled) setUser(me);
       })
-      .finally(() => setLoading(false));
+      .catch(() => {
+        // Keep session if login already filled user; only hard-logout when unknown.
+        if (cancelled) return;
+        setUser((prev) => {
+          if (prev) return prev;
+          localStorage.removeItem('dompola_token');
+          setToken(null);
+          return null;
+        });
+      })
+      .finally(() => {
+        window.clearTimeout(unlock);
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+      window.clearTimeout(unlock);
+    };
   }, [token]);
 
   const value = useMemo<AuthContextValue>(
@@ -43,9 +62,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
       },
       login: async (email, password) => {
+        const login = email.trim();
+        const normalized = login.includes('@') ? login.toLowerCase() : `${login.toLowerCase()}@dompola.ru`;
         const res = await api<{ token: string; user: AuthUser }>('/api/auth/login', {
           method: 'POST',
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email: normalized, password }),
         });
         localStorage.setItem('dompola_token', res.token);
         setToken(res.token);

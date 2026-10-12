@@ -27,7 +27,7 @@ const collectionSchema = z.object({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = collectionSchema.parse(req.body);
     const slug = data.slug || slugify(data.name);

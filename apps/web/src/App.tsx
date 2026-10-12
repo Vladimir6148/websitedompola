@@ -22,15 +22,24 @@ function lazyNamed<T extends Record<string, unknown>, K extends keyof T>(
 
 const PickerPage = lazyNamed(() => import('./pages/PickerPage'), 'PickerPage');
 const ServicesPage = lazyNamed(() => import('./pages/ServicesPage'), 'ServicesPage');
+const ServiceDetailPage = lazyNamed(
+  () => import('./pages/ServiceDetailPage'),
+  'ServiceDetailPage',
+);
 const PromotionsPage = lazyNamed(() => import('./pages/ContentPages'), 'PromotionsPage');
 const WorksPage = lazyNamed(() => import('./pages/ContentPages'), 'WorksPage');
 const StoresPage = lazyNamed(() => import('./pages/ContentPages'), 'StoresPage');
 const ContactsPage = lazyNamed(() => import('./pages/ContentPages'), 'ContactsPage');
+const PartnerAudiencePage = lazyNamed(
+  () => import('./pages/PartnerAudiencePage'),
+  'PartnerAudiencePage',
+);
 
 const AdminLoginPage = lazyNamed(() => import('./pages/admin/AdminShell'), 'AdminLoginPage');
 const AdminGuard = lazyNamed(() => import('./pages/admin/AdminShell'), 'AdminGuard');
 const AdminLayout = lazyNamed(() => import('./pages/admin/AdminShell'), 'AdminLayout');
 const AdminDashboard = lazyNamed(() => import('./pages/admin/AdminShell'), 'AdminDashboard');
+const RequireAdmin = lazyNamed(() => import('./pages/admin/AdminShell'), 'RequireAdmin');
 const AdminProductsPage = lazyNamed(() => import('./pages/admin/AdminProducts'), 'AdminProductsPage');
 const AdminProductFormPage = lazyNamed(
   () => import('./pages/admin/AdminProducts'),
@@ -39,10 +48,13 @@ const AdminProductFormPage = lazyNamed(
 const AdminCategoriesPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminCategoriesPage');
 const AdminBrandsPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminBrandsPage');
 const AdminLeadsPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminLeadsPage');
-const AdminStoresPage = lazyNamed(() => import('./pages/admin/AdminCrud'), 'AdminStoresPage');
 const AdminCollectionPricesPage = lazyNamed(
   () => import('./pages/admin/AdminCollectionPrices'),
   'AdminCollectionPricesPage',
+);
+const AdminProspectsPage = lazyNamed(
+  () => import('./pages/admin/AdminProspects'),
+  'AdminProspectsPage',
 );
 const AdminPromotionsPage = lazyNamed(
   () => import('./pages/admin/AdminCrud'),
@@ -73,6 +85,8 @@ export default function App() {
                 <Route index element={<HomePage />} />
                 <Route path="catalog" element={<CatalogPage />} />
                 <Route path="catalog/:categorySlug" element={<CatalogPage />} />
+                <Route path="catalog/:categorySlug/:brandSlug" element={<CatalogPage />} />
+                <Route path="catalog/:categorySlug/:brandSlug/:collectionSlug" element={<CatalogPage />} />
                 <Route path="product/:slug" element={<ProductPage />} />
                 <Route path="cart" element={<CartPage />} />
                 <Route
@@ -88,6 +102,14 @@ export default function App() {
                   element={
                     <LazyRoute>
                       <ServicesPage />
+                    </LazyRoute>
+                  }
+                />
+                <Route
+                  path="services/:slug"
+                  element={
+                    <LazyRoute>
+                      <ServiceDetailPage />
                     </LazyRoute>
                   }
                 />
@@ -123,6 +145,14 @@ export default function App() {
                     </LazyRoute>
                   }
                 />
+                <Route
+                  path="for/:audience"
+                  element={
+                    <LazyRoute>
+                      <PartnerAudiencePage />
+                    </LazyRoute>
+                  }
+                />
               </Route>
 
               <Route
@@ -143,15 +173,22 @@ export default function App() {
               >
                 <Route element={<AdminLayout />}>
                   <Route index element={<AdminDashboard />} />
-                  <Route path="products" element={<AdminProductsPage />} />
-                  <Route path="products/new" element={<AdminProductFormPage />} />
-                  <Route path="products/:id" element={<AdminProductFormPage />} />
-                  <Route path="collection-prices" element={<AdminCollectionPricesPage />} />
-                  <Route path="categories" element={<AdminCategoriesPage />} />
-                  <Route path="brands" element={<AdminBrandsPage />} />
+                  <Route path="prospects" element={<AdminProspectsPage />} />
                   <Route path="leads" element={<AdminLeadsPage />} />
-                  <Route path="stores" element={<AdminStoresPage />} />
-                  <Route path="promotions" element={<AdminPromotionsPage />} />
+                  <Route path="measurements" element={<Navigate to="/admin" replace />} />
+                  <Route path="stats" element={<Navigate to="/admin" replace />} />
+                  <Route path="stores" element={<Navigate to="/admin" replace />} />
+
+                  {/* Admin-only: prices, catalog, promotions */}
+                  <Route element={<RequireAdmin />}>
+                    <Route path="products" element={<AdminProductsPage />} />
+                    <Route path="products/new" element={<AdminProductFormPage />} />
+                    <Route path="products/:id" element={<AdminProductFormPage />} />
+                    <Route path="collection-prices" element={<AdminCollectionPricesPage />} />
+                    <Route path="categories" element={<AdminCategoriesPage />} />
+                    <Route path="brands" element={<AdminBrandsPage />} />
+                    <Route path="promotions" element={<AdminPromotionsPage />} />
+                  </Route>
                 </Route>
               </Route>
 

@@ -34,7 +34,7 @@ const storeSchema = z.object({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = storeSchema.parse(req.body);
     const store = await prisma.store.create({ data, include: { city: true } });
@@ -45,7 +45,7 @@ router.post(
 router.put(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = storeSchema.partial().parse(req.body);
     const store = await prisma.store.update({

@@ -1,30 +1,44 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import {
+  ClipboardList,
   ExternalLink,
-  Folders,
   Inbox,
   LayoutDashboard,
   LogOut,
-  Package,
   Percent,
-  Plus,
   Shield,
-  Store,
   Table2,
-  Tag,
 } from 'lucide-react';
 import { useAuth } from '../../store/auth';
 import { api, wakeApi } from '../../lib/api';
-import type { ProductsResponse } from '../../types';
 import { BrandMark } from '../../components/BrandMark';
 import { AdminOpsDashboard } from './AdminOpsDashboard';
-import { AdminPageHeader, adminInputClass, adminPanelClass } from './adminUi';
+import { adminInputClass } from './adminUi';
+
+const REMEMBER_KEY = 'dompola_admin_remember';
+const LOGIN_KEY = 'dompola_admin_login';
+const PASS_KEY = 'dompola_admin_pass';
+
+function readSavedLogin() {
+  try {
+    const remember = localStorage.getItem(REMEMBER_KEY) !== '0';
+    return {
+      remember,
+      email: remember ? localStorage.getItem(LOGIN_KEY) || '' : '',
+      password: remember ? localStorage.getItem(PASS_KEY) || '' : '',
+    };
+  } catch {
+    return { remember: true, email: '', password: '' };
+  }
+}
 
 export function AdminLoginPage() {
   const { login, user, loading } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const saved = readSavedLogin();
+  const [email, setEmail] = useState(saved.email);
+  const [password, setPassword] = useState(saved.password);
+  const [remember, setRemember] = useState(saved.remember);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('Подключаем сервер…');
@@ -34,9 +48,9 @@ export function AdminLoginPage() {
     let cancelled = false;
     (async () => {
       setStatus('Подключаем сервер…');
-      const ok = await wakeApi(75_000);
+      const ok = await wakeApi(8_000);
       if (cancelled) return;
-      setStatus(ok ? 'Сервер готов' : 'Сервер просыпается — можно нажать «Войти»');
+      setStatus(ok ? 'Сервер готов' : 'Можно войти — сервер подхватит запрос');
     })();
     return () => {
       cancelled = true;
@@ -51,8 +65,20 @@ export function AdminLoginPage() {
     setBusy(true);
     setStatus('Входим…');
     try {
-      await wakeApi(45_000);
       await login(email, password);
+      try {
+        if (remember) {
+          localStorage.setItem(REMEMBER_KEY, '1');
+          localStorage.setItem(LOGIN_KEY, email);
+          localStorage.setItem(PASS_KEY, password);
+        } else {
+          localStorage.setItem(REMEMBER_KEY, '0');
+          localStorage.removeItem(LOGIN_KEY);
+          localStorage.removeItem(PASS_KEY);
+        }
+      } catch {
+        /* ignore quota / private mode */
+      }
       navigate('/admin');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
@@ -109,6 +135,16 @@ export function AdminLoginPage() {
             autoComplete="current-password"
             disabled={busy}
           />
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-graphite/70">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              disabled={busy}
+              className="h-4 w-4 rounded border-graphite/25 text-brand focus:ring-brand"
+            />
+            Запомнить логин и пароль на этом устройстве
+          </label>
         </div>
         {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
         <button type="submit" className="btn-primary mt-5 w-full" disabled={busy}>
@@ -127,17 +163,26 @@ export function AdminGuard() {
     );
   }
   if (!user) return <Navigate to="/admin/login" replace />;
+  if (user.role !== 'ADMIN' && user.role !== 'MANAGER') {
+    return <Navigate to="/admin/login" replace />;
+  }
   return <Outlet />;
 }
 
-const nav = [
+type NavItem = {
+  to: string;
+  label: string;
+  end?: boolean;
+  icon: typeof LayoutDashboard;
+  /** If set, only these roles see the item. Empty/undefined = all staff. */
+  roles?: Array<'ADMIN' | 'MANAGER'>;
+};
+
+const nav: NavItem[] = [
   { to: '/admin', label: 'Обзор', end: true, icon: LayoutDashboard },
-  { to: '/admin/products', label: 'Товары', icon: Package },
-  { to: '/admin/collection-prices', label: 'Цены', icon: Table2 },
-  { to: '/admin/categories', label: 'Категории', icon: Folders },
-  { to: '/admin/brands', label: 'Бренды', icon: Tag },
-  { to: '/admin/promotions', label: 'Акции', icon: Percent },
-  { to: '/admin/stores', label: 'Магазины', icon: Store },
+  { to: '/admin/collection-prices', label: 'Цены', icon: Table2, roles: ['ADMIN'] },
+  { to: '/admin/prospects', label: 'Наработки', icon: ClipboardList },
+  { to: '/admin/promotions', label: 'Акции', icon: Percent, roles: ['ADMIN'] },
   { to: '/admin/leads', label: 'Заявки', icon: Inbox },
 ];
 
@@ -149,15 +194,39 @@ function navClass({ isActive }: { isActive: boolean }) {
   }`;
 }
 
+function roleLabel(role?: string) {
+  if (role === 'ADMIN') return 'Админ';
+  if (role === 'MANAGER') return 'Менеджер';
+  return role || '';
+}
+
+/** Redirect managers away from admin-only sections. */
+export function RequireAdmin() {
+  const { user, loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="grid place-items-center py-16 text-sm text-graphite/55">Загрузка…</div>
+    );
+  }
+  if (!user) return <Navigate to="/admin/login" replace />;
+  if (user.role !== 'ADMIN') return <Navigate to="/admin" replace />;
+  return <Outlet />;
+}
+
 export function AdminLayout() {
   const { user, logout } = useAuth();
+  const visibleNav = nav.filter((n) => {
+    if (!n.roles?.length) return true;
+    return user?.role ? n.roles.includes(user.role) : false;
+  });
+
   return (
     <div className="min-h-screen bg-mist">
       <header className="sticky top-0 z-50 border-b border-graphite/8 bg-white/95 backdrop-blur">
         <div className="container-dp flex items-center gap-3 py-2.5 sm:py-3">
           <BrandMark to="/admin" size="md" />
           <nav className="hidden min-w-0 flex-1 items-center gap-1.5 overflow-x-auto lg:flex [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {nav.map((n) => {
+            {visibleNav.map((n) => {
               const Icon = n.icon;
               return (
                 <NavLink key={n.to} to={n.to} end={n.end} className={navClass}>
@@ -169,7 +238,7 @@ export function AdminLayout() {
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-2 text-sm">
             <span className="hidden text-graphite/55 xl:inline">
-              {user?.name} · {user?.role}
+              {user?.name} · {roleLabel(user?.role)}
             </span>
             <Link
               to="/"
@@ -189,7 +258,7 @@ export function AdminLayout() {
           </div>
         </div>
         <div className="container-dp flex gap-1.5 overflow-x-auto pb-3 lg:hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {nav.map((n) => {
+          {visibleNav.map((n) => {
             const Icon = n.icon;
             return (
               <NavLink key={n.to} to={n.to} end={n.end} className={navClass}>
@@ -207,80 +276,39 @@ export function AdminLayout() {
   );
 }
 
+const hubButtons: NavItem[] = [
+  { to: '/admin/collection-prices', label: 'Установка цен', icon: Table2, roles: ['ADMIN'] },
+  { to: '/admin/prospects', label: 'Наработки', icon: ClipboardList },
+  { to: '/admin/leads', label: 'Заявки', icon: Inbox },
+];
+
 export function AdminDashboard() {
-  const [stats, setStats] = useState({ products: 0, leads: 0, categories: 0, brands: 0 });
-
-  useEffect(() => {
-    // Catalog from Reg.ru static JSON — show immediately; leads from Render separately.
-    Promise.all([
-      api<ProductsResponse>('/api/products?limit=1'),
-      api<unknown[]>('/api/categories'),
-      api<unknown[]>('/api/brands'),
-    ])
-      .then(([products, categories, brands]) => {
-        setStats((s) => ({
-          ...s,
-          products: products.total || 0,
-          categories: Array.isArray(categories) ? categories.length : 0,
-          brands: Array.isArray(brands) ? brands.length : 0,
-        }));
-      })
-      .catch(() => undefined);
-
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 4000);
-    api<unknown[]>('/api/leads', { signal: ctrl.signal })
-      .then((leads) => {
-        setStats((s) => ({ ...s, leads: Array.isArray(leads) ? leads.length : 0 }));
-      })
-      .catch(() => undefined)
-      .finally(() => clearTimeout(t));
-    return () => {
-      clearTimeout(t);
-      ctrl.abort();
-    };
-  }, []);
-
-  const cards = [
-    { label: 'Товары', value: stats.products, to: '/admin/products', icon: Package },
-    { label: 'Заявки', value: stats.leads, to: '/admin/leads', icon: Inbox },
-    { label: 'Категории', value: stats.categories, to: '/admin/categories', icon: Folders },
-    { label: 'Бренды', value: stats.brands, to: '/admin/brands', icon: Tag },
-  ];
+  const { user } = useAuth();
+  const buttons = hubButtons.filter((btn) => {
+    if (!btn.roles?.length) return true;
+    return user?.role ? btn.roles.includes(user.role) : false;
+  });
 
   return (
-    <div className="space-y-6">
-      <AdminPageHeader
-        eyebrow="Админ"
-        title="Панель управления"
-        description="Обзор, события, оборот магазинов и график сотрудников"
-        action={{
-          to: '/admin/products/new',
-          label: 'Добавить номенклатуру',
-          icon: <Plus size={16} strokeWidth={1.75} />,
-        }}
-      />
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map((card) => {
-          const Icon = card.icon;
-          return (
-            <Link
-              key={card.to}
-              to={card.to}
-              className={`${adminPanelClass} group transition hover:border-brand/30`}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm text-graphite/50">{card.label}</span>
-                <span className="grid h-9 w-9 place-items-center rounded-full border border-graphite/15 text-brand transition group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-                  <Icon size={16} strokeWidth={1.75} />
-                </span>
-              </div>
-              <div className="mt-3 font-display text-3xl font-bold text-graphite">{card.value}</div>
-            </Link>
-          );
-        })}
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-display text-2xl font-bold text-graphite sm:text-3xl">Панель управления</h1>
+        <div className="flex flex-wrap items-center gap-1.5">
+          {buttons.map((btn) => {
+            const Icon = btn.icon;
+            return (
+              <Link
+                key={btn.to}
+                to={btn.to}
+                className="inline-flex h-9 items-center gap-1.5 rounded-full border border-graphite/15 bg-white px-3 text-sm font-semibold text-graphite transition hover:border-brand hover:text-brand"
+              >
+                <Icon size={15} strokeWidth={1.75} className="text-brand" />
+                {btn.label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
-
       <AdminOpsDashboard />
     </div>
   );

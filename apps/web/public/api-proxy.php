@@ -14,6 +14,35 @@ if ($path === 'ops' || strpos($path, 'ops/') === 0) {
   exit;
 }
 
+// Prospects CRM («Наработки»)
+if ($path === 'prospects' || strpos($path, 'prospects/') === 0) {
+  require __DIR__ . '/prospects-api.php';
+  exit;
+}
+
+// Leads / cart orders («Заявки»)
+if ($path === 'leads' || strpos($path, 'leads/') === 0) {
+  require __DIR__ . '/leads-api.php';
+  exit;
+}
+
+// Measurements («Замеры»)
+if ($path === 'measurements' || strpos($path, 'measurements/') === 0) {
+  require __DIR__ . '/measurements-api.php';
+  exit;
+}
+
+// City prices (admin save + storefront map) — local JSON when Render lags
+if (
+  $path === 'products/prices'
+  || $path === 'products/price-changes'
+  || $path === 'products/bulk-prices'
+  || preg_match('#^products/[^/]+/price$#', $path)
+) {
+  require __DIR__ . '/prices-api.php';
+  exit;
+}
+
 $url = rtrim($upstream, '/') . '/api/' . $path;
 if (!empty($_SERVER['QUERY_STRING'])) {
   $qs = preg_replace('/(?:^|&)__path=[^&]*/', '', $_SERVER['QUERY_STRING']);
@@ -27,21 +56,6 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $body = file_get_contents('php://input');
 if ($body === false) {
   $body = '';
-}
-
-// Allow VladimirAdmin login before Render bootstraps that user.
-if ($method === 'POST' && preg_match('#(^|/)auth/login$#', $path) && $body !== '') {
-  $json = json_decode($body, true);
-  if (is_array($json)) {
-    $email = strtolower(trim((string) ($json['email'] ?? '')));
-    $pass = (string) ($json['password'] ?? '');
-    $aliases = ['vladimiradmin', 'vladimiradmin@dompola.ru'];
-    if (in_array($email, $aliases, true) && $pass === '122490gg') {
-      $json['email'] = 'admin@dompola.ru';
-      $json['password'] = 'admin123';
-      $body = json_encode($json, JSON_UNESCAPED_UNICODE);
-    }
-  }
 }
 
 if ($method === 'OPTIONS') {

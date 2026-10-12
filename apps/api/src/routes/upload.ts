@@ -36,7 +36,7 @@ const upload = multer({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   upload.array('files', 12),
   asyncHandler(async (req, res) => {
     const files = (req.files as Express.Multer.File[]) || [];

@@ -31,7 +31,7 @@ const brandSchema = z.object({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = brandSchema.parse(req.body);
     const slug = data.slug || slugify(data.name);
@@ -43,7 +43,7 @@ router.post(
 router.put(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = brandSchema.partial().parse(req.body);
     const brand = await prisma.brand.update({ where: { id: req.params.id }, data });

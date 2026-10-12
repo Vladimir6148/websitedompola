@@ -1,19 +1,56 @@
 import 'dotenv/config';
 import { execSync } from 'node:child_process';
 import bcrypt from 'bcryptjs';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type Role } from '@prisma/client';
 
-async function ensureAdmin(prisma: PrismaClient) {
-  const email = (process.env.BOOTSTRAP_ADMIN_EMAIL || 'vladimiradmin@dompola.ru').toLowerCase();
-  const password = process.env.BOOTSTRAP_ADMIN_PASSWORD || '122490gg';
-  const name = process.env.BOOTSTRAP_ADMIN_NAME || 'VladimirAdmin';
-  const passwordHash = await bcrypt.hash(password, 10);
-  await prisma.user.upsert({
-    where: { email },
-    create: { email, passwordHash, name, role: 'ADMIN', active: true },
-    update: { passwordHash, name, role: 'ADMIN', active: true },
-  });
-  console.log(`→ admin ready: ${name} / ${email}`);
+const STAFF: Array<{ email: string; password: string; name: string; role: Role }> = [
+  {
+    email: 'vladimiradmin@dompola.ru',
+    password: '122490gg',
+    name: 'VladimirAdmin',
+    role: 'ADMIN',
+  },
+  {
+    email: 'dmitryadmin@dompola.ru',
+    password: '180823',
+    name: 'DmitryAdmin',
+    role: 'ADMIN',
+  },
+  {
+    email: 'denisadmin@dompola.ru',
+    password: 'Rota4029307',
+    name: 'DenisAdmin',
+    role: 'ADMIN',
+  },
+  {
+    email: 'manager@dompola.ru',
+    password: 'manager123',
+    name: 'Менеджер',
+    role: 'MANAGER',
+  },
+];
+
+async function ensureStaff(prisma: PrismaClient) {
+  for (const u of STAFF) {
+    const passwordHash = await bcrypt.hash(u.password, 10);
+    await prisma.user.upsert({
+      where: { email: u.email },
+      create: {
+        email: u.email,
+        passwordHash,
+        name: u.name,
+        role: u.role,
+        active: true,
+      },
+      update: {
+        passwordHash,
+        name: u.name,
+        role: u.role,
+        active: true,
+      },
+    });
+    console.log(`→ ${u.role}: ${u.name} <${u.email}>`);
+  }
 }
 
 async function main() {
@@ -32,7 +69,8 @@ async function main() {
     } else {
       console.log(`→ skip seed (${users} users)`);
     }
-    await ensureAdmin(prisma);
+    console.log('→ ensure staff accounts');
+    await ensureStaff(prisma);
   } finally {
     await prisma.$disconnect();
   }

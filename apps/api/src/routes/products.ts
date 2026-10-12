@@ -166,7 +166,7 @@ router.get(
 router.get(
   '/id/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const product = await prisma.product.findUnique({
       where: { id: req.params.id },
@@ -322,7 +322,7 @@ router.get(
 router.patch(
   '/:id/price',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = patchPriceSchema.parse(req.body);
     const productData: Prisma.ProductUpdateInput = {};
@@ -352,7 +352,7 @@ router.patch(
 router.post(
   '/bulk-prices',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = bulkPricesSchema.parse(req.body);
     const city = await resolveCityId(data.cityId);
@@ -383,7 +383,7 @@ router.post(
 router.post(
   '/bulk-by-collection',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = bulkByCollectionSchema.parse(req.body);
     if (!data.collectionSlug && !data.q) {
@@ -431,7 +431,7 @@ router.post(
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = productSchema.parse(req.body);
     const finalSlug = data.slug || slugify(`${data.name}-${data.sku}`);
@@ -481,7 +481,7 @@ router.post(
 router.put(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = productSchema.partial().parse(req.body);
     const { images, characteristics, stocks, ...rest } = data;
@@ -562,7 +562,7 @@ router.put(
 router.delete(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     await prisma.product.delete({ where: { id: req.params.id } });
     res.json({ ok: true });
@@ -572,7 +572,7 @@ router.delete(
 router.patch(
   '/:id/publish',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const published = Boolean(req.body.published);
     const product = await prisma.product.update({

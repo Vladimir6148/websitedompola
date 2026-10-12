@@ -40,7 +40,7 @@ const categorySchema = z.object({
 router.post(
   '/',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = categorySchema.parse(req.body);
     const slug = data.slug || slugify(data.name);
@@ -54,7 +54,7 @@ router.post(
 router.put(
   '/:id',
   requireAuth,
-  requireRole('ADMIN', 'MANAGER'),
+  requireRole('ADMIN'),
   asyncHandler(async (req, res) => {
     const data = categorySchema.partial().parse(req.body);
     const category = await prisma.category.update({
